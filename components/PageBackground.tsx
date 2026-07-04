@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const BOSQUES = ['/bosque-1.jpg', '/bosque-2.jpg', '/bosque-3.jpg'];
@@ -18,19 +18,31 @@ function getOpacity(index: number, progress: number) {
 }
 
 export function PageBackground() {
-  const [progress, setProgress] = useState(0);
+  const layersRef = useRef<Array<HTMLDivElement | null>>([]);
 
+  // Cross-fade sin re-render: rAF + escritura directa de opacity.
   useEffect(() => {
-    const handleScroll = () => {
+    let raf = 0;
+    const update = () => {
+      raf = 0;
       const heroHeight = window.innerHeight;
       const afterHero = window.scrollY - heroHeight;
       const remaining = document.body.scrollHeight - heroHeight - window.innerHeight;
       if (remaining <= 0 || afterHero < 0) return;
-      setProgress(clamp(afterHero / remaining, 0, 1));
+      const progress = clamp(afterHero / remaining, 0, 1);
+      layersRef.current.forEach((el, i) => {
+        if (el) el.style.opacity = String(getOpacity(i, progress));
+      });
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -45,11 +57,15 @@ export function PageBackground() {
       {BOSQUES.map((src, i) => (
         <div
           key={src}
+          ref={(el) => {
+            layersRef.current[i] = el;
+          }}
           style={{
             position: 'absolute',
             inset: 0,
-            opacity: getOpacity(i, progress),
+            opacity: i === 0 ? 1 : 0,
             transition: 'opacity 0.3s ease',
+            willChange: 'opacity',
           }}
         >
           <Image

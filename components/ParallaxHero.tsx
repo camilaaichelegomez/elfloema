@@ -1,26 +1,34 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export function ParallaxHero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const imgRef = useRef<HTMLDivElement>(null);
 
+  // Parallax sin re-render: rAF + escritura directa del transform.
   useEffect(() => {
-    const handleScroll = () => {
-      const el = ref.current;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const el = imgRef.current;
       if (!el) return;
       const progress = Math.min(1, window.scrollY / window.innerHeight);
-      setScale(1 + progress * 0.12);
+      el.style.transform = `scale(${1 + progress * 0.12}) translateY(${progress * 24}px)`;
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
     <div
-      ref={ref}
       style={{
         position: 'relative',
         height: '100vh',
@@ -29,30 +37,47 @@ export function ParallaxHero() {
         backgroundColor: '#0d2318',
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          transform: `scale(${scale})`,
-          transformOrigin: 'center center',
-          willChange: 'transform',
-        }}
+      <motion.div
+        initial={{ scale: 1.08, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 2.2, ease: [0.22, 0.61, 0.36, 1] }}
+        style={{ position: 'absolute', inset: 0 }}
       >
-        <Image
-          src="/hero.png"
-          alt="El Floema"
-          fill
-          style={{ objectFit: 'cover' }}
-          priority
-          sizes="100vw"
-        />
-      </div>
+        <div
+          ref={imgRef}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            transformOrigin: 'center center',
+            willChange: 'transform',
+          }}
+        >
+          <Image
+            src="/hero.png"
+            alt="El Floema"
+            fill
+            style={{ objectFit: 'cover' }}
+            priority
+            sizes="100vw"
+          />
+        </div>
+      </motion.div>
 
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(13,35,24,0.5) 0%, rgba(13,35,24,0.2) 50%, rgba(13,35,24,0.7) 100%)',
+          background: 'linear-gradient(to bottom, rgba(13,35,24,0.5) 0%, rgba(13,35,24,0.2) 50%, rgba(13,35,24,0.85) 100%)',
+          zIndex: 10,
+        }}
+      />
+
+      {/* Viñeta lateral sutil: enfoca el centro */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse 90% 70% at 50% 45%, transparent 55%, rgba(8,17,8,0.5) 100%)',
           zIndex: 10,
         }}
       />
@@ -71,12 +96,27 @@ export function ParallaxHero() {
           pointerEvents: 'none',
         }}
       >
-        <h1
+        {/* Ornamento superior: línea que crece */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 0.7 }}
+          transition={{ duration: 1.4, delay: 0.5, ease: 'easeOut' }}
+          style={{
+            width: 'min(240px, 40vw)',
+            height: 1,
+            background: 'linear-gradient(to right, transparent, #c8a050, transparent)',
+            marginBottom: '2rem',
+          }}
+        />
+
+        <motion.h1
+          initial={{ opacity: 0, letterSpacing: '0.5em', y: 14 }}
+          animate={{ opacity: 1, letterSpacing: '0.25em', y: 0 }}
+          transition={{ duration: 1.8, delay: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
           style={{
             fontFamily: '"Cormorant Garamond", var(--font-cormorant), var(--font-cinzel), serif',
             fontSize: 'clamp(3.5rem, 10vw, 9rem)',
             fontWeight: 300,
-            letterSpacing: '0.25em',
             color: '#c8a050',
             textTransform: 'uppercase',
             margin: 0,
@@ -85,8 +125,12 @@ export function ParallaxHero() {
           }}
         >
           El Floema
-        </h1>
-        <p
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 1.15, ease: 'easeOut' }}
           style={{
             fontFamily: '"Cormorant Garamond", var(--font-cormorant), var(--font-crimson), serif',
             fontSize: 'clamp(1rem, 2.2vw, 1.6rem)',
@@ -99,8 +143,33 @@ export function ParallaxHero() {
           }}
         >
           Con ciencia, mi magia despierta
-        </p>
+        </motion.p>
+
+        {/* Ornamento inferior */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 0.7 }}
+          transition={{ duration: 1.4, delay: 0.9, ease: 'easeOut' }}
+          style={{
+            width: 'min(240px, 40vw)',
+            height: 1,
+            background: 'linear-gradient(to right, transparent, #c8a050, transparent)',
+            marginTop: '2rem',
+          }}
+        />
       </div>
+
+      {/* Indicador de scroll */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+        className="hero-scroll-cue"
+        aria-hidden="true"
+      >
+        <span className="hero-scroll-cue__label">Desciende al grimorio</span>
+        <span className="hero-scroll-cue__line" />
+      </motion.div>
     </div>
   );
 }

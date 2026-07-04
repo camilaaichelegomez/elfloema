@@ -685,8 +685,8 @@ a:hover { color: var(--color-gold-light); }
 
 /* ── FOOTER ─────────────────────────────────────────────── */
 .site-footer {
-  background: rgba(9,15,9,0.3);
-  padding: 4.5rem 2rem 3rem;
+  background: linear-gradient(to bottom, rgba(9,15,9,0.3), rgba(5,10,5,0.85));
+  padding: 5.5rem 2rem 3.5rem;
   text-align: center;
   border-top: 1px solid rgba(200, 160, 80, 0.2);
   position: relative;
@@ -695,29 +695,44 @@ a:hover { color: var(--color-gold-light); }
   content: '';
   position: absolute;
   top: 0; left: 50%; transform: translateX(-50%);
-  width: 200px;
+  width: 280px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(200, 160, 80, 0.35), transparent);
+  background: linear-gradient(to right, transparent, rgba(200, 160, 80, 0.5), transparent);
+}
+.site-footer::after {
+  content: '✦';
+  position: absolute;
+  top: -0.6rem; left: 50%; transform: translateX(-50%);
+  color: rgba(200, 160, 80, 0.7);
+  font-size: 0.7rem;
+  background: var(--bg-primary, #0d1a0d);
+  padding: 0 0.8rem;
 }
 .footer-logo {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   border-radius: 50%;
-  border: 1px solid rgba(200, 160, 80, 0.22);
-  opacity: 0.65;
+  border: 1px solid rgba(200, 160, 80, 0.35);
+  box-shadow: 0 0 24px rgba(200, 160, 80, 0.12);
+  opacity: 0.85;
   margin-bottom: 1.5rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  transition: box-shadow 0.4s ease, opacity 0.4s ease;
+}
+.site-footer:hover .footer-logo {
+  opacity: 1;
+  box-shadow: 0 0 36px rgba(200, 160, 80, 0.22);
 }
 .footer-tagline {
   font-family: var(--font-body);
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--color-cream);
-  opacity: 0.38;
-  margin-bottom: 0.75rem;
+  opacity: 0.6;
+  margin-bottom: 0.9rem;
   letter-spacing: 0.06em;
 }
 .footer-handle {
@@ -725,8 +740,66 @@ a:hover { color: var(--color-gold-light); }
   font-size: 0.7rem;
   letter-spacing: 0.3em;
   color: var(--color-gold);
-  opacity: 0.5;
+  opacity: 0.55;
   text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+.site-footer:hover .footer-handle { opacity: 0.85; }
+
+/* ── HERO: indicador de scroll ──────────────────────────── */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: none;
+}
+.hero-scroll-cue__label {
+  font-family: var(--font-grimoire, serif);
+  font-size: 0.55rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(200, 160, 80, 0.75);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  white-space: nowrap;
+}
+.hero-scroll-cue__line {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, rgba(200,160,80,0.9), transparent);
+  overflow: hidden;
+  position: relative;
+}
+.hero-scroll-cue__line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, #e8c070, transparent);
+  animation: scrollCueDrop 2.4s ease-in-out infinite;
+}
+@keyframes scrollCueDrop {
+  0%   { top: -100%; }
+  55%  { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* ── ACCESIBILIDAD: reducir movimiento ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── PLANTAS MEDICINALES — sección home ─────────────────── */

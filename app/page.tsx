@@ -20,6 +20,7 @@ export default function Home() {
       <SectionDivider />
       <NavCards />
       <LaBotica />
+      <SectionDivider />
       <footer className="site-footer">
         <img src="/logo.jpg" alt="El Floema" className="footer-logo" />
         <p className="footer-tagline">Con ciencia, mi magia despierta</p>

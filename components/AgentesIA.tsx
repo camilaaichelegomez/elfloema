@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const AGENTES = [
   {
@@ -82,7 +85,12 @@ export function AgentesIA() {
 
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
         {/* Encabezado */}
-        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <p
             style={{
               fontFamily: "var(--font-grimoire)",
@@ -139,7 +147,7 @@ export function AgentesIA() {
             <span style={{ color: "var(--color-gold)", fontSize: "0.7rem", opacity: 0.6 }}>✦</span>
             <div style={{ flex: 1, height: 1, background: "linear-gradient(to left, transparent, rgba(200,160,80,0.4))" }} />
           </div>
-        </div>
+        </motion.div>
 
         {/* Cards */}
         <div
@@ -149,11 +157,17 @@ export function AgentesIA() {
             gap: "2rem",
           }}
         >
-          {AGENTES.map((a) => (
-            <Link
+          {AGENTES.map((a, i) => (
+            <motion.div
               key={a.href}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.85, delay: i * 0.12, ease: "easeOut" }}
+            >
+            <Link
               href={a.href}
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", display: "block", height: "100%" }}
             >
               <div
                 className="agente-card"
@@ -262,6 +276,7 @@ export function AgentesIA() {
                 </div>
               </div>
             </Link>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -150,22 +150,44 @@ export function NavCards() {
         zIndex: 10,
       }}
     >
-      {/* Section label */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "14px",
-          marginBottom: "clamp(20px, 3vh, 36px)",
-          opacity: 0.35,
-        }}
+      {/* Section header — mismo lenguaje que La Biblioteca */}
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        style={{ textAlign: "center", marginBottom: "clamp(40px, 6vh, 64px)" }}
       >
-        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #c8a050)" }} />
-        <span style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c8a050" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "14px",
+            opacity: 0.7,
+            maxWidth: 360,
+            margin: "0 auto 1rem",
+          }}
+        >
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #c8a050)" }} />
+          <span style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.55rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#e8c070", whiteSpace: "nowrap", textShadow: "0 1px 6px rgba(0,0,0,0.9)" }}>
+            Navegación
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #c8a050)" }} />
+        </div>
+        <h2
+          style={{
+            fontFamily: "var(--font-cinzel), serif",
+            fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)",
+            color: "#e8c070",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            margin: 0,
+            textShadow: "0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1)",
+          }}
+        >
           El Grimorio
-        </span>
-        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #c8a050)" }} />
-      </div>
+        </h2>
+      </motion.div>
 
       <ul
         className="grimorio-cards-list"

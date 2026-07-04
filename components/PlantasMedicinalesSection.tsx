@@ -257,9 +257,10 @@ function PlantCard({ planta, index }: { planta: Planta; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.08 }}
       transition={{ duration: 0.55, delay: index * 0.06, ease: "easeOut" }}
-      whileHover={{ y: -6, scale: 1.03 }}
+      whileHover={{ y: -4 }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
+      style={{ height: "100%" }}
     >
       <Link
         href="/plantas"
@@ -268,17 +269,18 @@ function PlantCard({ planta, index }: { planta: Planta; index: number }) {
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          gap: "0.7rem",
-          padding: "1.5rem 0.75rem 1.3rem",
+          gap: "0.6rem",
+          padding: "1.4rem 0.85rem 1.25rem",
           background: BG_CARD,
           border: `1px solid ${hovered ? "rgba(200,160,80,0.48)" : "rgba(200,160,80,0.16)"}`,
-          borderRadius: "1.25rem",
+          borderRadius: "0.6rem",
           textDecoration: "none",
           overflow: "hidden",
           width: "100%",
+          height: "100%",
           boxSizing: "border-box",
           boxShadow: hovered
-            ? "0 18px 48px rgba(0,0,0,0.5), 0 0 20px rgba(200,160,80,0.07)"
+            ? "0 14px 36px rgba(0,0,0,0.45), 0 0 20px rgba(200,160,80,0.07)"
             : "none",
           transition: "border-color 0.35s, box-shadow 0.35s",
         }}
@@ -307,39 +309,37 @@ function PlantCard({ planta, index }: { planta: Planta; index: number }) {
             color: GOLD,
             display: "block",
             lineHeight: 1.2,
-            borderBottom: "1px solid rgba(200,160,80,0.12)",
-            paddingBottom: "0.35rem",
-            width: "100%",
-            textAlign: "center",
           }}
         >
           {planta.nombre}
         </span>
 
-        {/* tags */}
+        {/* hairline dorado, estilo etiqueta de boticario */}
+        <span
+          aria-hidden="true"
+          style={{
+            display: "block",
+            width: 26,
+            height: 1,
+            background:
+              "linear-gradient(to right, transparent, rgba(200,160,80,0.55), transparent)",
+            flexShrink: 0,
+          }}
+        />
+
+        {/* propiedades */}
         <span
           style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "0.22rem",
-            justifyContent: "center",
+            fontFamily: "var(--font-body)",
+            fontStyle: "italic",
+            fontSize: "0.74rem",
+            color: CREAM,
+            opacity: 0.55,
+            lineHeight: 1.45,
           }}
         >
-          {planta.propiedades.slice(0, 2).map((prop) => {
-            const purpleProps = new Set(["sedante","hemostático","emenagogo","antiespasmódico"]);
-            const cls = purpleProps.has(prop.toLowerCase()) ? "odd" : "even";
-            return (
-              <span key={prop} className={`plant-prop-tag ${cls}`}>
-                {prop}
-              </span>
-            );
-          })}
+          {planta.propiedades.slice(0, 2).join(" · ")}
         </span>
-        {/* puntos decorativos morados */}
-        <span className="planta-card__dot tl" />
-        <span className="planta-card__dot tr" />
-        <span className="planta-card__dot bl" />
-        <span className="planta-card__dot br" />
       </Link>
     </motion.div>
   );
@@ -377,6 +377,8 @@ export function PlantasMedicinalesSection() {
         <img
           src="/bosque-hero.jpg"
           alt=""
+          loading="lazy"
+          decoding="async"
           style={{
             height: "33%",
             width: "100%",
@@ -390,6 +392,8 @@ export function PlantasMedicinalesSection() {
         <img
           src="/bosque-plantas.jpg"
           alt=""
+          loading="lazy"
+          decoding="async"
           style={{
             height: "35%",
             width: "100%",
@@ -404,6 +408,8 @@ export function PlantasMedicinalesSection() {
         <img
           src="/bosque-agente.jpg"
           alt=""
+          loading="lazy"
+          decoding="async"
           style={{
             height: "32%",
             width: "100%",

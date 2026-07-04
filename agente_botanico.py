@@ -58,18 +58,23 @@ GEMINI_MODEL = "gemini-2.5-flash"
 GCP_PROJECT  = "gen-lang-client-0826649426"
 GCP_LOCATION = "us-central1"
 TOP_K        = 6
+# C2: piso de similitud coseno. Por debajo, un artículo se considera NO relevante
+# y se descarta (evita citar evidencia irrelevante en consultas fuera de dominio).
+# Ajustable por entorno sin tocar código; calibrar entre ~0.30 y ~0.45.
+MIN_SIMILARITY = float(os.environ.get("MIN_SIMILARITY", "0.35"))
 MAX_TOKENS   = 16384
 SA_KEY_FILE  = Path("gemini_service_account.json")
 
-MONGO_URI = "mongodb+srv://elfloema:123jaboneS!@cluster0.ymjxhlu.mongodb.net/?appName=Cluster0"
-MONGO_DB  = "elfloema"
+# C4: credenciales fuera del código. Definir MONGO_URI en el entorno (nunca en git).
+MONGO_URI = os.environ.get("MONGO_URI", "")
+MONGO_DB  = os.environ.get("MONGO_DB", "elfloema")
 MONGO_COL = "consultas"
 
 _mongo_collection = None
 
 def get_mongo_collection():
     global _mongo_collection
-    if _mongo_collection is None and MONGO_AVAILABLE:
+    if _mongo_collection is None and MONGO_AVAILABLE and MONGO_URI:
         try:
             client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
             client.admin.command('ping')
@@ -153,14 +158,23 @@ def _row_to_article(row):
         "snippet":    row.get("snippet", ""),
     }
 
-def search_articles(query, top_k=TOP_K):
+def search_articles(query, top_k=TOP_K, min_similarity=MIN_SIMILARITY):
+    """Búsqueda semántica en pgvector.
+
+    Devuelve un dict:
+      status:   "ok"    -> hay artículos relevantes (similitud >= umbral)
+                "empty" -> la búsqueda funcionó pero nada superó el umbral
+                "error" -> falló el acceso a la base (backend caído, credenciales…)
+      articles: lista de artículos (vacía si status != "ok")
+      error:    mensaje cuando status == "error", si no None
+    """
     try:
         model     = _get_embed_model()
         client    = _get_supabase()
         embedding = model.encode([query])[0].tolist()
         plant_key = _detect_plant_key(query)
 
-        # Request extra results so we can prioritize plant_key matches client-side
+        # Pedimos resultados extra para poder priorizar coincidencias de planta
         fetch_count = top_k * 2 if plant_key else top_k
         res = client.rpc("buscar_articulos", {
             "query_embedding": embedding,
@@ -172,18 +186,27 @@ def search_articles(query, top_k=TOP_K):
         rest     = []
         for row in res.data:
             a = _row_to_article(row)
-            if a["title"] in seen:
+            # C2: descartar resultados por debajo del umbral de similitud
+            if a["similarity"] < min_similarity:
                 continue
-            seen.add(a["title"])
+            key = (a["title"] or "").strip().lower()
+            if key in seen:
+                continue
+            seen.add(key)
             if plant_key and a["plant_key"] == plant_key:
                 priority.append(a)
             else:
                 rest.append(a)
 
-        return (priority + rest)[:top_k]
+        articles = (priority + rest)[:top_k]
+        return {
+            "status":   "ok" if articles else "empty",
+            "articles": articles,
+            "error":    None,
+        }
     except Exception as e:
         print(f"Supabase no disponible: {e}")
-        return []
+        return {"status": "error", "articles": [], "error": str(e)}
 
 def format_context(articles):
     lines = []
@@ -229,16 +252,36 @@ REGLAS OBLIGATORIAS:
 - SIEMPRE explica el PORQUÉ de cada recomendación — este es el valor diferencial
 - Usa lenguaje orientativo: "se ha observado...", "desde la MTC se considera...", "en la tradición ayurvédica se sugiere..."
 - Advierte claramente cuando el tema requiera consultar un profesional de salud
-- Cita fuentes científicas con [N] cuando corresponda
+- Cita fuentes científicas con [N] SOLO cuando se te entregue evidencia. Si el bloque de evidencia indica que no hay artículos relevantes o que la biblioteca no está disponible, NO inventes citas [N] y dilo con transparencia
 - Responde en español, con tono cálido, educativo y riguroso — como un médico integrativo que enseña, no que prescribe
 - Máximo 800 palabras para dar respuestas completas y ricas"""
 
-def ask_gemini(client, question, articles, history):
-    context = format_context(articles) if articles else "(Sin articulos relevantes)"
+def ask_gemini(client, question, articles, history, status="ok"):
     history_block = ""
     for turn in history[-4:]:
         history_block += f"Usuario: {turn['user']}\nAgente: {turn['assistant']}\n"
-    prompt = f"HISTORIAL:\n{history_block}\nPREGUNTA: {question}\n\nEVIDENCIA CIENTIFICA:\n{context}\n\nResponde integrando la evidencia, citando con [N]."
+
+    # C3: la instrucción depende de si hubo error, cero resultados relevantes, o evidencia
+    if status == "error":
+        context = "(La biblioteca científica no está disponible en este momento.)"
+        instruction = (
+            "IMPORTANTE: No hay acceso a la base científica. Puedes responder con "
+            "conocimiento general, pero ADVIERTE al inicio, de forma clara, que esta "
+            "respuesta NO está respaldada por la biblioteca científica de El Floema. "
+            "NO cites [N]: no hay fuentes."
+        )
+    elif not articles:  # status == "empty"
+        context = "(La búsqueda no encontró artículos suficientemente relevantes.)"
+        instruction = (
+            "IMPORTANTE: No se encontró evidencia científica relevante para esta consulta. "
+            "Dilo con transparencia y responde con cautela desde el conocimiento general. "
+            "NO cites [N]: no hay fuentes que citar."
+        )
+    else:
+        context = format_context(articles)
+        instruction = "Responde integrando la evidencia, citando con [N]."
+
+    prompt = f"HISTORIAL:\n{history_block}\nPREGUNTA: {question}\n\nEVIDENCIA CIENTIFICA:\n{context}\n\n{instruction}"
     try:
         response = client.models.generate_content(
             model=GEMINI_MODEL,
@@ -878,14 +921,18 @@ def create_app(gemini_client):
         cache_key = question.strip().lower()
         if cache_key in _cache:
             return jsonify(_cache[cache_key])
-        articles = search_articles(question)
-        response = ask_gemini(gemini_client, question, articles, history)
+        search   = search_articles(question)
+        articles = search["articles"]
+        response = ask_gemini(gemini_client, question, articles, history, status=search["status"])
         result = {
-            "response":       response,
-            "sources_count":  len(articles),
-            "top_similarity": articles[0]["similarity"] if articles else 0,
+            "response":         response,
+            "sources_count":    len(articles),
+            "top_similarity":   articles[0]["similarity"] if articles else 0,
+            "retrieval_status": search["status"],
         }
-        _cache[cache_key] = result
+        # No cachear respuestas de errores transitorios de retrieval (envenenaría el caché)
+        if search["status"] == "ok":
+            _cache[cache_key] = result
         save_to_mongo(question, response, articles, session_id="web")
         return jsonify(result)
 
@@ -934,14 +981,19 @@ def chat_loop(client):
             print("Hasta pronto.")
             break
         print("\nBuscando en la biblioteca...")
-        articles = search_articles(user_input)
+        search   = search_articles(user_input)
+        articles = search["articles"]
         print(f"Consultando {GEMINI_MODEL}...\n")
-        response = ask_gemini(client, user_input, articles, history)
+        response = ask_gemini(client, user_input, articles, history, status=search["status"])
         print("-" * 60)
         print(response)
         print("-" * 60)
-        if articles:
+        if search["status"] == "error":
+            print("\n[Aviso: biblioteca científica no disponible — respuesta sin respaldo]")
+        elif articles:
             print(f"\n[Fuentes: {len(articles)} articulos | Top similitud: {articles[0]['similarity']:.3f}]")
+        else:
+            print("\n[Sin evidencia relevante por encima del umbral de similitud]")
         print()
         save_to_mongo(user_input, response, articles, session_id="terminal")
         history.append({"user": user_input, "assistant": response})
@@ -971,8 +1023,9 @@ def main():
         print(f"\nInterfaz web en http://localhost:{args.port}\n")
         app.run(host="0.0.0.0", port=args.port, debug=False)
     elif args.question:
-        articles = search_articles(args.question)
-        response = ask_gemini(client, args.question, articles, [])
+        search   = search_articles(args.question)
+        articles = search["articles"]
+        response = ask_gemini(client, args.question, articles, [], status=search["status"])
         print(response)
         save_to_mongo(args.question, response, articles)
     else:

@@ -81,8 +81,9 @@ async def consulta(req: ConsultaRequest):
     if not req.pregunta.strip():
         raise HTTPException(status_code=400, detail="La pregunta no puede estar vacía.")
 
-    articles = search_articles(req.pregunta)
-    respuesta = ask_gemini(_client, req.pregunta, articles, req.historial)
+    search = search_articles(req.pregunta)
+    articles = search["articles"]
+    respuesta = ask_gemini(_client, req.pregunta, articles, req.historial, status=search["status"])
 
     fuentes = [
         Fuente(

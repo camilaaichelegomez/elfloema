@@ -59,7 +59,7 @@ export default function BellezaPage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask-belleza", {
+      const res = await fetch("/api/belleza", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),

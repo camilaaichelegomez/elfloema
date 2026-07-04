@@ -63,22 +63,35 @@ export async function POST(request: NextRequest) {
       systemInstruction: SYSTEM_PROMPT,
     });
 
+    // La página envía historial como { user, assistant }[]; lo convertimos al
+    // formato de Gemini. También aceptamos { role, parts } por compatibilidad.
     const safeHistory: HistoryItem[] = Array.isArray(history)
-      ? history.filter(
-          (h: unknown) =>
+      ? history.flatMap((h: unknown): HistoryItem[] => {
+          if (h && typeof h === "object" && "user" in h && "assistant" in h) {
+            return [
+              { role: "user", parts: [{ text: String((h as { user: unknown }).user) }] },
+              { role: "model", parts: [{ text: String((h as { assistant: unknown }).assistant) }] },
+            ];
+          }
+          if (
             h &&
             typeof h === "object" &&
             "role" in h &&
             "parts" in h &&
-            (h.role === "user" || h.role === "model")
-        )
+            ((h as { role: unknown }).role === "user" || (h as { role: unknown }).role === "model")
+          ) {
+            return [h as HistoryItem];
+          }
+          return [];
+        })
       : [];
 
     const chat = model.startChat({ history: safeHistory });
     const result = await chat.sendMessage(question);
     const answer = result.response.text();
 
-    return NextResponse.json({ answer });
+    // La página lee `response`; devolvemos esa clave (y `answer` por compatibilidad).
+    return NextResponse.json({ response: answer, answer });
   } catch (error) {
     console.error("[belleza/route]", error);
     return NextResponse.json(

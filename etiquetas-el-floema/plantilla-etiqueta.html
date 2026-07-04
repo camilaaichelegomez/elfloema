@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Floema · Plantilla de etiquetas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     PLANTILLA DE ETIQUETA · EL FLOEMA
+     Cómo usar:
+       1. Edita el arreglo PRODUCTOS (abajo, al final del archivo).
+          Solo cambias: nombre, subtitulo, ingredientes, modo, advertencias.
+       2. Abre este archivo en el navegador.
+       3. Ctrl/Cmd + P → "Guardar como PDF" para imprimir.
+     Medida de etiqueta: 190 × 60 mm (wrap para frasco ~100 ml).
+       Cambia --label-w / --label-h abajo para otros envases.
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    --bosque: #081108;
+    --verde: #0d1a0d;
+    --verde2: #12261a;
+    --oro: #c8a050;
+    --oro-luz: #e0c078;
+    --marfil: #ece3cd;
+    --sage: #9ab89a;
+    --label-w: 190mm;
+    --label-h: 60mm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a1a;
+    font-family: 'Crimson Text', Georgia, serif;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .hint {
+    color: #cbb98a; font-size: 13px; max-width: 720px; text-align: center;
+    line-height: 1.6; font-style: italic;
+  }
+  .hint b { color: var(--oro-luz); font-style: normal; }
+
+  /* ── Etiqueta ── */
+  .label {
+    width: var(--label-w);
+    height: var(--label-h);
+    background:
+      radial-gradient(120% 140% at 50% 0%, var(--verde2) 0%, var(--bosque) 70%);
+    color: var(--marfil);
+    display: grid;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+    /* acento por línea (se sobreescribe por producto) */
+    --acento: var(--oro);
+  }
+  .label::before {
+    content: '';
+    position: absolute; inset: 3mm;
+    border: 0.4mm solid var(--oro);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  /* barra de acento de línea */
+  .label::after {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2mm; background: var(--acento);
+    opacity: 0.9;
+  }
+  .col { padding: 6mm 5mm; display: flex; flex-direction: column; position: relative; z-index: 2; }
+  .col.center { align-items: center; text-align: center; justify-content: center; border-left: 0.3mm solid rgba(200,160,80,0.25); border-right: 0.3mm solid rgba(200,160,80,0.25); }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif; font-size: 6pt; letter-spacing: 0.28em;
+    color: var(--oro); text-transform: uppercase; margin-bottom: 2mm;
+  }
+  .rule { height: 0.3mm; background: linear-gradient(90deg, var(--oro), transparent); margin-bottom: 3mm; opacity: 0.6; }
+  .body { font-size: 7.5pt; line-height: 1.5; color: var(--marfil); }
+  .inci { font-size: 5.6pt; line-height: 1.45; color: var(--sage); margin-top: auto; }
+  .inci .lbl { font-family: 'Cinzel', serif; letter-spacing: 0.18em; color: var(--oro); display: block; margin-bottom: 1mm; font-size: 5.6pt; }
+
+  /* centro */
+  .emblem { width: 11mm; height: 11mm; margin-bottom: 2mm; }
+  .brand { font-family: 'Cinzel', serif; font-size: 6.5pt; letter-spacing: 0.3em; color: var(--oro); }
+  .name  { font-family: 'Cinzel', serif; font-size: 15pt; letter-spacing: 0.03em; color: var(--marfil); line-height: 1.05; margin: 1.5mm 0; }
+  .sub   { font-size: 9pt; font-style: italic; color: var(--marfil); }
+  .purpose { font-size: 7pt; font-style: italic; color: var(--sage); margin-top: 2mm; }
+  .meta  { font-family: 'Cinzel', serif; font-size: 6pt; letter-spacing: 0.14em; color: var(--oro); margin-top: 3mm; }
+
+  .foot { font-family: 'Cinzel', serif; font-size: 5.4pt; letter-spacing: 0.12em; color: var(--oro); margin-top: auto; }
+  .foot .ig { color: var(--sage); font-family: 'Crimson Text', serif; font-style: italic; letter-spacing: normal; }
+
+  /* esquinas ornamentales */
+  .corner { position: absolute; width: 10mm; height: 10mm; stroke: var(--oro); fill: none; opacity: 0.55; z-index: 1; }
+  .corner.tl { top: 3mm; left: 3mm; }
+  .corner.tr { top: 3mm; right: 3mm; transform: scaleX(-1); }
+  .corner.bl { bottom: 3mm; left: 3mm; transform: scaleY(-1); }
+  .corner.br { bottom: 3mm; right: 3mm; transform: scale(-1,-1); }
+
+  @media print {
+    body { background: #fff; padding: 0; gap: 0; }
+    .hint, .controls { display: none; }
+    .label { box-shadow: none; page-break-after: always; margin: 6mm auto; }
+    @page { size: A4 landscape; margin: 8mm; }
+  }
+</style>
+</head>
+<body>
+  <div class="hint">
+    <b>Plantilla de etiquetas El Floema.</b> Edita el arreglo <b>PRODUCTOS</b> al final del archivo
+    (nombre · ingredientes · advertencias) y se regeneran todas. <b>Ctrl/Cmd + P → Guardar como PDF</b> para imprimir.
+    Medida: 190 × 60 mm (wrap ~100 ml) — ajústala en <b>--label-w / --label-h</b>.
+  </div>
+
+  <div id="hoja"></div>
+
+<script>
+  // ── Emblema y esquina (SVG reutilizables) ──────────────────────────
+  const EMBLEM = `<svg class="emblem" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="34" fill="none" stroke="var(--oro)" stroke-width="2"/>
+      <path d="M50 84 L50 44" stroke="var(--oro)" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M50 62 Q34 52 28 34" stroke="var(--oro)" stroke-width="2" fill="none"/>
+      <path d="M50 66 Q66 56 72 38" stroke="var(--oro)" stroke-width="2" fill="none"/>
+      <circle cx="50" cy="44" r="3.4" fill="var(--oro-luz)"/>
+    </svg>`;
+  const CORNER = c => `<svg class="corner ${c}" viewBox="0 0 100 100"><path d="M6 6 Q54 6 54 54" stroke-width="2"/><circle cx="54" cy="54" r="3" fill="var(--oro)" stroke="none"/><path d="M20 12 Q30 4 40 14 Q30 22 20 12Z" fill="var(--oro)" stroke="none" opacity="0.7"/></svg>`;
+
+  // ── Render de una etiqueta ─────────────────────────────────────────
+  function etiqueta(p) {
+    const el = document.createElement('div');
+    el.className = 'label';
+    if (p.acento) el.style.setProperty('--acento', p.acento);
+    el.innerHTML = `
+      ${CORNER('tl')}${CORNER('tr')}${CORNER('bl')}${CORNER('br')}
+      <div class="col left">
+        <div class="eyebrow">Modo de uso</div>
+        <div class="rule"></div>
+        <div class="body">${p.modo}</div>
+        <div class="inci"><span class="lbl">Ingredientes</span>${p.ingredientes}</div>
+      </div>
+      <div class="col center">
+        ${EMBLEM}
+        <div class="brand">EL FLOEMA</div>
+        <div class="name">${p.nombre}</div>
+        ${p.subtitulo ? `<div class="sub">${p.subtitulo}</div>` : ''}
+        ${p.purpose ? `<div class="purpose">${p.purpose}</div>` : ''}
+        <div class="meta">${p.tamano} · LOTE ${p.lote}</div>
+      </div>
+      <div class="col right">
+        <div class="eyebrow">Advertencias</div>
+        <div class="rule"></div>
+        <div class="body">${p.advertencias}</div>
+        <div class="foot">La Unión · Región de Los Ríos · Chile<br><span class="ig">@elfloema · elfloema.cl</span></div>
+      </div>`;
+    return el;
+  }
+
+  // ── Acentos por línea (opcional) ───────────────────────────────────
+  const ROSA = '#4a2b45', CARBON = '#2a2f2c', SOLAR = '#b06a3a';
+
+  // ════════════════════════════════════════════════════════════════
+  //  PRODUCTOS · edita libremente. Datos base: Formulario Maestro 2026.
+  //  Los ingredientes están en nombre común; refina a INCI si lo necesitas.
+  // ════════════════════════════════════════════════════════════════
+  const PRODUCTOS = [
+    { nombre:'Ungüento Cicatrizante', subtitulo:'Botánico', purpose:'Cicatrices y piel dañada · corporal', tamano:'200 ml', lote:'L001',
+      ingredientes:'Sebo infusionado en matico y milenrama, cera de abeja, vitamina E, AE palo de ho, AE cedro.',
+      modo:'Aplicar una capa fina sobre la zona limpia, 1–2 veces al día.', advertencias:'Solo uso externo. Evitar contacto con ojos. No aplicar en heridas abiertas.' },
+
+    { nombre:'Ungüento Dolor', subtitulo:'Efecto Calor', purpose:'Alivio muscular y articular', tamano:'50 ml', lote:'L002', acento:SOLAR,
+      ingredientes:'Sebo infusionado en clavo, canela y pitra, cera de abeja, AE clavo, cedro e hinojo.',
+      modo:'Masajear sobre la zona adolorida hasta absorber.', advertencias:'SOLO uso externo. No usar en cara, mucosas ni piel irritada. No en menores de 6 años.' },
+
+    { nombre:'Labial', subtitulo:'Dark Purple', purpose:'Color y nutrición · labios', tamano:'50 ml', lote:'L003', acento:ROSA,
+      ingredientes:'Sebo purificado, cera de abeja, aceite de ricino, mica mineral, vitamina E.',
+      modo:'Aplicar sobre los labios las veces que desees.', advertencias:'Uso cosmético labial. Suspender si aparece irritación.' },
+
+    { nombre:'Base Solar', subtitulo:'Tintada · Cacao', purpose:'Tono natural con protección', tamano:'50 g', lote:'L004', acento:SOLAR,
+      ingredientes:'Sebo, manteca de karité, aceite de sésamo, óxido de zinc, cacao en polvo, vitamina E.',
+      modo:'Aplicar de forma uniforme sobre el rostro antes de la exposición.', advertencias:'SPF mineral estimado 15–20, NO certificado en laboratorio. Reaplicar tras sudar o nadar.' },
+
+    { nombre:'Sindet Facial', subtitulo:'Piel Sensible', purpose:'Limpieza suave · Calma botánica', tamano:'100 ml', lote:'L005',
+      ingredientes:'Betaína y glucósido de coco, hidrolato de triwe y arrayán, centella, inulina, xilitol.',
+      modo:'Aplicar sobre rostro húmedo mañana y noche, masajear y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos. pH 5.5–6.' },
+
+    { nombre:'Sindet Facial', subtitulo:'Piel Mixta', purpose:'Equilibrio botánico', tamano:'100 ml', lote:'L010',
+      ingredientes:'Betaína y glucósido de coco, hidrolato de triwe y arrayán, urea, xilitol, inulina.',
+      modo:'Aplicar sobre rostro húmedo mañana y noche, masajear y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos. pH 5.5–6.' },
+
+    { nombre:'Sindet Facial', subtitulo:'Carbón', purpose:'Detox · piel grasa', tamano:'100 ml', lote:'L011', acento:CARBON,
+      ingredientes:'Betaína y glucósido de coco, hidrolato de triwe y arrayán, carbón activado, urea, inulina.',
+      modo:'Aplicar sobre rostro húmedo, masajear y enjuagar. Ideal noche.', advertencias:'Uso externo. Evitar ojos. Conservar en frasco opaco.' },
+
+    { nombre:'Sérum Calmante', subtitulo:'Rosácea', purpose:'Piel reactiva y enrojecida', tamano:'100 ml', lote:'L006', acento:ROSA,
+      ingredientes:'Hidrolato de triwe, extracto de centella asiática, matico, pepino, pantenol.',
+      modo:'3–4 gotas con toquecitos, sin frotar, sobre piel limpia.', advertencias:'Hacer prueba de parche 24 h antes. Uso externo.' },
+
+    { nombre:'Crema Hidratación', subtitulo:'Botánica', purpose:'Todo tipo de piel · uso diario', tamano:'100 g', lote:'L012',
+      ingredientes:'Hidrolato de triwe y arrayán, manteca de karité, aceite de coco, urea, maizcare.',
+      modo:'Aplicar sobre rostro limpio mañana y noche.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Crema Sabiduría', subtitulo:'Antiedad', purpose:'Piel madura 35+', tamano:'100 g', lote:'L013',
+      ingredientes:'Hidrolato de triwe y arrayán, centella asiática, cafeína, aceite de sésamo, karité.',
+      modo:'Aplicar sobre rostro y cuello limpios, mañana y noche.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Crema Calma', subtitulo:'Profunda · Rosácea', purpose:'Piel sensible y reactiva', tamano:'100 g', lote:'L014', acento:ROSA,
+      ingredientes:'Hidrolato de triwe, centella asiática (dosis máx.), maizcare, inulina. Sin aceites esenciales.',
+      modo:'Aplicar una capa fina sobre piel limpia.', advertencias:'Sin AE, sin cafeína. Hacer prueba de parche antes. Uso externo.' },
+
+    { nombre:'Bruma del Nuevo Día', subtitulo:'', purpose:'Claridad y arraigo · ambiental', tamano:'120 ml', lote:'L008',
+      ingredientes:'Hidrolato de laurel, AE de cedro y citronela, polisorbato 80.',
+      modo:'Vaporizar en el ambiente. Agitar antes de usar.', advertencias:'Solo uso ambiental. No ingerir. Mantener fuera del alcance de niños.' },
+
+    { nombre:'Bruma del Bosque', subtitulo:'', purpose:'Selva valdiviana · ambiental', tamano:'100 ml', lote:'L009',
+      ingredientes:'Hidrolato de triwe, eucalipto, pitra y maqui.',
+      modo:'Vaporizar en el ambiente. Agitar antes de usar.', advertencias:'Solo uso ambiental. No ingerir. Mantener fuera del alcance de niños.' },
+
+    { nombre:'Shampoo Sólido', subtitulo:'Raíz Fuerte', purpose:'Anticaída · fortalece', tamano:'100 g', lote:'L015',
+      ingredientes:'SCI, SLSA, manteca de karité, ricino, cafeína, extracto de ortiga, kaolín.',
+      modo:'Frotar sobre cabello mojado, masajear el cuero y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Shampoo Sólido', subtitulo:'Cuero Limpio', purpose:'Anticaspa', tamano:'100 g', lote:'L016', acento:CARBON,
+      ingredientes:'SCI, ricino, karité, arcilla negra, ácido salicílico, kaolín.',
+      modo:'Frotar sobre cabello mojado, masajear el cuero y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Shampoo Sólido', subtitulo:'Detox Capilar', purpose:'Cabello graso', tamano:'100 g', lote:'L017', acento:CARBON,
+      ingredientes:'SCI, karité, ricino, arcilla verde, carbón activado, cafeína.',
+      modo:'Frotar sobre cabello mojado, masajear y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Sindet Sólido', subtitulo:'Facial · Sensible', purpose:'Limpieza suave', tamano:'100 g', lote:'L018',
+      ingredientes:'SCI, kaolín, inulina, xilitol, karité, coco, ricino, centella asiática.',
+      modo:'Frotar suavemente sobre rostro húmedo y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Sindet Sólido', subtitulo:'Facial · Mixta', purpose:'Regula sebo', tamano:'100 g', lote:'L019',
+      ingredientes:'SCI, arcilla verde, kaolín, inulina, urea, karité, ricino, cafeína.',
+      modo:'Frotar suavemente sobre rostro húmedo y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+
+    { nombre:'Sindet Sólido', subtitulo:'Facial · Carbón', purpose:'Purificante', tamano:'100 g', lote:'L020', acento:CARBON,
+      ingredientes:'SCI, carbón activado, arcilla negra, kaolín, inulina, karité, ricino, urea.',
+      modo:'Frotar suavemente sobre rostro húmedo y enjuagar.', advertencias:'Uso externo. Evitar contacto con los ojos.' },
+  ];
+
+  const hoja = document.getElementById('hoja');
+  PRODUCTOS.forEach(p => hoja.appendChild(etiqueta(p)));
+</script>
+</body>
+</html>

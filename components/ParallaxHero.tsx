@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { HeroGoldParticles } from './HeroGoldParticles';
 
 export function ParallaxHero() {
   const imgRef = useRef<HTMLDivElement>(null);
@@ -82,6 +83,17 @@ export function ParallaxHero() {
         }}
       />
 
+      {/* Polvo dorado flotante — la magia de la marca */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2.5, delay: 1.4 }}
+        style={{ position: 'absolute', inset: 0, zIndex: 15, pointerEvents: 'none' }}
+        aria-hidden="true"
+      >
+        <HeroGoldParticles />
+      </motion.div>
+
       <div
         style={{
           position: 'absolute',
@@ -158,6 +170,25 @@ export function ParallaxHero() {
           }}
         />
       </div>
+
+      {/* Esquinas ornamentales — eco del marco de los pósters de marca */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.8, delay: 1.6 }}
+        style={{ position: 'absolute', inset: 0, zIndex: 25, pointerEvents: 'none' }}
+        aria-hidden="true"
+      >
+        {(['tl', 'tr', 'bl', 'br'] as const).map((pos) => (
+          <svg key={pos} className={`hero-corner hero-corner--${pos}`} viewBox="0 0 100 100" fill="none">
+            <path d="M4 34 L4 12 Q4 4 12 4 L34 4" stroke="#c8a050" strokeWidth="1.2" opacity="0.8" />
+            <path d="M12 30 L12 16 Q12 12 16 12 L30 12" stroke="#c8a050" strokeWidth="0.6" opacity="0.45" />
+            <circle cx="4" cy="42" r="1.6" fill="#c8a050" opacity="0.6" />
+            <circle cx="42" cy="4" r="1.6" fill="#c8a050" opacity="0.6" />
+            <path d="M34 12 Q40 6 46 12 Q40 18 34 12Z" fill="#c8a050" opacity="0.28" />
+          </svg>
+        ))}
+      </motion.div>
 
       {/* Indicador de scroll */}
       <motion.div

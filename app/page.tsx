@@ -7,11 +7,13 @@ import { KnowledgeCards } from "@/components/KnowledgeCards";
 import { SectionDivider } from "@/components/SectionDivider";
 import { NavCards } from "@/components/NavCards";
 import { LaBotica } from "@/components/LaBotica";
+import { GrainOverlay } from "@/components/GrainOverlay";
 
 export default function Home() {
   return (
     <>
       <PageBackground />
+      <GrainOverlay />
       <Navbar />
       <ParallaxHero />
       <AgentesIA />

@@ -272,7 +272,9 @@ function PlantCard({ planta, index }: { planta: Planta; index: number }) {
           gap: "0.6rem",
           padding: "1.4rem 0.85rem 1.25rem",
           background: BG_CARD,
-          border: `1px solid ${hovered ? "rgba(200,160,80,0.48)" : "rgba(200,160,80,0.16)"}`,
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          border: `1px solid ${hovered ? "rgba(200,160,80,0.48)" : "rgba(200,160,80,0.2)"}`,
           borderRadius: "0.6rem",
           textDecoration: "none",
           overflow: "hidden",
@@ -455,7 +457,12 @@ export function PlantasMedicinalesSection() {
           transition={{ duration: 0.85, ease: "easeOut" }}
           style={{
             background: BG_LEFT,
-            padding: "clamp(3rem,6vw,5rem) clamp(1.5rem,3.5vw,3rem)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(200,160,80,0.14)",
+            borderRadius: "1rem",
+            margin: "clamp(2rem,4vw,3.5rem) 0",
+            padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,3.5vw,3rem)",
             display: "flex",
             flexDirection: "column",
           }}
@@ -565,7 +572,8 @@ export function PlantasMedicinalesSection() {
               fontSize: "0.65rem",
               color: "rgba(200,160,80,0.55)",
               lineHeight: 1,
-              background: "var(--bg-primary)",
+              background: "rgba(4,14,6,0.75)",
+              borderRadius: "50%",
               padding: "0.4rem 0.3rem",
             }}
           >
@@ -573,10 +581,9 @@ export function PlantasMedicinalesSection() {
           </span>
         </div>
 
-        {/* ── RIGHT: grid 3 columnas ── */}
+        {/* ── RIGHT: grid 3 columnas — tarjetas flotando sobre el bosque ── */}
         <div
           style={{
-            background: "var(--bg-primary)",
             padding: "clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,3.5rem)",
             display: "flex",
             flexDirection: "column",

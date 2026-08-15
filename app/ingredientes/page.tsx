@@ -140,7 +140,7 @@ function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) 
   );
 }
 
-const SECTIONS = ["bases", "aceites", "activos", "arcillas", "tensioactivos", "esenciales", "preparaciones", "faltantes"] as const;
+const SECTIONS = ["bases", "aceites", "activos", "hidratantes", "arcillas", "tensioactivos", "emulsionantes", "esenciales", "preparaciones", "faltantes"] as const;
 type SectionId = (typeof SECTIONS)[number];
 
 export default function Ingredientes() {
@@ -424,6 +424,118 @@ export default function Ingredientes() {
 
           <WarnBox>⚠ Solo en fórmulas acuosas. No tiene función en bases anhidras. Siempre medir pH después de usar.</WarnBox>
 
+          <LineDivider />
+
+          <IngTitle name="Niacinamida" italic="Vitamina B3 · el activo multiuso" />
+          <P>Forma cosmética de la vitamina B3, polvo blanco soluble en agua. Es probablemente el activo mejor tolerado y más versátil de la cosmética moderna — funciona para casi todos los tipos de piel.</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Refuerza la barrera cutánea → estimula la síntesis de ceramidas, reduce la pérdida de agua (TEWL)</Check>
+          <Check>Regula el sebo → matifica sin resecar, ideal para piel grasa y mixta</Check>
+          <Check>Despigmentante suave → frena la transferencia de melanina, aclara manchas</Check>
+          <Check>Antiinflamatoria → calma rojeces, rosácea y acné</Check>
+          <Check>Minimiza el aspecto de los poros</Check>
+          <SubLabel>Concentraciones</SubLabel>
+          <Check>2–4% → uso diario, seborregulador y luminosidad</Check>
+          <Check>5% → acción despigmentante y sobre poros</Check>
+          <P>Fase acuosa, pH 5–7. Compatible con casi todo. Agregar en frío.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Ácido Salicílico" italic="BHA — beta-hidroxiácido" />
+          <P>A diferencia de los AHA (láctico, glicólico), el salicílico es <strong>liposoluble</strong> — por eso penetra dentro del poro graso y lo limpia por dentro. Es el activo de referencia para piel grasa y con tendencia acneica.</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Queratolítico → disuelve la queratina que tapona el poro</Check>
+          <Check>Comedolítico → destapa puntos negros y microquistes</Check>
+          <Check>Antiinflamatorio → deriva del mismo grupo que la aspirina</Check>
+          <SubLabel>Concentraciones</SubLabel>
+          <Check>0.5–2% a pH 3–4 → uso facial en piel grasa/acneica</Check>
+          <WarnBox>⚠ No combinar con otros exfoliantes fuertes el mismo día. Evitar en embarazo en concentraciones altas. Fotosensibiliza — usar protector solar.</WarnBox>
+
+          <LineDivider />
+
+          <IngTitle name="Vitamina C" italic="Ácido ascórbico y derivados" />
+          <P>Antioxidante estrella. El ácido ascórbico puro es el más potente pero el más inestable — se oxida con la luz, el aire y el calor (se pone amarillo/naranja = ya no sirve). Los derivados (ascorbil glucósido, ascorbil fosfato de magnesio) son más estables y suaves.</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Antioxidante → neutraliza radicales libres del sol y la contaminación</Check>
+          <Check>Despigmentante → inhibe la tirosinasa, aclara manchas y unifica el tono</Check>
+          <Check>Estimula el colágeno → firmeza y luminosidad</Check>
+          <SubLabel>Concentraciones</SubLabel>
+          <Check>Ácido ascórbico puro: 10–20% a pH menor de 3.5 (muy inestable)</Check>
+          <Check>Derivados estables: 2–5% a pH más amable</Check>
+          <WarnBox>⚠ Termosensible y fotosensible. Agregar siempre en frío y al final. Envase opaco y hermético. Si vira a naranja, descartar.</WarnBox>
+
+          <LineDivider />
+
+          <IngTitle name="Centella Asiática" italic="Centella asiatica · la planta reparadora" />
+          <P>Extracto vegetal cuyos activos son los triterpenos <em>asiaticósido</em> y <em>madecassoside</em>. Es la reina de la reparación cutánea y la calma — muy usada en cosmética coreana (&ldquo;cica&rdquo;).</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Cicatrizante → estimula la síntesis de colágeno y la microcirculación</Check>
+          <Check>Reafirmante</Check>
+          <Check>Antiinflamatoria → calma rojeces, piel reactiva y sensible</Check>
+          <Check>Refuerza la barrera</Check>
+          <P>Extracto: 0.5–2%. Excelente aliada del matico y la milenrama en fórmulas reparadoras.</P>
+
+        </AccordionItem>
+
+        {/* ── Hidratantes y Humectantes ── */}
+        <AccordionItem id="hidratantes" title="Hidratantes y Humectantes" open={open === "hidratantes"} onToggle={() => toggle("hidratantes")}>
+
+          <InfoBox>Hidratar no es solo &ldquo;aportar agua&rdquo;. Los <strong>humectantes</strong> atraen y retienen agua en la piel; los <strong>oclusivos</strong> (aceites, ceras, tallow) evitan que se evapore. Una buena hidratación combina ambos.</InfoBox>
+
+          <IngTitle name="Glicerina Vegetal" italic="Glicerol · el humectante universal" />
+          <P>Líquido transparente, espeso y dulce, obtenido de aceites vegetales. Es el humectante más usado del mundo: higroscópico, atrae el agua del ambiente y de las capas profundas hacia la superficie.</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Humectante → mantiene la piel hidratada y flexible</Check>
+          <Check>Vehículo de extractos glicéricos (macera plantas sin alcohol)</Check>
+          <Check>Da suavidad y desliz a syndets y tónicos</Check>
+          <SubLabel>Concentraciones</SubLabel>
+          <Check>1–3% → humectante en cremas y syndets</Check>
+          <Check type="warn">Más de 3% en ambiente muy seco puede tirar agua desde la piel (efecto inverso) — por eso las leches de limpieza la usan alta a propósito</Check>
+
+          <LineDivider />
+
+          <IngTitle name="Ácido Hialurónico" />
+          <P>Polisacárido capaz de retener hasta 1000 veces su peso en agua. Está naturalmente en la dermis. En cosmética se usa como sal (hialuronato de sodio) en fase acuosa.</P>
+          <SubLabel>Alto vs bajo peso molecular</SubLabel>
+          <Check>Alto PM → forma una película que hidrata en superficie y alisa</Check>
+          <Check>Bajo PM → penetra más y actúa en capas medias</Check>
+          <P>Concentración: 0.1–1% en fase acuosa. Da un tacto resbaladizo que gelifica.</P>
+          <WarnBox>⚠ En clima muy seco, aplicar sobre piel húmeda y sellar con un oclusivo, o puede resecar al evaporarse.</WarnBox>
+
+          <LineDivider />
+
+          <IngTitle name="Urea" />
+          <P>Componente natural del factor hidratante de la piel (NMF). Su acción cambia según la concentración.</P>
+          <Check>Menos de 10% → hidratante y calmante (repone el NMF)</Check>
+          <Check>Más de 10% → queratolítica — suaviza durezas, talones agrietados, codos</Check>
+          <GreenBox>Muy útil en cremas de pies, manos y pieles muy secas o con descamación.</GreenBox>
+
+          <LineDivider />
+
+          <IngTitle name="Pantenol" italic="Provitamina B5" />
+          <P>Humectante que además repara. Se convierte en ácido pantoténico en la piel.</P>
+          <Check>Humectante e hidratante de acción profunda</Check>
+          <Check>Cicatrizante y calmante — ideal tras la limpieza o la depilación</Check>
+          <Check>En cabello: aporta cuerpo y brillo</Check>
+          <P>Concentración: 1–5%. Se disuelve fácil en agua.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Inulina" italic="Prebiótico vegetal" />
+          <P>Fibra de origen vegetal (achicoria, agave). Además de humectante suave, es <strong>prebiótica</strong>: alimenta la microbiota buena de la piel.</P>
+          <Check>Humectante y sensorialmente sedosa</Check>
+          <Check>Cuida el equilibrio del microbioma cutáneo</Check>
+          <P>Concentración: 1–3% en fase acuosa. Ya la usas en el syndet facial de triwe.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Aloe Vera" italic="Gel o polvo 200x" />
+          <P>El jugo de las hojas de <em>Aloe barbadensis</em>. Rico en polisacáridos (acemanano), aminoácidos y minerales.</P>
+          <Check>Humectante y refrescante</Check>
+          <Check>Calmante y cicatrizante — clásico del after-sun</Check>
+          <Check>Base acuosa ligera para geles y tónicos</Check>
+          <WarnBox>⚠ Contiene agua → SIEMPRE conservante. El gel fresco se contamina en días.</WarnBox>
+
         </AccordionItem>
 
         {/* ── 4. Arcillas y Minerales ── */}
@@ -547,6 +659,56 @@ export default function Ingredientes() {
           <Check>40–60% en acondicionadores sólidos</Check>
 
           <WarnBox>⚠ Incompatible con tensioactivos aniónicos (SCI, SLSA, SCS, SLS). Nunca mezclar directamente.</WarnBox>
+
+        </AccordionItem>
+
+        {/* ── Emulsionantes y Espesantes ── */}
+        <AccordionItem id="emulsionantes" title="Emulsionantes y Espesantes" open={open === "emulsionantes"} onToggle={() => toggle("emulsionantes")}>
+
+          <InfoBox>Una <strong>emulsión</strong> une agua y aceite, que naturalmente se separan. El <strong>emulsionante</strong> los mantiene unidos (crema); los <strong>espesantes</strong> dan cuerpo y textura. Regla del HLB: para una emulsión estable, el emulsionante debe igualar el &ldquo;HLB requerido&rdquo; del aceite que se quiere emulsionar.</InfoBox>
+
+          <IngTitle name="Alcohol Cetílico" />
+          <P>Alcohol graso sólido derivado de aceites vegetales. <strong>No es alcohol etílico</strong> — no reseca ni evapora; al contrario, es emoliente.</P>
+          <SubLabel>Funciones</SubLabel>
+          <Check>Coemulsionante y estabilizador de emulsiones O/W</Check>
+          <Check>Espesante → da cuerpo y una textura sedosa, no cerosa</Check>
+          <Check>Emoliente que mejora el tacto final</Check>
+          <P>Concentración: 2–6% en cremas.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Alcohol Cetearílico" />
+          <P>Mezcla de alcohol cetílico y estearílico. Coemulsionante y espesante de referencia en cremas y acondicionadores.</P>
+          <Check>Estabiliza emulsiones O/W y da estructura</Check>
+          <Check>Compatible con emulsionantes aniónicos y catiónicos (BTMS)</Check>
+          <P>Concentración: 3–8%.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Cera Emulsionante Autoemulsionante" italic="Emulfarma / Olivem / cera NF" />
+          <P>Cera que ya trae el sistema emulsionante integrado — la vía más simple para hacer una crema O/W estable en casa: se funde con la fase oleosa, se une a la acuosa caliente y emulsiona sola.</P>
+          <Check>Crea cremas y leches O/W fáciles y estables</Check>
+          <Check>Distintas marcas dan tactos diferentes (Olivem 1000 da sensación fresca tipo gel-crema)</Check>
+          <P>Concentración: 3–8% según la consistencia buscada.</P>
+
+          <LineDivider />
+
+          <IngTitle name="Goma Xantana" />
+          <P>Espesante de origen fermentado para fases acuosas. Da textura de gel sin nada de grasa.</P>
+          <Check>Espesa tónicos, geles y syndets líquidos</Check>
+          <Check>Ayuda a suspender polvos y estabilizar emulsiones</Check>
+          <SubLabel>Concentraciones</SubLabel>
+          <Check>0.2–0.5% → ligero cuerpo</Check>
+          <Check>0.5–1% → gel firme</Check>
+          <WarnBox>⚠ Pasarse da textura &ldquo;mocosa&rdquo;. Dispersar primero en glicerina o en seco antes de hidratar, para evitar grumos.</WarnBox>
+
+          <LineDivider />
+
+          <IngTitle name="Lecitina" italic="Fosfolípidos de soja o girasol" />
+          <P>Emulsionante natural. Es la base de los <strong>liposomas</strong> — vesículas que transportan activos hidro y liposolubles muy afines a la piel.</P>
+          <Check>Emulsionante W/O nutritivo</Check>
+          <Check>Vehículo de activos (liposomas) que mejora la penetración</Check>
+          <Check>Emoliente y restaurador de la barrera</Check>
 
         </AccordionItem>
 

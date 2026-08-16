@@ -1629,3 +1629,10 @@ export function getPlanta(slug: string): Planta | undefined {
 export function getPlantasByCategoria(key: CategoriaKey): Planta[] {
   return plantas.filter((p) => p.categorias.includes(key));
 }
+
+// Plantas destacadas en la portada: las nativas más representativas del sur de Chile.
+// La biblioteca completa (/plantas) sigue mostrando todas.
+const SLUGS_DESTACADAS = ["matico", "pitra", "arrayan", "maqui", "triwe", "chilco", "milenrama"];
+export const plantasDestacadas: Planta[] = SLUGS_DESTACADAS
+  .map((slug) => plantas.find((p) => p.slug === slug))
+  .filter((p): p is Planta => Boolean(p));

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { plantas, Planta } from "@/lib/plantas-data";
+import { plantasDestacadas, Planta } from "@/lib/plantas-data";
 import { plantaIcons } from "@/components/PlantIcons";
 
 const GOLD = "#c8a050";
@@ -619,7 +619,7 @@ export function PlantasMedicinalesSection() {
               gap: "0.75rem",
             }}
           >
-            {plantas.map((planta, i) => (
+            {plantasDestacadas.map((planta, i) => (
               <PlantCard key={planta.slug} planta={planta} index={i} />
             ))}
           </div>

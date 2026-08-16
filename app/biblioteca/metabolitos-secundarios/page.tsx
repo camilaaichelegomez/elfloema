@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/BackButton";
+import { FiguraLibro } from "@/components/biblioteca/FiguraLibro";
 
 export default function MetabolitosSecundarios() {
   return (
@@ -54,6 +55,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               1. Polifenoles y fenoles
             </h3>
+          <FiguraLibro num="1" titulo="Polifenoles" src="/biblioteca/metabolitos/lamina-1.png" prompt="Racimos de bayas oscuras moradas y hojas rodeados de un halo antioxidante brillante, sobre fondo oscuro. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los fenoles son compuestos que contienen al menos un anillo aromático con un grupo hidroxilo (-OH). Los polifenoles tienen múltiples de estos grupos. Es la familia más grande y diversa de metabolitos secundarios — se conocen más de 8.000 compuestos distintos.
             </p>
@@ -92,6 +94,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               2. Flavonoides
             </h3>
+          <FiguraLibro num="2" titulo="Flavonoides" src="/biblioteca/metabolitos/lamina-2.png" prompt="Flores y hojas de colores vivos amarillos y azules con pigmentos luminosos difundiendose. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los flavonoides son la subfamilia más importante de los polifenoles. Tienen una estructura de dos anillos aromáticos unidos por un puente de tres carbonos. Se dividen en seis subgrupos principales: flavonoles, flavonas, isoflavonas, flavanonas, flavanoles (catequinas) y antocianinas.
             </p>
@@ -137,6 +140,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               3. Taninos
             </h3>
+          <FiguraLibro num="3" titulo="Taninos" src="/biblioteca/metabolitos/lamina-3.png" prompt="Corteza y hojas junto a un trozo de cuero curtido, tonos marrones y ambar, astringencia. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los taninos son polifenoles de alto peso molecular con capacidad de unirse y precipitar proteínas. Su nombre viene de su uso histórico para curtir cuero — se unían a las proteínas del colágeno endureciéndolo. Hay dos tipos principales: taninos hidrolizables (ésteres de ácido gálico o elágico) y taninos condensados (proantocianidinas).
             </p>
@@ -174,6 +178,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               4. Terpenos y terpenoides
             </h3>
+          <FiguraLibro num="4" titulo="Terpenos" src="/biblioteca/metabolitos/lamina-4.png" prompt="Gotas de resina aromatica y aceite brotando de hojas y coniferas, con vapores fragantes visibles. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los terpenos son la familia más grande de metabolitos secundarios — más de 30.000 compuestos conocidos. Se construyen todos a partir de la misma unidad básica de 5 carbonos (isopreno). Según cuántas unidades se unen se clasifican en: monoterpenos (C10), sesquiterpenos (C15), diterpenos (C20), triterpenos (C30) y tetraterpenos (C40, los carotenoides).
             </p>
@@ -211,6 +216,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               5. Alcaloides
             </h3>
+          <FiguraLibro num="5" titulo="Alcaloides" src="/biblioteca/metabolitos/lamina-5.png" prompt="Una planta poderosa y algo peligrosa con flores de forma marcada, rodeada de una energia intensa. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los alcaloides son compuestos nitrogenados de origen vegetal con actividad biológica potente. Son los metabolitos secundarios más farmacológicamente activos — y los más peligrosos en dosis incorrectas. La morfina, la cafeína, la quinina, la colchicina y la vincristina son todos alcaloides.
             </p>
@@ -244,6 +250,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               6. Glucósidos
             </h3>
+          <FiguraLibro num="6" titulo="Glucósidos" src="/biblioteca/metabolitos/lamina-6.png" prompt="Un azucar dorado unido a una hoja, formas organicas de union con brillo suave. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los glucósidos son compuestos formados por un azúcar (generalmente glucosa) unido a una molécula no azucarada llamada aglicona. La aglicona es la parte activa — el azúcar actúa como transportador que mejora la solubilidad y estabilidad.
             </p>
@@ -273,6 +280,7 @@ export default function MetabolitosSecundarios() {
             <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "1rem", color: "rgba(200,160,80,0.9)", letterSpacing: "0.1em", marginBottom: 14, borderLeft: "2px solid rgba(200,160,80,0.28)", paddingLeft: "0.75rem" }}>
               7. Aceites esenciales — mezclas de terpenos volátiles
             </h3>
+          <FiguraLibro num="7" titulo="Aceites esenciales" src="/biblioteca/metabolitos/lamina-7.png" prompt="Un frasco pequeno de aceite esencial con vapores aromaticos elevandose entre flores, hierbas y coniferas. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <p style={{ fontSize: "0.97rem", lineHeight: 1.8, color: "#d4c4a0", marginBottom: 14 }}>
               <strong style={{ color: "#c8a050" }}>Qué son:</strong> Los aceites esenciales no son un tipo de metabolito secundario — son mezclas complejas de metabolitos volátiles, principalmente monoterpenos y sesquiterpenos. Un aceite esencial puede contener entre 20 y 200 compuestos distintos.
             </p>

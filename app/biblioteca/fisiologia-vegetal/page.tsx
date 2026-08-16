@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/BackButton";
+import { FiguraLibro } from "@/components/biblioteca/FiguraLibro";
 
 function GrainOverlay() {
   return (
@@ -317,6 +318,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 1: La Planta como Laboratorio ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>La Planta como Laboratorio</SectionTitle>
+          <FiguraLibro num="1" titulo="Fisiología de la planta" src="/biblioteca/fisiologia/lamina-1.png" prompt="Una planta frondosa con luz dorada brillando dentro de sus hojas y tallo, como un laboratorio vivo lleno de savia y energia. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <BodyText>
               Imagina una fábrica que opera sin descanso desde que nació la vida
               en la Tierra — sin gerentes, sin turnos, sin residuos. Cada célula
@@ -345,6 +347,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 2: La Célula Vegetal ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>La Célula Vegetal — Estructura y Función</SectionTitle>
+          <FiguraLibro num="2" titulo="La célula vegetal" src="/biblioteca/fisiologia/lamina-2.png" prompt="El interior de una celula vegetal visto al microscopio: forma rectangular con pared, muchos cloroplastos verdes ovalados, una gran vacuola central y el nucleo, formas organicas. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <BodyText>
               La célula vegetal comparte con la célula animal su núcleo,
               mitocondrias y retículo endoplasmático. Pero posee tres estructuras
@@ -380,6 +383,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 3: Fotosíntesis ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>Fotosíntesis y Metabolismo Primario</SectionTitle>
+          <FiguraLibro num="3" titulo="Fotosíntesis" src="/biblioteca/fisiologia/lamina-3.png" prompt="Una hoja verde translucida captando un rayo de sol, con la luz transformandose en energia y pequenas burbujas de oxigeno. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <InlineFormula>6 CO₂ + 6 H₂O + luz → C₆H₁₂O₆ + 6 O₂</InlineFormula>
             <BodyText>
               Esta ecuación esconde una cadena de más de cien reacciones
@@ -407,6 +411,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 4: Xilema y Floema ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>El Sistema Vascular — Xilema y Floema</SectionTitle>
+          <FiguraLibro num="4" titulo="El floema y el xilema" src="/biblioteca/fisiologia/lamina-4.png" prompt="El interior de un tallo con dos corrientes de savia, una subiendo y otra bajando por canales finos como venas de la planta. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <BodyText>
               Las plantas vasculares evolucionaron hace más de 400 millones de
               años una solución brillante al problema de escala: una red de
@@ -441,6 +446,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 5: Estrés y Respuesta ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>Estrés y Respuesta Química</SectionTitle>
+          <FiguraLibro num="5" titulo="Defensa química" src="/biblioteca/fisiologia/lamina-5.png" prompt="Una planta defendiendose bajo el ataque de un insecto, liberando un aura de compuestos protectores brillantes a su alrededor. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <BodyText>
               Cuando una planta sufre — y las plantas sufren — activa respuestas
               defensivas de una sofisticación asombrosa. Una herida mecánica
@@ -469,6 +475,7 @@ export default function FisiologiaVegetal() {
           {/* ── Section 6: De la Planta a tu Piel ── */}
           <article style={{ marginBottom: "clamp(48px, 7vh, 72px)" }}>
             <SectionTitle>De la Planta a tu Piel</SectionTitle>
+          <FiguraLibro num="6" titulo="De la planta a la piel" src="/biblioteca/fisiologia/lamina-6.png" prompt="Una gota de extracto vegetal dorado cayendo sobre la piel, con una planta reflejada, uniendo botanica y cuidado. Ilustracion botanica antigua pintada a mano, tinta y acuarela, tonos sepia y dorado envejecido sobre fondo verde bosque muy oscuro, estetica de grimorio, luz calida y atmosferica, muy detallada. MUY IMPORTANTE: la imagen NO debe tener ningun texto, ni letras, ni palabras, ni etiquetas, ni rotulos, ni numeros, ni titulos, ni escritura de ningun tipo en ninguna parte. Nada de tipografia. Sin marca de agua. Solo la ilustracion, completamente limpia y sin texto." />
             <BodyText>
               Entender la fisiología vegetal nos permite formular con criterio.
               Saber que los activos más potentes suelen concentrarse en la vacuola

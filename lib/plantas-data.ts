@@ -12,7 +12,8 @@ export type CategoriaKey =
   | "sistema-nervioso"
   | "inmunidad-antimicrobianas"
   | "digestivas"
-  | "piel-cosmetica";
+  | "piel-cosmetica"
+  | "diureticas-depurativas";
 
 export type Planta = {
   slug: string;
@@ -75,6 +76,11 @@ export const categorias: Categoria[] = [
     key: "piel-cosmetica",
     label: "Piel y cosmética",
     descripcion: "Plantas con principios activos compatibles con formulación cosmética: antioxidantes, emolientes, astringentes, despigmentantes y estimulantes de colágeno.",
+  },
+  {
+    key: "diureticas-depurativas",
+    label: "Diuréticas y depurativas",
+    descripcion: "Plantas que aumentan la diuresis y apoyan la eliminación de toxinas por vía renal y hepática. Remineralizantes y depurativas, muy usadas en la tradición chilena para el hígado y los riñones.",
   },
 ];
 
@@ -400,6 +406,419 @@ export const plantas: Planta[] = [
       "No usar flores silvestres sin identificación segura — posible confusión con plantas tóxicas",
     ],
     categorias: ["cicatrizantes", "ciclo-menstrual", "antiinflamatorias", "piel-cosmetica"],
+  },
+  {
+    slug: "boldo",
+    nombre: "Boldo",
+    nombreCientifico: "Peumus boldus",
+    familia: "Monimiaceae",
+    descripcionBreve: "Árbol endémico de Chile, el gran guardián del hígado. Digestivo y colagogo insignia de la herbolaria chilena.",
+    descripcionCompleta: "El boldo es un árbol siempreverde endémico de la zona central de Chile, uno de los emblemas de la medicina tradicional chilena y hoy exportado a todo el mundo. Sus hojas coriáceas y aromáticas contienen el alcaloide boldina, flavonoides y un aceite esencial rico en eucaliptol y ascaridol. La boldina es un potente antioxidante y hepatoprotector que estimula la producción y el flujo de bilis —acción colerética y colagoga—, lo que explica su uso ancestral para las digestiones pesadas, el hígado perezoso y la vesícula.",
+    propiedades: ["hepatoprotector", "digestivo", "colagogo"],
+    usosMedicinales: [
+      "Digestiones lentas y pesadas, dispepsia biliar",
+      "Estimulante de la función hepática y del flujo de bilis",
+      "Apoyo en la salud de la vesícula (bajo supervisión si hay cálculos)",
+      "Carminativo — alivia gases y distensión",
+      "Laxante suave en tránsito lento",
+    ],
+    usosCosmeticos: [
+      "Extracto antioxidante para pieles apagadas y grasas",
+      "Tónico purificante en formulaciones detox faciales",
+      "Agua aromática de hojas como astringente suave",
+      "Activo protector frente al estrés oxidativo cutáneo",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "85–90 °C",
+        tiempo: "8–10 min",
+        descripcion: "2–3 hojas secas por taza (no más). Tapar y reposar. No hervir ni sobredosificar: el ascaridol del aceite esencial es neurotóxico en exceso. Tomar 1 taza después de las comidas, en curas cortas.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Hojas secas en alcohol 70° (1:5). Filtrar. Uso interno en gotas como colerético, o al 3–5% en cosmética como activo antioxidante.",
+      },
+    },
+    contraindicaciones: [
+      "Contraindicado en embarazo y lactancia (el ascaridol puede ser abortivo)",
+      "No usar con obstrucción total de las vías biliares",
+      "Evitar el uso prolongado o en dosis altas — riesgo de toxicidad por ascaridol",
+      "Precaución con anticoagulantes y en enfermedad hepática grave",
+    ],
+    categorias: ["digestivas"],
+  },
+  {
+    slug: "bailahuen",
+    nombre: "Bailahuén",
+    nombreCientifico: "Haplopappus baylahuen",
+    familia: "Asteraceae",
+    descripcionBreve: "Hierba resinosa de la cordillera chilena. Digestiva y hepática, compañera clásica del boldo.",
+    descripcionCompleta: "El bailahuén es una pequeña planta resinosa que crece en la precordillera y cordillera andina del norte y centro de Chile, muy valorada en la medicina popular chilena. Sus hojas pegajosas y aromáticas concentran resinas, flavonoides derivados del ácido cafeico y un aceite esencial. Actúa como colagogo y hepatoprotector, estimulando la digestión de las grasas, y se ha usado tradicionalmente junto al boldo para las molestias del hígado y la vesícula.",
+    propiedades: ["digestivo", "colagogo", "hepatoprotector"],
+    usosMedicinales: [
+      "Digestiones difíciles, sobre todo de comidas grasas",
+      "Estimulante hepático y biliar",
+      "Antiséptico digestivo suave",
+      "Sudorífico en resfríos y estados gripales",
+    ],
+    usosCosmeticos: [
+      "Extracto antioxidante y purificante para piel grasa",
+      "Tónico astringente por su contenido resinoso",
+      "Activo en formulaciones detox",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "90 °C",
+        tiempo: "10 min",
+        descripcion: "Una cucharadita de hojas secas por taza. Tapar. Tomar después de las comidas para estimular la digestión. Sabor amargo-resinoso característico.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Hojas en alcohol 70° (1:5) — el alcohol extrae bien las resinas. Uso digestivo en gotas o como activo cosmético astringente.",
+      },
+    },
+    contraindicaciones: [
+      "Evitar en embarazo y lactancia",
+      "No usar con obstrucción de las vías biliares",
+      "Puede causar dermatitis de contacto en sensibles a Asteráceas",
+      "Uso en curas cortas, no prolongado",
+    ],
+    categorias: ["digestivas", "diureticas-depurativas"],
+  },
+  {
+    slug: "canelo",
+    nombre: "Canelo · Foye",
+    nombreCientifico: "Drimys winteri",
+    familia: "Winteraceae",
+    descripcionBreve: "El árbol sagrado del pueblo mapuche. Cicatrizante y antimicrobiano, histórico remedio antiescorbútico del sur.",
+    descripcionCompleta: "El canelo o foye es el árbol sagrado por excelencia de la cultura mapuche, presente en sus ceremonias más importantes. Crece en los bosques húmedos del centro-sur de Chile. Su corteza es extraordinariamente rica en vitamina C —fue usada para prevenir el escorbuto— y contiene sesquiterpenos como el poligodial, de marcada acción antimicrobiana, antifúngica y antiinflamatoria, además de taninos y flavonoides. Une así el valor espiritual con una potente actividad cicatrizante y protectora de la piel.",
+    propiedades: ["cicatrizante", "antimicrobiano", "antiinflamatorio"],
+    usosMedicinales: [
+      "Cicatrización de heridas y úlceras cutáneas",
+      "Antiséptico en afecciones de la piel y mucosas",
+      "Antiinflamatorio en dolores reumáticos (uso tópico)",
+      "Histórico antiescorbútico por su alto contenido de vitamina C",
+      "Antifúngico en micosis superficiales",
+    ],
+    usosCosmeticos: [
+      "Activo cicatrizante y antioxidante (vitamina C natural)",
+      "Extracto antimicrobiano para pieles con tendencia acneica",
+      "Tónico de corteza para pieles agredidas",
+      "Ingrediente en bálsamos reparadores",
+    ],
+    preparacion: {
+      decoccion: {
+        temperatura: "100 °C",
+        tiempo: "15 min",
+        descripcion: "Corteza fragmentada (3–5 g por 300 ml). Hervir y enfriar. Uso tópico como lavado antiséptico y cicatrizante de heridas, o en baños de zona.",
+      },
+      infusion: {
+        temperatura: "85 °C",
+        tiempo: "10 min",
+        descripcion: "Hojas frescas o secas. Temperatura moderada para preservar la vitamina C. Uso tópico como tónico; internamente con precaución.",
+      },
+      maceracion: {
+        temperatura: "Ambiente",
+        tiempo: "3–4 semanas",
+        descripcion: "Corteza u hojas en aceite vegetal para un oleato cicatrizante, base de ungüentos reparadores.",
+      },
+    },
+    contraindicaciones: [
+      "Evitar el uso interno en embarazo y lactancia",
+      "En dosis altas la corteza puede ser irritante del tracto digestivo",
+      "Realizar prueba de parche antes del uso tópico extendido",
+      "Respetar su carácter de planta sagrada — usar con atribución cultural",
+    ],
+    categorias: ["cicatrizantes", "inmunidad-antimicrobianas", "piel-cosmetica"],
+  },
+  {
+    slug: "llanten",
+    nombre: "Llantén",
+    nombreCientifico: "Plantago major",
+    familia: "Plantaginaceae",
+    descripcionBreve: "La hierba cicatrizante universal, presente en todo Chile. Repara la piel y calma las vías respiratorias.",
+    descripcionCompleta: "El llantén crece como maleza en todo Chile y es una de las plantas medicinales más usadas del mundo. Sus hojas contienen aucubina (un glucósido iridoide antimicrobiano y antiinflamatorio), mucílagos que calman y protegen las mucosas, alantoína que estimula la regeneración celular, taninos astringentes y flavonoides. Esta combinación lo hace a la vez cicatrizante, antiinflamatorio, astringente y expectorante suave —un botiquín en una sola hoja.",
+    propiedades: ["cicatrizante", "antiinflamatorio", "expectorante"],
+    usosMedicinales: [
+      "Cicatrización de heridas, picaduras y quemaduras leves",
+      "Antiinflamatorio y calmante de la garganta y las vías respiratorias",
+      "Astringente en diarreas leves",
+      "Descongestivo y expectorante suave en la tos",
+      "Calmante de irritaciones oculares (uso tópico muy diluido)",
+    ],
+    usosCosmeticos: [
+      "Activo cicatrizante y calmante (alantoína natural)",
+      "Extracto para pieles sensibles, reactivas o irritadas",
+      "Tónico astringente suave para pieles mixtas",
+      "Ingrediente en cremas reparadoras post-sol o post-depilación",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "90 °C",
+        tiempo: "10 min",
+        descripcion: "Hojas secas (2 g/200 ml). Tapar. Como gárgara para la garganta, bebida para la tos, o compresa fría cicatrizante sobre la piel.",
+      },
+      maceracion: {
+        temperatura: "Ambiente",
+        tiempo: "3–4 semanas",
+        descripcion: "Hojas frescas machacadas en aceite vegetal para un oleato reparador, base de ungüentos cicatrizantes.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Hojas en alcohol 70° (1:5). Al 5–10% en cosmética como activo calmante y astringente.",
+      },
+    },
+    contraindicaciones: [
+      "Muy bien tolerado; raras reacciones alérgicas",
+      "Recolectar lejos de caminos y zonas contaminadas (acumula metales)",
+      "Moderar el uso interno prolongado por su contenido de taninos",
+      "Prueba de parche antes del uso tópico extendido en piel muy reactiva",
+    ],
+    categorias: ["cicatrizantes", "expectorantes", "antiinflamatorias", "piel-cosmetica"],
+  },
+  {
+    slug: "paico",
+    nombre: "Paico",
+    nombreCientifico: "Dysphania ambrosioides",
+    familia: "Amaranthaceae",
+    descripcionBreve: "Hierba aromática del campo chileno. Digestiva y carminativa, remedio tradicional para el estómago.",
+    descripcionCompleta: "El paico es una hierba aromática muy usada en la medicina popular chilena y latinoamericana, que crece espontánea en terrenos removidos. Su intenso aroma proviene de un aceite esencial rico en ascaridol, junto a flavonoides y terpenos. Tradicionalmente se ha empleado como digestivo y carminativo para los dolores de estómago y los gases, y como antiparasitario intestinal —aunque este último uso exige mucha prudencia por la toxicidad del ascaridol.",
+    propiedades: ["digestivo", "carminativo", "antiespasmódico"],
+    usosMedicinales: [
+      "Dolores de estómago y digestiones difíciles",
+      "Carminativo — expulsa gases y alivia la distensión",
+      "Antiespasmódico en cólicos intestinales",
+      "Antiparasitario tradicional (solo bajo supervisión, por su toxicidad)",
+    ],
+    usosCosmeticos: [
+      "Uso cosmético muy limitado por la toxicidad del aceite esencial",
+      "Eventual extracto antimicrobiano a muy baja concentración",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "85 °C",
+        tiempo: "5–8 min",
+        descripcion: "Muy pocas hojas frescas por taza (una ramita pequeña). Tapar. Tomar puntualmente tras las comidas. NO sobredosificar ni usar a diario: el ascaridol es tóxico acumulativo.",
+      },
+    },
+    contraindicaciones: [
+      "Contraindicado en embarazo y lactancia (abortivo)",
+      "No usar en niños pequeños",
+      "Tóxico en dosis altas o uso prolongado (ascaridol neuro y hepatotóxico)",
+      "Nunca usar el aceite esencial puro por vía interna",
+    ],
+    categorias: ["digestivas"],
+  },
+  {
+    slug: "rosa-mosqueta",
+    nombre: "Rosa Mosqueta",
+    nombreCientifico: "Rosa rubiginosa",
+    familia: "Rosaceae",
+    descripcionBreve: "El tesoro cosmético del sur de Chile. Su aceite regenera cicatrices, estrías y piel madura.",
+    descripcionCompleta: "La rosa mosqueta es un arbusto naturalizado en el sur de Chile, donde crece silvestre y se cosecha su fruto (el escaramujo). De sus semillas se extrae por prensado en frío un aceite excepcional: ~40% ácido linoleico y ~35% ácido alfa-linolénico (omega-3), además de trazas de ácido transretinoico —precursor natural de la vitamina A—, tocoferoles y carotenoides. Es uno de los aceites regeneradores más valorados del mundo, ícono de la cosmética natural chilena. El fruto, además, es riquísimo en vitamina C.",
+    propiedades: ["regenerador", "cicatrizante", "antioxidante"],
+    usosMedicinales: [
+      "Regeneración de la piel tras heridas y cirugías",
+      "Atenuación de cicatrices y quemaduras",
+      "Aporte de vitamina C (fruto) para el sistema inmune",
+      "Antioxidante frente al daño solar acumulado",
+    ],
+    usosCosmeticos: [
+      "Aceite antiedad para piel madura — estimula el colágeno",
+      "Atenúa estrías, cicatrices y manchas",
+      "Activo reparador en sérums y aceites faciales",
+      "Nutritivo para pieles secas y desvitalizadas",
+    ],
+    preparacion: {
+      maceracion: {
+        temperatura: "Ambiente (frío)",
+        tiempo: "Uso directo",
+        descripcion: "El aceite se obtiene por prensado en frío de las semillas. Uso directo sobre la piel o al 5–15% en formulaciones. Termosensible: incorporar siempre bajo 38 °C y conservar refrigerado.",
+      },
+      infusion: {
+        temperatura: "75 °C",
+        tiempo: "8 min",
+        descripcion: "Con el fruto (escaramujo) seco y troceado, como infusión rica en vitamina C. Temperatura baja para preservarla.",
+      },
+    },
+    contraindicaciones: [
+      "El aceite se oxida (enrancia) con facilidad — conservar en frío y oscuridad",
+      "En pieles muy grasas o acneicas puede resultar comedogénico en exceso",
+      "Realizar prueba de parche en pieles reactivas",
+      "No exponer el aceite a calor alto (degrada el retinoico y los omega)",
+    ],
+    categorias: ["cicatrizantes", "piel-cosmetica"],
+  },
+  {
+    slug: "manzanilla",
+    nombre: "Manzanilla",
+    nombreCientifico: "Matricaria chamomilla",
+    familia: "Asteraceae",
+    descripcionBreve: "La flor calmante universal. Digestiva, antiinflamatoria y suave para la piel más sensible.",
+    descripcionCompleta: "La manzanilla es quizá la planta medicinal más popular de Chile y el mundo. Sus pequeñas flores concentran un aceite esencial con camazuleno —de intenso color azul y potente acción antiinflamatoria— y bisabolol, junto a flavonoides como la apigenina, de efecto ansiolítico y sedante suave, y mucílagos. Esta combinación la hace digestiva, antiinflamatoria, calmante y cicatrizante, apta incluso para bebés y pieles muy sensibles.",
+    propiedades: ["antiinflamatorio", "digestivo", "sedante"],
+    usosMedicinales: [
+      "Digestiones difíciles, cólicos y gases",
+      "Calmante suave de la ansiedad y ayuda para dormir",
+      "Antiinflamatorio de mucosas (gárgaras, ojos, vías digestivas)",
+      "Antiespasmódico en cólicos menstruales e intestinales",
+      "Cicatrizante de irritaciones leves de la piel",
+    ],
+    usosCosmeticos: [
+      "Activo calmante para pieles sensibles, reactivas y con rojeces",
+      "Agua floral (hidrolato) como tónico suave y descongestivo",
+      "Extracto para contorno de ojos y pieles delicadas",
+      "Aclara y da brillo al cabello rubio",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "90 °C",
+        tiempo: "8–10 min",
+        descripcion: "Flores secas (2 g/200 ml). Tapar bien para no perder los aceites. Bebida digestiva y relajante; compresa fría para ojos irritados; enjuague calmante para la piel.",
+      },
+      maceracion: {
+        temperatura: "Ambiente (método solar)",
+        tiempo: "3–4 semanas",
+        descripcion: "Flores en aceite vegetal para un oleato antiinflamatorio y calmante, base de bálsamos para pieles sensibles.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Flores en alcohol 70° (1:5). Al 3–5% en cosmética como activo calmante.",
+      },
+    },
+    contraindicaciones: [
+      "Posible alergia en personas sensibles a las Asteráceas (margaritas)",
+      "En dosis muy altas puede ser emética",
+      "Precaución con anticoagulantes (contenido de cumarinas)",
+      "Prueba de parche antes del uso tópico en piel muy reactiva",
+    ],
+    categorias: ["digestivas", "sistema-nervioso", "antiinflamatorias", "piel-cosmetica"],
+  },
+  {
+    slug: "cola-de-caballo",
+    nombre: "Cola de Caballo",
+    nombreCientifico: "Equisetum arvense",
+    familia: "Equisetaceae",
+    descripcionBreve: "Un fósil viviente rico en sílice. Diurético, remineralizante y reafirmante de piel, cabello y uñas.",
+    descripcionCompleta: "La cola de caballo es una de las plantas más antiguas del planeta, un fósil viviente sin flores que se reproduce por esporas y crece en lugares húmedos de Chile. Es excepcionalmente rica en sílice (ácido silícico) —hasta un 10% de su peso seco—, además de potasio, flavonoides y saponinas. El silicio es esencial para la síntesis de colágeno y elastina, lo que explica su fama como remineralizante y reafirmante de los tejidos, y su acción diurética la hace clásica en las curas depurativas.",
+    propiedades: ["diurético", "remineralizante", "reafirmante"],
+    usosMedicinales: [
+      "Diurético en retención de líquidos y curas depurativas",
+      "Remineralizante (aporte de silicio) para huesos, uñas y cabello",
+      "Cicatrizante y hemostático por sus taninos y sílice",
+      "Astringente en diarreas leves",
+      "Apoyo en infecciones urinarias leves (aumenta la diuresis)",
+    ],
+    usosCosmeticos: [
+      "Reafirmante y antiedad — estimula el colágeno y la elastina",
+      "Fortalecedor de cabello y uñas (silicio)",
+      "Astringente para pieles grasas y poros dilatados",
+      "Activo en tónicos y champús anticaída",
+    ],
+    preparacion: {
+      decoccion: {
+        temperatura: "100 °C",
+        tiempo: "20–30 min",
+        descripcion: "El silicio se libera mejor con hervor prolongado: 3 g de planta seca por 300 ml, hervir tapado. Bebida diurética y remineralizante, o enjuague fortalecedor para el cabello.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Planta seca en alcohol 70° (1:5). Al 5% en cosmética como activo reafirmante.",
+      },
+    },
+    contraindicaciones: [
+      "No usar en edemas por insuficiencia cardíaca o renal grave",
+      "El uso prolongado puede reducir la tiamina (vitamina B1) — hacer curas cortas",
+      "Evitar en embarazo y lactancia",
+      "Identificar bien la especie: no confundir con Equisetum palustre (tóxico)",
+    ],
+    categorias: ["diureticas-depurativas", "cicatrizantes", "piel-cosmetica"],
+  },
+  {
+    slug: "melisa",
+    nombre: "Toronjil · Melisa",
+    nombreCientifico: "Melissa officinalis",
+    familia: "Lamiaceae",
+    descripcionBreve: "La hierba del ánimo, con aroma a limón. Calma los nervios y el estómago; el 'toronjil' de las abuelas chilenas.",
+    descripcionCompleta: "El toronjil o melisa es una hierba aromática con inconfundible aroma a limón, cultivada en huertos de todo Chile y clásica del té de las abuelas para 'los nervios'. Sus hojas contienen ácido rosmarínico y otros polifenoles —de acción antioxidante, ansiolítica y antiviral—, junto a un aceite esencial rico en citral y citronelal. Es un sedante suave que no produce dependencia, un buen digestivo, y su extracto es un antiviral reconocido frente al herpes labial.",
+    propiedades: ["sedante", "digestivo", "antiviral"],
+    usosMedicinales: [
+      "Ansiedad, nerviosismo e insomnio leve",
+      "Digestivo y antiespasmódico en molestias de origen nervioso",
+      "Antiviral tópico frente al herpes labial (ácido rosmarínico)",
+      "Calmante de palpitaciones de origen nervioso",
+    ],
+    usosCosmeticos: [
+      "Activo antioxidante y calmante para pieles reactivas",
+      "Agua floral (hidrolato) como tónico refrescante",
+      "Extracto antiviral en bálsamos labiales",
+      "Aromaterapia relajante en brumas y cremas",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "85 °C",
+        tiempo: "8–10 min",
+        descripcion: "Hojas frescas o secas (2–3 g/200 ml). Tapar para conservar los aceites volátiles. Tomar en la tarde-noche para calmar o después de comer para digerir.",
+      },
+      tintura: {
+        temperatura: "Ambiente",
+        tiempo: "3 semanas",
+        descripcion: "Hojas en alcohol 70° (1:5). Uso ansiolítico en gotas o al 3–5% en cosmética.",
+      },
+    },
+    contraindicaciones: [
+      "En dosis altas puede afectar la función tiroidea — precaución en hipotiroidismo",
+      "Puede potenciar sedantes y ansiolíticos",
+      "Evitar dosis altas en embarazo",
+      "Somnolencia: precaución al conducir tras dosis altas",
+    ],
+    categorias: ["sistema-nervioso", "digestivas"],
+  },
+  {
+    slug: "menta",
+    nombre: "Menta",
+    nombreCientifico: "Mentha × piperita",
+    familia: "Lamiaceae",
+    descripcionBreve: "Frescor y digestión en una hoja. Antiespasmódica, carminativa y descongestiva.",
+    descripcionCompleta: "La menta piperita es un híbrido aromático cultivado en todo Chile, protagonista de infusiones y remedios caseros. Su aceite esencial es riquísimo en mentol y mentona, responsables de su frescor característico y de su acción antiespasmódica sobre el músculo liso digestivo, además de flavonoides y ácido rosmarínico. Es un digestivo y carminativo de primer orden, un descongestivo respiratorio y un analgésico tópico suave por el efecto frío del mentol.",
+    propiedades: ["antiespasmódico", "digestivo", "descongestivo"],
+    usosMedicinales: [
+      "Digestiones difíciles, cólicos y gases (antiespasmódico)",
+      "Náuseas y malestar estomacal",
+      "Descongestivo respiratorio en resfríos (inhalaciones)",
+      "Analgésico tópico suave (dolor de cabeza y muscular) por el mentol",
+      "Alivio del colon irritable (aceite con cubierta entérica)",
+    ],
+    usosCosmeticos: [
+      "Activo refrescante en cremas de piernas cansadas y pies",
+      "Tónico purificante para pieles grasas",
+      "Aroma y frescor en pasta dental y bálsamos labiales",
+      "Estimulante del cuero cabelludo en champús",
+    ],
+    preparacion: {
+      infusion: {
+        temperatura: "85 °C",
+        tiempo: "8 min",
+        descripcion: "Hojas frescas o secas (2 g/200 ml). Tapar. Digestiva después de comer; en vahos para descongestionar las vías respiratorias.",
+      },
+      maceracion: {
+        temperatura: "Ambiente",
+        tiempo: "2–3 semanas",
+        descripcion: "Hojas en aceite vegetal para un oleato refrescante, base de bálsamos para piernas y músculos.",
+      },
+    },
+    contraindicaciones: [
+      "No aplicar mentol ni aceite esencial en la cara de bebés y niños pequeños (riesgo de espasmo laríngeo)",
+      "Puede agravar el reflujo gastroesofágico (relaja el esfínter esofágico)",
+      "Evitar el aceite esencial puro sobre la piel sin diluir",
+      "Precaución en cálculos biliares y hernia de hiato",
+    ],
+    categorias: ["digestivas", "sistema-nervioso"],
   },
 ];
 

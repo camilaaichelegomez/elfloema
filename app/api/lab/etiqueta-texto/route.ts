@@ -39,6 +39,19 @@ EXCELENTE: "Se funde al primer toque y deja la piel flexible, sin película gras
 Responde ÚNICAMENTE con un JSON válido, sin texto adicional, con este formato exacto:
 {"es_cosmetico_topico": boolean, "tipo_producto": "string", "modo_uso": "string", "advertencias": "string", "descripcion_catalogo": "string", "descripcion_redes": "string"}`;
 
+// Glosario de referencia: función real de cada ingrediente (EN LA PIEL / EN LA FÓRMULA).
+// Se inyecta al prompt para que el modelo NO invente y conecte cada ingrediente con su
+// acción verdadera, sobre todo en activos e ingredientes botánicos/nativos.
+const GLOSARIO_INGREDIENTES = `GLOSARIO DE INGREDIENTES — usa esto para explicar cómo actúa cada ingrediente. Si un ingrediente del producto está aquí, respeta su función; si NO está y no la conoces con certeza, no inventes: menciónalo sin atribuirle un beneficio dudoso.
+
+TENSIOACTIVOS (limpian): SCI / Sodium Cocoyl Isethionate — deriva de aminoácidos y coco; limpia con espuma cremosa sin resecar ni dañar la barrera. Coco-Glucoside / Glucósido de coco — tensioactivo azucarado del coco, ultra suave, apto para piel sensible. Cocamidopropyl Betaine / Betaína de coco — co-tensioactivo suave; da cuerpo y acondiciona. SLSA / SCS — tensioactivos de coco para más espuma en sólidos.
+HUMECTANTES / HIDRATANTES: Glicerina — atrae y retiene agua, evita la tirantez. Ácido hialurónico — retiene agua en profundidad, efecto plumping. Pantenol (B5) — calma, repara la barrera, deja sensación sedosa. Urea — hidrata (parte del factor natural de hidratación); en alta concentración es queratolítica. Inulina — prebiótico: nutre el microbioma sano de la piel. Lactato de sodio — humectante del manto natural.
+ACTIVOS: Niacinamida (B3) — regula el sebo, empareja el tono, reduce manchas, fortalece la barrera. Vitamina C / ácido ascórbico — antioxidante, ilumina, estimula el colágeno. Ácido salicílico (BHA) — seborregulador, exfolia dentro del poro; piel grasa y con tendencia acneica. Ácido glicólico (AHA) — renueva, alisa e ilumina. Ácido láctico — exfolia suave e hidrata, buena tolerancia. Gluconolactona (PHA) — renueva sin irritar; apto para piel sensible o con rosácea. Alantoína — calmante y cicatrizante. Centella asiática — repara, calma, estimula colágeno. Aloe vera — hidrata, calma, refresca. Cafeína — descongestiona y reafirma. Vitamina E — antioxidante que protege los aceites y la piel.
+BOTÁNICOS Y NATIVOS DE CHILE: Hidrolato de triwe (laurel nativo) — agua aromática suave; base acuosa noble y ligera con frescor herbal. Matico — tradición cicatrizante y antiinflamatoria. Maqui — antioxidante potente (antocianinas). Rosa mosqueta — regenera, antiedad, atenúa cicatrices. Manzanilla y caléndula — calmantes y antiinflamatorias. Romero — antioxidante y tonificante. Boldo, arrayán, canelo (foye) — nativos aromáticos, purificantes.
+ACEITES Y MANTECAS: Manteca de karité — nutre, repara, antiinflamatoria; da cuerpo. Aceite de jojoba — regula el sebo (parecido al sebo humano). Aceite de rosa mosqueta — regenera, ideal piel madura. Escualano — emoliente ligero para piel sensible. Aceite de coco — humectante, forma capa protectora. Ácido esteárico — da cuerpo y emoliencia.
+ARCILLAS: Caolín (blanca) — suave, absorbe grasa, piel sensible. Verde — purifica y seborregula, piel grasa/acné. Roja — revitaliza la piel apagada.
+AUXILIARES (rol técnico, no beneficio en la piel): Ácido cítrico — ajusta el pH al de la piel (~5.5). Cosgard / conservante — evita la contaminación en fórmulas con agua. Goma xantana — espesa y da la textura. Agua destilada — vehículo. Alcohol cetílico / emulsionantes — unen agua y aceite y dan textura.`;
+
 // Revisor independiente y adversarial: su único trabajo es CAZAR errores graves,
 // sobre todo tratar como cosmético algo que no se aplica sobre el cuerpo.
 const REVISOR_INSTRUCTION = `Eres un revisor crítico y estricto de etiquetas de cosmética. Te dan un producto, sus ingredientes y un texto de etiqueta generado por otra IA. Tu ÚNICO trabajo es detectar errores graves, especialmente:
@@ -100,7 +113,7 @@ export async function POST(request: NextRequest) {
     const completion = await groq.chat.completions.create({
       model: MODELO,
       messages: [
-        { role: "system", content: SYSTEM_INSTRUCTION },
+        { role: "system", content: `${SYSTEM_INSTRUCTION}\n\n${GLOSARIO_INGREDIENTES}` },
         { role: "user", content: mensajeUsuario },
       ],
       response_format: { type: "json_object" },

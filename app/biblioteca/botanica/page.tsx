@@ -84,7 +84,7 @@ interface AccordionItemProps { id: string; title: string; open: boolean; onToggl
 function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) {
   return (
     <div style={{ border: `1px solid ${open ? "rgba(200,160,80,0.3)" : "rgba(200,160,80,0.1)"}`, borderRadius: "0.5rem", marginBottom: "0.5rem", background: open ? "rgba(200,160,80,0.04)" : "transparent", transition: "border-color 0.3s, background 0.3s", overflow: "hidden" }}>
-      <button onClick={(e) => { const el = e.currentTarget as HTMLElement; const abrir = !open; onToggle(); if (abrir) setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }), 220); }} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.25rem", background: "none", border: "none", cursor: "pointer", textAlign: "left", gap: "1rem" }}>
+      <button onClick={(e) => { const el = e.currentTarget as HTMLElement; const abrir = !open; onToggle(); if (abrir) setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }), 400); }} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.25rem", background: "none", border: "none", cursor: "pointer", textAlign: "left", gap: "1rem" }}>
         <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#c8a050" }}>{title}</span>
         <span style={{ color: "rgba(200,160,80,0.6)", fontSize: "0.9rem", display: "inline-block", transform: open ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.3s ease", flexShrink: 0 }}>→</span>
       </button>

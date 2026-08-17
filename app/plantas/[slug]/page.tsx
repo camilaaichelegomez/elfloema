@@ -115,7 +115,7 @@ export default async function PlantaPage({
   return (
     <>
       <Navbar />
-      <main style={{ background: "var(--bg-primary)", minHeight: "100vh", paddingTop: "5rem" }}>
+      <main style={{ background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_planta.jpg') center top / cover fixed, var(--bg-primary)", minHeight: "100vh", paddingTop: "5rem" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", padding: "clamp(2rem,5vh,4rem) clamp(1.5rem,5vw,3rem) 6rem" }}>
           {/* Nav */}
           <div style={{ marginBottom: "clamp(2rem,4vh,3rem)" }}>

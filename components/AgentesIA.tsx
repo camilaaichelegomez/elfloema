@@ -14,7 +14,7 @@ const AGENTES = [
     ),
     titulo: "Agente Naturópata",
     descripcion: "Salud y bienestar con plantas: fitoterapia, Ayurveda y Medicina Tradicional China",
-    etiqueta: "6.029 artículos científicos",
+    etiqueta: "Nutrido por la gran biblioteca",
     color: "rgba(80,160,80,0.12)",
     border: "rgba(200,160,80,0.35)",
   },
@@ -32,7 +32,7 @@ const AGENTES = [
     ),
     titulo: "Agente Botánico",
     descripcion: "Identifica plantas y aprende a extraer sus compuestos: tinturas, hidrolatos, macerados y destilados",
-    etiqueta: "Biblioteca de formulación",
+    etiqueta: "Nutrido por la gran biblioteca",
     color: "rgba(80,160,80,0.10)",
     border: "rgba(200,160,80,0.35)",
   },
@@ -53,7 +53,7 @@ const AGENTES = [
     ),
     titulo: "Asesora de Belleza",
     descripcion: "Rutinas personalizadas para tu piel y cabello con el respaldo de la botánica",
-    etiqueta: "649 artículos científicos",
+    etiqueta: "Nutrido por la gran biblioteca",
     color: "rgba(160,80,140,0.10)",
     border: "rgba(200,160,80,0.35)",
   },
@@ -72,7 +72,7 @@ const AGENTES = [
     ),
     titulo: "Asesora de Formulación",
     descripcion: "Formula tus propios cosméticos con respaldo científico: cremas, shampoos, sérums y más",
-    etiqueta: "935 artículos científicos",
+    etiqueta: "Nutrido por la gran biblioteca",
     color: "rgba(80,120,200,0.08)",
     border: "rgba(200,160,80,0.35)",
   },
@@ -163,8 +163,8 @@ export function AgentesIA() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "2rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "1.1rem",
           }}
         >
           {AGENTES.map((a) => (
@@ -179,11 +179,11 @@ export function AgentesIA() {
                   background: `linear-gradient(135deg, rgba(8,15,8,0.92), rgba(6,12,6,0.95))`,
                   border: `1.5px solid rgba(200,160,80,0.55)`,
                   borderRadius: "1rem",
-                  padding: "2rem 1.75rem",
+                  padding: "1.4rem 1.2rem",
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1.25rem",
+                  gap: "0.9rem",
                   cursor: "pointer",
                   transition: "transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease",
                   position: "relative",
@@ -207,8 +207,8 @@ export function AgentesIA() {
                 {/* Icono */}
                 <div
                   style={{
-                    width: 72,
-                    height: 72,
+                    width: 54,
+                    height: 54,
                     borderRadius: "0.75rem",
                     background: "rgba(200,160,80,0.06)",
                     border: "1px solid rgba(200,160,80,0.2)",
@@ -226,10 +226,10 @@ export function AgentesIA() {
                   <h3
                     style={{
                       fontFamily: "var(--font-grimoire)",
-                      fontSize: "1rem",
-                      letterSpacing: "0.08em",
+                      fontSize: "0.88rem",
+                      letterSpacing: "0.07em",
                       color: "var(--color-gold-light)",
-                      margin: "0 0 0.6rem",
+                      margin: "0 0 0.45rem",
                       fontWeight: 400,
                       textShadow: "0 1px 6px rgba(0,0,0,0.9)",
                     }}
@@ -240,11 +240,11 @@ export function AgentesIA() {
                     style={{
                       fontFamily: "var(--font-body)",
                       fontStyle: "italic",
-                      fontSize: "0.95rem",
+                      fontSize: "0.82rem",
                       color: "var(--color-cream)",
                       opacity: 0.92,
                       margin: 0,
-                      lineHeight: 1.65,
+                      lineHeight: 1.5,
                       textShadow: "0 1px 4px rgba(0,0,0,0.85)",
                     }}
                   >
@@ -258,23 +258,25 @@ export function AgentesIA() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    paddingTop: "1rem",
+                    gap: "0.5rem",
+                    paddingTop: "0.8rem",
                     borderTop: "1px solid rgba(200,160,80,0.1)",
                   }}
                 >
                   <span
                     style={{
                       fontFamily: "var(--font-grimoire)",
-                      fontSize: "0.72rem",
-                      letterSpacing: "0.18em",
+                      fontSize: "0.56rem",
+                      letterSpacing: "0.1em",
                       textTransform: "uppercase",
                       color: "var(--color-gold)",
                       opacity: 0.70,
+                      lineHeight: 1.4,
                     }}
                   >
                     {a.etiqueta}
                   </span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a050" strokeWidth="1.5" opacity={0.5}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a050" strokeWidth="1.5" opacity={0.5} style={{ flexShrink: 0 }}>
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </div>

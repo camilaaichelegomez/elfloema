@@ -120,7 +120,7 @@ export default function MetodosExtraccion() {
   const toggle = (id: SectionId) => setOpen(prev => prev === id ? null : id);
 
   return (
-    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48 }}>
+    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/metodos_deextraccion.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
       <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)" }}>
         <BackButton />

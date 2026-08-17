@@ -129,8 +129,14 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
           <p style={izquierda.sectionTextSmall}>{data.modo_uso}</p>
           {data.ingredientes && (
             <>
-              <h2 style={izquierda.sectionTitle}>Ingredientes (INCI)</h2>
+              <h2 style={izquierda.sectionTitle}>Ingredientes</h2>
               <p style={izquierda.sectionTextSmall}>{data.ingredientes}</p>
+            </>
+          )}
+          {data.advertencias && (
+            <>
+              <h2 style={izquierda.sectionTitle}>Advertencias</h2>
+              <p style={izquierda.sectionTextSmall}>{data.advertencias}</p>
             </>
           )}
         </div>
@@ -149,10 +155,10 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
 
       <div style={zoneRight}>
         <div style={{ marginTop: `${data.offset_right_mm}mm` }}>
-          {data.advertencias && (
+          {data.descripcion_catalogo && (
             <>
-              <h2 style={derecha.sectionTitle}>Advertencias</h2>
-              <p style={derecha.sectionTextSmall}>{data.advertencias}</p>
+              <h2 style={derecha.sectionTitle}>Descripción</h2>
+              <p style={derecha.sectionTextSmall}>{data.descripcion_catalogo}</p>
             </>
           )}
           {data.storage_note && <div style={derecha.storageNote}>{data.storage_note}</div>}

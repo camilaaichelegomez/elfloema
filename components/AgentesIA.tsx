@@ -12,10 +12,28 @@ const AGENTES = [
         <circle cx="24" cy="22" r="2" fill="#c8a050" opacity="0.7"/>
       </svg>
     ),
-    titulo: "Agente Botánico",
-    descripcion: "Consulta sobre plantas medicinales, fitoterapia, Ayurveda y Medicina Tradicional China",
+    titulo: "Agente Naturópata",
+    descripcion: "Salud y bienestar con plantas: fitoterapia, Ayurveda y Medicina Tradicional China",
     etiqueta: "6.029 artículos científicos",
     color: "rgba(80,160,80,0.12)",
+    border: "rgba(200,160,80,0.35)",
+  },
+  {
+    href: "/botanico",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 34, height: 34 }}>
+        <path d="M30 8C30 8 18 10 14 20C10.5 28.5 16 34 24 34C24 34 26 20 34 14C34 14 32 10 30 8Z" stroke="#c8a050" strokeWidth="1.5" fill="rgba(200,160,80,0.06)"/>
+        <path d="M24 34C24 34 22 26 30 18" stroke="#c8a050" strokeWidth="1.2" strokeLinecap="round"/>
+        <path d="M22 36L20 42" stroke="#c8a050" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M18 40C18 40 22 44 26 42" stroke="#c8a050" strokeWidth="1.2" strokeLinecap="round" opacity="0.6"/>
+        <circle cx="16" cy="30" r="1.6" fill="#c8a050" opacity="0.55"/>
+        <circle cx="19" cy="34" r="1.1" fill="#c8a050" opacity="0.4"/>
+      </svg>
+    ),
+    titulo: "Agente Botánico",
+    descripcion: "Identifica plantas y aprende a extraer sus compuestos: tinturas, hidrolatos, macerados y destilados",
+    etiqueta: "Biblioteca de formulación",
+    color: "rgba(80,160,80,0.10)",
     border: "rgba(200,160,80,0.35)",
   },
   {
@@ -123,7 +141,7 @@ export function AgentesIA() {
               textShadow: "0 2px 10px rgba(0,0,0,1), 0 1px 3px rgba(0,0,0,1)",
             }}
           >
-            Tres asistentes especializadas, cada una entrenada con cientos de artículos científicos
+            Cuatro asistentes especializadas, entrenadas con tu biblioteca botánica y científica
           </p>
           {/* Separador dorado */}
           <div

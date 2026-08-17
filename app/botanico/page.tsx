@@ -9,20 +9,20 @@ interface Message {
 }
 
 const CHIPS = [
-  "Hígado",
-  "Estrés",
-  "Maqui",
-  "Digestión",
-  "Inflamación",
-  "Matico",
-  "Sueño",
-  "Yoga",
+  "Tintura",
+  "Hidrolato",
+  "Macerado",
+  "Destilación",
+  "Solventes",
+  "Alcohol",
+  "Aceite esencial",
+  "Glicerito",
 ];
 
 const WELCOME =
-  "Hola, soy Floema 🌿 Experta en fitoterapia, Ayurveda, Medicina Tradicional China y plantas medicinales. Cuéntame qué necesitas saber.";
+  "Hola, soy el Botánico de Floema 🌿 Especialista en plantas y en cómo extraer sus compuestos: tinturas, hidrolatos, macerados, destilados y más. Cuéntame qué planta quieres trabajar o qué método necesitas.";
 
-export default function AgentePage() {
+export default function BotanicoPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,18 +59,18 @@ export default function AgentePage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask", {
+      const res = await fetch("https://el-floema-agente.onrender.com/ask-botanico", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
 
       const data = await res.json();
-      if (!res.ok) console.error("/ask error:", res.status, data);
+      if (!res.ok) console.error("/ask-botanico error:", res.status, data);
       const answer = data.response ?? data.error ?? "No se pudo obtener respuesta.";
       setMessages((prev) => [...prev, { role: "model", content: answer }]);
     } catch (err) {
-      console.error("/ask fetch error:", err);
+      console.error("/ask-botanico fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "model", content: "Hubo un error de conexión. Por favor intenta de nuevo." },
@@ -172,7 +172,7 @@ export default function AgentePage() {
                 lineHeight: 1.2,
               }}
             >
-              Agente Naturópata
+              Agente Botánico
             </h1>
           </div>
 
@@ -447,7 +447,7 @@ export default function AgentePage() {
               autoResize();
             }}
             onKeyDown={handleKeyDown}
-            placeholder="Pregunta sobre plantas, órganos, sistemas del cuerpo..."
+            placeholder="Pregunta sobre plantas y cómo extraer sus compuestos..."
             rows={1}
             style={{
               flex: 1,
@@ -507,7 +507,7 @@ export default function AgentePage() {
             margin: "0.75rem 0 0",
           }}
         >
-          Sabiduría botánica · El Floema
+          Botánica y extracción · El Floema
         </p>
       </div>
 

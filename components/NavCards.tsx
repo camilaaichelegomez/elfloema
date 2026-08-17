@@ -115,6 +115,21 @@ function IconMoon() {
   );
 }
 
+function IconCandle() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <path d="M14,7 C11,12 10,16 14,19 C18,16 17,12 14,7 Z" stroke="#c8a050" strokeWidth="0.9" fill="#c8a050" fillOpacity="0.15" opacity="0.8" />
+      <line x1="14" y1="19" x2="14" y2="21" stroke="#c8a050" strokeWidth="0.8" opacity="0.5" />
+      <rect x="9" y="21" width="10" height="21" rx="1.5" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.6" />
+      <path d="M9,26 C11,24 12,28 14,26 C16,24 17,27 19,25" stroke="#c8a050" strokeWidth="0.5" fill="none" opacity="0.3" />
+      <line x1="27" y1="42" x2="27" y2="20" stroke="#c8a050" strokeWidth="0.9" opacity="0.5" />
+      <circle cx="27" cy="19" r="1.3" fill="#c8a050" opacity="0.5" />
+      <path d="M27,17 C27,13 30,12 28,8 C26,5 29,3 28,1" stroke="#5a7a3a" strokeWidth="0.7" fill="none" opacity="0.4" />
+      <circle cx="14" cy="34" r="1.3" fill="#7a4a8a" opacity="0.35" />
+    </svg>
+  );
+}
+
 const cosmeticaCards = [
   {
     key: "ingredientes",
@@ -154,6 +169,20 @@ const grimorioCards = [
     href: "/bruja-verde",
     Icon: IconMoon,
   },
+  {
+    key: "plantas-sur",
+    label: "Plantas del Sur de Chile",
+    subtitle: "Nativas medicinales y sagradas",
+    href: "/plantas",
+    Icon: IconLeaf,
+  },
+  {
+    key: "velas-inciensos",
+    label: "Velas e Inciensos",
+    subtitle: "Fuego, humo e intención",
+    href: "/bruja-verde",
+    Icon: IconCandle,
+  },
 ];
 
 function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeticaCards }) {
@@ -180,21 +209,20 @@ function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeti
         zIndex: 10,
       }}
     >
-      {/* Section label */}
+      {/* Section title */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "14px",
-          marginBottom: "clamp(20px, 3vh, 36px)",
-          opacity: 0.35,
+          gap: "18px",
+          marginBottom: "clamp(28px, 4vh, 48px)",
         }}
       >
-        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #c8a050)" }} />
-        <span style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c8a050" }}>
+        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(200,160,80,0.5))" }} />
+        <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "clamp(1.15rem, 2.6vw, 1.7rem)", letterSpacing: "0.16em", textTransform: "uppercase", color: "#e8c070", margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.9)", whiteSpace: "nowrap" }}>
           {titulo}
-        </span>
-        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #c8a050)" }} />
+        </h3>
+        <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(200,160,80,0.5))" }} />
       </div>
 
       <ul

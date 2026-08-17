@@ -200,6 +200,11 @@ export function KnowledgeCards() {
           maxWidth: 1200,
           marginLeft: "auto",
           marginRight: "auto",
+          backgroundImage:
+            "linear-gradient(rgba(8,14,8,0.84), rgba(8,14,8,0.9)), url('/biblioteca-fondo.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "1.25rem",
         }}
       >
         {/* Section header */}
@@ -250,6 +255,15 @@ export function KnowledgeCards() {
           >
             Conocimiento ancestral · Ciencia viva
           </p>
+        </div>
+
+        {/* Subgrupo: ciencia */}
+        <div style={{ display: "flex", alignItems: "center", gap: "18px", marginBottom: "clamp(24px, 3.5vh, 40px)" }}>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(200,160,80,0.5))" }} />
+          <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "clamp(1.05rem, 2.4vw, 1.5rem)", letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8c070", margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.9)", whiteSpace: "nowrap" }}>
+            La ciencia de las plantas
+          </h3>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(200,160,80,0.5))" }} />
         </div>
 
         <ul

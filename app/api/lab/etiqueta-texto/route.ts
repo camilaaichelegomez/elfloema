@@ -107,13 +107,29 @@ export async function POST(request: NextRequest) {
   const mensajeUsuario = `Producto: ${productName}\nIngredientes (INCI): ${ingredientes?.trim() || "sin especificar"}`;
   const groq = new Groq({ apiKey });
 
+  // Contexto de la biblioteca (RAG por texto): trae fragmentos relevantes de los
+  // libros/cursos indexados segun el producto y sus ingredientes. Si la tabla o la
+  // funcion aun no existen en Supabase, la llamada falla y simplemente se ignora.
+  let contextoBiblioteca = "";
+  try {
+    const consulta = `${productName} ${ingredientes ?? ""}`.slice(0, 500);
+    const { data: chunks } = await supabase.rpc("match_biblioteca", { consulta, match_count: 6 });
+    if (Array.isArray(chunks) && chunks.length > 0) {
+      contextoBiblioteca =
+        "\n\nCONTEXTO DE LA BIBLIOTECA (referencia real de cosmetica de El Floema; usalo para fundamentar como actuan los ingredientes, NO lo copies literal):\n" +
+        chunks.map((c: { texto: string }) => `- ${c.texto}`).join("\n");
+    }
+  } catch {
+    // La tabla/funcion de biblioteca puede no existir todavia; se ignora sin romper.
+  }
+
   // ── Etapa 1: generar ──
   let generado: Generado;
   try {
     const completion = await groq.chat.completions.create({
       model: MODELO,
       messages: [
-        { role: "system", content: `${SYSTEM_INSTRUCTION}\n\n${GLOSARIO_INGREDIENTES}` },
+        { role: "system", content: `${SYSTEM_INSTRUCTION}\n\n${GLOSARIO_INGREDIENTES}${contextoBiblioteca}` },
         { role: "user", content: mensajeUsuario },
       ],
       response_format: { type: "json_object" },

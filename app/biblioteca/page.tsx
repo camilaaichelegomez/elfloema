@@ -243,7 +243,7 @@ export default function BibliotecaPage() {
       <main style={{
         minHeight: "100vh",
         background:
-          "linear-gradient(rgba(6,12,6,0.88), rgba(6,12,6,0.94)), url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)",
+          "linear-gradient(rgba(6,12,6,0.55), rgba(6,12,6,0.72)), url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)",
         paddingTop: "clamp(6rem, 14vh, 10rem)",
         paddingBottom: "clamp(4rem, 8vh, 7rem)",
       }}>

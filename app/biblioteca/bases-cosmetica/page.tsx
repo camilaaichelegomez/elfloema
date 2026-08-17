@@ -88,7 +88,7 @@ function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) 
       }}
     >
       <button
-        onClick={onToggle}
+        onClick={(e) => { const el = e.currentTarget as HTMLElement; const abrir = !open; onToggle(); if (abrir) setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }), 220); }}
         style={{
           width: "100%",
           display: "flex",

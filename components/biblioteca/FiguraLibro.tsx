@@ -12,12 +12,14 @@ export function FiguraLibro({
   titulo,
   prompt,
   src,
+  leyenda,
   alto = 260,
 }: {
   num: string;
   titulo: string;
   prompt: string;
   src: string;
+  leyenda?: string;
   alto?: number;
 }) {
   const [imgOk, setImgOk] = useState(true);
@@ -73,6 +75,7 @@ export function FiguraLibro({
       <figcaption style={captionStyle}>
         <span style={{ color: "rgba(200,160,80,0.85)" }}>Lámina {num}</span> · {titulo}
       </figcaption>
+      {leyenda && <p style={leyendaStyle}>{leyenda}</p>}
     </figure>
   );
 }
@@ -158,4 +161,15 @@ const captionStyle: CSSProperties = {
   textAlign: "center",
   marginTop: 10,
   fontStyle: "normal",
+};
+
+const leyendaStyle: CSSProperties = {
+  fontFamily: "var(--font-crimson), var(--font-body), serif",
+  fontStyle: "italic",
+  fontSize: "0.82rem",
+  color: "rgba(212,196,160,0.72)",
+  textAlign: "center",
+  maxWidth: 560,
+  margin: "4px auto 0",
+  lineHeight: 1.5,
 };

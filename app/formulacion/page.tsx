@@ -96,7 +96,7 @@ export default function FormulacionPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "var(--bg-primary)",
+        background: "linear-gradient(rgba(8,14,8,0.72), rgba(8,14,8,0.88)), url('/fondo_formulacion.jpg') center top / cover fixed, var(--bg-primary)",
         display: "flex",
         flexDirection: "column",
       }}

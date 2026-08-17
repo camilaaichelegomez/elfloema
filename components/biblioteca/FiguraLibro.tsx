@@ -109,7 +109,8 @@ const placeholderStyle: CSSProperties = {
   border: "1px dashed rgba(200,160,80,0.35)",
   borderRadius: 2,
   padding: "1.6rem 1.4rem",
-  background: "repeating-linear-gradient(45deg, rgba(200,160,80,0.02) 0 10px, transparent 10px 20px)",
+  background:
+    "repeating-linear-gradient(45deg, rgba(200,160,80,0.03) 0 10px, transparent 10px 20px), linear-gradient(rgba(10,17,10,0.9), rgba(10,17,10,0.9))",
 };
 
 const placeholderLabelStyle: CSSProperties = {
@@ -126,7 +127,7 @@ const promptStyle: CSSProperties = {
   fontStyle: "italic",
   fontSize: "0.9rem",
   lineHeight: 1.65,
-  color: "rgba(212,196,160,0.78)",
+  color: "rgba(212,196,160,0.88)",
   maxWidth: 620,
   margin: 0,
 };

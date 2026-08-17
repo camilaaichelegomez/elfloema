@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export function BackButton({ label = "← Volver al Grimorio", href }: { label?: string; href?: string }) {
+export function BackButton({ label = "← Volver al inicio", href = "/" }: { label?: string; href?: string }) {
   const router = useRouter();
   return (
     <button

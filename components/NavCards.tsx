@@ -115,7 +115,7 @@ function IconMoon() {
   );
 }
 
-const sections = [
+const cosmeticaCards = [
   {
     key: "ingredientes",
     label: "Ingredientes",
@@ -144,6 +144,9 @@ const sections = [
     href: "/biblioteca/bases-cosmetica",
     Icon: IconJarCream,
   },
+];
+
+const grimorioCards = [
   {
     key: "bruja-verde",
     label: "Bruja Verde",
@@ -153,7 +156,7 @@ const sections = [
   },
 ];
 
-export function NavCards() {
+function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeticaCards }) {
   const setCardCursor = (event: MouseEvent<HTMLAnchorElement>) => {
     const target = event.currentTarget;
     const rect = target.getBoundingClientRect();
@@ -189,7 +192,7 @@ export function NavCards() {
       >
         <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #c8a050)" }} />
         <span style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#c8a050" }}>
-          El Grimorio
+          {titulo}
         </span>
         <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #c8a050)" }} />
       </div>
@@ -206,7 +209,7 @@ export function NavCards() {
           alignItems: "start",
         }}
       >
-        {sections.map(({ key, label, subtitle, href, Icon }, i) => (
+        {items.map(({ key, label, subtitle, href, Icon }, i) => (
           <motion.li
             key={key}
             initial={{ opacity: 0, y: 26 }}
@@ -237,4 +240,12 @@ export function NavCards() {
       </ul>
     </section>
   );
+}
+
+export function NavCards() {
+  return <CardsSection titulo="Cosmética Natural" items={cosmeticaCards} />;
+}
+
+export function GrimorioSection() {
+  return <CardsSection titulo="Grimorio" items={grimorioCards} />;
 }

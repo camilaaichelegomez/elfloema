@@ -4,7 +4,6 @@ import { PageBackground } from "@/components/PageBackground";
 import { AgentesIA } from "@/components/AgentesIA";
 import { PlantasMedicinalesSection } from "@/components/PlantasMedicinalesSection";
 import { KnowledgeCards } from "@/components/KnowledgeCards";
-import { NavCards, GrimorioSection } from "@/components/NavCards";
 import { LaBotica } from "@/components/LaBotica";
 
 export default function Home() {
@@ -16,8 +15,6 @@ export default function Home() {
       <AgentesIA />
       <PlantasMedicinalesSection />
       <KnowledgeCards />
-      <NavCards />
-      <GrimorioSection />
       <LaBotica />
       <footer className="site-footer">
         <img src="/logo.jpg" alt="El Floema" className="footer-logo" />

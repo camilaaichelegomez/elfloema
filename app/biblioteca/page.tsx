@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import { NavCards, GrimorioSection } from "@/components/NavCards";
 
 function IconBotanica() {
   return (
@@ -241,7 +242,8 @@ export default function BibliotecaPage() {
       <Navbar />
       <main style={{
         minHeight: "100vh",
-        background: "var(--bg-primary)",
+        background:
+          "linear-gradient(rgba(6,12,6,0.88), rgba(6,12,6,0.94)), url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)",
         paddingTop: "clamp(6rem, 14vh, 10rem)",
         paddingBottom: "clamp(4rem, 8vh, 7rem)",
       }}>
@@ -287,6 +289,15 @@ export default function BibliotecaPage() {
           </p>
         </motion.div>
 
+        {/* Subgrupo: ciencia */}
+        <div style={{ display: "flex", alignItems: "center", gap: "18px", marginBottom: "clamp(24px, 3.5vh, 40px)", maxWidth: 1100, marginLeft: "auto", marginRight: "auto", padding: "0 clamp(1.25rem, 3vw, 2.5rem)" }}>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(200,160,80,0.5))" }} />
+          <h2 style={{ fontFamily: "var(--font-grimoire)", fontSize: "clamp(1.1rem, 2.6vw, 1.6rem)", letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8c070", margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.9)", whiteSpace: "nowrap" }}>
+            La ciencia de las plantas
+          </h2>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(200,160,80,0.5))" }} />
+        </div>
+
         {/* cards grid */}
         <div style={{
           display: "grid",
@@ -300,6 +311,12 @@ export default function BibliotecaPage() {
             <BibliotecaCard key={key} label={label} desc={desc} Icon={Icon} href={href} />
           ))}
         </div>
+
+        {/* Subsección: Cosmética Natural */}
+        <NavCards />
+
+        {/* Subsección: Grimorio */}
+        <GrimorioSection />
 
         {/* back link */}
         <motion.div

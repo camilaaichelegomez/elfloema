@@ -3,7 +3,7 @@ import { FiguraLibro } from "@/components/biblioteca/FiguraLibro";
 
 export default function MetabolitosSecundarios() {
   return (
-    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48 }}>
+    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_metabolitossecundarios.jpg') center top / cover fixed, var(--bg-primary)", }}>
       <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)" }}>
         <BackButton />
         <header style={{ textAlign: "center", marginBottom: 40 }}>

@@ -193,7 +193,7 @@ export default function FisiologiaVegetal() {
   return (
     <main
       className="parchment-bg"
-      style={{ position: "relative", minHeight: "100vh", overflowX: "hidden" }}
+      style={{ position: "relative", minHeight: "100vh", overflowX: "hidden", background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_fisiologiavegetal.jpg') center top / cover fixed, var(--bg-primary)", }}
     >
       <GrainOverlay />
 

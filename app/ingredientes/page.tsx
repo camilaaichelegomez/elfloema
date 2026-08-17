@@ -148,7 +148,7 @@ export default function Ingredientes() {
   const toggle = (id: SectionId) => setOpen((prev) => (prev === id ? null : id));
 
   return (
-    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh" }}>
+    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_ingredientes.jpg') center top / cover fixed, var(--bg-primary)", }}>
       <GrainOverlay />
       <div style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(64px,10vh,120px)" }}>
         <BackButton label="← Volver" />

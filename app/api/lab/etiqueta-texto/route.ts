@@ -8,7 +8,7 @@ const SYSTEM_INSTRUCTION = `Eres, a la vez, COPYWRITER experto en cosmética y C
 
 Dado el nombre de un producto y su lista de ingredientes, redactas los textos de su ficha.
 
-PASO 0 — FILTRO. Antes de escribir decide si es un COSMÉTICO TÓPICO (se aplica sobre el cuerpo: piel, cabello, labios, uñas). Una vela, difusor, ambientador, jabón de lavar ropa, alimento, o cualquier cosa que NO se aplica sobre el cuerpo NO es cosmético tópico. Si no lo es: es_cosmetico_topico=false y deja modo_uso, advertencias, descripcion_catalogo y descripcion_redes en "".
+PASO 0 — FILTRO. Antes de escribir decide si es un COSMÉTICO TÓPICO (se aplica sobre el cuerpo: piel, cabello, labios, uñas). Una vela, difusor, ambientador, jabón de lavar ropa, alimento, o cualquier cosa que NO se aplica sobre el cuerpo NO es cosmético tópico. Si no lo es: es_cosmetico_topico=false y deja modo_uso, advertencias, descripcion_etiqueta, descripcion_catalogo y descripcion_redes en "".
 
 CÓMO ESCRIBIR (lo más importante — los textos deben ser RICOS, específicos y deseables, NUNCA genéricos):
 
@@ -23,11 +23,12 @@ CAMPOS:
 - "tipo_producto": qué es realmente, en pocas palabras (ej. "syndet facial líquido", "crema de manos", "sérum capilar").
 - "modo_uso": 2-4 oraciones prácticas y específicas al tipo de producto (no genéricas). Solo si es cosmético tópico.
 - "advertencias": seguridad estándar de cosmética natural (uso externo, evitar contacto con los ojos, mantener fuera del alcance de niños, suspender si hay irritación), ajustadas según los ingredientes. Solo si es cosmético tópico.
-- "descripcion_catalogo": para la tienda/catálogo, 6-9 oraciones, así:
-   1) Abre con la transformación o el momento de uso: qué resuelve, qué se siente.
-   2) Describe la experiencia sensorial (textura, aroma, cómo queda la piel).
-   3) Incluye un bloque que empiece con "Ingredientes y para qué sirven:" y liste los 3-5 ingredientes clave, cada uno con su función EN LA PIEL y EN LA FÓRMULA, en frases cortas (ej. "Hidrolato de triwe — calma y aporta frescor; en la fórmula es la base acuosa aromática.").
-   4) Cierra dejando claro para quién es ideal y una invitación cálida a usarlo.
+- "descripcion_etiqueta": texto BREVE para IMPRIMIR en la etiqueta física del producto: 2-3 oraciones (35-55 palabras). Di qué es y su beneficio principal, nombrando 1-2 ingredientes clave con su función en la piel. Más corto y directo que el de catálogo (sin lista larga de ingredientes: es lo que cabe en una etiqueta). Solo si es cosmético tópico.
+- "descripcion_catalogo": es el TEXTO PRINCIPAL DE LA PÁGINA del producto en la tienda, así que debe ser COMPLETA, rica y bien desarrollada (3-4 párrafos, 12-18 oraciones). Estructura:
+   1) Apertura: la transformación o el momento de uso — qué problema resuelve, qué se siente al usarlo, para quién cambia la rutina.
+   2) Experiencia sensorial: textura, aroma, cómo se aplica y cómo queda la piel después.
+   3) Un bloque que empiece con "Ingredientes y para qué sirven:" y liste TODOS los ingredientes relevantes (no te limites a 3-5 si hay más), cada uno con su función EN LA PIEL y EN LA FÓRMULA, en frases cortas (ej. "Hidrolato de triwe — calma y aporta frescor; en la fórmula es la base acuosa aromática.").
+   4) Cierre: para qué tipo de piel es ideal, cómo integrarlo en la rutina, y la esencia de El Floema (botánica nativa chilena con criterio científico — "bruja científica"). Invitación cálida a usarlo.
 - "descripcion_redes": Instagram, 3-4 oraciones: gancho potente en la primera frase (una emoción, un resultado, una pregunta), 2-3 ingredientes estrella con su beneficio para la piel, y un cierre que dé ganas de probarlo. Sin hashtags ni emojis.
 
 HONESTIDAD: persuasivo NO es exagerado. Basa cada afirmación en lo que es razonable esperar de estos ingredientes. Nada de promesas médicas ni falsas ("borra arrugas", "cura", "elimina"). En un producto de enjuague, los activos y el hidrolato aportan de forma suave — dilo con matices, no exageres.
@@ -37,7 +38,7 @@ POBRE: "Crema hidratante natural con ingredientes de calidad que nutre tu piel y
 EXCELENTE: "Se funde al primer toque y deja la piel flexible, sin película grasa, con un aroma herbal tenue que se disipa en segundos. Ingredientes y para qué sirven: Manteca de karité — nutre y refuerza la barrera cutánea; en la fórmula aporta cuerpo y untuosidad. Niacinamida — regula el brillo y empareja el tono; además estabiliza la textura. Glicerina — atrae agua a la piel y evita la tirantez. Ideal para pieles que amanecen tirantes y buscan confort real, no solo una capa que se siente encima."
 
 Responde ÚNICAMENTE con un JSON válido, sin texto adicional, con este formato exacto:
-{"es_cosmetico_topico": boolean, "tipo_producto": "string", "modo_uso": "string", "advertencias": "string", "descripcion_catalogo": "string", "descripcion_redes": "string"}`;
+{"es_cosmetico_topico": boolean, "tipo_producto": "string", "modo_uso": "string", "advertencias": "string", "descripcion_etiqueta": "string", "descripcion_catalogo": "string", "descripcion_redes": "string"}`;
 
 // Glosario de referencia: función real de cada ingrediente (EN LA PIEL / EN LA FÓRMULA).
 // Se inyecta al prompt para que el modelo NO invente y conecte cada ingrediente con su
@@ -70,6 +71,7 @@ interface Generado {
   tipo_producto: string;
   modo_uso: string;
   advertencias: string;
+  descripcion_etiqueta: string;
   descripcion_catalogo: string;
   descripcion_redes: string;
 }
@@ -134,7 +136,7 @@ export async function POST(request: NextRequest) {
       ],
       response_format: { type: "json_object" },
       temperature: 0.75,
-      max_tokens: 1900,
+      max_tokens: 2800,
     });
     const parsed = JSON.parse(completion.choices[0]?.message?.content ?? "{}");
     const texto = (campo: string) => (typeof parsed[campo] === "string" ? parsed[campo] : "");
@@ -143,6 +145,7 @@ export async function POST(request: NextRequest) {
       tipo_producto: texto("tipo_producto"),
       modo_uso: texto("modo_uso"),
       advertencias: texto("advertencias"),
+      descripcion_etiqueta: texto("descripcion_etiqueta"),
       descripcion_catalogo: texto("descripcion_catalogo"),
       descripcion_redes: texto("descripcion_redes"),
     };
@@ -196,6 +199,7 @@ Descripción de catálogo: ${generado.descripcion_catalogo || "(vacío)"}`;
     return NextResponse.json({
       modo_uso: "",
       advertencias: "",
+      descripcion_etiqueta: "",
       descripcion_catalogo: "",
       descripcion_redes: "",
       revision,
@@ -205,6 +209,7 @@ Descripción de catálogo: ${generado.descripcion_catalogo || "(vacío)"}`;
   return NextResponse.json({
     modo_uso: generado.modo_uso,
     advertencias: generado.advertencias,
+    descripcion_etiqueta: generado.descripcion_etiqueta,
     descripcion_catalogo: generado.descripcion_catalogo,
     descripcion_redes: generado.descripcion_redes,
     revision,

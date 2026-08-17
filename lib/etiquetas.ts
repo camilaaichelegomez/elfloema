@@ -69,6 +69,7 @@ export interface EtiquetaData {
   width_mm: number;
   alto_mm: number;
   font_scale: number;
+  descripcion_etiqueta: string;
   descripcion_catalogo: string;
   descripcion_redes: string;
   offset_left_mm: number;
@@ -96,6 +97,7 @@ export const ETIQUETA_DEFAULTS: EtiquetaData = {
   width_mm: 150,
   alto_mm: 0,
   font_scale: 1.0,
+  descripcion_etiqueta: "",
   descripcion_catalogo: "",
   descripcion_redes: "",
   offset_left_mm: 0,

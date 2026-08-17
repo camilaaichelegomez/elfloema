@@ -103,6 +103,10 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
   const centro = estilosDeTexto(sizesCenter);
   const derecha = estilosDeTexto(sizesRight);
 
+  // La descripción impresa usa su campo propio; si está vacío, cae al de catálogo
+  // (respaldo para etiquetas antiguas que aún no tienen descripción propia).
+  const descEtiqueta = data.descripcion_etiqueta || data.descripcion_catalogo;
+
   const labelStyle: CSSProperties = {
     width: `${L.width_mm}mm`,
     height: `${L.height_mm}mm`,
@@ -155,10 +159,10 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
 
       <div style={zoneRight}>
         <div style={{ marginTop: `${data.offset_right_mm}mm` }}>
-          {data.descripcion_catalogo && (
+          {descEtiqueta && (
             <>
               <h2 style={derecha.sectionTitle}>Descripción</h2>
-              <p style={derecha.sectionTextSmall}>{data.descripcion_catalogo}</p>
+              <p style={derecha.sectionTextSmall}>{descEtiqueta}</p>
             </>
           )}
           {data.storage_note && <div style={derecha.storageNote}>{data.storage_note}</div>}
@@ -185,6 +189,7 @@ function EtiquetaRedonda({ data, className }: { data: EtiquetaData; className?: 
   const L = computeLayout(data.width_mm, data.font_scale, data.width_mm);
   const sizes = sizesForZone(L.s, data.font_scale_center);
   const est = estilosDeTexto(sizes);
+  const descEtiqueta = data.descripcion_etiqueta || data.descripcion_catalogo;
 
   const labelStyle: CSSProperties = {
     width: `${L.width_mm}mm`,
@@ -219,6 +224,9 @@ function EtiquetaRedonda({ data, className }: { data: EtiquetaData; className?: 
         <h1 style={est.productName}>{data.product_name}</h1>
         {data.subtitle && <div style={est.productSubtitle}>{data.subtitle}</div>}
         {data.category_line && <div style={est.productCategory}>{data.category_line}</div>}
+        {descEtiqueta && (
+          <p style={{ ...est.sectionTextSmall, marginTop: `${1.4 * sizes.s}mm`, marginBottom: 0 }}>{descEtiqueta}</p>
+        )}
         {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.4 * sizes.s}mm` }}>{data.size}</div>}
       </div>
     </div>

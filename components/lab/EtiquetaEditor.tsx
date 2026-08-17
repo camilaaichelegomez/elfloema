@@ -51,6 +51,7 @@ export function EtiquetaEditor({
         width_mm: data.width_mm,
         font_scale: data.font_scale,
         alto_mm: data.alto_mm,
+        descripcion_etiqueta: data.descripcion_etiqueta || null,
         descripcion_catalogo: data.descripcion_catalogo || null,
         descripcion_redes: data.descripcion_redes || null,
         offset_left_mm: data.offset_left_mm,
@@ -89,6 +90,7 @@ export function EtiquetaEditor({
           ...d,
           modo_uso: json.modo_uso || d.modo_uso,
           advertencias: json.advertencias || d.advertencias,
+          descripcion_etiqueta: json.descripcion_etiqueta || d.descripcion_etiqueta,
           descripcion_catalogo: json.descripcion_catalogo || d.descripcion_catalogo,
           descripcion_redes: json.descripcion_redes || d.descripcion_redes,
         }));
@@ -180,6 +182,12 @@ export function EtiquetaEditor({
         <Campo label="Subtítulo" value={data.subtitle} onChange={(v) => set("subtitle", v)} />
         <Campo label="Línea de categoría" value={data.category_line} onChange={(v) => set("category_line", v)} />
         <Campo label="Tamaño (ej: 100 ml)" value={data.size} onChange={(v) => set("size", v)} />
+        <CampoTextarea
+          label="Descripción de la etiqueta"
+          value={data.descripcion_etiqueta}
+          onChange={(v) => set("descripcion_etiqueta", v)}
+          placeholder="Texto corto que se IMPRIME en la etiqueta (distinto del de catálogo y redes)."
+        />
         {!esRedonda && (
           <CampoTextarea
             label="Ingredientes (INCI)"
@@ -348,7 +356,7 @@ export function EtiquetaEditor({
 
     <div className="lab-panel" style={contenidoPanelStyle}>
       <h2 style={panelTituloStyle}>Contenido para catálogo y redes</h2>
-      <p style={ayudaStyle}>No se imprime en la etiqueta — es texto para copiar y pegar donde lo necesites.</p>
+      <p style={ayudaStyle}>Para tu tienda y redes — es texto para copiar y pegar. Lo que se imprime en la etiqueta es el campo &quot;Descripción de la etiqueta&quot; de arriba.</p>
 
       <CampoConCopiar
         label="Descripción para catálogo"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties, type FormEvent } from "react";
+import { useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Check, Eye, FlaskConical, ListChecks, Package, Pencil, Plus, Tag, Trash2, X } from "lucide-react";
@@ -36,6 +36,7 @@ export interface Formula {
   notas: string | null;
   pasos: string | null;
   created_at: string | null;
+  deleted_at: string | null;
   costo: FormulaCosto | null;
 }
 
@@ -140,6 +141,8 @@ export function FormulasManager({
   const [agregandoTarea, setAgregandoTarea] = useState<number | null>(null);
   const [tareaAgregada, setTareaAgregada] = useState<number | null>(null);
   const [cargandoVer, setCargandoVer] = useState(false);
+  const [deshacer, setDeshacer] = useState<Formula | null>(null);
+  const deshacerTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const costoPorInventarioId = useMemo(() => {
     const mapa = new Map<number, number | null>();
@@ -150,7 +153,7 @@ export function FormulasManager({
   async function recargarLista() {
     const supabase = createClient();
     const { data: formulasData } = await supabase.from("formulas").select("*").order("nombre", { ascending: true });
-    const lista = formulasData ?? [];
+    const lista = (formulasData ?? []).filter((f) => !f.deleted_at);
     const costos = await Promise.all(
       lista.map((f) => supabase.rpc("costo_formula", { f_id: f.id }).then(({ data }) => data?.[0] ?? null))
     );
@@ -311,13 +314,20 @@ export function FormulasManager({
     setGuardando(false);
   }
 
-  async function handleBorrar(formula: Formula): Promise<boolean> {
-    if (!window.confirm(`¿Borrar la fórmula "${formula.nombre}"? Esto también borra sus ingredientes.`)) return false;
+  function mostrarDeshacer(formula: Formula) {
+    setDeshacer(formula);
+    if (deshacerTimeout.current) clearTimeout(deshacerTimeout.current);
+    deshacerTimeout.current = setTimeout(() => setDeshacer(null), 9000);
+  }
 
+  // Borrado suave: marca deleted_at en vez de eliminar, y ofrece "Deshacer".
+  async function handleBorrar(formula: Formula): Promise<boolean> {
     setError(null);
     const supabase = createClient();
-    await supabase.from("formula_items").delete().eq("formula_id", formula.id);
-    const { error: dbError } = await supabase.from("formulas").delete().eq("id", formula.id);
+    const { error: dbError } = await supabase
+      .from("formulas")
+      .update({ deleted_at: new Date().toISOString() })
+      .eq("id", formula.id);
 
     if (dbError) {
       setError(dbError.message);
@@ -325,7 +335,24 @@ export function FormulasManager({
     }
 
     await recargarLista();
+    mostrarDeshacer(formula);
     return true;
+  }
+
+  async function handleDeshacer() {
+    if (!deshacer) return;
+    const supabase = createClient();
+    const { error: dbError } = await supabase
+      .from("formulas")
+      .update({ deleted_at: null })
+      .eq("id", deshacer.id);
+    if (dbError) {
+      setError(dbError.message);
+      return;
+    }
+    if (deshacerTimeout.current) clearTimeout(deshacerTimeout.current);
+    setDeshacer(null);
+    await recargarLista();
   }
 
   async function toggleProducto(formula: Formula) {
@@ -376,6 +403,14 @@ export function FormulasManager({
 
   return (
     <div>
+      {deshacer && (
+        <div style={deshacerBarraStyle}>
+          <span>Fórmula &quot;{deshacer.nombre}&quot; borrada.</span>
+          <button type="button" onClick={handleDeshacer} style={deshacerBotonStyle}>
+            Deshacer
+          </button>
+        </div>
+      )}
       {!form && !viendo && (
         <div style={cabeceraStyle}>
           <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", color: "#d4c4a0", margin: 0 }}>
@@ -1202,6 +1237,39 @@ const errorStyle: CSSProperties = {
   fontFamily: "var(--font-body)",
   fontSize: "0.95rem",
   marginBottom: "1rem",
+};
+
+const deshacerBarraStyle: CSSProperties = {
+  position: "fixed",
+  bottom: "24px",
+  left: "50%",
+  transform: "translateX(-50%)",
+  zIndex: 100,
+  display: "flex",
+  alignItems: "center",
+  gap: "16px",
+  background: "rgba(20,26,20,0.96)",
+  border: "1px solid rgba(200,160,80,0.4)",
+  borderRadius: "10px",
+  padding: "12px 18px",
+  color: "#e8dcc8",
+  fontFamily: "var(--font-body)",
+  fontSize: "0.9rem",
+  boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
+  maxWidth: "90vw",
+};
+
+const deshacerBotonStyle: CSSProperties = {
+  background: "none",
+  border: "none",
+  color: "#e8c070",
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "0.72rem",
+  letterSpacing: "0.12em",
+  textTransform: "uppercase",
+  cursor: "pointer",
+  fontWeight: 600,
+  whiteSpace: "nowrap",
 };
 
 const okStyle: CSSProperties = {

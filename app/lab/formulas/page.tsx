@@ -14,7 +14,7 @@ export default async function FormulasLabPage() {
   }
 
   const { data: formulasData, error } = await supabase.from("formulas").select("*").order("nombre", { ascending: true });
-  const formulasBase = formulasData ?? [];
+  const formulasBase = (formulasData ?? []).filter((f) => !f.deleted_at);
 
   const costos = await Promise.all(
     formulasBase.map((f) => supabase.rpc("costo_formula", { f_id: f.id }).then(({ data }) => data?.[0] ?? null))

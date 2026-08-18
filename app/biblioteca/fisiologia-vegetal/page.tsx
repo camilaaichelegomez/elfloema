@@ -373,6 +373,20 @@ export default function FisiologiaVegetal() {
               secundarios. Esta vacuola es el cofre de tesoros de la planta —
               y el destino de la mayoría de los activos que buscamos.
             </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>La cutícula</strong> — una fina capa de
+              cutina y ceras que recubre la epidermis — es la piel de la planta:
+              impermeable, la protege de la desecación y de la radiación. No es un
+              detalle menor para nosotras: es la misma lógica de barrera lipídica que
+              gobierna el estrato córneo de nuestra piel, y de esas ceras vegetales
+              (jojoba, candelilla, carnauba) nacen muchos de nuestros emolientes y
+              oclusivos.
+            </BodyText>
+            <HighlightText>
+              Toda extracción es, en el fondo, una negociación con la pared celular.
+              Molienda, calor suave, maceración prolongada o enzimas: cada método
+              busca abrir la célula sin degradar el activo que guarda dentro.
+            </HighlightText>
           </article>
 
           {/* Section divider */}
@@ -397,6 +411,21 @@ export default function FisiologiaVegetal() {
               la planta y base de la estructura de extractos que conocemos bien en
               cosmética: aceites vegetales ricos en ácidos grasos insaturados,
               proteínas hidrolizadas de trigo o arroz, almidones y gomas naturales.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Lípidos</strong> → aceites vegetales
+              (rosa mosqueta, maravilla, almendra), ceras (jojoba, carnauba) y
+              fitoesteroles: la base emoliente que repara la barrera cutánea.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Carbohidratos</strong> → mucílagos y
+              gomas (linaza, malva, aloe), almidones y azúcares que actúan como
+              humectantes y espesantes naturales, reteniendo agua en la piel.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Proteínas y aminoácidos</strong> →
+              hidrolizados (trigo, arroz, avena) que forman film e hidratan, y
+              enzimas que se aprovechan en exfoliantes suaves.
             </BodyText>
             <HighlightText>
               Sin fotosíntesis no hay metabolismo. Sin metabolismo primario no hay
@@ -464,9 +493,66 @@ export default function FisiologiaVegetal() {
               biológico de cada adversidad que la planta sobrevivió.
             </BodyText>
             <BodyText>
+              Cada amenaza deja una firma química distinta. La
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}> radiación UV</strong> multiplica los
+              flavonoides — filtros solares que la planta fabrica para sí y que hoy
+              estudiamos como fotoprotectores. La
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}> sequía</strong> acumula
+              osmoprotectores como la glicina-betaína, hoy un humectante cosmético de
+              manual. La <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>herbivoría</strong> induce
+              alcaloides y taninos astringentes. Y los
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}> patógenos</strong> despiertan
+              fitoalexinas y terpenos antimicrobianos.
+            </BodyText>
+            <BodyText>
               La planta literalmente escribe su historia en moléculas. Y nosotras
               las leemos en la piel.
             </BodyText>
+          </article>
+
+          {/* Section divider */}
+          <div style={{ display: "flex", justifyContent: "center", margin: "clamp(20px, 3vh, 36px) 0", opacity: 0.3 }}>
+            <BotanicalDivider width={140} />
+          </div>
+
+          {/* ── Section 5b: Dónde guarda la planta sus activos ── */}
+          <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
+            <SectionTitle>Dónde Guarda la Planta sus Tesoros</SectionTitle>
+            <BodyText>
+              Ningún activo se reparte por igual en toda la planta. La farmacognosia
+              — el estudio de las drogas de origen vegetal — enseña que cada órgano
+              concentra un tipo distinto de compuesto. Saber dónde mirar es el primer
+              paso para elegir bien la materia prima.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Raíces y rizomas</strong> — reservas y
+              defensa subterránea: alcaloides, saponinas, almidones y principios
+              amargos (bailahuén, boldo, cardo mariano).
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Cortezas</strong> — taninos
+              astringentes, resinas y saponinas: el canelo y el quillay, cuya corteza
+              espuma en agua, son ejemplos chilenos clásicos.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Hojas</strong> — el laboratorio
+              fotosintético: aceites esenciales, flavonoides, clorofila y vitaminas
+              (matico, arrayán, eucalipto).
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Flores</strong> — esencias volátiles y
+              pigmentos: manzanilla, caléndula y lavanda concentran aromas y
+              principios antiinflamatorios suaves.
+            </BodyText>
+            <BodyText>
+              <strong style={{ color: "rgba(200,160,80,0.75)", fontStyle: "normal" }}>Frutos y semillas</strong> — aceites
+              ricos en ácidos grasos, vitaminas antioxidantes y mucílagos (rosa
+              mosqueta, maqui, linaza).
+            </BodyText>
+            <HighlightText>
+              Elegir la parte correcta de la planta, en el momento correcto de su
+              ciclo, decide más de la mitad del resultado de una fórmula.
+            </HighlightText>
           </article>
 
           {/* ── Illustration 3 ── */}

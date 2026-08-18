@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import BotonImprimirCatalogo from "@/components/tienda/BotonImprimirCatalogo";
+import DescargarPdfCatalogo from "@/components/tienda/DescargarPdfCatalogo";
 import CatalogoImagen from "@/components/tienda/CatalogoImagen";
 import { productosTienda } from "@/lib/productos-tienda";
 
@@ -29,10 +29,10 @@ export default function CatalogoPage() {
       {/* Barra de acción (no se imprime) */}
       <div className="no-print" style={{ display: "flex", justifyContent: "center", gap: "1rem", padding: "1.5rem", flexWrap: "wrap" }}>
         <a href="/tienda" style={linkVolverStyle}>← Volver a la tienda</a>
-        <BotonImprimirCatalogo />
+        <DescargarPdfCatalogo targetId="catalogo-contenido" />
       </div>
 
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(1rem,4vw,2.5rem) 3rem" }}>
+      <div id="catalogo-contenido" style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(1rem,4vw,2.5rem) 3rem" }}>
         {/* Portada */}
         <section className="cat-cover" style={coverStyle}>
           <Gemas />
@@ -82,10 +82,13 @@ export default function CatalogoPage() {
                         </ul>
                       )}
 
-                      <div style={metaRowStyle}>
-                        <span>{[p.piel && `Piel: ${p.piel}`, p.tamano].filter(Boolean).join("  ·  ")}</span>
-                        <span style={{ color: p.precio ? GOLD : "rgba(212,196,160,0.45)", fontStyle: p.precio ? "normal" : "italic" }}>
-                          {p.precio ? `$${p.precio.toLocaleString("es-CL")} CLP` : "Consultar precio"}
+                      <div style={metaBlockStyle}>
+                        <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }}>
+                          {p.tamano && <span style={chipStyle}>{p.tamano}</span>}
+                          {p.piel && <span style={chipStyle}>{p.piel}</span>}
+                        </div>
+                        <span style={p.precio ? precioTagStyle : precioConsultaStyle}>
+                          {p.precio ? `$${p.precio.toLocaleString("es-CL")} CLP` : "Precio a consultar"}
                         </span>
                       </div>
                     </div>
@@ -218,18 +221,44 @@ const benefItemStyle: CSSProperties = {
   lineHeight: 1.4,
 };
 
-const metaRowStyle: CSSProperties = {
+const metaBlockStyle: CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
-  gap: "1rem",
+  alignItems: "center",
+  gap: "0.8rem",
   flexWrap: "wrap",
+  borderTop: "1px solid rgba(200,160,80,0.18)",
+  paddingTop: "0.8rem",
+  marginTop: "0.4rem",
+};
+
+const chipStyle: CSSProperties = {
   fontFamily: "var(--font-cinzel), serif",
-  fontSize: "0.62rem",
-  letterSpacing: "0.12em",
+  fontSize: "0.58rem",
+  letterSpacing: "0.14em",
   textTransform: "uppercase",
+  color: GOLD_LIGHT,
+  border: "1px solid rgba(200,160,80,0.35)",
+  borderRadius: 2,
+  padding: "0.32rem 0.6rem",
+  whiteSpace: "nowrap",
+};
+
+const precioTagStyle: CSSProperties = {
+  fontFamily: "var(--font-cinzel), serif",
+  fontSize: "1.15rem",
+  letterSpacing: "0.03em",
+  color: GOLD,
+  whiteSpace: "nowrap",
+  textShadow: "0 0 24px rgba(200,160,80,0.25)",
+};
+
+const precioConsultaStyle: CSSProperties = {
+  fontFamily: "var(--font-crimson), serif",
+  fontStyle: "italic",
+  fontSize: "0.9rem",
   color: "rgba(212,196,160,0.55)",
-  borderTop: "1px solid rgba(200,160,80,0.12)",
-  paddingTop: "0.6rem",
+  whiteSpace: "nowrap",
 };
 
 const linkVolverStyle: CSSProperties = {

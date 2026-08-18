@@ -251,6 +251,21 @@ export default async function ProductoPage({
             </div>
           </div>
 
+          {/* Ficha ilustrada (infografía estilo El Floema) */}
+          {producto.fichaPrompt && (
+            <section style={{ marginTop: "clamp(3rem,6vh,4.5rem)" }}>
+              <h2 style={{ ...sectionHeading, textAlign: "center" }}>Ficha ilustrada</h2>
+              <div style={{ maxWidth: 560, margin: "0 auto" }}>
+                <FiguraCiencia
+                  src={`/tienda/${producto.slug}-ficha.jpg`}
+                  prompt={producto.fichaPrompt}
+                  titulo="Ficha ilustrada"
+                  leyenda="Infografía completa del producto (se genera con IA; el texto se agrega en Canva)."
+                />
+              </div>
+            </section>
+          )}
+
           {/* Otros productos */}
           <section style={{ marginTop: "clamp(4rem,8vh,6rem)" }}>
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>

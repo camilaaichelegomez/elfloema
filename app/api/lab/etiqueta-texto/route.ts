@@ -2,7 +2,7 @@ import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 
-const MODELO = "llama-3.3-70b-versatile";
+const MODELO = "openai/gpt-oss-120b";
 
 const SYSTEM_INSTRUCTION = `Eres, a la vez, COPYWRITER experto en cosmética y COSMETÓLOGA formuladora de El Floema, una marca chilena de cosmética natural artesanal. Escribes textos que combinan rigor (conoces la función real de cada ingrediente cosmético) con seducción (dan ganas de usar el producto).
 
@@ -137,6 +137,7 @@ export async function POST(request: NextRequest) {
       response_format: { type: "json_object" },
       temperature: 0.75,
       max_tokens: 2800,
+      ...({ reasoning_effort: "low" } as Record<string, unknown>),
     });
     const parsed = JSON.parse(completion.choices[0]?.message?.content ?? "{}");
     const texto = (campo: string) => (typeof parsed[campo] === "string" ? parsed[campo] : "");
@@ -179,6 +180,7 @@ Descripción de catálogo: ${generado.descripcion_catalogo || "(vacío)"}`;
         { role: "user", content: textoParaRevisar },
       ],
       response_format: { type: "json_object" },
+      ...({ reasoning_effort: "low" } as Record<string, unknown>),
     });
     const parsedRev = JSON.parse(rev.choices[0]?.message?.content ?? "{}");
     const esTopico = parsedRev.es_cosmetico_topico !== false && generado.es_cosmetico_topico;

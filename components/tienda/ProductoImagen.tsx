@@ -74,7 +74,7 @@ export default function ProductoImagen({
           <span style={{ fontSize: "2.6rem", color: "rgba(200,160,80,0.3)", lineHeight: 1, marginBottom: 10 }}>{glyph}</span>
           <p style={placeholderLabelStyle}>Espacio para la foto del producto</p>
           <p style={promptStyle}>
-            <span style={{ color: "rgba(170,120,190,0.9)" }}>Imagen a generar (IA): </span>
+            <span style={{ color: "rgba(170,120,190,0.9)" }}>Editar tu foto con IA (solo el fondo): </span>
             {prompt}
           </p>
           <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 14, flexWrap: "wrap", justifyContent: "center" }}>

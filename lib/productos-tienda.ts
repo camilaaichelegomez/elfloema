@@ -91,7 +91,7 @@ export const productosTienda: ProductoTienda[] = [
     piel: "Todo tipo de piel, ideal sensible y mixta",
     tamano: "100 ml",
     imagenPrompt:
-      "Fotografia de producto de un frasco de vidrio ambar con dosificador dorado y etiqueta oscura elegante, sobre una piedra oscura humeda, con hojas de triwe (laurel nativo) y una gota de gel translucido, luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra, enfoque nitido en el frasco, alta calidad, sin ningun texto ni marca de agua.",
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas de triwe (laurel nativo chileno), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
     precio: null,
     glyph: "◈",
     accent: "rgba(90,122,58,0.24)",
@@ -125,7 +125,7 @@ export const productosTienda: ProductoTienda[] = [
     piel: "Mixta y grasa",
     tamano: "100 ml",
     imagenPrompt:
-      "Fotografia de producto de un frasco de vidrio ambar con atomizador dorado y etiqueta oscura elegante, sobre una piedra oscura humeda, rodeado de hojas verdes brillantes de triwe (laurel chileno nativo), con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra, enfoque nitido en el frasco, alta calidad, sin ningun texto ni marca de agua.",
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas verdes brillantes de triwe (laurel nativo chileno), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
     precio: null,
     glyph: "❁",
     accent: "rgba(122,74,138,0.24)",
@@ -159,7 +159,7 @@ export const productosTienda: ProductoTienda[] = [
     piel: "Mixta a grasa",
     tamano: "100 ml",
     imagenPrompt:
-      "Fotografia de producto de un frasco de vidrio ambar con atomizador dorado y etiqueta oscura elegante, sobre una superficie de piedra oscura, rodeado de hojas de laurel verdes y algunas ramas, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra, enfoque nitido en el frasco, alta calidad, sin ningun texto ni marca de agua.",
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas de laurel verdes y algunas ramas, sobre superficie de piedra oscura, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
     precio: null,
     glyph: "❁",
     accent: "rgba(90,122,58,0.22)",
@@ -193,7 +193,7 @@ export const productosTienda: ProductoTienda[] = [
     piel: "Grasa y mixta",
     tamano: "100 ml",
     imagenPrompt:
-      "Fotografia de producto de un frasco de vidrio ambar con atomizador dorado y etiqueta oscura elegante, sobre una superficie de piedra oscura, rodeado de ramas de eucalipto de hojas azul-verdosas, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra, enfoque nitido en el frasco, alta calidad, sin ningun texto ni marca de agua.",
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de ramas de eucalipto de hojas azul-verdosas, sobre superficie de piedra oscura, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
     precio: null,
     glyph: "❁",
     accent: "rgba(90,122,58,0.24)",

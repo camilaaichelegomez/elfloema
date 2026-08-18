@@ -116,8 +116,8 @@ export const productosTienda: ProductoTienda[] = [
     ],
     bioquimica: {
       prompt:
-        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte esquematico de la piel visto de lado con la molecula de 1,8-cineol (eucaliptol) actuando sobre la superficie: microorganismos siendo neutralizados y una sensacion de frescor purificante. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: '1,8-cineol', 'accion antiseptica', 'piel purificada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
-      leyenda: "El 1,8-cineol purifica la superficie de la piel",
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte esquematico de la piel visto de lado con la molecula de linalol calmando y refrescando la superficie: la piel queda serena, con una sensacion de calma y frescor herbal. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'linalol', 'accion calmante', 'piel serena y fresca'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El linalol calma y refresca la piel",
     },
     ingredientes: "Laurelia Sempervirens Leaf Water (hidrolato de triwe), Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:

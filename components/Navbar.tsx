@@ -36,6 +36,7 @@ export default function Navbar() {
         <ul className={`navbar-links${open ? " open" : ""}`}>
           <li><Link href="/"             onClick={close}>Inicio</Link></li>
           <li><Link href="/tienda"       onClick={close}>Tienda</Link></li>
+          <li><Link href="/catalogo"     onClick={close}>Catálogo</Link></li>
           <li><Link href="/plantas"      onClick={close}>Plantas</Link></li>
           <li><Link href="/biblioteca"   onClick={close}>Biblioteca</Link></li>
           <li><Link href="/blog"         onClick={close}>Blog</Link></li>

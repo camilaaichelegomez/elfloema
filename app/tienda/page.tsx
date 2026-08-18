@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoCard from "@/components/tienda/ProductoCard";
@@ -43,6 +44,27 @@ export default function TiendaPage() {
               Cada producto nace en el laboratorio y se elabora a mano. Pronto podrás encontrar aquí toda la colección.
             </p>
           </header>
+
+          {/* Enlace al catálogo */}
+          <div style={{ textAlign: "center", marginBottom: "clamp(2rem,4vh,3rem)" }}>
+            <Link
+              href="/catalogo"
+              style={{
+                fontFamily: "var(--font-cinzel), serif",
+                fontSize: "0.72rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#c8a050",
+                textDecoration: "none",
+                border: "1px solid rgba(200,160,80,0.4)",
+                borderRadius: 3,
+                padding: "0.8rem 1.6rem",
+                display: "inline-block",
+              }}
+            >
+              Ver catálogo (PDF) →
+            </Link>
+          </div>
 
           {/* Product grid */}
           <div

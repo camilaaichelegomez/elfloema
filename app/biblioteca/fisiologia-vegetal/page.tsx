@@ -243,6 +243,10 @@ export default function FisiologiaVegetal() {
             padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px) clamp(48px, 8vh, 96px)",
             position: "relative",
             zIndex: 10,
+            background: "rgba(9,14,9,0.8)",
+            borderRadius: 10,
+            border: "1px solid rgba(200,160,80,0.1)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.45)",
           }}
         >
           {/* Back button */}

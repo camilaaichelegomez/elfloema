@@ -4,7 +4,7 @@ import { FiguraLibro } from "@/components/biblioteca/FiguraLibro";
 export default function MetabolitosSecundarios() {
   return (
     <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_metabolitossecundarios.jpg') center top / cover fixed, var(--bg-primary)", }}>
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)" }}>
+      <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)", background: "rgba(9,14,9,0.8)", borderRadius: 10, border: "1px solid rgba(200,160,80,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.45)" }}>
         <BackButton />
         <header style={{ textAlign: "center", marginBottom: 40 }}>
           <h1 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "2.2rem", color: "#c8a050", letterSpacing: "0.14em", marginBottom: 8 }}>

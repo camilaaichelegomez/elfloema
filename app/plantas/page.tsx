@@ -327,7 +327,7 @@ export default function PlantasPage() {
     <>
       <Navbar />
       <main style={{ background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_plantas.jpg') center top / cover fixed, var(--bg-primary)", minHeight: "100vh", paddingTop: "5rem" }}>
-        <div style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(2rem,5vh,4rem) clamp(1.5rem,5vw,3rem) 6rem" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto", padding: "clamp(2rem,5vh,4rem) clamp(1.5rem,5vw,3rem) 6rem", background: "rgba(9,14,9,0.8)", borderRadius: 10, border: "1px solid rgba(200,160,80,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.45)" }}>
 
           {/* Nav */}
           <div style={{ marginBottom: "clamp(2rem,4vh,3rem)" }}>

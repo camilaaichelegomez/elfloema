@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -8,6 +9,16 @@ import { productosTienda, getProductoTienda } from "@/lib/productos-tienda";
 
 const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
+
+const sectionHeading: CSSProperties = {
+  fontFamily: "var(--font-cinzel), serif",
+  fontSize: "0.7rem",
+  letterSpacing: "0.22em",
+  textTransform: "uppercase",
+  color: GOLD,
+  opacity: 0.85,
+  margin: "0 0 0.9rem",
+};
 
 export function generateStaticParams() {
   return productosTienda.map((p) => ({ slug: p.slug }));
@@ -63,7 +74,7 @@ export default async function ProductoPage({
             }}
           >
             {/* Imagen */}
-            <ProductoImagen slug={producto.slug} nombre={producto.nombre} glyph={producto.glyph} accent={producto.accent} />
+            <ProductoImagen slug={producto.slug} nombre={producto.nombre} glyph={producto.glyph} accent={producto.accent} prompt={producto.imagenPrompt} />
 
             {/* Info */}
             <div>
@@ -112,6 +123,75 @@ export default async function ProductoPage({
               >
                 {producto.descripcionLarga ?? producto.descripcion}
               </p>
+
+              {/* Cómo actúa · la ciencia detrás */}
+              {producto.ciencia && producto.ciencia.length > 0 && (
+                <div style={{ margin: "0 0 2rem" }}>
+                  <h2 style={sectionHeading}>Cómo actúa · la ciencia detrás</h2>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.8rem" }}>
+                    {producto.ciencia.map((c) => (
+                      <div
+                        key={c.titulo}
+                        style={{
+                          border: "1px solid rgba(200,160,80,0.18)",
+                          borderRadius: 6,
+                          padding: "1rem 1.1rem",
+                          background: "rgba(255,255,255,0.015)",
+                        }}
+                      >
+                        <h3 style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.78rem", letterSpacing: "0.06em", color: GOLD, margin: "0 0 0.5rem" }}>
+                          {c.titulo}
+                        </h3>
+                        <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "0.9rem", lineHeight: 1.6, color: CREAM, opacity: 0.75, margin: 0 }}>
+                          {c.texto}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Propiedades */}
+              {producto.beneficios && producto.beneficios.length > 0 && (
+                <div style={{ margin: "0 0 2rem" }}>
+                  <h2 style={sectionHeading}>Propiedades</h2>
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {producto.beneficios.map((b) => (
+                      <li key={b} style={{ fontFamily: "var(--font-crimson), serif", fontSize: "0.95rem", color: CREAM, opacity: 0.8, lineHeight: 1.5 }}>
+                        <span style={{ color: GOLD, marginRight: "0.6rem" }}>❧</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Modo de uso */}
+              {producto.modoUso && (
+                <div style={{ margin: "0 0 2rem" }}>
+                  <h2 style={sectionHeading}>Modo de uso</h2>
+                  <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "0.95rem", lineHeight: 1.7, color: CREAM, opacity: 0.8, margin: 0 }}>
+                    {producto.modoUso}
+                  </p>
+                </div>
+              )}
+
+              {/* Ingredientes */}
+              {producto.ingredientes && (
+                <div style={{ margin: "0 0 2rem" }}>
+                  <h2 style={sectionHeading}>Ingredientes (INCI)</h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", lineHeight: 1.6, color: CREAM, opacity: 0.55, margin: 0 }}>
+                    {producto.ingredientes}
+                  </p>
+                </div>
+              )}
+
+              {/* Ficha: piel · tamaño */}
+              {(producto.piel || producto.tamano) && (
+                <p style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.62rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(212,196,160,0.5)", margin: "0 0 1.8rem" }}>
+                  {[producto.piel && `Piel: ${producto.piel}`, producto.tamano].filter(Boolean).join("  ·  ")}
+                </p>
+              )}
 
               {/* Precio */}
               <p

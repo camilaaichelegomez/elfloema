@@ -9,7 +9,8 @@ export type ProductoTienda = {
   descripcion: string;
   descripcionLarga?: string;
   beneficios?: string[]; // propiedades / beneficios, en viñetas
-  ciencia?: { titulo: string; texto: string }[]; // "Cómo actúa": mecanismo por tarjeta
+  ciencia?: { titulo: string; texto: string }[]; // "Cómo actúa": molécula + mecanismo por tarjeta
+  bioquimica?: { prompt: string; leyenda: string }; // ilustración de proceso bioquímico (placeholder con prompt)
   ingredientes?: string; // INCI o ingredientes clave
   modoUso?: string;
   piel?: string; // para qué tipo de piel
@@ -83,10 +84,15 @@ export const productosTienda: ProductoTienda[] = [
       "Base aromática de origen nativo",
     ],
     ciencia: [
-      { titulo: "Purifica", texto: "Los compuestos volátiles del triwe ayudan a equilibrar el exceso de sebo y a mantener el cutis limpio." },
-      { titulo: "Tonifica", texto: "Su carácter astringente suave refresca y ordena la piel tras la limpieza, sin resecar." },
-      { titulo: "Botánica nativa", texto: "Destilado del laurel chileno (Laurelia sempervirens): agua aromática de bosque, no agua común." },
+      { titulo: "1,8-cineol (eucaliptol)", texto: "El volátil mayoritario del triwe (~28%). Es antiséptico: desestabiliza la membrana de los microorganismos, por eso purifica y da la sensación de frescor limpio." },
+      { titulo: "Linalol", texto: "Alcohol monoterpénico (~28%) de aroma suave. Calma los sentidos y aporta una acción antimicrobiana gentil, muy bien tolerada." },
+      { titulo: "α-terpineol", texto: "Terpeno que refuerza la acción antiséptica y deja la piel tonificada y fresca, sin la tirantez del alcohol." },
     ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte esquematico de la piel visto de lado con la molecula de 1,8-cineol (eucaliptol) actuando sobre la superficie: microorganismos siendo neutralizados y una sensacion de frescor purificante. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: '1,8-cineol', 'accion antiseptica', 'piel purificada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El 1,8-cineol purifica la superficie de la piel",
+    },
     ingredientes: "Laurelia Sempervirens Leaf Water (hidrolato de triwe), Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
       "Sobre el rostro limpio, aplica con algodón o vaporiza a 20 cm y deja absorber. Úsalo como tónico antes del sérum o la crema, o durante el día para refrescar. Mañana y noche.",
@@ -112,10 +118,15 @@ export const productosTienda: ProductoTienda[] = [
       "Deja la piel fresca y mate",
     ],
     ciencia: [
-      { titulo: "Astringente", texto: "Afina el aspecto de los poros y controla el brillo, dejando la piel mate." },
-      { titulo: "Purifica", texto: "Su acción antiséptica suave ayuda a mantener a raya las imperfecciones." },
-      { titulo: "Equilibra", texto: "Ordena las pieles mixtas y grasas sin la tirantez de un tónico con alcohol." },
+      { titulo: "1,8-cineol", texto: "El volátil dominante del laurel. Antiséptico y purificante: altera la pared de las bacterias, ayudando a controlar las imperfecciones." },
+      { titulo: "Terpinen-4-ol", texto: "El mismo antimicrobiano estrella del árbol del té. Actúa sobre la flora que agrava el acné, de forma suave y sin resecar." },
+      { titulo: "Por qué se siente astringente", texto: "El conjunto de volátiles más el pH ácido del hidrolato dan un tacto fresco y matificante. La astringencia profunda de los taninos vive en la tintura, no en el agua destilada: aquí es tonificación aromática, honesta." },
     ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte esquematico de un poro de la piel visto en seccion, con la molecula terpinen-4-ol actuando sobre las bacterias de la piel y equilibrando el poro. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'terpinen-4-ol', 'accion sobre la flora', 'poro equilibrado'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El terpinen-4-ol equilibra la flora del poro",
+    },
     ingredientes: "Laurus Nobilis Leaf Water (hidrolato de laurel), Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
       "Sobre el rostro limpio, aplica con algodón o vaporiza. Úsalo como tónico astringente antes del sérum, enfocándote en la zona T si tu piel es mixta. Mañana y noche.",
@@ -141,10 +152,15 @@ export const productosTienda: ProductoTienda[] = [
       "Frescor vivificante",
     ],
     ciencia: [
-      { titulo: "Purifica", texto: "Su carácter antiséptico y astringente limpia en profundidad la piel grasa o con tendencia acneica." },
-      { titulo: "Descongestiona", texto: "El frescor vivificante del eucalipto despeja y revitaliza la piel al instante." },
-      { titulo: "Control del brillo", texto: "Ayuda a regular el exceso de grasa manteniendo la piel fresca y mate." },
+      { titulo: "1,8-cineol (eucaliptol)", texto: "Constituye la mayor parte del volátil del eucalipto. Antiséptico y descongestionante: purifica el poro y refresca al instante." },
+      { titulo: "Acción antimicrobiana", texto: "El eucaliptol altera la membrana de las bacterias de la piel grasa, ayudando a mantener el cutis limpio." },
+      { titulo: "Frescor y control del brillo", texto: "Su alta volatilidad da la sensación de despeje inmediato y acompaña el control del exceso de sebo." },
     ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte esquematico de piel grasa en seccion, con la molecula 1,8-cineol (eucaliptol) purificando el poro y regulando el exceso de sebo, con una sensacion de frescor. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: '1,8-cineol', 'control del sebo', 'piel fresca y limpia'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El eucaliptol purifica el poro y regula el sebo",
+    },
     ingredientes: "Eucalyptus Globulus Leaf Water (hidrolato de eucalipto), Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
       "Sobre el rostro limpio, aplica con algodón o vaporiza, evitando el contorno de los ojos. Úsalo como tónico purificante antes del sérum. Preferentemente una vez al día.",

@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
-import { plantas, getPlanta, MetodoPreparacion } from "@/lib/plantas-data";
+import { plantas, getPlanta, promptIlustracion, MetodoPreparacion } from "@/lib/plantas-data";
+import { PlantaIlustracion } from "@/components/plantas/PlantaIlustracion";
 import { plantaIcons } from "@/components/PlantIcons";
 
 const GOLD = "#c8a050";
@@ -145,6 +146,9 @@ export default async function PlantaPage({
           </header>
 
           <GoldLine />
+
+          {/* Ilustración de identificación */}
+          <PlantaIlustracion slug={planta.slug} nombre={planta.nombre.split("·")[0].trim()} prompt={promptIlustracion(planta)} />
 
           {/* Descripción */}
           <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "clamp(0.95rem,1.5vw,1.08rem)", color: CREAM, lineHeight: 1.82, marginBottom: "clamp(1.2rem,2.5vh,2rem)", opacity: 0.8 }}>

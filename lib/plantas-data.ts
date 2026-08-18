@@ -3486,3 +3486,14 @@ const SLUGS_DESTACADAS = ["matico", "pitra", "arrayan", "maqui", "triwe", "chilc
 export const plantasDestacadas: Planta[] = SLUGS_DESTACADAS
   .map((slug) => plantas.find((p) => p.slug === slug))
   .filter((p): p is Planta => Boolean(p));
+
+/**
+ * Prompt de ilustración botánica de identificación para una planta.
+ * Muestra la planta entera + detalles (hoja, flor, fruto) rotulados en español,
+ * al estilo de lámina de libro de botánica del sitio, para reconocer la especie.
+ * La imagen generada se guarda en public/plantas/<slug>.jpg y aparece sola.
+ */
+export function promptIlustracion(p: Planta): string {
+  const nombre = p.nombre.split("·")[0].trim();
+  return `Lámina botánica de identificación de la planta ${nombre} (${p.nombreCientifico}, familia ${p.familia}). Representa la especie REAL con precisión: la planta entera y, por separado, un detalle de la hoja, la flor y el fruto o semilla tal como son en esta especie, para poder reconocerla en terreno. Estilo lámina didáctica de libro de botánica antiguo: ilustración a tinta y acuarela en tonos sepia, verde apagado y marrón, sobre fondo de pergamino crema, aspecto de figura de manual. IMPORTANTE: la imagen DEBE incluir rótulos de texto en ESPAÑOL, con letra serif clara y ortografía correcta, con finas líneas guía que apuntan a cada parte. Rotula exactamente estas partes: planta entera, hoja, flor, fruto o semilla, tallo. No pongas ningún otro texto, número ni marca de agua fuera de esos rótulos.`;
+}

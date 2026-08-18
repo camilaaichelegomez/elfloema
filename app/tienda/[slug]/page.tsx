@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoImagen from "@/components/tienda/ProductoImagen";
+import FiguraCiencia from "@/components/tienda/FiguraCiencia";
 import { productosTienda, getProductoTienda } from "@/lib/productos-tienda";
 
 const GOLD = "#c8a050";
@@ -148,6 +149,15 @@ export default async function ProductoPage({
                       </div>
                     ))}
                   </div>
+                  {producto.bioquimica && (
+                    <div style={{ marginTop: "1.2rem" }}>
+                      <FiguraCiencia
+                        src={`/tienda/${producto.slug}-ciencia.jpg`}
+                        prompt={producto.bioquimica.prompt}
+                        leyenda={producto.bioquimica.leyenda}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 

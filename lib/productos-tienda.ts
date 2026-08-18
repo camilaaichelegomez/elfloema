@@ -65,7 +65,33 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Limpieza facial",
     descripcion: "Gel limpiador facial sin sulfatos, pH piel, con hidrolato de triwe.",
     descripcionLarga:
-      "Un limpiador facial suave que respeta el manto ácido de la piel: limpia sin dejar tirantez, con tensioactivos amables y el hidrolato de triwe (laurel nativo chileno). De uso diario, apto para pieles sensibles.",
+      "Un gel de limpieza que respeta lo que tu piel ya sabe hacer. Su base es hidrolato de triwe —el laurel nativo del sur de Chile—, un agua aromática suave que reemplaza al agua común. Limpia con tensioactivos derivados del coco y de aminoácidos que arrastran el exceso de grasa y la contaminación sin romper la barrera ni dejar la piel tirante. La glicerina retiene la humedad y la inulina, un prebiótico, cuida el microbioma que mantiene la piel en equilibrio. Formulado a pH 5,5, el mismo de tu manto ácido. Para quienes quieren limpiar sin resecar, con la nobleza de lo nativo y el criterio de la ciencia.",
+    beneficios: [
+      "Limpia sin resecar ni dejar tirantez",
+      "Sin sulfatos: tensioactivos suaves derivados del coco",
+      "Respeta el pH y la barrera de la piel (pH 5,5)",
+      "Con prebiótico (inulina) para el microbioma",
+      "Uso diario, apto para piel sensible y mixta",
+    ],
+    ciencia: [
+      { titulo: "Sodium Cocoyl Isethionate (SCI)", texto: "Tensioactivo del coco y aminoácidos. Limpia formando micelas que atrapan la grasa y la suciedad, pero su cadena grasa NO desnaturaliza las proteínas de la piel como los sulfatos: por eso hace espuma cremosa sin resecar ni dañar la barrera." },
+      { titulo: "Glucósido + Betaína de coco", texto: "Un tensioactivo azucarado ultra suave y un co-tensioactivo anfótero. La betaína además reduce el potencial irritante de la fórmula al modular el tamaño de las micelas." },
+      { titulo: "pH 5,5 — el manto ácido", texto: "Ajustado con ácido cítrico al pH natural de la piel. Mantener ese pH preserva la barrera y el equilibrio de la flora cutánea; un jabón alcalino (pH 9-10) lo altera, este no." },
+      { titulo: "Glicerina + Inulina", texto: "La glicerina atrae y retiene agua (sus grupos OH forman puentes con las moléculas de agua), evitando la tirantez. La inulina es un prebiótico: alimenta las bacterias buenas del microbioma cutáneo." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de la superficie de la piel en seccion, con micelas de tensioactivo suave (esferas) atrapando gotas de grasa y suciedad para arrastrarlas al enjuagar, mientras la barrera cutanea y el manto acido permanecen intactos. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'micela', 'grasa atrapada', 'barrera intacta', 'pH 5,5'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "Las micelas atrapan la grasa sin romper la barrera",
+    },
+    ingredientes:
+      "Laurelia Sempervirens Leaf Water (hidrolato de triwe), Aqua, Sodium Cocoyl Isethionate, Coco-Glucoside, Cocamidopropyl Betaine, Glycerin, Inulin, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+    modoUso:
+      "Sobre el rostro húmedo, aplica una pequeña cantidad y masajea con movimientos circulares, evitando el contorno de los ojos. Enjuaga con agua tibia. Úsalo mañana y noche.",
+    piel: "Todo tipo de piel, ideal sensible y mixta",
+    tamano: "100 ml",
+    imagenPrompt:
+      "Fotografia de producto de un frasco de vidrio ambar con dosificador dorado y etiqueta oscura elegante, sobre una piedra oscura humeda, con hojas de triwe (laurel nativo) y una gota de gel translucido, luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra, enfoque nitido en el frasco, alta calidad, sin ningun texto ni marca de agua.",
     precio: null,
     glyph: "◈",
     accent: "rgba(90,122,58,0.24)",

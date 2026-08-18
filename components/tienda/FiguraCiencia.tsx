@@ -10,10 +10,12 @@ export default function FiguraCiencia({
   src,
   prompt,
   leyenda,
+  titulo = "Ilustración bioquímica",
 }: {
   src: string;
   prompt: string;
   leyenda?: string;
+  titulo?: string;
 }) {
   const [imgOk, setImgOk] = useState(true);
   const [copiado, setCopiado] = useState(false);
@@ -47,7 +49,7 @@ export default function FiguraCiencia({
           />
         ) : (
           <div style={placeholderStyle}>
-            <p style={placeholderLabelStyle}>Ilustración bioquímica — espacio para imagen</p>
+            <p style={placeholderLabelStyle}>{titulo} — espacio para imagen</p>
             <p style={promptStyle}>
               <span style={{ color: "rgba(170,120,190,0.9)" }}>Imagen a generar (IA): </span>
               {prompt}

@@ -16,6 +16,7 @@ export type ProductoTienda = {
   piel?: string; // para qué tipo de piel
   tamano?: string; // ej "100 ml"
   imagenPrompt?: string; // prompt para generar la foto del producto (placeholder)
+  fichaPrompt?: string; // prompt para generar la ficha ilustrada (infografía estilo El Floema)
   precio: number | null;
   glyph: string;
   accent: string;
@@ -92,6 +93,8 @@ export const productosTienda: ProductoTienda[] = [
     tamano: "100 ml",
     imagenPrompt:
       "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas de triwe (laurel nativo chileno), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las cuatro esquinas y pequenas lunas doradas arriba. Al centro arriba, el emblema de El Floema (un pequeno frasco pocion con raices doradas). En el centro, un ovalo dorado sutil con un espacio limpio y bien iluminado para colocar la foto real de un frasco con dosificador de gel. Alrededor, ilustraciones botanicas detalladas y coloreadas estilo grabado cientifico y acuarela de hojas de triwe (laurel nativo chileno) y coco, con suaves burbujas de espuma cremosa, dispuestas simetricas y ordenadas. Coloca de 4 a 6 recuadros ornamentados dorados VACIOS (sin ninguna letra) conectados con finas lineas guia doradas, listos para escribir las propiedades encima. Estetica mistica, cientifica y elegante, iluminacion calida dorada. MUY IMPORTANTE: no escribas ningun texto ni letras en la imagen (el texto se agrega despues en Canva). Composicion equilibrada, limpia y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◈",
     accent: "rgba(90,122,58,0.24)",
@@ -126,6 +129,8 @@ export const productosTienda: ProductoTienda[] = [
     tamano: "100 ml",
     imagenPrompt:
       "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas verdes brillantes de triwe (laurel nativo chileno), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las cuatro esquinas y pequenas lunas doradas arriba. Al centro arriba, el emblema de El Floema (un pequeno frasco pocion con raices doradas). En el centro, un ovalo dorado sutil con un espacio limpio y bien iluminado para colocar la foto real de un frasco de vidrio ambar con atomizador. Alrededor, ilustraciones botanicas detalladas y coloreadas estilo grabado cientifico y acuarela de hojas verdes de triwe (laurel chileno nativo, Laurelia sempervirens), dispuestas simetricas y ordenadas. Coloca de 4 a 6 recuadros ornamentados dorados VACIOS (sin ninguna letra) conectados con finas lineas guia doradas, listos para escribir las propiedades encima. Estetica mistica, cientifica y elegante, iluminacion calida dorada. MUY IMPORTANTE: no escribas ningun texto ni letras en la imagen (el texto se agrega despues en Canva). Composicion equilibrada, limpia y muy ordenada, alta calidad.",
     precio: null,
     glyph: "❁",
     accent: "rgba(122,74,138,0.24)",
@@ -160,6 +165,8 @@ export const productosTienda: ProductoTienda[] = [
     tamano: "100 ml",
     imagenPrompt:
       "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas de laurel verdes y algunas ramas, sobre superficie de piedra oscura, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las cuatro esquinas y pequenas lunas doradas arriba. Al centro arriba, el emblema de El Floema (un pequeno frasco pocion con raices doradas). En el centro, un ovalo dorado sutil con un espacio limpio y bien iluminado para colocar la foto real de un frasco de vidrio ambar con atomizador. Alrededor, ilustraciones botanicas detalladas y coloreadas estilo grabado cientifico y acuarela de hojas y ramas de laurel (Laurus nobilis), dispuestas simetricas y ordenadas. Coloca de 4 a 6 recuadros ornamentados dorados VACIOS (sin ninguna letra) conectados con finas lineas guia doradas, listos para escribir las propiedades encima. Estetica mistica, cientifica y elegante, iluminacion calida dorada. MUY IMPORTANTE: no escribas ningun texto ni letras en la imagen (el texto se agrega despues en Canva). Composicion equilibrada, limpia y muy ordenada, alta calidad.",
     precio: null,
     glyph: "❁",
     accent: "rgba(90,122,58,0.22)",
@@ -194,6 +201,8 @@ export const productosTienda: ProductoTienda[] = [
     tamano: "100 ml",
     imagenPrompt:
       "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de ramas de eucalipto de hojas azul-verdosas, sobre superficie de piedra oscura, con luz calida dorada lateral y fondo verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las cuatro esquinas y pequenas lunas doradas arriba. Al centro arriba, el emblema de El Floema (un pequeno frasco pocion con raices doradas). En el centro, un ovalo dorado sutil con un espacio limpio y bien iluminado para colocar la foto real de un frasco de vidrio ambar con atomizador. Alrededor, ilustraciones botanicas detalladas y coloreadas estilo grabado cientifico y acuarela de ramas de eucalipto de hojas azul-verdosas (Eucalyptus globulus), dispuestas simetricas y ordenadas. Coloca de 4 a 6 recuadros ornamentados dorados VACIOS (sin ninguna letra) conectados con finas lineas guia doradas, listos para escribir las propiedades encima. Estetica mistica, cientifica y elegante, iluminacion calida dorada. MUY IMPORTANTE: no escribas ningun texto ni letras en la imagen (el texto se agrega despues en Canva). Composicion equilibrada, limpia y muy ordenada, alta calidad.",
     precio: null,
     glyph: "❁",
     accent: "rgba(90,122,58,0.24)",

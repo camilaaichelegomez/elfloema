@@ -34,7 +34,8 @@ export default function CatalogoPage() {
 
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(1rem,4vw,2.5rem) 3rem" }}>
         {/* Portada */}
-        <section className="cat-cover" style={{ textAlign: "center", padding: "clamp(2rem,8vh,5rem) 0 clamp(2rem,6vh,4rem)" }}>
+        <section className="cat-cover" style={coverStyle}>
+          <Gemas />
           <p style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.62rem", letterSpacing: "0.4em", textTransform: "uppercase", color: GOLD, opacity: 0.75, marginBottom: "1.2rem" }}>
             Fitocosmética Científica
           </p>
@@ -62,6 +63,7 @@ export default function CatalogoPage() {
                 .filter((p) => p.categoria === cat)
                 .map((p) => (
                   <article key={p.slug} className="cat-card" style={cardStyle}>
+                    <Gemas />
                     <div style={{ width: "clamp(96px, 22%, 150px)", flexShrink: 0 }}>
                       <CatalogoImagen slug={p.slug} nombre={p.nombre} glyph={p.glyph} accent={p.accent} />
                     </div>
@@ -121,10 +123,44 @@ function Divisor() {
 
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
-  background: "linear-gradient(rgba(9,15,9,0.97), rgba(9,15,9,0.99)), radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,160,80,0.05), transparent 70%), #0b140b",
+  background:
+    "linear-gradient(rgba(9,15,9,0.93), rgba(9,15,9,0.97)), radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,160,80,0.06), transparent 70%), url('/fondo_tienda.jpg') center top / cover fixed, #0b140b",
   color: CREAM,
   WebkitPrintColorAdjust: "exact",
   printColorAdjust: "exact",
+};
+
+// Cuatro gemas moradas en las esquinas (estética grimorio, como las tarjetas de la tienda).
+function Gemas() {
+  const g: CSSProperties = {
+    position: "absolute",
+    width: 7,
+    height: 7,
+    borderRadius: "50%",
+    background: "radial-gradient(circle at 35% 30%, #b98acb, #7a4a8a 70%)",
+    boxShadow: "0 0 7px rgba(122,74,138,0.55)",
+    pointerEvents: "none",
+  };
+  return (
+    <>
+      <span style={{ ...g, top: 7, left: 7 }} />
+      <span style={{ ...g, top: 7, right: 7 }} />
+      <span style={{ ...g, bottom: 7, left: 7 }} />
+      <span style={{ ...g, bottom: 7, right: 7 }} />
+    </>
+  );
+}
+
+const coverStyle: CSSProperties = {
+  position: "relative",
+  textAlign: "center",
+  padding: "clamp(2.5rem,8vh,5rem) clamp(1.5rem,5vw,3rem)",
+  margin: "clamp(1rem,3vh,2rem) 0 clamp(2rem,5vh,3.5rem)",
+  border: "1px solid rgba(200,160,80,0.4)",
+  borderRadius: 8,
+  background: "linear-gradient(160deg, rgba(15,26,15,0.55), rgba(11,20,11,0.55))",
+  boxShadow:
+    "inset 0 0 0 4px rgba(11,20,11,0.6), inset 0 0 0 5px rgba(200,160,80,0.18), 0 24px 70px rgba(0,0,0,0.55)",
 };
 
 const categoriaStyle: CSSProperties = {
@@ -139,13 +175,15 @@ const categoriaStyle: CSSProperties = {
 };
 
 const cardStyle: CSSProperties = {
+  position: "relative",
   display: "flex",
   gap: "clamp(1rem,3vw,1.6rem)",
   alignItems: "flex-start",
-  background: "linear-gradient(135deg, rgba(15,26,15,0.6), rgba(11,20,11,0.6))",
-  border: "1px solid rgba(200,160,80,0.16)",
+  background: "linear-gradient(135deg, rgba(15,26,15,0.66), rgba(11,20,11,0.66))",
+  border: "1px solid rgba(200,160,80,0.3)",
   borderRadius: 6,
-  padding: "clamp(0.9rem,2.5vw,1.4rem)",
+  padding: "clamp(1rem,2.6vw,1.5rem)",
+  boxShadow: "inset 0 0 0 3px rgba(11,20,11,0.5), inset 0 0 0 4px rgba(200,160,80,0.1)",
 };
 
 const nombreStyle: CSSProperties = {

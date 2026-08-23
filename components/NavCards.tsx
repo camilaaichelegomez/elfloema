@@ -180,7 +180,7 @@ const grimorioCards = [
     key: "velas-inciensos",
     label: "Velas e Inciensos",
     subtitle: "Fuego, humo e intención",
-    href: "/bruja-verde",
+    href: "/velas-inciensos",
     Icon: IconCandle,
   },
 ];

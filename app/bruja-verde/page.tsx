@@ -147,29 +147,6 @@ const HIERBAS = [
   { n: "Damiana", p: "Atracción, amor y adivinación." },
 ];
 
-const RESINAS = [
-  { n: "Oliban · incienso (frankincense)", p: "Purificación, elevación espiritual y conexión divina." },
-  { n: "Mirra", p: "Protección, sanación y acompañamiento del duelo; se combina con el oliban." },
-  { n: "Benjuí", p: "Prosperidad, purificación y calma." },
-  { n: "Copal", p: "Limpieza (tradición mesoamericana), ofrenda y purificación de espacios." },
-  { n: "Sándalo", p: "Meditación, paz y espiritualidad; fija los otros aromas." },
-  { n: "Cedro", p: "Protección, limpieza y arraigo." },
-  { n: "Palo santo", p: "Limpieza energética, buena suerte y aroma dulce." },
-];
-
-const VELAS = [
-  { c: "Blanco", hex: "#efe8d2", s: "Pureza, paz, protección, limpieza, nuevos comienzos. Comodín: sirve para cualquier intención." },
-  { c: "Rojo", hex: "#b5423a", s: "Amor pasional, energía, vitalidad, fuerza y valor." },
-  { c: "Rosa", hex: "#c98aa0", s: "Amor suave, autoestima, ternura, amistad y reconciliación." },
-  { c: "Verde", hex: "#5a7a3a", s: "Abundancia, prosperidad, crecimiento, salud y naturaleza." },
-  { c: "Dorado / amarillo", hex: "#c8a050", s: "Éxito, riqueza, iluminación, alegría e intelecto. El sol." },
-  { c: "Azul", hex: "#5a7a9a", s: "Calma, paz, comunicación, sanación y sabiduría." },
-  { c: "Morado / violeta", hex: "#7a4a8a", s: "Espiritualidad, intuición, meditación profunda y poder psíquico." },
-  { c: "Naranja", hex: "#c07a3a", s: "Creatividad, atracción, cambio y entusiasmo." },
-  { c: "Negro", hex: "#2a2a2a", s: "Protección fuerte, destierro de energías negativas, transformación y cierre de ciclos." },
-  { c: "Marrón", hex: "#7a5a3a", s: "Arraigo, hogar, animales, estabilidad y conexión con la tierra." },
-];
-
 /* ── Acordeón ─────────────────────────────────────────────────── */
 function AccordionItem({ title, open, onToggle, children }: { title: string; open: boolean; onToggle: () => void; children: React.ReactNode }) {
   return (
@@ -189,7 +166,7 @@ function AccordionItem({ title, open, onToggle, children }: { title: string; ope
   );
 }
 
-const SECTIONS = ["que-es", "correspondencias", "plantas-sur", "hierbas", "resinas", "velas", "inciensos", "inventario"] as const;
+const SECTIONS = ["que-es", "correspondencias", "plantas-sur", "hierbas", "inventario"] as const;
 type SectionId = (typeof SECTIONS)[number];
 
 export default function BrujaVerde() {
@@ -199,7 +176,7 @@ export default function BrujaVerde() {
   return (
     <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_brujaverde.jpg') center top / cover fixed, var(--bg-primary)", }}>
       <GrainOverlay />
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)" }}>
+      <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)", background: "rgba(9,14,9,0.8)", borderRadius: 10, border: "1px solid rgba(200,160,80,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.45)" }}>
         <BackButton label="← Volver al Grimorio" href="/" />
 
         <header style={{ textAlign: "center", marginBottom: 40 }}>
@@ -210,7 +187,7 @@ export default function BrujaVerde() {
             Bruja Verde
           </h1>
           <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "1.12rem", fontStyle: "italic", color: "#d4c4a0", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
-            El otro lado de la planta: su fuerza simbólica. Correspondencias, plantas sagradas del sur y el arte de los inciensos, sahumerios y velas rituales.
+            El otro lado de la planta: su fuerza simbólica. Correspondencias, plantas sagradas del sur y las hierbas de la tradición verde.
           </p>
         </header>
 
@@ -294,83 +271,6 @@ export default function BrujaVerde() {
             ))}
           </AccordionItem>
 
-          {/* 5 — Resinas y maderas */}
-          <AccordionItem title="Resinas y maderas para incienso" open={open === "resinas"} onToggle={() => toggle("resinas")}>
-            <P>Dan cuerpo, duración y profundidad al humo. Son el alma de los inciensos.</P>
-            {RESINAS.map((r) => (
-              <div key={r.n} style={{ marginBottom: "9px", paddingLeft: "0.9rem", position: "relative" }}>
-                <span style={{ position: "absolute", left: 0, color: "#b98acb" }}>◆</span>
-                <p style={{ fontSize: "0.92rem", lineHeight: 1.7, color: "#d4c4a0", margin: 0 }}>
-                  <strong style={{ color: "rgba(200,160,80,0.9)" }}>{r.n}.</strong> {r.p}
-                </p>
-              </div>
-            ))}
-          </AccordionItem>
-
-          {/* 6 — El color de las velas */}
-          <AccordionItem title="El color de las velas" open={open === "velas"} onToggle={() => toggle("velas")}>
-            <P>Cada color de cera lleva su propia intención. Elige según lo que quieras cultivar.</P>
-            <div style={{ display: "grid", gap: "0.5rem" }}>
-              {VELAS.map((v) => (
-                <div key={v.c} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", padding: "0.5rem 0" }}>
-                  <span style={{ flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: v.hex, border: "1px solid rgba(200,160,80,0.35)", marginTop: 2 }} />
-                  <p style={{ fontSize: "0.9rem", lineHeight: 1.65, color: "#d4c4a0", margin: 0 }}>
-                    <strong style={{ color: "rgba(200,160,80,0.9)" }}>{v.c}.</strong> {v.s}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </AccordionItem>
-
-          {/* 7 — Inciensos, sahumerios y velas */}
-          <AccordionItem title="Inciensos, sahumerios y velas" open={open === "inciensos"} onToggle={() => toggle("inciensos")}>
-            <SubTitle>Incienso en cono — receta base (por partes)</SubTitle>
-            <P style={{ marginBottom: 6 }}>
-              <strong>4 partes</strong> base combustible (corteza de eucalipto molida, aserrín fino, carbón vegetal en
-              polvo o polvo de sándalo/makko). · <strong>3 partes</strong> aroma (hierbas secas, especias, maderas y
-              resinas: oliban, mirra, benjuí, copal). · <strong>1 parte</strong> aglutinante (goma tragacanto hidratada
-              en gel). · Opcional: una pizca de nitrato de potasio para que la brasa no se apague. · Agua destilada c.s.
-            </P>
-            <P style={{ marginBottom: 12 }}>
-              Moler la base a harina fina; triturar hierbas y resinas en el mortero; mezclar y tamizar los secos; sumar el
-              gel de tragacanto de a poco hasta una pasta moldeable (unas gotas de aceite esencial al final); formar conos
-              de ~3 cm y <strong>secar sobre papel encerado 2–3 semanas</strong> en lugar fresco. El secado largo es la
-              clave: humedad = no enciende.
-            </P>
-
-            <SubTitle>Sahumerio en atado (sin base combustible)</SubTitle>
-            <P style={{ marginBottom: 12 }}>
-              Atar hierbas secas frescas —romero, salvia, laurel, lavanda, foye— con hilo de algodón; secar colgado 2–3
-              semanas. Se enciende la punta y se sopla para que humee.
-            </P>
-
-            <SubTitle>Inciensos por intención</SubTitle>
-            <GreenBox>
-              <strong>Limpieza:</strong> base + salvia + romero + oliban + un toque de canelo (foye). ·{" "}
-              <strong>Protección del hogar:</strong> base + ruda + laurel/triwe + mirra + cedro. ·{" "}
-              <strong>Prosperidad:</strong> base + canela + laurel + benjuí + menta + una pizca de albahaca. ·{" "}
-              <strong>Amor / armonía:</strong> base + pétalos de rosa + lavanda + damiana + un toque de canela. ·{" "}
-              <strong>Calma / meditación:</strong> base + lavanda + manzanilla + sándalo.
-            </GreenBox>
-
-            <SubTitle>Velas de soya aromáticas</SubTitle>
-            <P style={{ marginBottom: 6 }}>
-              El aroma se aporta con <strong>aceites esenciales</strong> (no quemando la hierba): 6–10 % del peso de la
-              cera, agregados a ~50–55 °C (más caliente se volatiliza). Se decoran con flores o hierbas secas por fuera,
-              nunca dentro, por seguridad de la llama. Combina color + aceite según la intención:
-            </P>
-            <PurpleBox>
-              <strong>Limpieza:</strong> vela blanca + AE de romero / eucalipto / cedro. ·{" "}
-              <strong>Protección:</strong> vela negra o blanca + AE de laurel / cedro / clavo. ·{" "}
-              <strong>Prosperidad:</strong> vela verde o dorada + AE de canela / naranja / menta. ·{" "}
-              <strong>Calma / amor:</strong> vela rosa o lavanda + AE de lavanda / rosa / citronela suave.
-            </PurpleBox>
-            <P style={{ fontSize: "0.85rem", color: "rgba(212,196,160,0.6)", fontStyle: "italic", marginBottom: 0 }}>
-              Ventilar siempre al quemar incienso. Nunca dejar una vela encendida sin supervisión. Uso aromático,
-              simbólico y ritual.
-            </P>
-          </AccordionItem>
-
           {/* 8 — Con lo que ya tienes */}
           <AccordionItem title="Con lo que ya tenemos" open={open === "inventario"} onToggle={() => toggle("inventario")}>
             <P>
@@ -380,6 +280,12 @@ export default function BrujaVerde() {
               en el estante.
             </P>
           </AccordionItem>
+
+          {/* Puntero a Velas e Inciensos */}
+          <a href="/velas-inciensos" style={{ display: "block", textDecoration: "none", border: "1px solid rgba(122,74,138,0.3)", borderRadius: "0.5rem", background: "rgba(122,74,138,0.08)", padding: "1rem 1.25rem", marginTop: "0.5rem" }}>
+            <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#b98acb" }}>Velas e Inciensos →</span>
+            <span style={{ display: "block", fontSize: "0.9rem", color: "rgba(212,196,160,0.75)", marginTop: 4 }}>El fuego, el humo y la intención tienen su propia sección: color de las velas, ritual paso a paso, resinas y recetas.</span>
+          </a>
         </section>
 
         <LineDivider />

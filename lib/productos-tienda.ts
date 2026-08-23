@@ -594,6 +594,27 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(150,80,70,0.28)",
   },
   {
+    slug: "mascarilla-iluminadora",
+    nombre: "Mascarilla Iluminadora",
+    categoria: "Mascarilla facial",
+    descripcion: "Mascarilla en polvo de arcilla amarilla, avena y cúrcuma que devuelve luz a la piel apagada.",
+    descripcionLarga:
+      "Una mascarilla en polvo pensada para devolver luz a las pieles apagadas o cansadas. La arcilla amarilla limpia con suavidad y aporta luminosidad, la avena coloidal calma y suaviza para que la arcilla nunca apriete ni reseque, y la cúrcuma suma su curcumina, un potente antioxidante y antiinflamatorio que revitaliza y empareja el aspecto del cutis. Se activa con agua al momento, así llega fresca y sin conservantes. Deja la piel limpia, fresca y con un brillo saludable.",
+    beneficios: [
+      "Arcilla amarilla que ilumina y suaviza",
+      "Avena coloidal que calma y evita la sensación tirante",
+      "Cúrcuma (curcumina): antioxidante y antiinflamatoria",
+      "En polvo: sin conservantes, se activa al momento",
+    ],
+    modoUso:
+      "Mezcla una cucharadita del polvo con un poco de agua, hidrolato o yogur hasta formar una pasta. Aplica sobre el rostro limpio, deja 10 minutos sin que seque del todo y enjuaga. Una vez por semana. Si queda un leve tono amarillo, retíralo con tu aceite desmaquillante.",
+    piel: "Normal, apagada o cansada",
+    tamano: "50 g",
+    precio: null,
+    glyph: "◓",
+    accent: "rgba(200,160,80,0.28)",
+  },
+  {
     slug: "jabon-obsidiana",
     nombre: "Jabón Obsidiana",
     categoria: "Cuerpo",

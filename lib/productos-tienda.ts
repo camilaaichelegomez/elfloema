@@ -447,17 +447,17 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Tratamiento localizado",
     descripcion: "Tratamiento puntual y simple con ácido salicílico y tinturas de nalca y tomillo.",
     descripcionLarga:
-      "Un tratamiento localizado y simple para ese granito que aparece de golpe. El ácido salicílico entra al poro y disuelve el sebo que lo tapa; las tinturas de nalca (astringente nativa) y tomillo (antiséptica) reemplazan al alcohol para ser más suaves, y el pantenol repara. Pensado para ser puntual y cuidadoso: solo un toque en el granito, de noche.",
+      "Un tratamiento localizado y simple para ese granito que aparece de golpe. El ácido salicílico entra al poro y disuelve el sebo que lo tapa; las tinturas de nalca (astringente nativa) y tomillo (antiséptica) reemplazan al alcohol para ser más suaves. Pensado para ser puntual y cuidadoso: solo un toque en el granito, de noche.",
     beneficios: [
       "Ácido salicílico que destapa el poro y seca",
       "Tintura de nalca astringente que cierra el poro",
       "Tintura de tomillo, antiséptica suave",
-      "Pantenol que repara; fórmula simple y cuidadosa",
+      "Fórmula simple y puntual, para no lastimar la piel",
     ],
     ciencia: [
       { titulo: "Ácido salicílico (BHA)", texto: "Es liposoluble: penetra dentro del poro tapado de sebo y lo disuelve desde adentro. Su acción queratolítica seca la imperfección aflojando las células muertas que la obstruyen." },
       { titulo: "Tinturas de nalca y tomillo", texto: "La nalca (nativa) es rica en taninos astringentes que cierran el aspecto del poro y ayudan a secar; el tomillo aporta timol, antiséptico suave. Reemplazan al alcohol para no resecar de más." },
-      { titulo: "Pantenol", texto: "Repara y evita la descamación de la zona, para que el uso puntual seque el granito sin lastimar ni irritar la piel." },
+      { titulo: "Aplicación localizada", texto: "Al actuar solo en el punto exacto, concentra el efecto donde se necesita y respeta la piel sana; por eso conviene usarlo puntual y no repetirlo de más." },
     ],
     bioquimica: {
       prompt:
@@ -465,7 +465,7 @@ export const productosTienda: ProductoTienda[] = [
       leyenda: "El salicílico destapa y seca el granito sin tocar la piel sana",
     },
     ingredientes:
-      "Gunnera Tinctoria (Nalca) Tincture, Aqua, Salicylic Acid, Glycerin, Panthenol, Thymus Vulgaris (Thyme) Tincture, Alcohol, Citric Acid.",
+      "Gunnera Tinctoria (Nalca) Tincture, Aqua, Salicylic Acid, Glycerin, Thymus Vulgaris (Thyme) Tincture, Alcohol, Citric Acid.",
     modoUso:
       "Aplica solo sobre el granito, con un cotonito o el aplicador, de noche. No lo extiendas por todo el rostro ni lo repitas muchas veces (el salicílico puede resecar o irritar de más). No uses en piel irritada.",
     piel: "Grasa y mixta con tendencia acneica",

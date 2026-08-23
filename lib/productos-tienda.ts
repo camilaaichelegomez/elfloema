@@ -278,9 +278,31 @@ export const productosTienda: ProductoTienda[] = [
     slug: "spray-capilar-cafeina-laurel",
     nombre: "Spray Capilar Anticaída",
     categoria: "Cuidado capilar",
-    descripcion: "Spray con cafeína e hidrolato de laurel que estimula el cuero cabelludo.",
+    descripcion: "Tónico sin enjuague con cafeína, ortiga, té verde y tomillo que fortalece la raíz.",
     descripcionLarga:
-      "Un tónico capilar que activa la microcirculación del cuero cabelludo y ayuda a fortalecer el cabello, con cafeína e hidrolato de laurel. De uso diario, sin enjuague.",
+      "Un tónico capilar sin enjuague para acompañar el cabello que se cae o se debilita. La cafeína y el extracto de ortiga estimulan el folículo y equilibran el cuero cabelludo, con té verde y tomillo que lo cuidan, sobre una base de hidrolato de laurel. Se rocía a diario sobre la raíz y se masajea para activar la microcirculación. La constancia es la clave: es un ritual diario, no un milagro de un día.",
+    beneficios: [
+      "Cafeína y ortiga que estimulan el folículo y la raíz",
+      "Té verde y tomillo que cuidan el cuero cabelludo",
+      "Activa la microcirculación con el masaje",
+      "Sin enjuague, uso diario",
+    ],
+    ciencia: [
+      { titulo: "Cafeína", texto: "Aplicada de forma constante, penetra el folículo y prolonga su fase de crecimiento (anágena), contrarrestando parte del efecto de la DHT que lo debilita; además estimula la microcirculación del cuero cabelludo." },
+      { titulo: "Extracto de ortiga", texto: "Aliado tradicional contra la caída: se le atribuye la capacidad de frenar la 5-alfa-reductasa (la enzima que forma la DHT) y de aportar minerales que nutren el folículo." },
+      { titulo: "Té verde y tomillo", texto: "El té verde suma antioxidantes que protegen el folículo del estrés oxidativo, y el tomillo es un tónico y antiséptico suave que cuida la salud del cuero cabelludo." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte del cuero cabelludo con un foliculo piloso: la cafeina penetra y estimula el crecimiento del cabello (prolonga la fase anagena) mientras la microcirculacion se activa y la ortiga frena la enzima que produce la DHT. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'cafeina', 'foliculo estimulado', 'fase de crecimiento', 'ortiga: menos DHT'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La cafeína estimula el folículo y la ortiga frena la DHT",
+    },
+    ingredientes:
+      "Laurus Nobilis Leaf Water (hidrolato de laurel), Caffeine, Glycerin, Urtica Dioica (Nettle) Extract, Camellia Sinensis (Green Tea) Tincture, Panthenol, Thymus Vulgaris (Thyme) Tincture, Cedrus Atlantica Oil, Polysorbate 20, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
+    modoUso:
+      "Sobre el cuero cabelludo limpio o seco, rocía por zonas y masajea con las yemas un minuto. No se enjuaga. Úsalo a diario; la constancia es la clave.",
+    piel: "Cuero cabelludo con tendencia a la caída",
+    tamano: "100 ml",
     precio: null,
     glyph: "❦",
     accent: "rgba(122,74,138,0.26)",
@@ -445,6 +467,18 @@ export const productosTienda: ProductoTienda[] = [
       "Sin enjuague, ligera, no apelmaza",
       "Cabello seco, rizado o con tendencia al encrespado",
     ],
+    ciencia: [
+      { titulo: "Biopolímero MaízCare", texto: "Un almidón de maíz hidrolizado que forma un film flexible y transpirable sobre la fibra: sella la cutícula y crea una barrera contra la humedad del ambiente, que es justamente la que hincha el cabello y provoca el frizz." },
+      { titulo: "BTMS-50 (catiónico)", texto: "Es un acondicionador de carga positiva; el cabello dañado tiene carga negativa, así que el BTMS se adhiere justo donde más se necesita, desenreda y alisa la cutícula reduciendo la fricción." },
+      { titulo: "Monoi, ricino y vitamina E", texto: "El monoi (coco + tiaré) aporta brillo y suavidad, el ricino da cuerpo, y la vitamina E es antioxidante que protege los aceites de la oxidación." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un cabello con la cuticula levantada (frizz) que se alisa: el biopolimero MaizCare forma un film que sella la cuticula y bloquea la humedad del aire, mientras el BTMS (cargas positivas) se adhiere a la fibra dañada. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'cuticula sellada', 'film MaizCare', 'bloquea humedad', 'BTMS cationico'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El film sella la cutícula y bloquea la humedad que causa el frizz",
+    },
+    ingredientes:
+      "Aqua, Glycerin, Panthenol, Behentrimonium Methosulfate (BTMS-50), Cetyl Alcohol, Cocos Nucifera (Monoi) Oil, Cocos Nucifera (Coconut) Oil, Ricinus Communis (Castor) Seed Oil, Tocopherol, Hydrolyzed Corn Starch (MaizCare), Benzyl Alcohol, Dehydroacetic Acid, Cedrus Atlantica Oil, Citric Acid.",
     modoUso:
       "Sobre el cabello húmedo o seco, aplica de medios a puntas y peina. No enjuagues.",
     piel: "Cabello seco a rizado",

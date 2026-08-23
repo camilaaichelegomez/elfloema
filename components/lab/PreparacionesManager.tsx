@@ -2,7 +2,7 @@
 
 import { useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { Check, Eye, MessageSquare, Package, Sparkles, Tag, Trash2, X } from "lucide-react";
+import { Check, Eye, MessageSquare, Package, Pencil, Sparkles, Tag, Trash2, X } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 
 export interface Preparacion {
@@ -54,6 +54,11 @@ export function PreparacionesManager({ initialPreparaciones }: { initialPreparac
   const [guardandoNota, setGuardandoNota] = useState(false);
   const [esProducto, setEsProducto] = useState<boolean | null>(null);
   const [guardandoProducto, setGuardandoProducto] = useState(false);
+  // Edición de las cantidades de una preparación ya hecha (para corregir cálculos
+  // o imprevistos). Al guardar, el inventario se reajusta con la diferencia.
+  const [editando, setEditando] = useState(false);
+  const [itemsEdit, setItemsEdit] = useState<Record<number, string>>({});
+  const [guardandoEdit, setGuardandoEdit] = useState(false);
 
   async function recargarLista() {
     const supabase = createClient();
@@ -70,6 +75,7 @@ export function PreparacionesManager({ initialPreparaciones }: { initialPreparac
     setViendo(preparacion);
     setNotaTexto(preparacion.notas ?? "");
     setEsProducto(null);
+    setEditando(false);
     const items = await cargarItems(preparacion.id);
     setItemsViendo(items);
     if (preparacion.formula_id) {
@@ -115,6 +121,38 @@ export function PreparacionesManager({ initialPreparaciones }: { initialPreparac
     }
     setViendo({ ...viendo, notas: notaTexto });
     setPreparaciones((prev) => prev.map((p) => (p.id === viendo.id ? { ...p, notas: notaTexto } : p)));
+  }
+
+  function iniciarEdicion() {
+    const map: Record<number, string> = {};
+    itemsViendo.forEach((it) => {
+      map[it.id] = String(it.gramos);
+    });
+    setItemsEdit(map);
+    setError(null);
+    setEditando(true);
+  }
+
+  async function guardarEdicion() {
+    if (!viendo) return;
+    setGuardandoEdit(true);
+    setError(null);
+    const items = itemsViendo.map((it) => ({ id: it.id, gramos: Number(itemsEdit[it.id]) || 0 }));
+    const supabase = createClient();
+    // Una sola transacción en la base: ajusta el inventario con la diferencia
+    // y actualiza las cantidades de la preparación — todo o nada.
+    const { error: rpcError } = await supabase.rpc("editar_preparacion", { p_id: viendo.id, items });
+    setGuardandoEdit(false);
+    if (rpcError) {
+      setError(rpcError.message);
+      return;
+    }
+    const nuevoTotal = Math.round(items.reduce((s, x) => s + x.gramos, 0) * 100) / 100;
+    const nuevos = await cargarItems(viendo.id);
+    setItemsViendo(nuevos);
+    setViendo({ ...viendo, cantidad_gramos: nuevoTotal });
+    setPreparaciones((prev) => prev.map((p) => (p.id === viendo.id ? { ...p, cantidad_gramos: nuevoTotal } : p)));
+    setEditando(false);
   }
 
   async function handleBorrar(preparacion: Preparacion) {
@@ -184,20 +222,55 @@ export function PreparacionesManager({ initialPreparaciones }: { initialPreparac
                 {guardandoNota && <span style={notaGuardandoStyle}>Guardando…</span>}
               </div>
 
-              <p style={itemsTituloStyle}>Ingredientes usados</p>
-              <div className="lab-tabla-marco" style={tablaWrapperStyle}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+                <span style={itemsTituloStyle}>Ingredientes usados</span>
+                {!editando ? (
+                  <button type="button" onClick={iniciarEdicion} style={editarBotonStyle}>
+                    <Pencil size={12} /> Editar cantidades
+                  </button>
+                ) : (
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button type="button" onClick={() => setEditando(false)} style={editarBotonStyle}>
+                      Cancelar
+                    </button>
+                    <button type="button" onClick={guardarEdicion} disabled={guardandoEdit} style={guardarBotonStyle}>
+                      <Check size={12} /> {guardandoEdit ? "Guardando…" : "Guardar cambios"}
+                    </button>
+                  </div>
+                )}
+              </div>
+              {editando && (
+                <p style={notaAyudaStyle}>
+                  Corrige lo que usaste de verdad. Al guardar, el inventario se reajusta con la diferencia (te devuelve o
+                  descuenta el stock según corresponda).
+                </p>
+              )}
+              <div className="lab-tabla-marco" style={{ ...tablaWrapperStyle, marginTop: "0.6rem" }}>
                 <table style={tablaStyle}>
                   <thead>
                     <tr>
                       <th style={thStyle}>Ingrediente</th>
-                      <th style={thStyle}>Cantidad</th>
+                      <th style={thStyle}>Cantidad (g)</th>
                     </tr>
                   </thead>
                   <tbody>
                     {itemsViendo.map((it) => (
                       <tr key={it.id}>
                         <td style={tdStyle}>{it.ingrediente}</td>
-                        <td style={tdStyle}>{it.gramos} g</td>
+                        <td style={tdStyle}>
+                          {editando ? (
+                            <input
+                              type="number"
+                              step="any"
+                              min="0"
+                              value={itemsEdit[it.id] ?? ""}
+                              onChange={(e) => setItemsEdit((prev) => ({ ...prev, [it.id]: e.target.value }))}
+                              style={inputEditStyle}
+                            />
+                          ) : (
+                            `${it.gramos} g`
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -588,4 +661,45 @@ const iconoAccionStyle: CSSProperties = {
   color: "rgba(212,196,160,0.6)",
   cursor: "pointer",
   padding: "4px 6px",
+};
+
+const editarBotonStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "5px",
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "0.55rem",
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  color: "#c8a050",
+  background: "none",
+  border: "1px solid rgba(200,160,80,0.4)",
+  padding: "6px 10px",
+  cursor: "pointer",
+};
+
+const guardarBotonStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "5px",
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "0.55rem",
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  color: "#0d1a0d",
+  background: "linear-gradient(160deg, #e8c070 0%, #c8a050 55%, #a87f35 100%)",
+  border: "1px solid rgba(255, 226, 160, 0.55)",
+  padding: "6px 12px",
+  cursor: "pointer",
+};
+
+const inputEditStyle: CSSProperties = {
+  fontFamily: "var(--font-body)",
+  fontSize: "0.9rem",
+  color: "#e8dcc8",
+  background: "rgba(255,255,255,0.05)",
+  border: "1px solid rgba(200,160,80,0.4)",
+  padding: "5px 8px",
+  outline: "none",
+  width: "90px",
 };

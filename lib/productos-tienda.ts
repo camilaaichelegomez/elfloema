@@ -380,6 +380,18 @@ export const productosTienda: ProductoTienda[] = [
       "Base suave a pH de la piel, no reseca",
       "Uso diario para pieles mixtas a grasas",
     ],
+    ciencia: [
+      { titulo: "Ácido salicílico (BHA)", texto: "Es liposoluble, así que penetra dentro del poro —que está lleno de grasa— y disuelve el tapón de sebo desde adentro. Su acción queratolítica afloja además las células muertas que obstruyen. Un limpiador soluble en agua no llega ahí." },
+      { titulo: "SCI + SCS (tensioactivos)", texto: "El SCI limpia por micelas sin desnaturalizar las proteínas de la piel; el SCS suma poder desengrasante para la piel grasa. Juntos remueven el exceso de sebo sin arrasar la barrera." },
+      { titulo: "Extracto de ortiga", texto: "Astringente y seborregulador de tradición: ayuda a equilibrar la producción de grasa y a cerrar el aspecto del poro." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un poro de piel grasa tapado de sebo: una molecula de acido salicilico, por ser liposoluble, entra al poro y disuelve el tapon desde adentro, mientras las micelas de los tensioactivos arrastran la grasa de la superficie. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'acido salicilico', 'liposoluble', 'poro destapado', 'micela'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El salicílico entra al poro y disuelve el sebo desde dentro",
+    },
+    ingredientes:
+      "Aqua, Sodium Cocoyl Isethionate, Sodium Coco Sulfate, Cocamidopropyl Betaine, Coco-Glucoside, Glycerin, Urtica Dioica (Nettle) Extract, Salicylic Acid, Alcohol, Xanthan Gum, Cupressus Sempervirens (Cypress) Oil, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
       "Sobre el rostro húmedo, masajea una pequeña cantidad y enjuaga con agua tibia. Úsalo mañana y noche.",
     piel: "Grasa y mixta con tendencia acneica",
@@ -401,6 +413,17 @@ export const productosTienda: ProductoTienda[] = [
       "Aplicación puntual y precisa",
       "Uso nocturno según necesidad",
     ],
+    ciencia: [
+      { titulo: "Ácido salicílico (BHA)", texto: "Es liposoluble: penetra dentro del poro tapado de sebo y lo disuelve desde adentro. Su acción queratolítica seca la imperfección aflojando las células muertas que la obstruyen." },
+      { titulo: "Aplicación localizada", texto: "Al actuar solo en el punto exacto, concentra su efecto donde se necesita y no reseca ni irrita la piel sana de alrededor." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un solo granito con el poro tapado: una gota de acido salicilico entra al poro, disuelve el tapon de sebo y lo seca, sin tocar la piel sana de alrededor. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'acido salicilico', 'poro tapado', 'tapon disuelto', 'piel sana intacta'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El salicílico destapa y seca el granito sin tocar la piel sana",
+    },
+    ingredientes:
+      "Alcohol Denat., Aqua, Salicylic Acid, Glycerin, Panthenol, Citric Acid.",
     modoUso:
       "Aplica solo sobre el granito, con un cotonito o el aplicador, de noche. No lo extiendas por todo el rostro. No uses en piel irritada.",
     piel: "Grasa y mixta con tendencia acneica",
@@ -538,19 +561,31 @@ export const productosTienda: ProductoTienda[] = [
   {
     slug: "manteca-ancestral",
     nombre: "Manteca Ancestral",
-    categoria: "Bálsamo corporal",
-    descripcion: "Bálsamo batido de tallow infusionado con pitra, tratamiento reparador de noche.",
+    categoria: "Bálsamo facial de noche",
+    descripcion: "Bálsamo facial batido de tallow infusionado con pitra, tratamiento reparador de noche.",
     descripcionLarga:
-      "Un bálsamo batido de tallow (grasa de vacuno purificada) infusionado con pitra, nuestro árbol nativo, como tratamiento nutritivo para la noche. El tallow es biomimético —su perfil de grasas se parece al de la piel humana, por eso se reconoce y absorbe— y repara la barrera con vitaminas A, D, E y K; la manteca de karité y el café verde suman confort y antioxidantes. Textura mousse que se derrite al contacto. Para rostro (de noche), manos y zonas secas del cuerpo.",
+      "Un bálsamo facial batido de tallow (grasa de vacuno purificada) infusionado con pitra, nuestro árbol nativo, pensado como tratamiento nutritivo de noche para el rostro. El tallow es biomimético —su perfil de grasas se parece al de la piel humana, por eso se reconoce y absorbe— y repara la barrera con vitaminas A, D, E y K; la manteca de karité y el café verde suman confort y antioxidantes. Textura mousse que se derrite al contacto. Se aplica en el rostro como último paso de la noche (y sirve también para manos y zonas secas del cuerpo).",
     beneficios: [
-      "Tallow infusionado con pitra, biomimético, que la piel reconoce y absorbe",
+      "Tratamiento facial de noche, reparador y nutritivo",
+      "Tallow biomimético que la piel reconoce y absorbe",
       "Repara la barrera con vitaminas A, D, E y K",
       "Café verde antioxidante y karité nutritiva",
-      "Textura mousse, ideal como tratamiento de noche",
     ],
+    ciencia: [
+      { titulo: "Tallow biomimético", texto: "Su perfil de ácidos grasos (oleico, palmítico, esteárico) es casi idéntico al del sebo humano. Por eso la piel lo reconoce y lo integra a su película hidrolipídica en vez de dejarlo encima, restaurando la barrera." },
+      { titulo: "Vitaminas A, D, E y K", texto: "El tallow aporta estas vitaminas liposolubles: la A (retinol natural) apoya la renovación celular, la E es antioxidante y protege los lípidos de la piel, favoreciendo la reparación nocturna." },
+      { titulo: "Manteca de café verde", texto: "Rica en ácido clorogénico y esteroles antioxidantes que neutralizan radicales libres, protegiendo la piel del daño oxidativo mientras duermes." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel seca y con la barrera debilitada que se repara de noche: los lipidos del tallow (identicos al sebo humano) se integran a la pelicula hidrolipidica y las vitaminas A, D, E y K nutren las capas. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'lipidos biomimeticos', 'barrera reparada', 'vitaminas A D E K'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "Los lípidos del tallow se integran a la barrera y la reparan",
+    },
+    ingredientes:
+      "Bos Taurus Tallow (infusionado con pitra), Butyrospermum Parkii (Shea) Butter, Coffea Arabica (Green Coffee) Seed Butter, Tocopherol (Vitamina E), Aniba Rosaeodora (Ho Wood) Oil.",
     modoUso:
-      "Toma una pequeña cantidad (del tamaño de una avellana) y masajea en zonas secas o en el rostro como último paso de la noche. Un poco rinde mucho.",
-    piel: "Piel seca; rostro de noche y cuerpo",
+      "Toma una cantidad del tamaño de una avellana y masajea en el rostro como último paso de la noche. Sirve también para manos y zonas secas del cuerpo. Un poco rinde mucho.",
+    piel: "Rostro (tratamiento de noche); piel seca y cuerpo",
     tamano: "60 ml",
     precio: null,
     glyph: "❃",
@@ -569,6 +604,18 @@ export const productosTienda: ProductoTienda[] = [
       "Ayuda a descongestionar y desinflamar",
       "Ritual relajante de noche",
     ],
+    ciencia: [
+      { titulo: "Aceites ligeros (base)", texto: "El coco fraccionado, las almendras y el sésamo tienen baja viscosidad: dan el deslizamiento necesario para que las manos masajeen sin arrastrar ni estirar la piel, condición clave de un buen drenaje." },
+      { titulo: "AE de ciprés", texto: "Venotónico y astringente de tradición: acompaña el retorno de líquidos y la sensación de piernas y rostro descongestionados." },
+      { titulo: "Hinojo y cedro", texto: "El aceite esencial de hinojo es espasmolítico y el de cedro, drenante linfático tradicional; juntos acompañan la descongestión del masaje." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un rostro en seccion con la red de vasos linfaticos: el masaje con el aceite mueve el liquido acumulado hacia los ganglios (orejas y cuello), descongestionando la piel. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'vasos linfaticos', 'masaje', 'hacia los ganglios', 'rostro descongestionado'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El masaje mueve el líquido hacia los ganglios y descongestiona",
+    },
+    ingredientes:
+      "Caprylic/Capric Triglyceride (coco fraccionado), Prunus Amygdalus Dulcis (Sweet Almond) Oil, Sesamum Indicum (Sesame) Seed Oil, Tocopherol, Cupressus Sempervirens (Cypress) Oil, Foeniculum Vulgare (Fennel) Oil, Cedrus Atlantica Oil.",
     modoUso:
       "Aplica unas gotas y masajea el rostro con movimientos ascendentes y hacia los ganglios (orejas y cuello). Retira el exceso con un algodón. Uso nocturno.",
     piel: "Todo tipo de piel (masaje, se retira)",
@@ -632,6 +679,18 @@ export const productosTienda: ProductoTienda[] = [
       "Ricino que cuida y fortalece las pestañas",
       "Primer paso de la doble limpieza",
     ],
+    ciencia: [
+      { titulo: "Lo semejante disuelve lo semejante", texto: "El maquillaje a prueba de agua y el protector solar son grasos: repelen el agua pero tienen afinidad química por los aceites, que los disuelven sin frotar. Por eso un aceite limpia lo que el agua no puede." },
+      { titulo: "Polisorbato 80 (emulsionante)", texto: "Al añadir agua, sus moléculas rodean las gotas de aceite y forman una emulsión lechosa que arrastra el maquillaje disuelto y se enjuaga por completo, sin dejar película grasa." },
+      { titulo: "Ácido ricinoleico (ricino)", texto: "El aceite de ricino es rico en ácido ricinoleico; aporta un toque que nutre y fortalece las pestañas mientras desmaquillas." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra dos momentos: primero gotas de aceite disolviendo particulas de maquillaje graso sobre la piel; luego, al agregar agua, el polisorbato 80 emulsionando esas gotas en una mezcla lechosa que se enjuaga. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'aceite disuelve maquillaje', 'polisorbato 80', 'emulsion lechosa', 'se enjuaga'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El aceite disuelve el maquillaje y el polisorbato lo emulsiona con agua",
+    },
+    ingredientes:
+      "Caprylic/Capric Triglyceride (coco fraccionado), Ricinus Communis (Castor) Seed Oil, Polysorbate 80, Tocopherol.",
     modoUso:
       "Sobre el rostro seco y las manos secas, masajea para disolver el maquillaje. Moja con un poco de agua para que se vuelva lechoso y enjuaga. Ideal antes de tu limpiador.",
     piel: "Todo tipo de piel",

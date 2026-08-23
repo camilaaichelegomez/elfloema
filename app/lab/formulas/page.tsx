@@ -14,12 +14,15 @@ export default async function FormulasLabPage() {
   }
 
   const { data: formulasData, error } = await supabase.from("formulas").select("*").order("nombre", { ascending: true });
-  const formulasBase = (formulasData ?? []).filter((f) => !f.deleted_at);
+  const todas = formulasData ?? [];
+  const formulasBase = todas.filter((f) => !f.deleted_at);
+  const eliminadasBase = todas.filter((f) => f.deleted_at);
 
   const costos = await Promise.all(
     formulasBase.map((f) => supabase.rpc("costo_formula", { f_id: f.id }).then(({ data }) => data?.[0] ?? null))
   );
   const formulas: Formula[] = formulasBase.map((f, i) => ({ ...f, costo: costos[i] }));
+  const eliminadas: Formula[] = eliminadasBase.map((f) => ({ ...f, costo: null }));
 
   const { data: inventarioData } = await supabase
     .from("inventario_con_costo")
@@ -47,6 +50,7 @@ export default async function FormulasLabPage() {
         ) : (
           <FormulasManager
             initialFormulas={formulas}
+            initialEliminadas={eliminadas}
             inventarioOpciones={(inventarioData as InventarioOpcion[] | null) ?? []}
             userId={user.id}
             productoIdsIniciales={productoIds}

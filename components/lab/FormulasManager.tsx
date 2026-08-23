@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, Eye, FlaskConical, ListChecks, Package, Pencil, Plus, Tag, Trash2, X } from "lucide-react";
+import { Archive, ArrowLeft, Check, Eye, FlaskConical, ListChecks, Package, Pencil, Plus, RotateCcw, Tag, Trash2, X } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 import { adivinarCoincidencia } from "@/lib/lab/coincidencias";
 
@@ -119,16 +119,21 @@ async function cargarFormula(formulaId: number): Promise<FormulaItemRow[]> {
 
 export function FormulasManager({
   initialFormulas,
+  initialEliminadas = [],
   inventarioOpciones,
   userId,
   productoIdsIniciales = [],
 }: {
   initialFormulas: Formula[];
+  initialEliminadas?: Formula[];
   inventarioOpciones: InventarioOpcion[];
   userId: string;
   productoIdsIniciales?: number[];
 }) {
   const [formulas, setFormulas] = useState(initialFormulas);
+  const [eliminadas, setEliminadas] = useState<Formula[]>(initialEliminadas);
+  const [verPapelera, setVerPapelera] = useState(false);
+  const [procesandoPapelera, setProcesandoPapelera] = useState<number | null>(null);
   const [productos, setProductos] = useState<Set<number>>(() => new Set(productoIdsIniciales));
   const [guardandoProducto, setGuardandoProducto] = useState<number | null>(null);
   const [form, setForm] = useState<FormulaFormState | null>(null);
@@ -153,11 +158,49 @@ export function FormulasManager({
   async function recargarLista() {
     const supabase = createClient();
     const { data: formulasData } = await supabase.from("formulas").select("*").order("nombre", { ascending: true });
-    const lista = (formulasData ?? []).filter((f) => !f.deleted_at);
+    const todas = formulasData ?? [];
+    const lista = todas.filter((f) => !f.deleted_at);
+    const borradas = todas.filter((f) => f.deleted_at);
     const costos = await Promise.all(
       lista.map((f) => supabase.rpc("costo_formula", { f_id: f.id }).then(({ data }) => data?.[0] ?? null))
     );
     setFormulas(lista.map((f, i) => ({ ...f, costo: costos[i] })));
+    setEliminadas(borradas.map((f) => ({ ...f, costo: null })));
+  }
+
+  // Restaura una fórmula de la papelera: quita la marca deleted_at.
+  async function handleRestaurar(formula: Formula) {
+    setError(null);
+    setProcesandoPapelera(formula.id);
+    const supabase = createClient();
+    const { error: dbError } = await supabase.from("formulas").update({ deleted_at: null }).eq("id", formula.id);
+    setProcesandoPapelera(null);
+    if (dbError) {
+      setError(dbError.message);
+      return;
+    }
+    await recargarLista();
+  }
+
+  // Borrado definitivo: elimina la fórmula de verdad. Los registros de Preparadas
+  // conservan el nombre y las anotaciones (guardan una copia aparte).
+  async function handleBorrarDefinitivo(formula: Formula) {
+    if (
+      !window.confirm(
+        `¿Borrar DEFINITIVAMENTE "${formula.nombre}"? Esto no se puede deshacer.\n\nTus registros en Preparadas (con sus anotaciones) se conservan igual.`
+      )
+    )
+      return;
+    setError(null);
+    setProcesandoPapelera(formula.id);
+    const supabase = createClient();
+    const { error: dbError } = await supabase.from("formulas").delete().eq("id", formula.id);
+    setProcesandoPapelera(null);
+    if (dbError) {
+      setError(dbError.message);
+      return;
+    }
+    await recargarLista();
   }
 
   async function abrirNueva() {
@@ -416,10 +459,36 @@ export function FormulasManager({
           <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", color: "#d4c4a0", margin: 0 }}>
             {formulas.length} fórmula{formulas.length === 1 ? "" : "s"}.
           </p>
-          <button type="button" onClick={abrirNueva} style={botonPrimarioStyle}>
-            <Plus size={14} /> Nueva fórmula
-          </button>
+          <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
+            {eliminadas.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setVerPapelera((v) => !v)}
+                style={{
+                  ...botonSecundarioStyle,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  color: verPapelera ? "#e8c070" : "rgba(212,196,160,0.75)",
+                }}
+              >
+                <Archive size={14} /> Papelera ({eliminadas.length})
+              </button>
+            )}
+            <button type="button" onClick={abrirNueva} style={botonPrimarioStyle}>
+              <Plus size={14} /> Nueva fórmula
+            </button>
+          </div>
         </div>
+      )}
+
+      {!form && !viendo && verPapelera && eliminadas.length > 0 && (
+        <PapeleraPanel
+          eliminadas={eliminadas}
+          onRestaurar={handleRestaurar}
+          onBorrarDefinitivo={handleBorrarDefinitivo}
+          procesando={procesandoPapelera}
+        />
       )}
 
       {(form || viendo) && (
@@ -1058,6 +1127,80 @@ function CampoTextarea({
         rows={10}
       />
     </label>
+  );
+}
+
+function PapeleraPanel({
+  eliminadas,
+  onRestaurar,
+  onBorrarDefinitivo,
+  procesando,
+}: {
+  eliminadas: Formula[];
+  onRestaurar: (f: Formula) => void;
+  onBorrarDefinitivo: (f: Formula) => void;
+  procesando: number | null;
+}) {
+  return (
+    <div className="lab-panel" style={{ ...formularioStyle, border: "1px solid rgba(224,120,95,0.3)" }}>
+      <p style={itemsTituloStyle}>
+        <Archive size={13} style={{ marginRight: 6, verticalAlign: "-2px" }} /> Papelera · fórmulas eliminadas
+      </p>
+      <p style={estimadoStyle}>
+        No aparecen en tu lista. Puedes <strong>restaurarlas</strong> o borrarlas para siempre. Tus registros en
+        Preparadas (con sus anotaciones) se conservan igual.
+      </p>
+      <div className="lab-tabla-marco" style={{ ...tablaWrapperStyle, marginTop: "1rem" }}>
+        <table style={tablaStyle}>
+          <thead>
+            <tr>
+              <th style={thStyle}>Fórmula</th>
+              <th style={thStyle}>Eliminada el</th>
+              <th style={{ ...thStyle, textAlign: "right" }}>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {eliminadas.map((f) => (
+              <tr key={f.id}>
+                <td style={tdStyle}>
+                  <span style={{ color: "#e8dcc8" }}>{f.nombre}</span>
+                  {f.categoria && <span style={subtituloStyle}>{f.categoria}</span>}
+                </td>
+                <td style={{ ...tdStyle, whiteSpace: "nowrap" }}>{f.deleted_at ? formatoFecha(f.deleted_at) : "—"}</td>
+                <td style={{ ...tdStyle, textAlign: "right", whiteSpace: "nowrap" }}>
+                  <button
+                    type="button"
+                    onClick={() => onRestaurar(f)}
+                    disabled={procesando === f.id}
+                    style={{
+                      ...botonSecundarioStyle,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      color: "#7c9473",
+                      borderColor: "rgba(124,148,115,0.4)",
+                      marginRight: 6,
+                    }}
+                  >
+                    <RotateCcw size={13} /> {procesando === f.id ? "…" : "Restaurar"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onBorrarDefinitivo(f)}
+                    disabled={procesando === f.id}
+                    style={{ ...iconoAccionStyle, color: "#e0785f" }}
+                    aria-label="Borrar definitivamente"
+                    title="Borrar definitivamente"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 

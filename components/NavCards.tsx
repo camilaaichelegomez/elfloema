@@ -170,10 +170,10 @@ const grimorioCards = [
     Icon: IconMoon,
   },
   {
-    key: "plantas-sur",
-    label: "Plantas del Sur de Chile",
-    subtitle: "Nativas medicinales y sagradas",
-    href: "/plantas",
+    key: "plantas-magicas",
+    label: "Plantas Mágicas",
+    subtitle: "Cosmovisión mapuche & wicca",
+    href: "/plantas-magicas",
     Icon: IconLeaf,
   },
   {

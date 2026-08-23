@@ -93,60 +93,6 @@ const INTENCIONES = [
   },
 ];
 
-const PLANTAS_SUR = [
-  {
-    nombre: "Foye · Canelo",
-    latin: "Drimys winteri",
-    texto: "El árbol sagrado por excelencia, presente en las ceremonias más importantes (nguillatun, machitun). Sus ramas representan la paz; la machi lo usa para el contacto con el mundo de los espíritus. Corazón de un sahumerio de limpieza y protección.",
-  },
-  {
-    nombre: "Triwe · Laurel chileno",
-    latin: "Laurelia sempervirens",
-    texto: "Junto al canelo, planta de comunicación espiritual usada por la machi. Aromática y protectora. Para sahumados de protección y claridad.",
-  },
-  {
-    nombre: "Maqui · Kvlog",
-    latin: "Aristotelia chilensis",
-    texto: "Símbolo de buena intención y buenos augurios para el pueblo mapuche. Para rituales de intención positiva, abundancia y protección.",
-  },
-  {
-    nombre: "Ruda",
-    latin: "Ruta graveolens",
-    texto: "La protectora por excelencia de la cultura mapuche-campesina chilena. Aleja las malas energías y la envidia, y potencia la claridad mental. Agua con sal para el hogar.",
-  },
-  {
-    nombre: "Murta · Murtilla",
-    latin: "Ugni molinae",
-    texto: "Usada desde antes de la llegada de los españoles; asociada al bienestar y a la tierra. Hojas cicatrizantes.",
-  },
-  {
-    nombre: "Araucaria · Pewen",
-    latin: "Araucaria araucana",
-    texto: "Árbol sagrado, patrimonio del pueblo pewenche. Símbolo de conexión con los ancestros y la montaña.",
-  },
-  {
-    nombre: "Chilco",
-    latin: "Fuchsia magellanica",
-    texto: "Planta de los esteros y el agua, asociada a lo femenino y a los cursos de agua del sur.",
-  },
-];
-
-const HIERBAS = [
-  { n: "Tomillo", p: "Purificación (quemado como incienso), salud y protección; hojas bajo la almohada contra las pesadillas." },
-  { n: "Lavanda", p: "Paz, amor, limpieza energética y sanación; eleva la conciencia y baja el estrés." },
-  { n: "Laurel", p: "Protección y purificación de ambientes, adivinación, clarividencia y suerte (hoja seca)." },
-  { n: "Romero", p: "Amor, memoria, limpieza energética (incienso o baño) y protección." },
-  { n: "Albahaca", p: "Amor y reconciliación, fidelidad, fortuna en los negocios y protección." },
-  { n: "Ruda", p: "Protección de personas y lugares; aleja maleficios, envidia y mala suerte." },
-  { n: "Salvia", p: "Purificación (el humo limpia), prosperidad, sanación y resolución de problemas." },
-  { n: "Menta", p: "Prosperidad, claridad mental y purificación." },
-  { n: "Manzanilla", p: "Calma, meditación, prosperidad y purificación." },
-  { n: "Canela", p: "Protección, prosperidad y pasión; acelera y potencia otros rituales." },
-  { n: "Rosa · escaramujo", p: "Amor, adivinación, protección y curación psíquica." },
-  { n: "Artemisa", p: "Sueños lúcidos, protección, adivinación y limpieza (se sahúma)." },
-  { n: "Damiana", p: "Atracción, amor y adivinación." },
-];
-
 /* ── Acordeón ─────────────────────────────────────────────────── */
 function AccordionItem({ title, open, onToggle, children }: { title: string; open: boolean; onToggle: () => void; children: React.ReactNode }) {
   return (
@@ -166,7 +112,7 @@ function AccordionItem({ title, open, onToggle, children }: { title: string; ope
   );
 }
 
-const SECTIONS = ["que-es", "correspondencias", "plantas-sur", "hierbas", "inventario"] as const;
+const SECTIONS = ["que-es", "correspondencias", "inventario"] as const;
 type SectionId = (typeof SECTIONS)[number];
 
 export default function BrujaVerde() {
@@ -187,7 +133,7 @@ export default function BrujaVerde() {
             Bruja Verde
           </h1>
           <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "1.12rem", fontStyle: "italic", color: "#d4c4a0", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
-            El otro lado de la planta: su fuerza simbólica. Correspondencias, plantas sagradas del sur y las hierbas de la tradición verde.
+            El sendero verde: qué es la brujería verde y cómo se organizan las hierbas por intención.
           </p>
         </header>
 
@@ -237,40 +183,6 @@ export default function BrujaVerde() {
             </div>
           </AccordionItem>
 
-          {/* 3 — Plantas sagradas del sur */}
-          <AccordionItem title="Plantas sagradas del sur" open={open === "plantas-sur"} onToggle={() => toggle("plantas-sur")}>
-            <P>
-              Las plantas de conexión espiritual de la tradición mapuche y campesina chilena. Varias ya viven en nuestras
-              fórmulas —maqui, matico, arrayán, triwe— y aquí muestran su otra cara.
-            </P>
-            {PLANTAS_SUR.map((pl) => (
-              <div key={pl.nombre} style={{ marginBottom: "14px" }}>
-                <SubTitle>
-                  {pl.nombre} <span style={{ fontStyle: "italic", fontSize: "0.82rem", color: "rgba(212,196,160,0.5)", fontWeight: 400 }}>· {pl.latin}</span>
-                </SubTitle>
-                <P style={{ marginBottom: 0 }}>{pl.texto}</P>
-              </div>
-            ))}
-            <GreenBox title="Sahumerios con nativas del sur">
-              <strong>Limpieza mapuche:</strong> foye (canelo) + triwe + un toque de ruda. ·{" "}
-              <strong>Intención y abundancia:</strong> maqui + laurel + murta. ·{" "}
-              <strong>Protección del hogar:</strong> ruda + canelo + romero.
-            </GreenBox>
-          </AccordionItem>
-
-          {/* 4 — Fichas de hierbas */}
-          <AccordionItem title="Fichas de hierbas" open={open === "hierbas"} onToggle={() => toggle("hierbas")}>
-            <P>La propiedad mágica principal de las hierbas más usadas en la tradición verde y wicca.</P>
-            {HIERBAS.map((h) => (
-              <div key={h.n} style={{ marginBottom: "9px", paddingLeft: "0.9rem", position: "relative" }}>
-                <span style={{ position: "absolute", left: 0, color: "#7a9a5a" }}>❧</span>
-                <p style={{ fontSize: "0.92rem", lineHeight: 1.7, color: "#d4c4a0", margin: 0 }}>
-                  <strong style={{ color: "rgba(200,160,80,0.9)" }}>{h.n}.</strong> {h.p}
-                </p>
-              </div>
-            ))}
-          </AccordionItem>
-
           {/* 8 — Con lo que ya tienes */}
           <AccordionItem title="Con lo que ya tenemos" open={open === "inventario"} onToggle={() => toggle("inventario")}>
             <P>
@@ -281,11 +193,17 @@ export default function BrujaVerde() {
             </P>
           </AccordionItem>
 
-          {/* Puntero a Velas e Inciensos */}
-          <a href="/velas-inciensos" style={{ display: "block", textDecoration: "none", border: "1px solid rgba(122,74,138,0.3)", borderRadius: "0.5rem", background: "rgba(122,74,138,0.08)", padding: "1rem 1.25rem", marginTop: "0.5rem" }}>
-            <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#b98acb" }}>Velas e Inciensos →</span>
-            <span style={{ display: "block", fontSize: "0.9rem", color: "rgba(212,196,160,0.75)", marginTop: 4 }}>El fuego, el humo y la intención tienen su propia sección: color de las velas, ritual paso a paso, resinas y recetas.</span>
-          </a>
+          {/* Punteros a las otras secciones del Grimorio */}
+          <div style={{ display: "grid", gap: "0.6rem", marginTop: "0.5rem" }}>
+            <a href="/plantas-magicas" style={{ display: "block", textDecoration: "none", border: "1px solid rgba(122,74,138,0.3)", borderRadius: "0.5rem", background: "rgba(122,74,138,0.08)", padding: "1rem 1.25rem" }}>
+              <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#b98acb" }}>Plantas Mágicas →</span>
+              <span style={{ display: "block", fontSize: "0.9rem", color: "rgba(212,196,160,0.75)", marginTop: 4 }}>Las plantas sagradas mapuche y las fichas de hierbas de la tradición verde y wicca tienen su propia sección.</span>
+            </a>
+            <a href="/velas-inciensos" style={{ display: "block", textDecoration: "none", border: "1px solid rgba(122,74,138,0.3)", borderRadius: "0.5rem", background: "rgba(122,74,138,0.08)", padding: "1rem 1.25rem" }}>
+              <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#b98acb" }}>Velas e Inciensos →</span>
+              <span style={{ display: "block", fontSize: "0.9rem", color: "rgba(212,196,160,0.75)", marginTop: 4 }}>El fuego, el humo y la intención tienen su propia sección: color de las velas, ritual paso a paso, resinas y recetas.</span>
+            </a>
+          </div>
         </section>
 
         <LineDivider />

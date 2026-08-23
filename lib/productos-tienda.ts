@@ -309,27 +309,6 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(90,122,58,0.26)",
   },
   {
-    slug: "roll-on-despierta",
-    nombre: "Roll-on Despierta",
-    categoria: "Contorno de ojos",
-    descripcion: "Contorno con cafeína que descongestiona ojeras y bolsas.",
-    descripcionLarga:
-      "Un contorno de ojos en roll-on para una mirada más despierta. La cafeína descongestiona y ayuda a bajar la hinchazón, mientras el ácido hialurónico hidrata la piel más fina del rostro. El aplicador de bola, frío al contacto, da un pequeño masaje que activa la circulación. Perfecto para las mañanas y los días de poco sueño.",
-    beneficios: [
-      "Cafeína que descongestiona y desinflama",
-      "Ácido hialurónico que hidrata la zona delicada",
-      "Aplicador roll-on con masaje frío",
-      "Ideal para ojeras y bolsas matinales",
-    ],
-    modoUso:
-      "Desliza el roll-on por el contorno del ojo, sobre el hueso, sin acercarte a la línea de las pestañas. Da unos toquecitos para ayudar a absorber. Mañana (y noche si quieres).",
-    piel: "Todo tipo de piel",
-    tamano: "10 ml",
-    precio: null,
-    glyph: "◔",
-    accent: "rgba(200,160,80,0.24)",
-  },
-  {
     slug: "sos-granitos",
     nombre: "SOS Granitos",
     categoria: "Tratamiento localizado",

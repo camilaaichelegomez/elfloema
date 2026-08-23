@@ -10,10 +10,14 @@ export function EtiquetaEditor({
   formulaId,
   initialData,
   userId,
+  ingredientesReales = "",
 }: {
   formulaId: number;
   initialData: EtiquetaData;
   userId: string;
+  // Ingredientes REALES de la fórmula (de formula_items), para que la IA genere
+  // el INCI de lo que el producto lleva de verdad, no de un valor guardado viejo.
+  ingredientesReales?: string;
 }) {
   const [data, setData] = useState<EtiquetaData>(initialData);
   const [guardando, setGuardando] = useState(false);
@@ -82,7 +86,12 @@ export function EtiquetaEditor({
       const res = await fetch("/api/lab/etiqueta-texto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product_name: data.product_name, ingredientes: data.ingredientes }),
+        // Mandamos los ingredientes REALES de la fórmula (no el valor guardado, que
+        // puede estar viejo) para que la IA genere el INCI de lo que lleva de verdad.
+        body: JSON.stringify({
+          product_name: data.product_name,
+          ingredientes: ingredientesReales || data.ingredientes,
+        }),
       });
       const json = await res.json();
       if (!res.ok) {
@@ -100,6 +109,7 @@ export function EtiquetaEditor({
           descripcion_etiqueta: json.descripcion_etiqueta || d.descripcion_etiqueta,
           descripcion_catalogo: json.descripcion_catalogo || d.descripcion_catalogo,
           descripcion_redes: json.descripcion_redes || d.descripcion_redes,
+          ingredientes: json.ingredientes_inci || d.ingredientes,
         }));
         setGuardado(false);
       }

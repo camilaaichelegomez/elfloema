@@ -31,15 +31,18 @@ CAMPOS:
    3) Un bloque que empiece con "Ingredientes y para qué sirven:" y liste TODOS los ingredientes relevantes (no te limites a 3-5 si hay más), cada uno con su función EN LA PIEL y EN LA FÓRMULA, en frases cortas (ej. "Hidrolato de triwe — calma y aporta frescor; en la fórmula es la base acuosa aromática.").
    4) Cierre: para qué tipo de piel es ideal, cómo integrarlo en la rutina, y la esencia de El Floema (botánica nativa chilena con criterio científico — "bruja científica"). Invitación cálida a usarlo.
 - "descripcion_redes": Instagram, 3-4 oraciones: gancho potente en la primera frase (una emoción, un resultado, una pregunta), 2-3 ingredientes estrella con su beneficio para la piel, y un cierre que dé ganas de probarlo. Sin hashtags ni emojis.
+- "ingredientes_inci": la lista de ingredientes EXACTAMENTE los que te dieron (los reales de la fórmula), convertidos a nomenclatura INCI internacional (inglés/latín), en el MISMO orden recibido (va de mayor a menor proporción), separados por " · ". Ejemplos de conversión: agua/agua destilada → Aqua; SCI → Sodium Cocoyl Isethionate; glucósido de coco → Coco-Glucoside; betaína de coco → Cocamidopropyl Betaine; glicerina → Glycerin; goma xantana → Xanthan Gum; inulina → Inulin; ácido cítrico → Citric Acid; Cosgard → Benzyl Alcohol, Dehydroacetic Acid; hidrolato de triwe → Laurelia Sempervirens Leaf Water; hidrolato de laurel → Laurus Nobilis Leaf Water; aceite de X → "Género especie Oil"; extracto de X → "Género especie Extract"; manteca de karité → Butyrospermum Parkii Butter. REGLA DE ORO: usa SOLO los ingredientes que te dieron, NO inventes ni agregues ni quites ninguno. Si de alguno no sabes el INCI con certeza, deja su nombre científico o el común en inglés. Solo si es cosmético tópico.
 
 HONESTIDAD: persuasivo NO es exagerado. Basa cada afirmación en lo que es razonable esperar de estos ingredientes. Nada de promesas médicas ni falsas ("borra arrugas", "cura", "elimina"). En un producto de enjuague, los activos y el hidrolato aportan de forma suave — dilo con matices, no exageres.
+
+PROPIEDAD DE LA FÓRMULA, NO DE LA PLANTA: el respeto al pH de la piel y el cuidado de la barrera cutánea son propiedades del DISEÑO de la fórmula (tensioactivos suaves como SCI o glucósido de coco + pH ajustado con ácido cítrico a un valor cercano al de la piel, ~5,5), NO de un hidrolato ni de un botánico. Atribúyelo al PRODUCTO o a la fórmula ("formulado a un pH cercano al de tu piel", "con tensioactivos suaves que respetan la barrera"), nunca a la planta. Los hidrolatos y botánicos (triwe, matico, maqui…) aportan frescor, aroma o calma — no regulan el pH.
 
 EJEMPLO del NIVEL esperado (NO copies el contenido, copia el nivel de detalle):
 POBRE: "Crema hidratante natural con ingredientes de calidad que nutre tu piel y la deja suave. Ideal para todo tipo de piel."
 EXCELENTE: "Se funde al primer toque y deja la piel flexible, sin película grasa, con un aroma herbal tenue que se disipa en segundos. Ingredientes y para qué sirven: Manteca de karité — nutre y refuerza la barrera cutánea; en la fórmula aporta cuerpo y untuosidad. Niacinamida — regula el brillo y empareja el tono; además estabiliza la textura. Glicerina — atrae agua a la piel y evita la tirantez. Ideal para pieles que amanecen tirantes y buscan confort real, no solo una capa que se siente encima."
 
 Responde ÚNICAMENTE con un JSON válido, sin texto adicional, con este formato exacto:
-{"es_cosmetico_topico": boolean, "tipo_producto": "string", "modo_uso": "string", "advertencias": "string", "descripcion_etiqueta": "string", "descripcion_catalogo": "string", "descripcion_redes": "string"}`;
+{"es_cosmetico_topico": boolean, "tipo_producto": "string", "modo_uso": "string", "advertencias": "string", "descripcion_etiqueta": "string", "descripcion_catalogo": "string", "descripcion_redes": "string", "ingredientes_inci": "string"}`;
 
 // Glosario de referencia: función real de cada ingrediente (EN LA PIEL / EN LA FÓRMULA).
 // Se inyecta al prompt para que el modelo NO invente y conecte cada ingrediente con su
@@ -75,6 +78,7 @@ interface Generado {
   descripcion_etiqueta: string;
   descripcion_catalogo: string;
   descripcion_redes: string;
+  ingredientes_inci: string;
 }
 
 interface Revision {
@@ -107,7 +111,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "API key de Groq no configurada." }, { status: 500 });
   }
 
-  const mensajeUsuario = `Producto: ${productName}\nIngredientes (INCI): ${ingredientes?.trim() || "sin especificar"}`;
+  const mensajeUsuario = `Producto: ${productName}\nIngredientes REALES de la fórmula (nombres tal como están; conviértelos a INCI en "ingredientes_inci"): ${ingredientes?.trim() || "sin especificar"}`;
   const groq = new Groq({ apiKey });
 
   // Contexto de la biblioteca (RAG por texto): trae fragmentos relevantes de los
@@ -150,6 +154,7 @@ export async function POST(request: NextRequest) {
       descripcion_etiqueta: texto("descripcion_etiqueta"),
       descripcion_catalogo: texto("descripcion_catalogo"),
       descripcion_redes: texto("descripcion_redes"),
+      ingredientes_inci: texto("ingredientes_inci"),
     };
   } catch (error) {
     console.error("[lab/etiqueta-texto] generar", error);
@@ -205,6 +210,7 @@ Descripción de catálogo: ${generado.descripcion_catalogo || "(vacío)"}`;
       descripcion_etiqueta: "",
       descripcion_catalogo: "",
       descripcion_redes: "",
+      ingredientes_inci: "",
       revision,
     });
   }
@@ -215,6 +221,7 @@ Descripción de catálogo: ${generado.descripcion_catalogo || "(vacío)"}`;
     descripcion_etiqueta: generado.descripcion_etiqueta,
     descripcion_catalogo: generado.descripcion_catalogo,
     descripcion_redes: generado.descripcion_redes,
+    ingredientes_inci: generado.ingredientes_inci,
     revision,
   });
 }

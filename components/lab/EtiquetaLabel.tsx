@@ -252,26 +252,15 @@ function EtiquetaSimple({ data, className }: { data: EtiquetaData; className?: s
         {descEtiqueta && <p style={{ ...est.sectionTextSmall, marginTop: `${1.4 * s}mm` }}>{descEtiqueta}</p>}
         {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.4 * s}mm` }}>{data.size}</div>}
 
-        {(data.modo_uso || data.ingredientes || data.advertencias) && divider}
-        {data.modo_uso && (
-          <>
-            <h2 style={est.sectionTitle}>Modo de uso</h2>
-            <p style={est.sectionTextSmall}>{data.modo_uso}</p>
-          </>
-        )}
+        {/* La "una plana" se mantiene limpia: solo la frase deseable + INCI.
+            El modo de uso, advertencias y conservación viven en la rectangular. */}
         {data.ingredientes && (
           <>
-            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Ingredientes</h2>
+            {divider}
+            <h2 style={est.sectionTitle}>Ingredientes</h2>
             <p style={est.sectionTextSmall}>{data.ingredientes}</p>
           </>
         )}
-        {data.advertencias && (
-          <>
-            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Advertencias</h2>
-            <p style={est.sectionTextSmall}>{data.advertencias}</p>
-          </>
-        )}
-        {data.storage_note && <div style={est.storageNote}>{data.storage_note}</div>}
 
         {hayFooter && (
           <>

@@ -68,7 +68,12 @@ export default async function EtiquetaFormulaPage({
     >
       <div className="etiqueta-pagina" style={{ maxWidth: 1200, margin: "0 auto" }}>
         <LabEncabezado titulo={`Etiqueta — ${formula.nombre}`} actual="formulas" />
-        <EtiquetaEditor formulaId={formulaId} initialData={initialData} userId={user.id} />
+        <EtiquetaEditor
+          formulaId={formulaId}
+          initialData={initialData}
+          userId={user.id}
+          ingredientesReales={ingredientesAuto}
+        />
       </div>
     </main>
   );

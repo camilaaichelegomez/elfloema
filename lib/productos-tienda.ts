@@ -555,14 +555,14 @@ export const productosTienda: ProductoTienda[] = [
     slug: "mascarilla-purificante",
     nombre: "Mascarilla Purificante",
     categoria: "Mascarilla facial",
-    descripcion: "Mascarilla en polvo de carbón y arcilla verde que detoxifica la piel grasa.",
+    descripcion: "Mascarilla en polvo de carbón, arcilla verde y avena que detoxifica la piel grasa.",
     descripcionLarga:
-      "Una mascarilla en polvo que activas con agua justo antes de usar, para que sus arcillas lleguen frescas. El carbón activado y la arcilla verde atraen y absorben el exceso de sebo y las impurezas del poro, mientras el caolín suaviza para que no reseque de más. Deja la piel mate, limpia y afinada. En polvo dura más y viaja sin conservantes.",
+      "Una mascarilla en polvo que activas con agua justo antes de usar, para que sus arcillas lleguen frescas. El carbón activado y la arcilla verde atraen y absorben el exceso de sebo y las impurezas del poro, mientras la avena coloidal y el caolín suavizan para que no apriete ni reseque de más. Deja la piel mate, limpia y afinada. En polvo dura más y viaja sin conservantes.",
     beneficios: [
       "Carbón activado y arcilla verde que absorben el sebo",
+      "Avena coloidal que calma y evita la sensación tirante",
       "Detoxifica y afina el poro",
       "En polvo: sin conservantes, se activa al momento",
-      "Piel grasa, mixta y con tendencia a impurezas",
     ],
     modoUso:
       "Mezcla una cucharadita del polvo con un poco de agua (o hidrolato) hasta formar una pasta. Aplica una capa sobre el rostro limpio, evita el contorno de los ojos, deja 10 minutos sin que seque del todo y enjuaga. Una a dos veces por semana.",
@@ -573,25 +573,25 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(60,70,55,0.4)",
   },
   {
-    slug: "mascarilla-revitalizante",
-    nombre: "Mascarilla Revitalizante",
+    slug: "mascarilla-calmante",
+    nombre: "Mascarilla Calmante",
     categoria: "Mascarilla facial",
-    descripcion: "Mascarilla en polvo de caolín y arcilla roja que ilumina la piel apagada.",
+    descripcion: "Mascarilla en polvo de caolín y avena, la más suave, para piel sensible.",
     descripcionLarga:
-      "Una mascarilla en polvo suave para pieles normales, secas o apagadas. El caolín (arcilla blanca) limpia con delicadeza sin resecar, y la arcilla roja revitaliza y aporta luminosidad al cutis cansado, estimulando la microcirculación. Se activa con agua al momento y deja la piel fresca, suave y con más luz.",
+      "La mascarilla más delicada de la línea, pensada para las pieles sensibles, secas o reactivas que no toleran las arcillas fuertes. El caolín (arcilla blanca) es la más suave: limpia y absorbe el exceso de grasa sin resecar, y la avena coloidal calma con sus avenantramidas y suaviza para que la piel no quede tirante. Se activa con agua al momento y deja la piel fresca, confortable y sin estrés.",
     beneficios: [
-      "Caolín suave que limpia sin resecar",
-      "Arcilla roja que revitaliza y da luminosidad",
+      "Caolín, la arcilla más suave, que no reseca",
+      "Avena coloidal que calma la piel sensible",
+      "Sin color ni activos fuertes: pura suavidad",
       "En polvo: sin conservantes, se activa al momento",
-      "Piel normal, seca, sensible o apagada",
     ],
     modoUso:
       "Mezcla una cucharadita del polvo con un poco de agua o hidrolato hasta formar una pasta. Aplica sobre el rostro limpio, deja 10 minutos sin que seque del todo y enjuaga. Una vez por semana.",
-    piel: "Normal, seca, sensible o apagada",
+    piel: "Sensible, seca o reactiva",
     tamano: "50 g",
     precio: null,
     glyph: "◔",
-    accent: "rgba(150,80,70,0.28)",
+    accent: "rgba(200,190,160,0.28)",
   },
   {
     slug: "mascarilla-iluminadora",

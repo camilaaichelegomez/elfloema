@@ -28,19 +28,20 @@ export const productosTienda: ProductoTienda[] = [
     slug: "calma",
     nombre: "Calma",
     categoria: "Sérum facial",
-    descripcion: "Sérum facial calmante para pieles sensibles, reactivas y con rojeces.",
+    descripcion: "Sérum facial calmante con arrayán nativo, para pieles sensibles y con rojeces.",
     descripcionLarga:
-      "Un sérum ligero que serena la piel reactiva: baja las rojeces, refuerza la barrera y devuelve el confort. La centella asiática repara mientras el pantenol y el ácido hialurónico calman e hidratan, dejando la piel flexible y sin tirantez. De textura fluida y rápida absorción, para el paso previo a la crema.",
+      "Un sérum ligero que serena la piel reactiva: baja las rojeces, refuerza la barrera y devuelve el confort. Sobre una base de hidrolato de arrayán —nuestro árbol nativo—, la centella y el pantenol reparan, la niacinamida fortalece la barrera, y la urea con el ácido hialurónico hidratan sin tirantez. La inulina cuida el microbioma. Textura fluida y de rápida absorción.",
     beneficios: [
-      "Reduce rojeces y calma la piel reactiva",
-      "Centella asiática que repara y refuerza la barrera",
-      "Pantenol y ácido hialurónico que hidratan sin peso",
-      "Textura fluida, apta para piel sensible",
+      "Centella y pantenol que reparan y calman",
+      "Niacinamida que refuerza la barrera",
+      "Urea y ácido hialurónico que hidratan sin peso",
+      "Base de arrayán nativo; inulina prebiótica",
     ],
     ciencia: [
       { titulo: "Centella asiática (asiaticósido)", texto: "Sus triterpenos —asiaticósido y madecasósido— estimulan la síntesis de colágeno y modulan las citoquinas inflamatorias. Por eso reparan la barrera y bajan las rojeces de la piel reactiva." },
-      { titulo: "Pantenol (provitamina B5)", texto: "En la piel se convierte en ácido pantoténico: mejora la función barrera, retiene agua y tiene acción antiinflamatoria, dejando esa sensación sedosa y aliviada." },
-      { titulo: "Ácido hialurónico", texto: "Un polisacárido que retiene muchas veces su peso en agua. Rellena de humedad las capas superficiales y borra la tirantez que suele acompañar a la piel sensible." },
+      { titulo: "Niacinamida + pantenol", texto: "La niacinamida (B3) refuerza la barrera estimulando ceramidas; el pantenol (B5) se convierte en ácido pantoténico, calma y repara. Juntos dejan la piel serena y sedosa." },
+      { titulo: "Urea + ácido hialurónico", texto: "La urea es parte del factor natural de hidratación (NMF): humecta y mantiene la piel flexible. El ácido hialurónico rellena de agua las capas superficiales, borrando la tirantez." },
+      { titulo: "Inulina + MaízCare", texto: "La inulina es un prebiótico que nutre el microbioma sano de la piel; el biopolímero MaízCare deja un film tensor de tacto suave que alisa la superficie." },
     ],
     bioquimica: {
       prompt:
@@ -48,11 +49,15 @@ export const productosTienda: ProductoTienda[] = [
       leyenda: "La centella modula la inflamación y repara la barrera",
     },
     ingredientes:
-      "Aqua, Glycerin, Centella Asiatica Extract, Panthenol, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+      "Luma Apiculata (Arrayán) Leaf Water, Glycerin, Urea, Panthenol, Niacinamide, Inulin, Hydrolyzed Corn Starch (MaizCare), Centella Asiatica Extract, Sodium Hyaluronate, Xanthan Gum, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
     modoUso:
       "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche, antes de la crema. Da unos toquecitos suaves para ayudar a absorber.",
     piel: "Sensible, reactiva o con rojeces",
     tamano: "30 ml",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas de arrayan (Luma apiculata, de corteza canela) y hojas de centella asiatica, sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real de un frasco con gotario dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de arrayan y centella asiatica, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'SERUM CALMA - Calmante y reparador con arrayan nativo'. Recuadro COMO ACTUA: 'Centella asiatica: repara la barrera y calma. Niacinamida y pantenol: refuerzan la barrera y alivian. Urea y acido hialuronico: hidratan sin tirantez. Inulina: cuida el microbioma.'. Recuadro PROPIEDADES: 'Reduce rojeces. Repara la barrera. Calma la piel reactiva.'. Recuadro MODO DE USO: 'Manana y noche, 3-4 gotas antes de la crema.'. Recuadro PARA: 'Piel sensible, reactiva o con rojeces'. Recuadro RESULTADO: 'Piel serena, flexible y sin tirantez.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◯",
     accent: "rgba(90,122,58,0.28)",
@@ -64,18 +69,19 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Sérum facial",
     descripcion: "Sérum iluminador y antioxidante que unifica el tono y aporta luminosidad.",
     descripcionLarga:
-      "Un sérum antioxidante que devuelve la luz a las pieles apagadas. El maqui y el té verde defienden del daño diario, la niacinamida empareja el tono y atenúa las manchas, y el ácido hialurónico rellena de agua para un rostro jugoso. Se absorbe al instante, sin pegote.",
+      "Un sérum antioxidante que devuelve la luz a las pieles apagadas. El maqui y el té verde defienden del daño diario, la niacinamida empareja el tono y atenúa manchas, y la cafeína descongestiona y da vitalidad. La urea y el ácido hialurónico hidratan para un rostro jugoso, sobre una base de arrayán nativo. Se absorbe al instante.",
     beneficios: [
       "Antioxidantes de maqui y té verde contra el daño diario",
       "Niacinamida que empareja el tono y atenúa manchas",
-      "Ácido hialurónico para un efecto jugoso y relleno",
-      "Se absorbe al instante, uso diario",
+      "Cafeína que descongestiona y da vitalidad al rostro",
+      "Urea y ácido hialurónico para un rostro jugoso",
     ],
     ciencia: [
       { titulo: "Antocianinas del maqui", texto: "Las delfinidinas del maqui (Aristotelia chilensis) son antioxidantes potentes: neutralizan los radicales libres que genera el sol y la contaminación, la causa principal del tono desparejo y el envejecimiento prematuro." },
       { titulo: "EGCG (té verde)", texto: "El galato de epigalocatequina es un polifenol antioxidante y fotoprotector suave; además ayuda a regular el sebo y a calmar la piel." },
       { titulo: "Niacinamida (vitamina B3)", texto: "Frena la transferencia de melanina desde el melanocito al queratinocito: al cortar ese transporte, empareja el tono y reduce las manchas. También refuerza la barrera estimulando ceramidas." },
-      { titulo: "Ácido hialurónico", texto: "Retiene agua en la superficie para un efecto relleno; una piel bien hidratada refleja mejor la luz y se ve más luminosa al instante." },
+      { titulo: "Cafeína", texto: "Antioxidante y vasoactiva: mejora la microcirculación y descongestiona, dando al rostro un aspecto más despierto y vital." },
+      { titulo: "Urea, hialurónico y centella", texto: "La urea (NMF) y el ácido hialurónico hidratan —y una piel hidratada refleja mejor la luz—; la centella asiática repara la barrera. El biopolímero MaízCare alisa la superficie." },
     ],
     bioquimica: {
       prompt:
@@ -83,11 +89,15 @@ export const productosTienda: ProductoTienda[] = [
       leyenda: "Los antioxidantes neutralizan radicales y la niacinamida empareja el tono",
     },
     ingredientes:
-      "Aqua, Glycerin, Niacinamide, Aristotelia Chilensis (Maqui) Fruit Extract, Camellia Sinensis (Green Tea) Leaf Extract, Centella Asiatica Extract, Caffeine, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+      "Luma Apiculata (Arrayán) Leaf Water, Glycerin, Urea, Aristotelia Chilensis (Maqui) Fruit Extract, Niacinamide, Camellia Sinensis (Green Tea) Leaf Extract, Centella Asiatica Extract, Caffeine, Hydrolyzed Corn Starch (MaizCare), Alcohol, Xanthan Gum, Sodium Hyaluronate, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
     modoUso:
       "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche. En el día, acompaña siempre con protector solar.",
     piel: "Apagada, con manchas o primeras líneas",
     tamano: "30 ml",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de racimos de maqui (Aristotelia chilensis) de frutos morado oscuro y hojas de te verde, sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados, morados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, morado y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real de un frasco con gotario dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de racimos de maqui morado y hojas de te verde, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'SERUM ILUMINA - Antioxidante iluminador con maqui'. Recuadro COMO ACTUA: 'Maqui (antocianinas) y te verde (EGCG): antioxidantes contra el dano diario. Niacinamida: empareja el tono y atenua manchas. Cafeina: descongestiona y da vitalidad. Urea y acido hialuronico: hidratan y dan luz.'. Recuadro PROPIEDADES: 'Ilumina el cutis apagado. Empareja el tono. Antioxidante.'. Recuadro MODO DE USO: 'Manana y noche, 3-4 gotas. De dia, protector solar.'. Recuadro PARA: 'Piel apagada, con manchas o primeras lineas'. Recuadro RESULTADO: 'Rostro luminoso, jugoso y de tono parejo.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "✧",
     accent: "rgba(200,160,80,0.24)",
@@ -97,31 +107,36 @@ export const productosTienda: ProductoTienda[] = [
     slug: "purifica",
     nombre: "Purifica",
     categoria: "Sérum facial",
-    descripcion: "Sérum purificante y seborregulador para pieles mixtas y grasas.",
+    descripcion: "Sérum seborregulador y renovador para pieles mixtas y grasas, con nalca nativa.",
     descripcionLarga:
-      "Un sérum diario que equilibra la piel con tendencia grasa sin agredir. La niacinamida regula el sebo y afina el poro, la centella calma, y el ácido hialurónico hidrata sin peso. Para una piel más pareja, sin ese rebote graso de los productos que resecan.",
+      "Un sérum diario que equilibra la piel con tendencia grasa sin agredir. La niacinamida regula el sebo y afina el poro, el ácido láctico —tamponado con lactato de sodio— renueva e ilumina con suavidad, y la tintura de nalca, planta nativa, astringe. La inulina cuida el microbioma. Para una piel más pareja y fresca, sin resecar.",
     beneficios: [
       "Niacinamida que regula el sebo y afina el poro",
-      "Centella asiática que calma la piel reactiva",
-      "Ácido hialurónico que hidrata sin peso",
-      "Uso diario, equilibra sin resecar",
+      "Ácido láctico (AHA) que renueva e ilumina, de buena tolerancia",
+      "Tintura de nalca nativa, astringente",
+      "Inulina prebiótica; uso diario sin resecar",
     ],
     ciencia: [
       { titulo: "Niacinamida (vitamina B3)", texto: "Modula la actividad de las glándulas sebáceas (regula la producción de sebo) y refuerza la barrera estimulando la síntesis de ceramidas. Por eso afina el poro sin resecar." },
-      { titulo: "Centella asiática", texto: "Sus triterpenos calman la inflamación y la reactividad que suele acompañar a la piel grasa o con tendencia acneica, sin taponar el poro." },
-      { titulo: "Ácido hialurónico", texto: "Hidrata las capas superficiales sin aportar grasa. Evita la deshidratación que, paradójicamente, dispara aún más la producción de sebo (el rebote graso)." },
+      { titulo: "Ácido láctico (AHA)", texto: "Exfoliante suave que disuelve la unión entre las células muertas de la superficie: renueva e ilumina. El lactato de sodio lo tampona para buena tolerancia y, además, humecta (es parte del factor natural de hidratación)." },
+      { titulo: "Tintura de nalca (nativa)", texto: "La nalca (Gunnera tinctoria) es rica en taninos; se le atribuye una acción astringente que ayuda a cerrar el aspecto del poro y a controlar el brillo." },
+      { titulo: "Inulina + MaízCare", texto: "La inulina es un prebiótico que nutre el microbioma sano de la piel; el biopolímero MaízCare deja un film tensor de tacto matificante." },
     ],
     bioquimica: {
       prompt:
-        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel grasa con el poro dilatado: una molecula de niacinamida regula la glandula sebacea (menos sebo) y refuerza la barrera de ceramidas, afinando el poro. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'niacinamida', 'glandula sebacea', 'menos sebo', 'ceramidas'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
-      leyenda: "La niacinamida regula el sebo y refuerza la barrera de ceramidas",
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel grasa: la niacinamida regula la glandula sebacea (menos sebo) y refuerza las ceramidas, mientras el acido lactico (AHA) afloja las celulas muertas de la superficie renovandola. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'niacinamida', 'menos sebo', 'ceramidas', 'acido lactico renueva'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La niacinamida regula el sebo y el ácido láctico renueva la superficie",
     },
     ingredientes:
-      "Aqua, Glycerin, Niacinamide, Centella Asiatica Extract, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+      "Laurus Nobilis (Laurel) Leaf Water, Gunnera Tinctoria (Nalca) Leaf Extract, Niacinamide, Lactic Acid, Sodium Lactate, Glycerin, Hydrolyzed Corn Starch (MaizCare), Inulin, Alcohol, Xanthan Gum, Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
-      "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche, antes de la hidratante.",
+      "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche, antes de la hidratante. Como contiene ácido láctico (AHA), en el día usa siempre protector solar.",
     piel: "Mixta, grasa o con tendencia acneica",
     tamano: "30 ml",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el frasco, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeado de hojas gigantes de nalca (Gunnera tinctoria) y hojas de laurel, sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real de un frasco con gotario dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de nalca (Gunnera tinctoria) y laurel, simetricas y ordenadas. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'SERUM PURIFICA - Seborregulador con nalca nativa'. Recuadro COMO ACTUA: 'Niacinamida: regula el sebo y afina el poro. Acido lactico (AHA): renueva e ilumina, tamponado para buena tolerancia. Nalca: astringente nativa. Inulina y MaizCare: microbioma y efecto matificante.'. Recuadro PROPIEDADES: 'Regula el brillo. Afina el poro. Renueva sin resecar.'. Recuadro MODO DE USO: 'Manana y noche, antes de la hidratante. De dia, protector solar.'. Recuadro PARA: 'Piel mixta, grasa o con tendencia acneica'. Recuadro RESULTADO: 'Piel mas pareja, fresca y en equilibrio.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◇",
     accent: "rgba(122,74,138,0.3)",
@@ -372,7 +387,7 @@ export const productosTienda: ProductoTienda[] = [
       { titulo: "Óxido de zinc", texto: "Mineral que absorbe el sebo y tiene acción astringente y calmante. Reduce el brillo en la superficie mientras suaviza la piel reactiva típica del cutis graso." },
       { titulo: "Dióxido de silicio", texto: "Micropartículas porosas que absorben el exceso de grasa y difuminan ópticamente el poro (efecto soft-focus): la luz se dispersa y el poro se ve más fino al instante." },
       { titulo: "Urea + ácido hialurónico", texto: "La urea es parte del factor natural de hidratación (NMF) y mantiene la piel flexible; el ácido hialurónico retiene agua. Hidratan por dentro aunque la superficie quede mate." },
-      { titulo: "Inulina (prebiótico)", texto: "Alimenta las bacterias buenas del microbioma cutáneo, ayudando a mantener el equilibrio de la piel con tendencia grasa." },
+      { titulo: "Inulina + cafeína", texto: "La inulina es un prebiótico que alimenta el microbioma sano de la piel, ayudando al equilibrio del cutis graso; la cafeína es antioxidante y activa la microcirculación, dando vitalidad." },
     ],
     bioquimica: {
       prompt:
@@ -380,11 +395,15 @@ export const productosTienda: ProductoTienda[] = [
       leyenda: "El zinc y la sílice absorben el sebo mientras la piel se hidrata por dentro",
     },
     ingredientes:
-      "Aqua, Zinc Oxide, Silica, Glycerin, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Behentrimonium Methosulfate, Cetyl Alcohol, Urea, Sodium Hyaluronate, Inulin, Caffeine, Panthenol, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
+      "Laurus Nobilis (Laurel) Leaf Water, Zinc Oxide, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Urea, Glycerin, Behentrimonium Methosulfate, Silica, Inulin, Cetyl Alcohol, Caffeine, Sodium Hyaluronate, Cinnamomum Camphora (Ho Wood) Oil, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
     modoUso:
       "Aplica una capa fina sobre el rostro limpio, evitando el contorno de los ojos. Úsala en la mañana como último paso de hidratación.",
     piel: "Mixta a grasa",
     tamano: "50 ml",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el envase, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica y mineral: rodeado de hojas de laurel y pequenos cristales minerales claros (zinc/silice), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real del envase de crema dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de laurel y cristales minerales, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CREMA MATIFICANTE - Hidrata y controla el brillo'. Recuadro COMO ACTUA: 'Oxido de zinc y silice: absorben el sebo y difuminan el poro (soft-focus). Urea y acido hialuronico: hidratan por dentro. Inulina: microbioma. Cafeina: vitalidad.'. Recuadro PROPIEDADES: 'Hidrata y matifica. Afina el poro. Acabado aterciopelado.'. Recuadro MODO DE USO: 'En la manana, una capa fina, sola o bajo el maquillaje.'. Recuadro PARA: 'Piel mixta a grasa'. Recuadro RESULTADO: 'Piel comoda, mate y sin tirantez.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◐",
     accent: "rgba(122,74,138,0.26)",

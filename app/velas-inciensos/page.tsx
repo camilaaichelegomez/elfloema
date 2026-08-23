@@ -97,7 +97,7 @@ export default function VelasInciensos() {
   const toggle = (id: SectionId) => setOpen((prev) => (prev === id ? null : id));
 
   return (
-    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_brujaverde.jpg') center top / cover fixed, var(--bg-primary)", }}>
+    <main className="parchment-bg" style={{ minHeight: "100vh", paddingBottom: 48, background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_velas.jpg') center top / cover fixed, var(--bg-primary)", }}>
       <GrainOverlay />
       <div style={{ maxWidth: 820, margin: "0 auto", padding: "clamp(32px, 6vh, 64px) clamp(24px, 5vw, 56px)", background: "rgba(9,14,9,0.8)", borderRadius: 10, border: "1px solid rgba(200,160,80,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.45)" }}>
         <BackButton label="← Volver al inicio" href="/" />

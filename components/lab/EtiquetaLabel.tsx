@@ -304,20 +304,20 @@ function EtiquetaRedonda({ data, className }: { data: EtiquetaData; className?: 
     flexShrink: 0,
   };
 
-  // Zona de texto: caja acotada en el área verde bajo el logo (36%–82% del alto),
-  // angosta para no salirse del círculo. Con justify-center el bloque queda
-  // centrado verticalmente en ese verde, sin importar cuánto texto haya.
-  // offset_center_mm lo sube/baja.
+  // Zona de texto: caja en el área verde bajo el logo. Empieza desde ARRIBA
+  // (flex-start) para que el nombre SIEMPRE quede visible aunque el texto sea
+  // largo; antes con justify-center el nombre se salía por arriba y "no salía
+  // nada". offset_center_mm sube/baja el bloque.
   const zonaStyle: CSSProperties = {
     position: "absolute",
-    left: "22%",
-    right: "22%",
-    top: "37%",
-    bottom: "18%",
+    left: "19%",
+    right: "19%",
+    top: "33%",
+    bottom: "11%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     textAlign: "center",
     overflow: "hidden",
     transform: `translateY(${data.offset_center_mm}mm)`,
@@ -330,9 +330,22 @@ function EtiquetaRedonda({ data, className }: { data: EtiquetaData; className?: 
         {data.subtitle && <div style={est.productSubtitle}>{data.subtitle}</div>}
         {data.category_line && <div style={est.productCategory}>{data.category_line}</div>}
         {descEtiqueta && (
-          <p style={{ ...est.sectionTextSmall, marginTop: `${1.4 * sizes.s}mm`, marginBottom: 0 }}>{descEtiqueta}</p>
+          <p style={{ ...est.sectionTextSmall, marginTop: `${1.2 * sizes.s}mm`, marginBottom: 0 }}>{descEtiqueta}</p>
         )}
-        {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.4 * sizes.s}mm` }}>{data.size}</div>}
+        {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.2 * sizes.s}mm` }}>{data.size}</div>}
+        {data.ingredientes && (
+          <>
+            <div
+              style={{
+                width: "55%",
+                height: 1,
+                background: "linear-gradient(to right, transparent, rgba(200,160,80,0.6), transparent)",
+                margin: `${1.3 * sizes.s}mm 0`,
+              }}
+            />
+            <p style={{ ...est.footerBlock, marginTop: 0 }}>{data.ingredientes}</p>
+          </>
+        )}
       </div>
     </div>
   );

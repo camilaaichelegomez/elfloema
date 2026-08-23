@@ -30,7 +30,29 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Sérum facial",
     descripcion: "Sérum facial calmante para pieles sensibles, reactivas y con rojeces.",
     descripcionLarga:
-      "Un sérum ligero formulado para serenar la piel: reduce las rojeces, refuerza la barrera y devuelve la sensación de confort a las pieles más reactivas. Con activos botánicos calmantes y antioxidantes.",
+      "Un sérum ligero que serena la piel reactiva: baja las rojeces, refuerza la barrera y devuelve el confort. La centella asiática repara mientras el pantenol y el ácido hialurónico calman e hidratan, dejando la piel flexible y sin tirantez. De textura fluida y rápida absorción, para el paso previo a la crema.",
+    beneficios: [
+      "Reduce rojeces y calma la piel reactiva",
+      "Centella asiática que repara y refuerza la barrera",
+      "Pantenol y ácido hialurónico que hidratan sin peso",
+      "Textura fluida, apta para piel sensible",
+    ],
+    ciencia: [
+      { titulo: "Centella asiática (asiaticósido)", texto: "Sus triterpenos —asiaticósido y madecasósido— estimulan la síntesis de colágeno y modulan las citoquinas inflamatorias. Por eso reparan la barrera y bajan las rojeces de la piel reactiva." },
+      { titulo: "Pantenol (provitamina B5)", texto: "En la piel se convierte en ácido pantoténico: mejora la función barrera, retiene agua y tiene acción antiinflamatoria, dejando esa sensación sedosa y aliviada." },
+      { titulo: "Ácido hialurónico", texto: "Un polisacárido que retiene muchas veces su peso en agua. Rellena de humedad las capas superficiales y borra la tirantez que suele acompañar a la piel sensible." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel enrojecida e inflamada que se calma: las moleculas de centella asiatica (triterpenos) reducen la inflamacion y estimulan fibras de colageno que reparan la barrera cutanea. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'asiaticosido', 'menos inflamacion', 'colageno', 'barrera reparada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La centella modula la inflamación y repara la barrera",
+    },
+    ingredientes:
+      "Aqua, Glycerin, Centella Asiatica Extract, Panthenol, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+    modoUso:
+      "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche, antes de la crema. Da unos toquecitos suaves para ayudar a absorber.",
+    piel: "Sensible, reactiva o con rojeces",
+    tamano: "30 ml",
     precio: null,
     glyph: "◯",
     accent: "rgba(90,122,58,0.28)",
@@ -42,7 +64,30 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Sérum facial",
     descripcion: "Sérum iluminador y antioxidante que unifica el tono y aporta luminosidad.",
     descripcionLarga:
-      "Un sérum antioxidante que combate el estrés oxidativo, atenúa las manchas y devuelve la luz a las pieles apagadas. Unifica el tono y aporta un brillo saludable, día a día.",
+      "Un sérum antioxidante que devuelve la luz a las pieles apagadas. El maqui y el té verde defienden del daño diario, la niacinamida empareja el tono y atenúa las manchas, y el ácido hialurónico rellena de agua para un rostro jugoso. Se absorbe al instante, sin pegote.",
+    beneficios: [
+      "Antioxidantes de maqui y té verde contra el daño diario",
+      "Niacinamida que empareja el tono y atenúa manchas",
+      "Ácido hialurónico para un efecto jugoso y relleno",
+      "Se absorbe al instante, uso diario",
+    ],
+    ciencia: [
+      { titulo: "Antocianinas del maqui", texto: "Las delfinidinas del maqui (Aristotelia chilensis) son antioxidantes potentes: neutralizan los radicales libres que genera el sol y la contaminación, la causa principal del tono desparejo y el envejecimiento prematuro." },
+      { titulo: "EGCG (té verde)", texto: "El galato de epigalocatequina es un polifenol antioxidante y fotoprotector suave; además ayuda a regular el sebo y a calmar la piel." },
+      { titulo: "Niacinamida (vitamina B3)", texto: "Frena la transferencia de melanina desde el melanocito al queratinocito: al cortar ese transporte, empareja el tono y reduce las manchas. También refuerza la barrera estimulando ceramidas." },
+      { titulo: "Ácido hialurónico", texto: "Retiene agua en la superficie para un efecto relleno; una piel bien hidratada refleja mejor la luz y se ve más luminosa al instante." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra antioxidantes del maqui (antocianinas) neutralizando radicales libres en la piel, y una molecula de niacinamida bloqueando la transferencia de melanina desde el melanocito al queratinocito. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'antocianinas', 'radical libre neutralizado', 'niacinamida', 'menos melanina'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "Los antioxidantes neutralizan radicales y la niacinamida empareja el tono",
+    },
+    ingredientes:
+      "Aqua, Glycerin, Niacinamide, Aristotelia Chilensis (Maqui) Fruit Extract, Camellia Sinensis (Green Tea) Leaf Extract, Centella Asiatica Extract, Caffeine, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+    modoUso:
+      "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche. En el día, acompaña siempre con protector solar.",
+    piel: "Apagada, con manchas o primeras líneas",
+    tamano: "30 ml",
     precio: null,
     glyph: "✧",
     accent: "rgba(200,160,80,0.24)",
@@ -54,7 +99,29 @@ export const productosTienda: ProductoTienda[] = [
     categoria: "Sérum facial",
     descripcion: "Sérum purificante y seborregulador para pieles mixtas y grasas.",
     descripcionLarga:
-      "Un sérum que regula el sebo, refina los poros y mantiene la piel limpia sin resecarla. Ideal para pieles mixtas, grasas o con tendencia acneica, con activos botánicos astringentes y antibacterianos.",
+      "Un sérum diario que equilibra la piel con tendencia grasa sin agredir. La niacinamida regula el sebo y afina el poro, la centella calma, y el ácido hialurónico hidrata sin peso. Para una piel más pareja, sin ese rebote graso de los productos que resecan.",
+    beneficios: [
+      "Niacinamida que regula el sebo y afina el poro",
+      "Centella asiática que calma la piel reactiva",
+      "Ácido hialurónico que hidrata sin peso",
+      "Uso diario, equilibra sin resecar",
+    ],
+    ciencia: [
+      { titulo: "Niacinamida (vitamina B3)", texto: "Modula la actividad de las glándulas sebáceas (regula la producción de sebo) y refuerza la barrera estimulando la síntesis de ceramidas. Por eso afina el poro sin resecar." },
+      { titulo: "Centella asiática", texto: "Sus triterpenos calman la inflamación y la reactividad que suele acompañar a la piel grasa o con tendencia acneica, sin taponar el poro." },
+      { titulo: "Ácido hialurónico", texto: "Hidrata las capas superficiales sin aportar grasa. Evita la deshidratación que, paradójicamente, dispara aún más la producción de sebo (el rebote graso)." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel grasa con el poro dilatado: una molecula de niacinamida regula la glandula sebacea (menos sebo) y refuerza la barrera de ceramidas, afinando el poro. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'niacinamida', 'glandula sebacea', 'menos sebo', 'ceramidas'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La niacinamida regula el sebo y refuerza la barrera de ceramidas",
+    },
+    ingredientes:
+      "Aqua, Glycerin, Niacinamide, Centella Asiatica Extract, Sodium Hyaluronate, Xanthan Gum, Citric Acid, Benzyl Alcohol, Dehydroacetic Acid.",
+    modoUso:
+      "Aplica 3-4 gotas sobre el rostro limpio, mañana y noche, antes de la hidratante.",
+    piel: "Mixta, grasa o con tendencia acneica",
+    tamano: "30 ml",
     precio: null,
     glyph: "◇",
     accent: "rgba(122,74,138,0.3)",
@@ -279,6 +346,19 @@ export const productosTienda: ProductoTienda[] = [
       "Ácido hialurónico, urea e inulina para confort sin tirantez",
       "Acabado aterciopelado, ideal bajo el maquillaje",
     ],
+    ciencia: [
+      { titulo: "Óxido de zinc", texto: "Mineral que absorbe el sebo y tiene acción astringente y calmante. Reduce el brillo en la superficie mientras suaviza la piel reactiva típica del cutis graso." },
+      { titulo: "Dióxido de silicio", texto: "Micropartículas porosas que absorben el exceso de grasa y difuminan ópticamente el poro (efecto soft-focus): la luz se dispersa y el poro se ve más fino al instante." },
+      { titulo: "Urea + ácido hialurónico", texto: "La urea es parte del factor natural de hidratación (NMF) y mantiene la piel flexible; el ácido hialurónico retiene agua. Hidratan por dentro aunque la superficie quede mate." },
+      { titulo: "Inulina (prebiótico)", texto: "Alimenta las bacterias buenas del microbioma cutáneo, ayudando a mantener el equilibrio de la piel con tendencia grasa." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra la superficie de una piel grasa: microparticulas de oxido de zinc y dioxido de silicio absorbiendo gotas de sebo y difuminando la luz sobre el poro (efecto soft-focus), mientras por dentro la urea y el acido hialuronico retienen agua. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'oxido de zinc', 'silice', 'sebo absorbido', 'agua retenida'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El zinc y la sílice absorben el sebo mientras la piel se hidrata por dentro",
+    },
+    ingredientes:
+      "Aqua, Zinc Oxide, Silica, Glycerin, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Behentrimonium Methosulfate, Cetyl Alcohol, Urea, Sodium Hyaluronate, Inulin, Caffeine, Panthenol, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
     modoUso:
       "Aplica una capa fina sobre el rostro limpio, evitando el contorno de los ojos. Úsala en la mañana como último paso de hidratación.",
     piel: "Mixta a grasa",

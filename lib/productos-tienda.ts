@@ -530,6 +530,132 @@ export const productosTienda: ProductoTienda[] = [
     glyph: "❦",
     accent: "rgba(122,74,60,0.3)",
   },
+  {
+    slug: "aceite-desmaquillante",
+    nombre: "Aceite Desmaquillante",
+    categoria: "Limpieza facial",
+    descripcion: "Aceite que disuelve el maquillaje a prueba de agua y se enjuaga sin residuo.",
+    descripcionLarga:
+      "Un aceite de limpieza que disuelve hasta el maquillaje a prueba de agua y el protector solar, porque lo semejante disuelve lo semejante: la grasa del maquillaje se une a los aceites. Al mojarlo con agua se emulsiona y se enjuaga sin dejar película grasa. Con un toque de ricino que cuida las pestañas. El primer paso de la doble limpieza, suave incluso para el contorno de los ojos.",
+    beneficios: [
+      "Disuelve maquillaje waterproof y protector solar",
+      "Se emulsiona con agua y se enjuaga sin residuo",
+      "Ricino que cuida y fortalece las pestañas",
+      "Primer paso de la doble limpieza",
+    ],
+    modoUso:
+      "Sobre el rostro seco y las manos secas, masajea para disolver el maquillaje. Moja con un poco de agua para que se vuelva lechoso y enjuaga. Ideal antes de tu limpiador.",
+    piel: "Todo tipo de piel",
+    tamano: "100 ml",
+    precio: null,
+    glyph: "◑",
+    accent: "rgba(200,160,80,0.24)",
+  },
+  {
+    slug: "mascarilla-purificante",
+    nombre: "Mascarilla Purificante",
+    categoria: "Mascarilla facial",
+    descripcion: "Mascarilla en polvo de carbón y arcilla verde que detoxifica la piel grasa.",
+    descripcionLarga:
+      "Una mascarilla en polvo que activas con agua justo antes de usar, para que sus arcillas lleguen frescas. El carbón activado y la arcilla verde atraen y absorben el exceso de sebo y las impurezas del poro, mientras el caolín suaviza para que no reseque de más. Deja la piel mate, limpia y afinada. En polvo dura más y viaja sin conservantes.",
+    beneficios: [
+      "Carbón activado y arcilla verde que absorben el sebo",
+      "Detoxifica y afina el poro",
+      "En polvo: sin conservantes, se activa al momento",
+      "Piel grasa, mixta y con tendencia a impurezas",
+    ],
+    modoUso:
+      "Mezcla una cucharadita del polvo con un poco de agua (o hidrolato) hasta formar una pasta. Aplica una capa sobre el rostro limpio, evita el contorno de los ojos, deja 10 minutos sin que seque del todo y enjuaga. Una a dos veces por semana.",
+    piel: "Grasa y mixta",
+    tamano: "50 g",
+    precio: null,
+    glyph: "◕",
+    accent: "rgba(60,70,55,0.4)",
+  },
+  {
+    slug: "mascarilla-revitalizante",
+    nombre: "Mascarilla Revitalizante",
+    categoria: "Mascarilla facial",
+    descripcion: "Mascarilla en polvo de caolín y arcilla roja que ilumina la piel apagada.",
+    descripcionLarga:
+      "Una mascarilla en polvo suave para pieles normales, secas o apagadas. El caolín (arcilla blanca) limpia con delicadeza sin resecar, y la arcilla roja revitaliza y aporta luminosidad al cutis cansado, estimulando la microcirculación. Se activa con agua al momento y deja la piel fresca, suave y con más luz.",
+    beneficios: [
+      "Caolín suave que limpia sin resecar",
+      "Arcilla roja que revitaliza y da luminosidad",
+      "En polvo: sin conservantes, se activa al momento",
+      "Piel normal, seca, sensible o apagada",
+    ],
+    modoUso:
+      "Mezcla una cucharadita del polvo con un poco de agua o hidrolato hasta formar una pasta. Aplica sobre el rostro limpio, deja 10 minutos sin que seque del todo y enjuaga. Una vez por semana.",
+    piel: "Normal, seca, sensible o apagada",
+    tamano: "50 g",
+    precio: null,
+    glyph: "◔",
+    accent: "rgba(150,80,70,0.28)",
+  },
+  {
+    slug: "jabon-obsidiana",
+    nombre: "Jabón Obsidiana",
+    categoria: "Cuerpo",
+    descripcion: "Jabón negro de carbón activado, purificante para cuerpo y piel grasa.",
+    descripcionLarga:
+      "Un jabón negro como la obsidiana, con carbón activado que atrae y arrastra impurezas y exceso de grasa. Limpia en profundidad dejando la piel fresca y depurada, ideal para el cuerpo y las pieles grasas o con tendencia a impurezas. Su color intenso y su carácter mineral lo hacen un ritual en sí mismo.",
+    beneficios: [
+      "Carbón activado que purifica y depura",
+      "Limpieza profunda para cuerpo y piel grasa",
+      "Deja la piel fresca, sin sensación grasa",
+      "Estética mineral, negro intenso",
+    ],
+    modoUso:
+      "Frota entre las manos húmedas o sobre una esponja, aplica la espuma sobre la piel y enjuaga. Uso corporal; en el rostro, solo pieles grasas.",
+    piel: "Piel grasa y cuerpo",
+    tamano: "Barra ~100 g",
+    precio: null,
+    glyph: "◆",
+    accent: "rgba(30,30,35,0.55)",
+  },
+  {
+    slug: "jabon-oro",
+    nombre: "Jabón Oro",
+    categoria: "Cuerpo",
+    descripcion: "Jabón dorado suave y nutritivo, luminoso para el cuidado diario.",
+    descripcionLarga:
+      "Un jabón de tono dorado, suave y nutritivo, pensado para el cuidado diario de la piel. Limpia con delicadeza dejando una sensación cómoda y aterciopelada, con un acabado luminoso. Un pequeño lujo cotidiano de la casa El Floema.",
+    beneficios: [
+      "Limpieza suave para el uso diario",
+      "Deja la piel cómoda y aterciopelada",
+      "Acabado luminoso y dorado",
+      "Apto para todo tipo de piel",
+    ],
+    modoUso:
+      "Frota entre las manos húmedas o sobre una esponja, aplica la espuma y enjuaga. Uso corporal diario.",
+    piel: "Todo tipo de piel",
+    tamano: "Barra ~100 g",
+    precio: null,
+    glyph: "◇",
+    accent: "rgba(200,160,80,0.3)",
+  },
+  {
+    slug: "spray-antiinsectos",
+    nombre: "Spray Antiinsectos",
+    categoria: "Cuerpo",
+    descripcion: "Repelente botánico con citronela, cedro y clavo. Reaplicar cada 1-2 h.",
+    descripcionLarga:
+      "Un repelente en spray hecho con aceites esenciales cuyo aroma ahuyenta a los mosquitos: citronela —el clásico—, cedro, palo de ho y un toque de clavo. La glicerina ayuda a que los aromas permanezcan un poco más sobre la piel. Fresco y de origen natural. Como todo repelente botánico, protege por menos tiempo que los sintéticos, así que se reaplica cada una o dos horas.",
+    beneficios: [
+      "Citronela, cedro, palo de ho y clavo repelentes",
+      "Fórmula botánica, sin DEET",
+      "Fresco y de aroma herbal",
+      "Para paseos, campo y tardes de verano",
+    ],
+    modoUso:
+      "Agita antes de usar. Rocía sobre la piel expuesta y la ropa, a 15 cm, evitando ojos, mucosas y heridas. Reaplica cada 1 a 2 horas. No usar en menores de 3 años; prueba antes en el antebrazo.",
+    piel: "Uso corporal externo",
+    tamano: "100 ml",
+    precio: null,
+    glyph: "✺",
+    accent: "rgba(90,122,58,0.26)",
+  },
 ];
 
 export function getProductoTienda(slug: string): ProductoTienda | undefined {

@@ -236,6 +236,300 @@ export const productosTienda: ProductoTienda[] = [
     glyph: "❋",
     accent: "rgba(42,21,53,0.5)",
   },
+  {
+    slug: "crema-matificante",
+    nombre: "Crema Matificante",
+    categoria: "Hidratación facial",
+    descripcion: "Hidrata y controla el brillo sin resecar, para piel mixta a grasa.",
+    descripcionLarga:
+      "Una crema de textura ligera que hidrata mientras controla el brillo. El óxido de zinc y la sílice absorben el exceso de grasa y difuminan el poro, mientras el ácido hialurónico, la urea y la inulina mantienen la piel cómoda y sin tirantez. La cafeína activa la microcirculación. Acabado aterciopelado, mate natural, para usar cada mañana bajo el maquillaje o sola.",
+    beneficios: [
+      "Hidrata y matifica a la vez",
+      "Óxido de zinc y sílice absorben el exceso de grasa",
+      "Ácido hialurónico, urea e inulina para confort sin tirantez",
+      "Acabado aterciopelado, ideal bajo el maquillaje",
+    ],
+    modoUso:
+      "Aplica una capa fina sobre el rostro limpio, evitando el contorno de los ojos. Úsala en la mañana como último paso de hidratación.",
+    piel: "Mixta a grasa",
+    tamano: "50 ml",
+    precio: null,
+    glyph: "◐",
+    accent: "rgba(122,74,138,0.26)",
+  },
+  {
+    slug: "syndet-facial-piel-grasa",
+    nombre: "Syndet Facial Líquido · Piel Grasa",
+    categoria: "Limpieza facial",
+    descripcion: "Limpieza equilibrante con salicílico y ortiga para piel grasa.",
+    descripcionLarga:
+      "Un gel de limpieza que deja la piel grasa limpia y en equilibrio, sin esa tirantez que la lleva a producir más sebo. El ácido salicílico —liposoluble— entra al poro y disuelve el sebo que lo tapa, mientras el extracto de ortiga astringe y regula. Todo sobre una base de tensioactivos suaves ajustada al pH de tu piel, para limpiar en profundidad sin arrasar la barrera.",
+    beneficios: [
+      "Ácido salicílico que destapa el poro desde dentro",
+      "Ortiga astringente y seborreguladora",
+      "Base suave a pH de la piel, no reseca",
+      "Uso diario para pieles mixtas a grasas",
+    ],
+    modoUso:
+      "Sobre el rostro húmedo, masajea una pequeña cantidad y enjuaga con agua tibia. Úsalo mañana y noche.",
+    piel: "Grasa y mixta con tendencia acneica",
+    tamano: "100 ml",
+    precio: null,
+    glyph: "◈",
+    accent: "rgba(90,122,58,0.26)",
+  },
+  {
+    slug: "roll-on-despierta",
+    nombre: "Roll-on Despierta",
+    categoria: "Contorno de ojos",
+    descripcion: "Contorno con cafeína que descongestiona ojeras y bolsas.",
+    descripcionLarga:
+      "Un contorno de ojos en roll-on para una mirada más despierta. La cafeína descongestiona y ayuda a bajar la hinchazón, mientras el ácido hialurónico hidrata la piel más fina del rostro. El aplicador de bola, frío al contacto, da un pequeño masaje que activa la circulación. Perfecto para las mañanas y los días de poco sueño.",
+    beneficios: [
+      "Cafeína que descongestiona y desinflama",
+      "Ácido hialurónico que hidrata la zona delicada",
+      "Aplicador roll-on con masaje frío",
+      "Ideal para ojeras y bolsas matinales",
+    ],
+    modoUso:
+      "Desliza el roll-on por el contorno del ojo, sobre el hueso, sin acercarte a la línea de las pestañas. Da unos toquecitos para ayudar a absorber. Mañana (y noche si quieres).",
+    piel: "Todo tipo de piel",
+    tamano: "10 ml",
+    precio: null,
+    glyph: "◔",
+    accent: "rgba(200,160,80,0.24)",
+  },
+  {
+    slug: "sos-granitos",
+    nombre: "SOS Granitos",
+    categoria: "Tratamiento localizado",
+    descripcion: "Tratamiento puntual con salicílico para secar granitos.",
+    descripcionLarga:
+      "Un tratamiento localizado para ese granito que aparece de golpe. El ácido salicílico, liposoluble, entra al poro y disuelve el sebo que lo tapa, secando la imperfección sin resecar el resto de la piel. Un toque puntual, solo donde lo necesitas, de noche.",
+    beneficios: [
+      "Ácido salicílico que actúa dentro del poro",
+      "Seca el granito sin arrasar la piel sana",
+      "Aplicación puntual y precisa",
+      "Uso nocturno según necesidad",
+    ],
+    modoUso:
+      "Aplica solo sobre el granito, con un cotonito o el aplicador, de noche. No lo extiendas por todo el rostro. No uses en piel irritada.",
+    piel: "Grasa y mixta con tendencia acneica",
+    tamano: "10 ml",
+    precio: null,
+    glyph: "✦",
+    accent: "rgba(122,74,138,0.3)",
+  },
+  {
+    slug: "leche-capilar-anti-frizz",
+    nombre: "Leche Capilar Anti-Frizz",
+    categoria: "Cuidado capilar",
+    descripcion: "Leave-in que domina el frizz sin apelmazar, de medios a puntas.",
+    descripcionLarga:
+      "Una leche sin enjuague que controla el frizz y da suavidad. El biopolímero MaízCare forma un film transpirable que sella la cutícula y domina el encrespado, mientras el monoi y el BTMS desenredan y aportan brillo. Textura ligera que no apelmaza; ideal para cabello seco o rizado que busca definición y control de la humedad.",
+    beneficios: [
+      "MaízCare biopolímero que sella la cutícula y controla el frizz",
+      "Monoi y BTMS que desenredan y dan brillo",
+      "Sin enjuague, ligera, no apelmaza",
+      "Cabello seco, rizado o con tendencia al encrespado",
+    ],
+    modoUso:
+      "Sobre el cabello húmedo o seco, aplica de medios a puntas y peina. No enjuagues.",
+    piel: "Cabello seco a rizado",
+    tamano: "100 ml",
+    precio: null,
+    glyph: "❧",
+    accent: "rgba(90,122,58,0.24)",
+  },
+  {
+    slug: "champu-solido-curly",
+    nombre: "Champú Sólido Curly",
+    categoria: "Cuidado capilar",
+    descripcion: "Champú sólido sin sulfatos agresivos, apto método curly.",
+    descripcionLarga:
+      "Una barra de champú pensada para el método curly: limpia con tensioactivos suaves, sin sulfatos agresivos que resequen, mientras el BTMS, la manteca de karité y el ricino acondicionan la fibra para rizos hidratados y definidos. Una sola barra rinde muchos lavados y viaja sin envases.",
+    beneficios: [
+      "Sin sulfatos agresivos, apto método curly",
+      "BTMS, karité y ricino que acondicionan el rizo",
+      "Limpieza suave que respeta la fibra",
+      "Sólida: rinde meses y es libre de plástico",
+    ],
+    modoUso:
+      "Frota la barra directamente en el cabello mojado o hazla espuma entre las manos, masajea el cuero y las largas, y enjuaga. Deja secar la barra al aire.",
+    piel: "Cabello rizado y ondulado",
+    tamano: "Barra ~60 g",
+    precio: null,
+    glyph: "◉",
+    accent: "rgba(90,122,58,0.26)",
+  },
+  {
+    slug: "champu-solido-cabello-graso",
+    nombre: "Champú Sólido · Cabello Graso",
+    categoria: "Cuidado capilar",
+    descripcion: "Champú sólido clarificante con arcilla verde para cuero graso.",
+    descripcionLarga:
+      "Una barra clarificante para el cuero cabelludo graso. La arcilla verde absorbe el exceso de sebo y el aceite esencial de ciprés equilibra, con una limpieza algo más profunda que devuelve frescura a la raíz sin resecar las puntas. Aplícala de raíz a medios.",
+    beneficios: [
+      "Arcilla verde que absorbe el exceso de sebo",
+      "Ciprés astringente que equilibra el cuero cabelludo",
+      "Limpieza fresca de raíz, sin resecar las puntas",
+      "Sólida y libre de plástico",
+    ],
+    modoUso:
+      "Frota la barra en el cabello mojado enfocándote en la raíz y el cuero, masajea y enjuaga. Deja secar la barra al aire.",
+    piel: "Cuero cabelludo graso",
+    tamano: "Barra ~60 g",
+    precio: null,
+    glyph: "◍",
+    accent: "rgba(90,122,58,0.28)",
+  },
+  {
+    slug: "champu-solido-raiz",
+    nombre: "Champú Sólido Raíz",
+    categoria: "Cuidado capilar",
+    descripcion: "Champú sólido con cafeína y ortiga que estimula el crecimiento.",
+    descripcionLarga:
+      "Una barra pensada para acompañar el crecimiento del cabello. La cafeína y el extracto de ortiga estimulan el folículo y equilibran el cuero cabelludo, sobre una base suave que limpia sin agredir. Masajea bien la raíz al lavar para aprovechar sus activos.",
+    beneficios: [
+      "Cafeína y ortiga que estimulan el folículo",
+      "Acompaña el crecimiento y da fuerza a la raíz",
+      "Base de limpieza suave, sin agredir",
+      "Sólida y libre de plástico",
+    ],
+    modoUso:
+      "Frota la barra en el cabello mojado, masajea el cuero cabelludo por un minuto para que actúen los activos, y enjuaga. Deja secar la barra al aire.",
+    piel: "Todo tipo de cabello, foco en la raíz",
+    tamano: "Barra ~60 g",
+    precio: null,
+    glyph: "❂",
+    accent: "rgba(200,160,80,0.24)",
+  },
+  {
+    slug: "acondicionador-solido-seda",
+    nombre: "Acondicionador Sólido Seda",
+    categoria: "Cuidado capilar",
+    descripcion: "Acondicionador sólido nutritivo para cabello seco o rizado.",
+    descripcionLarga:
+      "Una barra de acondicionador nutritiva para el cabello seco, rizado o dañado. El BTMS y la manteca de karité desenredan y nutren en profundidad, y su pH ácido sella la cutícula para un brillo de espejo. Se aplica de medios a puntas y se enjuaga: seda al tacto.",
+    beneficios: [
+      "BTMS y karité que desenredan y nutren",
+      "pH ácido que sella la cutícula y da brillo",
+      "Ideal para cabello seco, rizado o dañado",
+      "Sólido y libre de plástico",
+    ],
+    modoUso:
+      "Tras el champú, desliza la barra de medios a puntas, peina con los dedos, deja actuar un minuto y enjuaga. Deja secar la barra al aire.",
+    piel: "Cabello seco a rizado",
+    tamano: "Barra ~60 g",
+    precio: null,
+    glyph: "❈",
+    accent: "rgba(122,74,138,0.24)",
+  },
+  {
+    slug: "acondicionador-solido-ligero",
+    nombre: "Acondicionador Sólido Ligero",
+    categoria: "Cuidado capilar",
+    descripcion: "Acondicionador sólido liviano para cabello fino o graso.",
+    descripcionLarga:
+      "Una barra de acondicionador liviana para el cabello fino, graso o normal. Desenreda y da deslizamiento con un mínimo de aceites, para que no apelmace ni engrase, mientras el ciprés equilibra el cuero cabelludo. Aplícala solo de medios a puntas.",
+    beneficios: [
+      "Desenreda sin apelmazar ni engrasar",
+      "Toque mínimo de aceites, alto deslizamiento",
+      "Ciprés que equilibra el cuero cabelludo",
+      "Cabello fino, graso o normal",
+    ],
+    modoUso:
+      "Tras el champú, aplica la barra solo de medios a puntas (evita la raíz), deja actuar y enjuaga. Deja secar la barra al aire.",
+    piel: "Cabello fino a normal",
+    tamano: "Barra ~60 g",
+    precio: null,
+    glyph: "❊",
+    accent: "rgba(90,122,58,0.22)",
+  },
+  {
+    slug: "manteca-ancestral",
+    nombre: "Manteca Ancestral",
+    categoria: "Bálsamo corporal",
+    descripcion: "Bálsamo batido de sebo, tratamiento reparador de noche.",
+    descripcionLarga:
+      "Un bálsamo batido de sebo purificado, tratamiento nutritivo para la noche. El sebo es biomimético —su perfil de grasas se parece al de la piel humana, por eso se reconoce y absorbe— y repara la barrera con vitaminas A, D, E y K; la manteca de karité y el café verde suman confort y antioxidantes. Textura mousse que se derrite al contacto. Para rostro (de noche), manos y zonas secas del cuerpo.",
+    beneficios: [
+      "Sebo biomimético que la piel reconoce y absorbe",
+      "Repara la barrera con vitaminas A, D, E y K",
+      "Café verde antioxidante y karité nutritiva",
+      "Textura mousse, ideal como tratamiento de noche",
+    ],
+    modoUso:
+      "Toma una pequeña cantidad (del tamaño de una avellana) y masajea en zonas secas o en el rostro como último paso de la noche. Un poco rinde mucho.",
+    piel: "Piel seca; rostro de noche y cuerpo",
+    tamano: "60 ml",
+    precio: null,
+    glyph: "❃",
+    accent: "rgba(200,160,80,0.26)",
+  },
+  {
+    slug: "aceite-facial-drenante",
+    nombre: "Aceite Facial Drenante",
+    categoria: "Ritual facial",
+    descripcion: "Aceite de masaje facial que ayuda al drenaje linfático.",
+    descripcionLarga:
+      "Un aceite de masaje para el ritual de drenaje linfático del rostro. Aceites ligeros deslizan sin tirar de la piel, mientras los aceites esenciales de ciprés, hinojo y cedro acompañan la descongestión. Se masajea hacia los ganglios y se retira el exceso con un algodón: el rostro queda descongestionado y luminoso.",
+    beneficios: [
+      "Deslizamiento perfecto para el masaje facial",
+      "Ciprés, hinojo y cedro que acompañan el drenaje",
+      "Ayuda a descongestionar y desinflamar",
+      "Ritual relajante de noche",
+    ],
+    modoUso:
+      "Aplica unas gotas y masajea el rostro con movimientos ascendentes y hacia los ganglios (orejas y cuello). Retira el exceso con un algodón. Uso nocturno.",
+    piel: "Todo tipo de piel (masaje, se retira)",
+    tamano: "30 ml",
+    precio: null,
+    glyph: "✺",
+    accent: "rgba(90,122,58,0.24)",
+  },
+  {
+    slug: "unguento-efecto-calor",
+    nombre: "Ungüento Efecto Calor",
+    categoria: "Ungüentos medicinales",
+    descripcion: "Ungüento de sebo con clavo que da calor local para el masaje.",
+    descripcionLarga:
+      "Un ungüento denso de sebo con clavo de olor, de la tradición de la botica casera, para el masaje de músculos y articulaciones cansadas. El eugenol del clavo genera una sensación de calor reconfortante que acompaña el masaje, sobre una base de sebo que nutre y desliza. Parte de nuestra línea de ungüentos medicinales.",
+    beneficios: [
+      "Sensación de calor local que reconforta el masaje",
+      "Clavo (eugenol) de la tradición herbal",
+      "Base de sebo nutritiva y de buen deslizamiento",
+      "Para músculos y articulaciones cansadas",
+    ],
+    modoUso:
+      "Masajea una pequeña cantidad sobre la zona, evitando heridas, mucosas y ojos. Lava tus manos después. Uso externo.",
+    piel: "Uso corporal externo",
+    tamano: "30 g",
+    precio: null,
+    glyph: "☉",
+    accent: "rgba(150,80,45,0.3)",
+  },
+  {
+    slug: "unguento-cicatrizante-botanico",
+    nombre: "Ungüento Cicatrizante Botánico",
+    categoria: "Ungüentos medicinales",
+    descripcion: "Ungüento de sebo con macerado de matico para la piel dañada.",
+    descripcionLarga:
+      "Un ungüento reparador de sebo con macerado de matico, planta de larga tradición cicatrizante en el sur de Chile. El sebo biomimético nutre y protege para acompañar la recuperación de la piel seca, agrietada o marcada, mientras el matico aporta su sabiduría botánica. Denso y nutritivo, de la botica del bosque.",
+    beneficios: [
+      "Macerado de matico, tradición cicatrizante del sur",
+      "Sebo biomimético que nutre y protege la piel",
+      "Acompaña la recuperación de piel seca o agrietada",
+      "Parte de la línea de ungüentos medicinales",
+    ],
+    modoUso:
+      "Aplica una capa fina sobre la piel limpia y seca, una o dos veces al día. Uso externo, sobre piel sin heridas abiertas.",
+    piel: "Piel seca, agrietada o con marcas",
+    tamano: "30 g",
+    precio: null,
+    glyph: "❦",
+    accent: "rgba(122,74,60,0.3)",
+  },
 ];
 
 export function getProductoTienda(slug: string): ProductoTienda | undefined {

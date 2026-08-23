@@ -520,6 +520,18 @@ export const productosTienda: ProductoTienda[] = [
       "Limpieza suave que respeta la fibra",
       "Sólida: rinde meses y es libre de plástico",
     ],
+    ciencia: [
+      { titulo: "SCI + betaína (sin sulfatos)", texto: "Limpian formando micelas que atrapan la suciedad sin desnaturalizar las proteínas del cabello como los sulfatos. Por eso respetan la fibra: clave del método curly, que evita los tensioactivos agresivos." },
+      { titulo: "BTMS-50 (catiónico)", texto: "Acondicionador de carga positiva que se adhiere a la fibra dañada (cargada negativamente), desenreda al instante y ayuda a alinear la cutícula para definir el rizo." },
+      { titulo: "Karité, ricino y tallow", texto: "Nutren e hidratan el rizo, que suele necesitar más grasa: la karité repara, el ricino da definición y el tallow infusionado con pitra —el sello El Floema— aporta emoliencia. El pH ácido (ácido cítrico) sella la cutícula." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un rizo de cabello: los tensioactivos suaves limpian sin dañar la fibra, mientras el BTMS (cargas positivas) se adhiere a la cuticula dañada, la alisa y define el rizo. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'tensioactivo suave', 'fibra respetada', 'BTMS cationico', 'rizo definido'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "Limpia sin dañar la fibra y el BTMS define el rizo",
+    },
+    ingredientes:
+      "Sodium Cocoyl Isethionate, Laurus Nobilis (Laurel) Leaf Water, Cetyl Alcohol, Behentrimonium Methosulfate, Cocamidopropyl Betaine, Butyrospermum Parkii (Shea) Butter, Glycerin, Ricinus Communis (Castor) Seed Oil, Bos Taurus Tallow (infusionado con pitra), Citric Acid, Cedrus Atlantica Oil, Panthenol, Cocos Nucifera (Coconut) Oil.",
     modoUso:
       "Frota la barra directamente en el cabello mojado o hazla espuma entre las manos, masajea el cuero y las largas, y enjuaga. Deja secar la barra al aire.",
     piel: "Cabello rizado y ondulado",
@@ -541,6 +553,18 @@ export const productosTienda: ProductoTienda[] = [
       "Limpieza fresca de raíz, sin resecar las puntas",
       "Sólida y libre de plástico",
     ],
+    ciencia: [
+      { titulo: "SCI + SCS + betaína + SLSA", texto: "Una base que limpia con buena espuma; el SCS suma poder desengrasante para el cuero graso, mientras el SCI y la betaína mantienen la suavidad para no arrasar la barrera del cuero cabelludo." },
+      { titulo: "Arcilla verde", texto: "Rica en minerales, absorbe el exceso de sebo del cuero cabelludo y arrastra impurezas, devolviendo frescura y ligereza a la raíz." },
+      { titulo: "Ciprés + pH ácido", texto: "El aceite esencial de ciprés es astringente y ayuda a equilibrar la producción de grasa; el pH ácido cierra la cutícula. El tallow (bajo) aporta el sello El Floema sin apelmazar." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un cuero cabelludo graso: los tensioactivos y el SCS arrastran el exceso de sebo mientras la arcilla verde lo absorbe, dejando la raiz fresca y ligera. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'exceso de sebo', 'SCS desengrasa', 'arcilla verde absorbe', 'raiz fresca'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El SCS y la arcilla verde controlan el sebo del cuero graso",
+    },
+    ingredientes:
+      "Sodium Cocoyl Isethionate, Cetyl Alcohol, Cocamidopropyl Betaine, Sodium Coco Sulfate, Illite (Green Clay), Laurus Nobilis (Laurel) Leaf Water, Sodium Lauryl Sulfoacetate, Bos Taurus Tallow (infusionado con pitra), Behentrimonium Methosulfate, Citric Acid, Cedrus Atlantica Oil, Cupressus Sempervirens (Cypress) Oil, Panthenol.",
     modoUso:
       "Frota la barra en el cabello mojado enfocándote en la raíz y el cuero, masajea y enjuaga. Deja secar la barra al aire.",
     piel: "Cuero cabelludo graso",
@@ -562,6 +586,18 @@ export const productosTienda: ProductoTienda[] = [
       "Base de limpieza suave, sin agredir",
       "Sólida y libre de plástico",
     ],
+    ciencia: [
+      { titulo: "Cafeína", texto: "Aplicada de forma constante, penetra el folículo y prolonga su fase de crecimiento (anágena), y estimula la microcirculación del cuero cabelludo. Por eso conviene masajear la raíz al lavar." },
+      { titulo: "Extracto de ortiga", texto: "Aliado tradicional contra la caída: se le atribuye la capacidad de frenar la 5-alfa-reductasa (la enzima que forma la DHT que debilita el folículo) y de aportar minerales que lo nutren." },
+      { titulo: "Base suave + tallow", texto: "El SCI y la betaína limpian sin agredir un cuero cabelludo que suele estar sensibilizado; la karité y el tallow infusionado con pitra aportan emoliencia. El pH ácido sella la cutícula." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte del cuero cabelludo con un foliculo piloso: la cafeina penetra y estimula el crecimiento (prolonga la fase anagena) mientras la ortiga frena la enzima que produce la DHT, con la microcirculacion activada. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'cafeina', 'foliculo estimulado', 'fase de crecimiento', 'ortiga: menos DHT'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La cafeína estimula el folículo y la ortiga frena la DHT",
+    },
+    ingredientes:
+      "Sodium Cocoyl Isethionate, Laurus Nobilis (Laurel) Leaf Water, Cetyl Alcohol, Cocamidopropyl Betaine, Sodium Lauryl Sulfoacetate, Butyrospermum Parkii (Shea) Butter, Behentrimonium Methosulfate, Urtica Dioica (Nettle) Extract, Caffeine, Bos Taurus Tallow (infusionado con pitra), Citric Acid, Cedrus Atlantica Oil, Panthenol, Cocos Nucifera (Coconut) Oil.",
     modoUso:
       "Frota la barra en el cabello mojado, masajea el cuero cabelludo por un minuto para que actúen los activos, y enjuaga. Deja secar la barra al aire.",
     piel: "Todo tipo de cabello, foco en la raíz",
@@ -583,6 +619,18 @@ export const productosTienda: ProductoTienda[] = [
       "Ideal para cabello seco, rizado o dañado",
       "Sólido y libre de plástico",
     ],
+    ciencia: [
+      { titulo: "BTMS-50 (catiónico)", texto: "Es el acondicionador por excelencia: su carga positiva se adhiere justo a la fibra dañada (cargada negativamente), desenreda al instante y reduce la fricción que quiebra el cabello." },
+      { titulo: "Karité, coco, ricino y tallow", texto: "Nutren en profundidad el cabello seco o rizado, devolviéndole elasticidad y suavidad; el tallow infusionado con pitra es el sello El Floema." },
+      { titulo: "pH ácido — brillo espejo", texto: "El ácido cítrico baja el pH y sella la cutícula, que se abre con el lavado. Una cutícula cerrada y lisa refleja mejor la luz: de ahí el brillo y la sensación de seda." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un cabello con la cuticula levantada que se cierra: el BTMS (cargas positivas) se adhiere a la fibra dañada y el pH acido sella las escamas de la cuticula, que al quedar lisa refleja la luz (brillo). IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'BTMS cationico', 'fibra desenredada', 'pH acido', 'cuticula sellada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El BTMS desenreda y el pH ácido sella la cutícula para dar brillo",
+    },
+    ingredientes:
+      "Behentrimonium Methosulfate, Cetyl Alcohol, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Bos Taurus Tallow (infusionado con pitra), Ricinus Communis (Castor) Seed Oil, Citric Acid, Cedrus Atlantica Oil, Tocopherol.",
     modoUso:
       "Tras el champú, desliza la barra de medios a puntas, peina con los dedos, deja actuar un minuto y enjuaga. Deja secar la barra al aire.",
     piel: "Cabello seco a rizado",
@@ -604,6 +652,18 @@ export const productosTienda: ProductoTienda[] = [
       "Ciprés que equilibra el cuero cabelludo",
       "Cabello fino, graso o normal",
     ],
+    ciencia: [
+      { titulo: "BTMS-50 + alcohol cetílico", texto: "El BTMS catiónico desenreda adhiriéndose a la fibra, y el alcohol cetílico da deslizamiento con tacto liviano. Juntos suavizan sin apelmazar ni engrasar, ideal para cabello fino." },
+      { titulo: "Mínimo de aceites", texto: "Lleva muy poca karité, coco y tallow: lo justo para nutrir sin peso, evitando que el cabello fino o graso quede lacio o cargado." },
+      { titulo: "Ciprés + pH ácido", texto: "El aceite esencial de ciprés equilibra el cuero cabelludo con tendencia grasa, y el pH ácido sella la cutícula para dar brillo. Se aplica solo de medios a puntas." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un cabello fino y ligero: el BTMS y el alcohol cetilico desenredan y dan deslizamiento con muy poca grasa, dejando la fibra suave, con movimiento y sin peso. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'BTMS desenreda', 'poco aceite', 'deslizamiento', 'sin peso'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "Desenreda y da deslizamiento con un mínimo de aceites, sin peso",
+    },
+    ingredientes:
+      "Behentrimonium Methosulfate, Cetyl Alcohol, Butyrospermum Parkii (Shea) Butter, Glycerin, Bos Taurus Tallow (infusionado con pitra), Cocos Nucifera (Coconut) Oil, Citric Acid, Tocopherol, Cupressus Sempervirens (Cypress) Oil, Cedrus Atlantica Oil.",
     modoUso:
       "Tras el champú, aplica la barra solo de medios a puntas (evita la raíz), deja actuar y enjuaga. Deja secar la barra al aire.",
     piel: "Cabello fino a normal",

@@ -237,6 +237,27 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(42,21,53,0.5)",
   },
   {
+    slug: "velas-flores",
+    nombre: "Velas de Flores",
+    categoria: "Aromaterapia",
+    descripcion: "Velas de cera de soya con forma de flor, en verde, amarillo y morado, para encender con intención.",
+    descripcionLarga:
+      "Velas artesanales de cera de soya con forma de flor, para encender un momento de calma con intención. La flor simboliza el florecer: el crecimiento, la renovación y la belleza que se abre. Y cada color guarda su propio significado — el verde sana, equilibra y conecta con la naturaleza; el amarillo ilumina, alegra y despeja la mente; el morado eleva, protege e invita a la introspección. Un pequeño jardín de intenciones en cera vegetal, de combustión limpia y duradera. Elige tu color según lo que quieras atraer, o reúnelos como un ritual completo de cuerpo, mente y espíritu.",
+    beneficios: [
+      "Cera de soya vegetal: combustión limpia y duradera",
+      "Forma de flor: el florecer y la renovación",
+      "💚 Verde — sanación, equilibrio, abundancia y naturaleza",
+      "💛 Amarillo — alegría, claridad mental y energía",
+      "💜 Morado — espiritualidad, intuición y transformación",
+    ],
+    modoUso:
+      "Recorta la mecha a ~5 mm antes de cada encendido. En el primer uso, deja que la cera se derrita hasta los bordes para que consuma parejo. No la dejes encendida sin supervisión, ni cerca de materiales inflamables o corrientes de aire.",
+    tamano: "Unidad",
+    precio: null,
+    glyph: "✿",
+    accent: "rgba(122,74,138,0.3)",
+  },
+  {
     slug: "crema-matificante",
     nombre: "Crema Matificante",
     categoria: "Hidratación facial",

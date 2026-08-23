@@ -323,14 +323,6 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(122,74,138,0.26)",
   },
   {
-    slug: "jabon-ducha-amarillo",
-    nombre: "Jabón de Ducha",
-    categoria: "Cuerpo",
-    descripcion: "Barra syndet de ducha suave, con tensioactivos amables con la piel.",
-    precio: null,
-    glyph: "◆",
-    accent: "rgba(200,160,80,0.22)",
-  },
   {
     slug: "vela-soya-carnauba",
     nombre: "Vela de Soya",
@@ -445,9 +437,9 @@ export const productosTienda: ProductoTienda[] = [
     slug: "sos-granitos",
     nombre: "SOS Granitos",
     categoria: "Tratamiento localizado",
-    descripcion: "Tratamiento puntual y simple con ácido salicílico y tinturas de nalca y tomillo.",
+    descripcion: "Tratamiento puntual con ácido salicílico, niacinamida y tinturas de nalca y tomillo.",
     descripcionLarga:
-      "Un tratamiento localizado y simple para ese granito que aparece de golpe. El ácido salicílico entra al poro y disuelve el sebo que lo tapa, la niacinamida calma la rojez, y las tinturas de nalca (astringente nativa) y tomillo (antiséptica) reemplazan al alcohol para ser más suaves. Puntual y cuidadoso: solo un toque en el granito, de noche.",
+      "Un tratamiento localizado para ese granito que aparece de golpe. El ácido salicílico entra al poro y disuelve el sebo que lo tapa, la niacinamida calma la rojez, y las tinturas de nalca (astringente nativa) y tomillo (antiséptica) ayudan a secar y depurar la zona. Un toque puntual en el granito, de noche.",
     beneficios: [
       "Ácido salicílico que destapa el poro y seca",
       "Niacinamida que calma la rojez",
@@ -457,7 +449,7 @@ export const productosTienda: ProductoTienda[] = [
     ciencia: [
       { titulo: "Ácido salicílico (BHA)", texto: "Es liposoluble: penetra dentro del poro tapado de sebo y lo disuelve desde adentro. Su acción queratolítica seca la imperfección aflojando las células muertas que la obstruyen." },
       { titulo: "Niacinamida", texto: "Antiinflamatoria: calma el enrojecimiento y la hinchazón del granito, y ayuda a que la marca posterior sea menor." },
-      { titulo: "Tinturas de nalca y tomillo", texto: "La nalca (nativa) es rica en taninos astringentes que cierran el aspecto del poro y ayudan a secar; el tomillo aporta timol, antiséptico suave. Reemplazan al alcohol para no resecar de más." },
+      { titulo: "Tinturas de nalca y tomillo", texto: "La nalca (nativa) es rica en taninos astringentes que cierran el aspecto del poro y ayudan a secar; el tomillo aporta timol, un antiséptico que ayuda a depurar la zona." },
     ],
     bioquimica: {
       prompt:
@@ -751,6 +743,18 @@ export const productosTienda: ProductoTienda[] = [
       "Cedro antiinflamatorio e hinojo espasmolítico",
       "Para músculos y articulaciones cansadas",
     ],
+    ciencia: [
+      { titulo: "Eugenol y cinamaldehído", texto: "Los compuestos del clavo (eugenol) y la canela (cinamaldehído) activan los receptores de calor de la piel (como el TRPV1): de ahí la sensación de calor real que reconforta y acompaña el masaje." },
+      { titulo: "Cedro e hinojo", texto: "El aceite esencial de cedro se asocia a una acción antiinflamatoria muscular, y el de hinojo es espasmolítico (ayuda a relajar el músculo tenso)." },
+      { titulo: "Tallow + cera de abeja", texto: "El tallow infusionado (clavo, canela, pitra) es una base biomimética que nutre y transporta los activos; la cera de abeja le da el cuerpo firme para masajear." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un musculo tenso bajo la piel: las moleculas de eugenol (clavo) y cinamaldehido (canela) activan los receptores de calor de la piel generando una sensacion caliente que reconforta, mientras el cedro calma. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'eugenol y cinamaldehido', 'receptor de calor', 'sensacion de calor', 'musculo relajado'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El eugenol y el cinamaldehído activan la sensación de calor",
+    },
+    ingredientes:
+      "Bos Taurus Tallow (infusionado con clavo, canela y pitra), Cera Alba (cera de abeja), Tocopherol, Eugenia Caryophyllus (Clove) Oil, Cedrus Atlantica Oil, Foeniculum Vulgare (Fennel) Oil.",
     modoUso:
       "Masajea una pequeña cantidad sobre la zona. Solo uso corporal (no en rostro ni mucosas). Prueba antes en una zona pequeña: el clavo y la canela pueden sensibilizar. No usar en menores de 6 años ni sobre piel irritada o dañada. Lava tus manos después.",
     piel: "Uso corporal externo",
@@ -772,6 +776,18 @@ export const productosTienda: ProductoTienda[] = [
       "Cedro con sesquiterpenos antiinflamatorios",
       "Acompaña la reparación de piel seca, agrietada o marcada",
     ],
+    ciencia: [
+      { titulo: "Matico (verbascósido)", texto: "El matico es una planta nativa de larga tradición cicatrizante en el sur de Chile; se le atribuye —por su verbascósido— una acción reparadora y antiinflamatoria que acompaña la recuperación de la piel." },
+      { titulo: "Milenrama (Achillea)", texto: "De tradición antiinflamatoria y astringente, acompaña el cierre y la calma de la piel dañada; junto al matico forma el corazón botánico de este ungüento." },
+      { titulo: "Tallow biomimético + palo de ho", texto: "El tallow crea una capa protectora que nutre y evita que la piel dañada pierda agua; el palo de ho (linalol) se asocia a la regeneración celular." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un corte de piel seca y agrietada que se repara: el tallow forma una capa protectora que retiene agua mientras el matico y la milenrama acompanan la reparacion y calman la inflamacion. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'tallow protege', 'matico y milenrama', 'menos inflamacion', 'piel reparada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El tallow protege y el matico con la milenrama acompañan la reparación",
+    },
+    ingredientes:
+      "Bos Taurus Tallow (infusionado con matico y milenrama), Cera Alba (cera de abeja), Tocopherol, Aniba Rosaeodora (Ho Wood) Oil, Cedrus Atlantica Oil.",
     modoUso:
       "Aplica una capa fina sobre la piel limpia y seca, una o dos veces al día. Uso externo, sobre piel sin heridas abiertas.",
     piel: "Piel seca, agrietada o con marcas",
@@ -826,6 +842,18 @@ export const productosTienda: ProductoTienda[] = [
       "Detoxifica y afina el poro",
       "En polvo: sin conservantes, se activa al momento",
     ],
+    ciencia: [
+      { titulo: "Arcilla verde", texto: "Sus partículas cargadas atraen por intercambio iónico el exceso de sebo y las impurezas alojadas en el poro, absorbiéndolas. Por eso deja la piel mate y afinada." },
+      { titulo: "Carbón activado", texto: "Su superficie porosa adsorbe (atrapa físicamente) toxinas e impurezas, potenciando el efecto detox de la arcilla verde." },
+      { titulo: "Avena coloidal + caolín", texto: "La avena (beta-glucanos y avenantramidas) calma y forma un film suave; el caolín absorbe con delicadeza, para que la mascarilla no apriete ni reseque de más." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un poro de piel grasa: las particulas de arcilla verde y carbon activado atraen y absorben el exceso de sebo y las impurezas, mientras la avena calma la superficie. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'arcilla verde', 'carbon adsorbe', 'sebo absorbido', 'avena calma'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La arcilla verde y el carbón absorben el sebo; la avena calma",
+    },
+    ingredientes:
+      "Illite (arcilla verde), Avena Sativa (avena coloidal), Kaolin (caolín), Charcoal Powder (carbón activado).",
     modoUso:
       "Mezcla una cucharadita del polvo con un poco de agua (o hidrolato) hasta formar una pasta. Aplica una capa sobre el rostro limpio, evita el contorno de los ojos, deja 10 minutos sin que seque del todo y enjuaga. Una a dos veces por semana.",
     piel: "Grasa y mixta",
@@ -847,6 +875,17 @@ export const productosTienda: ProductoTienda[] = [
       "Sin color ni activos fuertes: pura suavidad",
       "En polvo: sin conservantes, se activa al momento",
     ],
+    ciencia: [
+      { titulo: "Avena coloidal", texto: "Sus avenantramidas son antiinflamatorias y sus beta-glucanos forman un film que calma e hidrata la piel. Es el ingrediente clásico para pieles sensibles, secas o con picazón." },
+      { titulo: "Caolín (arcilla blanca)", texto: "La más suave de las arcillas: absorbe el exceso de grasa con delicadeza, sin desmineralizar ni resecar. Limpia sin estresar la piel reactiva." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra una piel sensible e irritada que se calma: la avena coloidal (avenantramidas y beta-glucanos) forma un film que reduce la inflamacion, mientras el caolin limpia con suavidad. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'avena', 'avenantramidas', 'menos inflamacion', 'piel calmada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La avena calma la inflamación y el caolín limpia con suavidad",
+    },
+    ingredientes:
+      "Avena Sativa (avena coloidal), Kaolin (caolín).",
     modoUso:
       "Mezcla una cucharadita del polvo con un poco de agua o hidrolato hasta formar una pasta. Aplica sobre el rostro limpio, deja 10 minutos sin que seque del todo y enjuaga. Una vez por semana.",
     piel: "Sensible, seca o reactiva",
@@ -868,6 +907,18 @@ export const productosTienda: ProductoTienda[] = [
       "Cúrcuma (curcumina): antioxidante y antiinflamatoria",
       "En polvo: sin conservantes, se activa al momento",
     ],
+    ciencia: [
+      { titulo: "Cúrcuma (curcumina)", texto: "La curcumina es un potente antioxidante y antiinflamatorio: neutraliza radicales libres y revitaliza el cutis apagado, aportando luminosidad y ayudando a emparejar el aspecto de la piel." },
+      { titulo: "Arcilla amarilla", texto: "Suave y rica en minerales, limpia con delicadeza y estimula la piel apagada, aportando luz sin agredir ni resecar." },
+      { titulo: "Avena coloidal + caolín", texto: "La avena calma con sus avenantramidas y el caolín suaviza, para que la arcilla nunca apriete ni deje tirantez." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia, amarillo y verde apagado. Muestra una piel apagada que recupera luz: la curcumina (curcuma) neutraliza radicales libres y revitaliza el cutis, mientras la arcilla amarilla limpia con suavidad y la avena calma. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'curcumina', 'radical libre neutralizado', 'arcilla amarilla', 'piel con luz'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La curcumina revitaliza y la arcilla amarilla ilumina el cutis apagado",
+    },
+    ingredientes:
+      "Yellow Illite (arcilla amarilla), Avena Sativa (avena coloidal), Kaolin (caolín), Curcuma Longa (cúrcuma).",
     modoUso:
       "Mezcla una cucharadita del polvo con un poco de agua, hidrolato o yogur hasta formar una pasta. Aplica sobre el rostro limpio, deja 10 minutos sin que seque del todo y enjuaga. Una vez por semana. Si queda un leve tono amarillo, retíralo con tu aceite desmaquillante.",
     piel: "Normal, apagada o cansada",
@@ -889,6 +940,17 @@ export const productosTienda: ProductoTienda[] = [
       "Deja la piel fresca, sin sensación grasa",
       "Estética mineral, negro intenso",
     ],
+    ciencia: [
+      { titulo: "Carbón activado (adsorción)", texto: "Su superficie extremadamente porosa atrapa por adsorción impurezas, toxinas y exceso de sebo —como un imán físico—, que se arrastran al enjuagar. De ahí su acción depurativa." },
+      { titulo: "Acción del jabón", texto: "El jabón tiene una parte que ama la grasa y otra que ama el agua: rodea la suciedad grasa y la levanta para llevársela con el agua del enjuague." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra la superficie de una piel grasa: particulas de carbon activado, muy porosas, atrapando por adsorcion impurezas y gotas de sebo que luego se enjuagan. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'carbon activado', 'poros que atrapan', 'impurezas adsorbidas', 'piel depurada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El carbón activado atrapa las impurezas por adsorción",
+    },
+    ingredientes:
+      "Base de jabón, Charcoal Powder (carbón activado).",
     modoUso:
       "Frota entre las manos húmedas o sobre una esponja, aplica la espuma sobre la piel y enjuaga. Uso corporal; en el rostro, solo pieles grasas.",
     piel: "Piel grasa y cuerpo",
@@ -910,6 +972,18 @@ export const productosTienda: ProductoTienda[] = [
       "Aroma herbal de triwe, nuestro árbol nativo",
       "Limpieza suave, apta para todo tipo de piel",
     ],
+    ciencia: [
+      { titulo: "Tallow infusionado con pitra", texto: "Es biomimético: su perfil de grasas se parece al sebo humano, por eso nutre y deja la piel confortable en vez de reseca —algo poco común en un jabón—, con el aporte botánico de la pitra nativa." },
+      { titulo: "Cúrcuma (curcumina)", texto: "Le da su tono dorado natural y suma su cualidad antioxidante: la curcumina neutraliza radicales libres, protegiendo la piel del daño oxidativo." },
+      { titulo: "Base de glicerina", texto: "La glicerina es humectante: atrae y retiene agua, así el jabón limpia con delicadeza y deja la piel aterciopelada, sin la tirantez de un jabón común." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra la superficie de la piel al lavarse: el jabon limpia mientras los lipidos del tallow (parecidos al sebo humano) y la glicerina humectante quedan nutriendo y evitando la tirantez, con un brillo dorado de la curcuma. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'tallow biomimetico', 'glicerina humecta', 'curcuma antioxidante', 'piel confortable'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El tallow nutre y la glicerina humecta mientras limpia",
+    },
+    ingredientes:
+      "Base de jabón de glicerina (melt & pour), Bos Taurus Tallow (infusionado con pitra), Curcuma Longa (Turmeric) Powder, Aniba Rosaeodora (Ho Wood) Oil.",
     modoUso:
       "Frota entre las manos húmedas o sobre una esponja, aplica la espuma y enjuaga. Uso corporal diario.",
     piel: "Todo tipo de piel",
@@ -931,6 +1005,18 @@ export const productosTienda: ProductoTienda[] = [
       "Fresco y de aroma herbal",
       "Para paseos, campo y tardes de verano",
     ],
+    ciencia: [
+      { titulo: "Citronela (citronelal)", texto: "El repelente botánico clásico: su aroma intenso enmascara las señales con que el mosquito nos localiza (el CO2 y el ácido láctico que exhala la piel), confundiéndolo y alejándolo." },
+      { titulo: "Cedro, palo de ho y clavo", texto: "Refuerzan el efecto con sus aromas; el eugenol del clavo es un repelente potente. Juntos crean una barrera olfativa que a los insectos no les gusta." },
+      { titulo: "Alcohol + glicerina", texto: "El alcohol dispersa y ayuda a volatilizar los aceites esenciales; la glicerina los fija un poco para que duren algo más sobre la piel. Aun así, un repelente botánico dura menos que el DEET: reaplica cada 1-2 horas." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra la piel exhalando señales invisibles (CO2 y acido lactico) que atraen a un mosquito, y una nube aromatica de citronela que enmascara esas señales y aleja al insecto. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'CO2 y acido lactico', 'citronela enmascara', 'mosquito confundido', 'piel protegida'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La citronela enmascara las señales con que el mosquito te encuentra",
+    },
+    ingredientes:
+      "Alcohol, Laurelia Sempervirens (Triwe) Leaf Water, Glycerin, Polysorbate 20, Cymbopogon (Citronella) Oil, Cedrus Atlantica Oil, Aniba Rosaeodora (Ho Wood) Oil, Eugenia Caryophyllus (Clove) Oil, Benzyl Alcohol, Dehydroacetic Acid.",
     modoUso:
       "Agita antes de usar. Rocía sobre la piel expuesta y la ropa, a 15 cm, evitando ojos, mucosas y heridas. Reaplica cada 1 a 2 horas. No usar en menores de 3 años; prueba antes en el antebrazo.",
     piel: "Uso corporal externo",

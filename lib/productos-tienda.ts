@@ -323,7 +323,6 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(122,74,138,0.26)",
   },
   {
-  {
     slug: "vela-soya-carnauba",
     nombre: "Vela de Soya",
     categoria: "Aromaterapia",

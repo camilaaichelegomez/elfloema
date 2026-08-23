@@ -29,7 +29,7 @@ export function EtiquetaEditor({
   const altoLayout = esRedonda
     ? data.width_mm
     : esSimple && !(data.alto_mm > 0)
-      ? Math.round(data.width_mm * 1.4 * 100) / 100
+      ? Math.round(data.width_mm * (697 / 619) * 100) / 100 // proporción del arte de la "una plana"
       : data.alto_mm;
   const L = computeLayout(data.width_mm, data.font_scale, altoLayout);
 

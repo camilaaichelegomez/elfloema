@@ -445,26 +445,28 @@ export const productosTienda: ProductoTienda[] = [
     slug: "sos-granitos",
     nombre: "SOS Granitos",
     categoria: "Tratamiento localizado",
-    descripcion: "Tratamiento puntual con salicílico para secar granitos.",
+    descripcion: "Tratamiento puntual con salicílico, nalca y aceites antisépticos para secar granitos.",
     descripcionLarga:
-      "Un tratamiento localizado para ese granito que aparece de golpe. El ácido salicílico, liposoluble, entra al poro y disuelve el sebo que lo tapa, secando la imperfección sin resecar el resto de la piel. Un toque puntual, solo donde lo necesitas, de noche.",
+      "Un tratamiento localizado para ese granito que aparece de golpe. El ácido salicílico entra al poro y disuelve el sebo que lo tapa; la niacinamida calma la rojez y la tintura de nalca astringe y ayuda a secar. Los aceites esenciales de árbol de té, clavo y romero suman un choque antibacteriano, mientras el pantenol repara. Sobre una base de hidrolatos nativos (triwe, pitra, maqui). Un toque puntual, de noche.",
     beneficios: [
-      "Ácido salicílico que actúa dentro del poro",
-      "Seca el granito sin arrasar la piel sana",
-      "Aplicación puntual y precisa",
-      "Uso nocturno según necesidad",
+      "Ácido salicílico que destapa el poro desde dentro",
+      "Niacinamida que calma la rojez",
+      "Nalca astringente que cierra el poro y seca",
+      "Árbol de té, clavo y romero: choque antibacteriano",
     ],
     ciencia: [
       { titulo: "Ácido salicílico (BHA)", texto: "Es liposoluble: penetra dentro del poro tapado de sebo y lo disuelve desde adentro. Su acción queratolítica seca la imperfección aflojando las células muertas que la obstruyen." },
-      { titulo: "Aplicación localizada", texto: "Al actuar solo en el punto exacto, concentra su efecto donde se necesita y no reseca ni irrita la piel sana de alrededor." },
+      { titulo: "Niacinamida", texto: "Antiinflamatoria: calma el enrojecimiento y la hinchazón del granito, y ayuda a que la marca posterior sea menor." },
+      { titulo: "Tintura de nalca + pantenol", texto: "La nalca (nativa) es rica en taninos, astringentes que cierran el aspecto del poro y ayudan a secar; el pantenol repara para evitar la descamación de la zona." },
+      { titulo: "Aceites esenciales antisépticos", texto: "El árbol de té, el clavo (eugenol) y el romero son antisépticos: dan un choque antibacteriano justo en el punto, contra la bacteria asociada al acné." },
     ],
     bioquimica: {
       prompt:
-        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un solo granito con el poro tapado: una gota de acido salicilico entra al poro, disuelve el tapon de sebo y lo seca, sin tocar la piel sana de alrededor. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'acido salicilico', 'poro tapado', 'tapon disuelto', 'piel sana intacta'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
-      leyenda: "El salicílico destapa y seca el granito sin tocar la piel sana",
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra un solo granito con el poro tapado: una gota de acido salicilico entra al poro y disuelve el tapon de sebo, mientras los aceites esenciales antisepticos combaten la bacteria y la niacinamida calma la rojez, sin tocar la piel sana de alrededor. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'acido salicilico', 'poro destapado', 'antisepticos', 'menos rojez'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "El salicílico destapa el poro y los antisépticos combaten la bacteria",
     },
     ingredientes:
-      "Alcohol Denat., Aqua, Salicylic Acid, Glycerin, Panthenol, Citric Acid.",
+      "Triwe/Pitra/Maqui Hydrolat Blend, Gunnera Tinctoria (Nalca) Tincture, Niacinamide, Salicylic Acid, Panthenol, Thymus Vulgaris (Thyme) Tincture, Alcohol, Melaleuca Alternifolia (Tea Tree) Oil, Eugenia Caryophyllus (Clove) Oil, Rosmarinus Officinalis (Rosemary) Oil, Glycerin, Citric Acid.",
     modoUso:
       "Aplica solo sobre el granito, con un cotonito o el aplicador, de noche. No lo extiendas por todo el rostro. No uses en piel irritada.",
     piel: "Grasa y mixta con tendencia acneica",

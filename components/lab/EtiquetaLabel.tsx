@@ -315,18 +315,22 @@ function EtiquetaRedonda({ data, className }: { data: EtiquetaData; className?: 
     flexShrink: 0,
   };
 
-  // Zona de texto centrada, en el área verde bajo el logo. Angosta para no salirse
-  // del círculo. offset_center_mm sube/baja el bloque.
+  // Zona de texto: caja acotada en el área verde bajo el logo (36%–82% del alto),
+  // angosta para no salirse del círculo. Con justify-center el bloque queda
+  // centrado verticalmente en ese verde, sin importar cuánto texto haya.
+  // offset_center_mm lo sube/baja.
   const zonaStyle: CSSProperties = {
     position: "absolute",
     left: "22%",
     right: "22%",
-    top: "46%",
+    top: "37%",
+    bottom: "18%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    overflow: "hidden",
     transform: `translateY(${data.offset_center_mm}mm)`,
   };
 

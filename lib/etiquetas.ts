@@ -50,7 +50,11 @@ function round2(n: number) {
   return Math.round(n * 100) / 100;
 }
 
-export type FormaEtiqueta = "rectangular" | "redonda";
+// "rectangular" = etiqueta larga de 3 paneles que envuelve el frasco.
+// "redonda" = medallón cuadrado.
+// "simple" = una sola cara ("una plana"): todo en una columna, fondo propio
+// sin la imagen envolvente, para gastar menos papel.
+export type FormaEtiqueta = "rectangular" | "redonda" | "simple";
 
 export interface EtiquetaData {
   forma: FormaEtiqueta;

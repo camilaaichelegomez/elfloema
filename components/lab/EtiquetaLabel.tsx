@@ -92,6 +92,9 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
   if (data.forma === "redonda") {
     return <EtiquetaRedonda data={data} className={className} />;
   }
+  if (data.forma === "simple") {
+    return <EtiquetaSimple data={data} className={className} />;
+  }
 
   const L = computeLayout(data.width_mm, data.font_scale, data.alto_mm);
 
@@ -176,6 +179,125 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
             {data.vencimiento && ` · V: ${data.vencimiento}`}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Etiqueta "una plana" (simple): una sola cara. No usa la imagen envolvente ni los
+// 3 paneles — apila todo en una columna sobre un fondo propio (verde grimorio con
+// marco dorado), para gastar menos papel. Muestra los campos que estén llenos:
+// nombre, subtítulo, categoría, descripción, tamaño y — si se completan — modo de
+// uso, ingredientes, advertencias, conservación y el pie (redes, fabricante, lote).
+function EtiquetaSimple({ data, className }: { data: EtiquetaData; className?: string }) {
+  // Alto: si no se define, retrato (1.4× el ancho). El texto siempre escala con el ancho.
+  const alto = data.alto_mm && data.alto_mm > 0 ? data.alto_mm : Math.round(data.width_mm * 1.4 * 100) / 100;
+  const L = computeLayout(data.width_mm, data.font_scale, alto);
+  const sizes = sizesForZone(L.s, data.font_scale_center);
+  const est = estilosDeTexto(sizes);
+  const s = sizes.s;
+  const descEtiqueta = data.descripcion_etiqueta || data.descripcion_catalogo;
+
+  // Marco proporcional al ancho físico (no al tamaño de letra) para que se vea
+  // parejo en etiquetas chicas o grandes.
+  const frameMm = Math.round(data.width_mm * 0.014 * 100) / 100;
+  const padMm = Math.round(data.width_mm * 0.06 * 100) / 100;
+
+  const labelStyle: CSSProperties = {
+    width: `${L.width_mm}mm`,
+    height: `${L.height_mm}mm`,
+    position: "relative",
+    boxSizing: "border-box",
+    background: "linear-gradient(160deg, #10200f 0%, #0a160a 55%, #0c1c0c 100%)",
+    border: `${frameMm}mm solid #b8933f`,
+    boxShadow: "inset 0 0 5mm rgba(0,0,0,0.55)",
+    overflow: "hidden",
+    fontFamily: "var(--font-lora), Lora, serif",
+    color: CREAM,
+    flexShrink: 0,
+    padding: `${padMm}mm`,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  };
+
+  const innerFrame: CSSProperties = {
+    position: "absolute",
+    inset: `${frameMm * 2}mm`,
+    border: `${Math.max(0.2, frameMm * 0.35)}mm solid rgba(200,160,80,0.4)`,
+    pointerEvents: "none",
+  };
+
+  const divider = (
+    <div
+      style={{
+        width: "50%",
+        height: 1,
+        background: "linear-gradient(to right, transparent, rgba(200,160,80,0.6), transparent)",
+        margin: `${1.6 * s}mm 0`,
+      }}
+    />
+  );
+
+  const hayFooter = data.social || data.fabricante || data.lote;
+
+  return (
+    <div className={className} style={labelStyle}>
+      <div style={innerFrame} />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: `${data.offset_center_mm}mm`,
+        }}
+      >
+        <h1 style={est.productName}>{data.product_name}</h1>
+        {data.subtitle && <div style={est.productSubtitle}>{data.subtitle}</div>}
+        {data.category_line && <div style={est.productCategory}>{data.category_line}</div>}
+        {descEtiqueta && <p style={{ ...est.sectionTextSmall, marginTop: `${1.4 * s}mm` }}>{descEtiqueta}</p>}
+        {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.4 * s}mm` }}>{data.size}</div>}
+
+        {(data.modo_uso || data.ingredientes || data.advertencias) && divider}
+        {data.modo_uso && (
+          <>
+            <h2 style={est.sectionTitle}>Modo de uso</h2>
+            <p style={est.sectionTextSmall}>{data.modo_uso}</p>
+          </>
+        )}
+        {data.ingredientes && (
+          <>
+            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Ingredientes</h2>
+            <p style={est.sectionTextSmall}>{data.ingredientes}</p>
+          </>
+        )}
+        {data.advertencias && (
+          <>
+            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Advertencias</h2>
+            <p style={est.sectionTextSmall}>{data.advertencias}</p>
+          </>
+        )}
+        {data.storage_note && <div style={est.storageNote}>{data.storage_note}</div>}
+
+        {hayFooter && (
+          <>
+            {data.social && <div style={est.social}>{data.social}</div>}
+            <div style={est.footerBlock}>
+              {data.fabricante}
+              {data.lote && (
+                <>
+                  <br />
+                  Lote: {data.lote}
+                  {data.vencimiento && ` · V: ${data.vencimiento}`}
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -92,6 +92,9 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
   if (data.forma === "redonda") {
     return <EtiquetaRedonda data={data} className={className} />;
   }
+  if (data.forma === "simple") {
+    return <EtiquetaSimple data={data} className={className} />;
+  }
 
   const L = computeLayout(data.width_mm, data.font_scale, data.alto_mm);
 
@@ -176,6 +179,115 @@ export function EtiquetaLabel({ data, className }: { data: EtiquetaData; classNa
             {data.vencimiento && ` · V: ${data.vencimiento}`}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Proporción alto/ancho del arte de la "una plana" (arte-fondo-simple.png, 619×697).
+const ASPECT_SIMPLE = 697 / 619;
+
+// Etiqueta "una plana" (simple): una sola cara. No usa la imagen envolvente ni los
+// 3 paneles — apila todo en una columna sobre el arte de fondo (marco botánico con
+// logo El Floema arriba), en el centro verde, para gastar menos papel. Muestra los
+// campos que estén llenos: nombre, subtítulo, categoría, descripción, tamaño y —
+// si se completan — modo de uso, ingredientes, advertencias, conservación y el pie.
+function EtiquetaSimple({ data, className }: { data: EtiquetaData; className?: string }) {
+  // Alto: si no se define, sigue la proporción del arte. El texto siempre escala con el ancho.
+  const alto =
+    data.alto_mm && data.alto_mm > 0 ? data.alto_mm : Math.round(data.width_mm * ASPECT_SIMPLE * 100) / 100;
+  const L = computeLayout(data.width_mm, data.font_scale, alto);
+  const sizes = sizesForZone(L.s, data.font_scale_center);
+  const est = estilosDeTexto(sizes);
+  const s = sizes.s;
+  const descEtiqueta = data.descripcion_etiqueta || data.descripcion_catalogo;
+
+  const labelStyle: CSSProperties = {
+    width: `${L.width_mm}mm`,
+    height: `${L.height_mm}mm`,
+    position: "relative",
+    backgroundColor: "#0c1c0c",
+    backgroundImage: "url(/etiquetas/arte-fondo-simple.png)",
+    backgroundSize: "100% 100%",
+    overflow: "hidden",
+    fontFamily: "var(--font-lora), Lora, serif",
+    color: CREAM,
+    flexShrink: 0,
+  };
+
+  // Zona de texto: el centro verde del arte, dejando el marco botánico y el logo de arriba.
+  const zona: CSSProperties = {
+    position: "absolute",
+    left: "16%",
+    right: "16%",
+    top: "22%",
+    bottom: "9%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    transform: `translateY(${data.offset_center_mm}mm)`,
+  };
+
+  const divider = (
+    <div
+      style={{
+        width: "50%",
+        height: 1,
+        background: "linear-gradient(to right, transparent, rgba(200,160,80,0.6), transparent)",
+        margin: `${1.6 * s}mm 0`,
+      }}
+    />
+  );
+
+  const hayFooter = data.social || data.fabricante || data.lote;
+
+  return (
+    <div className={className} style={labelStyle}>
+      <div style={zona}>
+        <h1 style={est.productName}>{data.product_name}</h1>
+        {data.subtitle && <div style={est.productSubtitle}>{data.subtitle}</div>}
+        {data.category_line && <div style={est.productCategory}>{data.category_line}</div>}
+        {descEtiqueta && <p style={{ ...est.sectionTextSmall, marginTop: `${1.4 * s}mm` }}>{descEtiqueta}</p>}
+        {data.size && <div style={{ ...est.sizeTag, marginTop: `${1.4 * s}mm` }}>{data.size}</div>}
+
+        {(data.modo_uso || data.ingredientes || data.advertencias) && divider}
+        {data.modo_uso && (
+          <>
+            <h2 style={est.sectionTitle}>Modo de uso</h2>
+            <p style={est.sectionTextSmall}>{data.modo_uso}</p>
+          </>
+        )}
+        {data.ingredientes && (
+          <>
+            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Ingredientes</h2>
+            <p style={est.sectionTextSmall}>{data.ingredientes}</p>
+          </>
+        )}
+        {data.advertencias && (
+          <>
+            <h2 style={{ ...est.sectionTitle, marginTop: `${1.2 * s}mm` }}>Advertencias</h2>
+            <p style={est.sectionTextSmall}>{data.advertencias}</p>
+          </>
+        )}
+        {data.storage_note && <div style={est.storageNote}>{data.storage_note}</div>}
+
+        {hayFooter && (
+          <>
+            {data.social && <div style={est.social}>{data.social}</div>}
+            <div style={est.footerBlock}>
+              {data.fabricante}
+              {data.lote && (
+                <>
+                  <br />
+                  Lote: {data.lote}
+                  {data.vencimiento && ` · V: ${data.vencimiento}`}
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

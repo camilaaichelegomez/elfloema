@@ -23,8 +23,15 @@ export function EtiquetaEditor({
   const [alertaIA, setAlertaIA] = useState<string | null>(null);
 
   const esRedonda = data.forma === "redonda";
-  // En redonda la etiqueta es cuadrada (alto = ancho); en rectangular usa alto_mm.
-  const L = computeLayout(data.width_mm, data.font_scale, esRedonda ? data.width_mm : data.alto_mm);
+  const esSimple = data.forma === "simple";
+  // Redonda: cuadrada (alto = ancho). Simple: retrato (1.4× el ancho) si no se define alto.
+  // Rectangular: usa alto_mm (0 = automático según el arte).
+  const altoLayout = esRedonda
+    ? data.width_mm
+    : esSimple && !(data.alto_mm > 0)
+      ? Math.round(data.width_mm * (697 / 619) * 100) / 100 // proporción del arte de la "una plana"
+      : data.alto_mm;
+  const L = computeLayout(data.width_mm, data.font_scale, altoLayout);
 
   function set<K extends keyof EtiquetaData>(key: K, value: EtiquetaData[K]) {
     setData((d) => ({ ...d, [key]: value }));
@@ -169,11 +176,24 @@ export function EtiquetaEditor({
             >
               Redonda (medallón)
             </button>
+            <button
+              type="button"
+              onClick={() => set("forma", "simple")}
+              style={data.forma === "simple" ? formaBotonActivoStyle : formaBotonStyle}
+            >
+              Una plana
+            </button>
           </div>
           {esRedonda && (
             <p style={ayudaStyle}>
               En redonda va el logo (ya en el arte) + nombre, subtítulo y tamaño centrados. El modo de uso, INCI y
               advertencias no aparecen (son para la rectangular).
+            </p>
+          )}
+          {esSimple && (
+            <p style={ayudaStyle}>
+              &quot;Una plana&quot;: etiqueta de una sola cara para gastar menos papel. Va todo en una columna (nombre,
+              descripción, tamaño y lo que completes de modo de uso / ingredientes / pie). Prueba un ancho chico, ~50 mm.
             </p>
           )}
         </div>
@@ -256,14 +276,18 @@ export function EtiquetaEditor({
         <p style={ayudaStyle}>
           {esRedonda
             ? `Redonda: siempre cuadrada, ${L.width_mm}×${L.width_mm}mm.`
+            : esSimple
+            ? data.alto_mm > 0
+              ? `Una plana: ${L.width_mm}×${L.height_mm}mm (alto fijo).`
+              : `Una plana: ${L.width_mm}×${L.height_mm}mm (retrato automático). Escribe un alto en mm si quieres otra proporción.`
             : data.alto_mm > 0
               ? `Alto fijo: ${L.height_mm}mm. Ojo: si el alto no es proporcional al ancho, el arte de fondo se estira un poco (alto automático sería ${Math.round((data.width_mm / (1457 / 720)) * 10) / 10}mm).`
               : `Alto automático: ${L.height_mm}mm (proporción del arte). Para una etiqueta más baja/ancha —como las de crema— escribí un alto en mm; el arte se estira levemente.`}
         </p>
 
-        <h3 style={subseccionStyle}>Ajustes {esRedonda ? "del texto" : "por panel"}</h3>
+        <h3 style={subseccionStyle}>Ajustes {esRedonda || esSimple ? "del texto" : "por panel"}</h3>
 
-        {esRedonda ? (
+        {esRedonda || esSimple ? (
           <>
             <p style={ayudaStyle}>Subí o bajá el texto (mm, positivo = más abajo) y cambiá su tamaño.</p>
             <div style={rowStyle}>

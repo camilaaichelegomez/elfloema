@@ -74,9 +74,11 @@ export default function TiendaPage() {
               gap: "clamp(1rem,2vw,1.75rem)",
             }}
           >
-            {productosTienda.map((p, i) => (
-              <ProductoCard key={p.slug} producto={p} index={i} />
-            ))}
+            {productosTienda
+              .filter((p) => !p.oculto)
+              .map((p, i) => (
+                <ProductoCard key={p.slug} producto={p} index={i} />
+              ))}
           </div>
         </div>
       </main>

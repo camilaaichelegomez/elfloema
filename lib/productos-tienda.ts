@@ -21,6 +21,9 @@ export type ProductoTienda = {
   glyph: string;
   accent: string;
   destacado?: boolean;
+  // oculto: true = no aparece en la tienda (pero conserva su info para cuando se
+  // vuelva a fabricar; basta con quitar el flag para que reaparezca).
+  oculto?: boolean;
 };
 
 export const productosTienda: ProductoTienda[] = [
@@ -323,8 +326,8 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(122,74,138,0.26)",
   },
   {
-  {
     slug: "vela-soya-carnauba",
+    oculto: true,
     nombre: "Vela de Soya",
     categoria: "Aromaterapia",
     descripcion: "Vela natural de cera de soja, sin parafinas ni aromas químicos, con un toque de triwe.",
@@ -402,6 +405,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "syndet-facial-piel-grasa",
+    oculto: true,
     nombre: "Syndet Facial Líquido · Piel Grasa",
     categoria: "Limpieza facial",
     descripcion: "Limpieza equilibrante con salicílico y ortiga para piel grasa.",
@@ -435,6 +439,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "sos-granitos",
+    oculto: true,
     nombre: "SOS Granitos",
     categoria: "Tratamiento localizado",
     descripcion: "Tratamiento puntual con ácido salicílico, niacinamida y tinturas de nalca y tomillo.",
@@ -608,6 +613,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "acondicionador-solido-seda",
+    oculto: true,
     nombre: "Acondicionador Sólido Seda",
     categoria: "Cuidado capilar",
     descripcion: "Acondicionador sólido nutritivo para cabello seco o rizado.",
@@ -1039,4 +1045,8 @@ export function getProductoTienda(slug: string): ProductoTienda | undefined {
   return productosTienda.find((p) => p.slug === slug);
 }
 
-export const productosDestacados: ProductoTienda[] = productosTienda.filter((p) => p.destacado);
+// Productos que SÍ se muestran en la tienda (los ocultos se conservan en la data
+// pero no aparecen hasta que se les quite el flag `oculto`).
+export const productosVisibles: ProductoTienda[] = productosTienda.filter((p) => !p.oculto);
+
+export const productosDestacados: ProductoTienda[] = productosTienda.filter((p) => p.destacado && !p.oculto);

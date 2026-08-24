@@ -21,6 +21,9 @@ export type ProductoTienda = {
   glyph: string;
   accent: string;
   destacado?: boolean;
+  // oculto: true = no aparece en la tienda (pero conserva su info para cuando se
+  // vuelva a fabricar; basta con quitar el flag para que reaparezca).
+  oculto?: boolean;
 };
 
 export const productosTienda: ProductoTienda[] = [
@@ -323,8 +326,8 @@ export const productosTienda: ProductoTienda[] = [
     accent: "rgba(122,74,138,0.26)",
   },
   {
-  {
     slug: "vela-soya-carnauba",
+    oculto: true,
     nombre: "Vela de Soya",
     categoria: "Aromaterapia",
     descripcion: "Vela natural de cera de soja, sin parafinas ni aromas químicos, con un toque de triwe.",
@@ -402,6 +405,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "syndet-facial-piel-grasa",
+    oculto: true,
     nombre: "Syndet Facial Líquido · Piel Grasa",
     categoria: "Limpieza facial",
     descripcion: "Limpieza equilibrante con salicílico y ortiga para piel grasa.",
@@ -435,6 +439,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "sos-granitos",
+    oculto: true,
     nombre: "SOS Granitos",
     categoria: "Tratamiento localizado",
     descripcion: "Tratamiento puntual con ácido salicílico, niacinamida y tinturas de nalca y tomillo.",
@@ -528,6 +533,10 @@ export const productosTienda: ProductoTienda[] = [
       "Frota la barra directamente en el cabello mojado o hazla espuma entre las manos, masajea el cuero y las largas, y enjuaga. Deja secar la barra al aire.",
     piel: "Cabello rizado y ondulado",
     tamano: "Barra ~60 g",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente la barra de champu solido, su forma, color y textura tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeada de hojas de laurel, ramas de ricino y rizos de cabello, sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real de la barra de champu solido dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de laurel, ricino y rizos, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CHAMPU SOLIDO CURLY - Metodo curly, sin sulfatos'. Recuadro COMO ACTUA: 'SCI y betaina: limpian sin sulfatos, respetando la fibra. BTMS cationico: desenreda y define el rizo. Karite, ricino y tallow de pitra: nutren e hidratan. pH acido: sella la cuticula.'. Recuadro PROPIEDADES: 'Sin sulfatos. Define el rizo. Hidrata. Solida y sin plastico.'. Recuadro MODO DE USO: 'Frota en el cabello mojado, masajea el cuero y las largas, y enjuaga.'. Recuadro PARA: 'Cabello rizado y ondulado'. Recuadro RESULTADO: 'Rizos hidratados, definidos y suaves.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◉",
     accent: "rgba(90,122,58,0.26)",
@@ -561,6 +570,10 @@ export const productosTienda: ProductoTienda[] = [
       "Frota la barra en el cabello mojado enfocándote en la raíz y el cuero, masajea y enjuaga. Deja secar la barra al aire.",
     piel: "Cuero cabelludo graso",
     tamano: "Barra ~60 g",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente la barra de champu solido, su forma, color y textura tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica: rodeada de hojas de laurel, ramas de cipres y terrones de arcilla verde, sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real de la barra de champu solido dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de laurel, ramas de cipres y arcilla verde, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CHAMPU SOLIDO CABELLO GRASO - Clarificante'. Recuadro COMO ACTUA: 'SCI, SCS y betaina: limpieza con poder desengrasante que respeta la barrera. Arcilla verde: absorbe el exceso de sebo. Cipres: astringente que equilibra. pH acido: sella la cuticula.'. Recuadro PROPIEDADES: 'Controla el sebo. Frescura de raiz. No reseca las puntas. Solida.'. Recuadro MODO DE USO: 'Frota en el cabello mojado enfocando la raiz y el cuero, masajea y enjuaga.'. Recuadro PARA: 'Cuero cabelludo graso'. Recuadro RESULTADO: 'Raiz fresca y ligera por mas tiempo.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◍",
     accent: "rgba(90,122,58,0.28)",
@@ -600,6 +613,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "acondicionador-solido-seda",
+    oculto: true,
     nombre: "Acondicionador Sólido Seda",
     categoria: "Cuidado capilar",
     descripcion: "Acondicionador sólido nutritivo para cabello seco o rizado.",
@@ -1031,4 +1045,8 @@ export function getProductoTienda(slug: string): ProductoTienda | undefined {
   return productosTienda.find((p) => p.slug === slug);
 }
 
-export const productosDestacados: ProductoTienda[] = productosTienda.filter((p) => p.destacado);
+// Productos que SÍ se muestran en la tienda (los ocultos se conservan en la data
+// pero no aparecen hasta que se les quite el flag `oculto`).
+export const productosVisibles: ProductoTienda[] = productosTienda.filter((p) => !p.oculto);
+
+export const productosDestacados: ProductoTienda[] = productosTienda.filter((p) => p.destacado && !p.oculto);

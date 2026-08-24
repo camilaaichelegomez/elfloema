@@ -22,7 +22,7 @@ const sectionHeading: CSSProperties = {
 };
 
 export function generateStaticParams() {
-  return productosTienda.map((p) => ({ slug: p.slug }));
+  return productosTienda.filter((p) => !p.oculto).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -46,7 +46,7 @@ export default async function ProductoPage({
 }) {
   const { slug } = await params;
   const producto = getProductoTienda(slug);
-  if (!producto) notFound();
+  if (!producto || producto.oculto) notFound();
 
   return (
     <>
@@ -285,7 +285,7 @@ export default async function ProductoPage({
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem", justifyContent: "center" }}>
               {productosTienda
-                .filter((p) => p.slug !== producto.slug)
+                .filter((p) => p.slug !== producto.slug && !p.oculto)
                 .slice(0, 6)
                 .map((p) => (
                   <Link

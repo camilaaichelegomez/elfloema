@@ -550,6 +550,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "champu-solido-curly",
+    oculto: true,
     nombre: "Champú Sólido Curly",
     categoria: "Cuidado capilar",
     descripcion: "Champú sólido sin sulfatos agresivos, apto método curly.",
@@ -587,6 +588,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "champu-solido-cabello-graso",
+    oculto: true,
     nombre: "Champú Sólido · Cabello Graso",
     categoria: "Cuidado capilar",
     descripcion: "Champú sólido clarificante con arcilla verde para cuero graso.",

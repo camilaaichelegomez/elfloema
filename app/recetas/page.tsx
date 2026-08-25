@@ -318,7 +318,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
 // ── Page ───────────────────────────────────────────────────────────────────────
 export default function RecetasPage() {
   return (
-    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh" }}>
+    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
 
       <div
@@ -326,6 +326,10 @@ export default function RecetasPage() {
           maxWidth: 900,
           margin: "0 auto",
           padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(64px,10vh,120px)",
+          background: "rgba(9,14,9,0.8)",
+          borderRadius: 10,
+          border: "1px solid rgba(200,160,80,0.1)",
+          boxShadow: "0 8px 40px rgba(0,0,0,0.45)",
         }}
       >
         <BackButton label="← Volver al Grimorio" />

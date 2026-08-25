@@ -490,9 +490,9 @@ const formulas: Formula[] = [
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function Formulas() {
   return (
-    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh" }}>
+    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_formulas.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
-      <div style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(64px,10vh,120px)" }}>
+      <div style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(64px,10vh,120px)", background: "rgba(9,14,9,0.8)", borderRadius: 10, border: "1px solid rgba(200,160,80,0.1)", boxShadow: "0 8px 40px rgba(0,0,0,0.45)" }}>
         <BackButton label="← Volver" />
 
         {/* Page header */}

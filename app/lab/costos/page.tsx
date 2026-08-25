@@ -16,7 +16,6 @@ export default async function CostosLabPage() {
   const [
     { data: formulas, error: errFormulas },
     { data: inventario },
-    { data: config },
     { data: costos },
   ] = await Promise.all([
     supabase
@@ -25,7 +24,6 @@ export default async function CostosLabPage() {
       .is("deleted_at", null)
       .order("nombre", { ascending: true }),
     supabase.from("inventario_con_costo").select("ingrediente, costo_unitario, unidad"),
-    supabase.from("costos_config").select("valor_hora, merma_pct").eq("user_id", user.id).maybeSingle(),
     supabase.from("costos_producto").select("*").eq("user_id", user.id),
   ]);
 
@@ -46,7 +44,6 @@ export default async function CostosLabPage() {
             userId={user.id}
             formulas={formulas ?? []}
             inventario={inventario ?? []}
-            configInicial={config ?? null}
             costosIniciales={costos ?? []}
           />
         )}

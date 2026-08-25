@@ -680,6 +680,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "manteca-ancestral",
+    oculto: true,
     nombre: "Manteca Ancestral",
     categoria: "Bálsamo facial de noche",
     descripcion: "Bálsamo facial batido de tallow infusionado con pitra, tratamiento reparador de noche.",
@@ -846,7 +847,7 @@ export const productosTienda: ProductoTienda[] = [
   {
     slug: "mascarilla-purificante",
     nombre: "Mascarilla Purificante",
-    categoria: "Mascarilla facial",
+    categoria: "Mascarilla exfoliante en polvo",
     descripcion: "Mascarilla en polvo de carbón, arcilla verde y avena que detoxifica la piel grasa.",
     descripcionLarga:
       "Una mascarilla en polvo que activas con agua justo antes de usar, para que sus arcillas lleguen frescas. El carbón activado y la arcilla verde atraen y absorben el exceso de sebo y las impurezas del poro, mientras la avena coloidal y el caolín suavizan para que no apriete ni reseque de más. Deja la piel mate, limpia y afinada. En polvo dura más y viaja sin conservantes.",
@@ -879,7 +880,7 @@ export const productosTienda: ProductoTienda[] = [
   {
     slug: "mascarilla-calmante",
     nombre: "Mascarilla Calmante",
-    categoria: "Mascarilla facial",
+    categoria: "Mascarilla exfoliante en polvo",
     descripcion: "Mascarilla en polvo de caolín y avena, la más suave, para piel sensible.",
     descripcionLarga:
       "La mascarilla más delicada de la línea, pensada para las pieles sensibles, secas o reactivas que no toleran las arcillas fuertes. El caolín (arcilla blanca) es la más suave: limpia y absorbe el exceso de grasa sin resecar, y la avena coloidal calma con sus avenantramidas y suaviza para que la piel no quede tirante. Se activa con agua al momento y deja la piel fresca, confortable y sin estrés.",
@@ -911,7 +912,7 @@ export const productosTienda: ProductoTienda[] = [
   {
     slug: "mascarilla-iluminadora",
     nombre: "Mascarilla Iluminadora",
-    categoria: "Mascarilla facial",
+    categoria: "Mascarilla exfoliante en polvo",
     descripcion: "Mascarilla en polvo de arcilla amarilla, avena y cúrcuma que devuelve luz a la piel apagada.",
     descripcionLarga:
       "Una mascarilla en polvo pensada para devolver luz a las pieles apagadas o cansadas. La arcilla amarilla limpia con suavidad y aporta luminosidad, la avena coloidal calma y suaviza para que la arcilla nunca apriete ni reseque, y la cúrcuma suma su curcumina, un potente antioxidante y antiinflamatorio que revitaliza y empareja el aspecto del cutis. Se activa con agua al momento, así llega fresca y sin conservantes. Deja la piel limpia, fresca y con un brillo saludable.",

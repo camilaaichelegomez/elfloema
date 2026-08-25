@@ -13,6 +13,7 @@ export type ProductoTienda = {
   bioquimica?: { prompt: string; leyenda: string }; // ilustración de proceso bioquímico (placeholder con prompt)
   ingredientes?: string; // INCI o ingredientes clave
   modoUso?: string;
+  resultado?: string; // "qué esperar" — resultado breve para la ficha imprimible
   piel?: string; // para qué tipo de piel
   tamano?: string; // ej "100 ml"
   imagenPrompt?: string; // prompt para generar la foto del producto (placeholder)

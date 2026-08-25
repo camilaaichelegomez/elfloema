@@ -1,4 +1,9 @@
 import { BackButton } from "@/components/BackButton";
+import { supabase } from "@/lib/supabase";
+
+// Refresca las fórmulas desde Supabase cada 60 s (transparencia: muestra todas
+// las recetas del Lab). Requiere la política de lectura pública en Supabase.
+export const revalidate = 60;
 
 // ── Grain overlay ─────────────────────────────────────────────────────────────
 function GrainOverlay() {
@@ -51,7 +56,8 @@ interface Recipe {
 }
 
 // ── Recipe data ────────────────────────────────────────────────────────────────
-const RECIPES: Recipe[] = [
+// Recetas de respaldo (se muestran si Supabase aún no tiene lectura pública).
+const RECIPES_FALLBACK: Recipe[] = [
   {
     id: "syndet-facial-triwe",
     name: "Syndet Facial Líquido de Triwe",
@@ -315,8 +321,60 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
   );
 }
 
+// ── Carga desde Supabase ────────────────────────────────────────────────────────
+interface FormulaRow {
+  id: string;
+  nombre: string;
+  categoria: string | null;
+  descripcion: string | null;
+  rinde_gramos: number | null;
+  ph_objetivo: string | null;
+  pasos: string | null;
+  formula_items: { ingrediente: string; gramos: number | null; porcentaje: number | null; fase: string | null }[] | null;
+}
+
+function mapFormula(f: FormulaRow): Recipe {
+  const items = f.formula_items ?? [];
+  return {
+    id: f.id,
+    name: f.nombre,
+    tag: f.categoria ?? "Fórmula",
+    desc: f.descripcion ?? "",
+    batch: f.rinde_gramos ? `Lote ${f.rinde_gramos} g` : "",
+    ph: f.ph_objetivo ? `pH ${f.ph_objetivo}` : "",
+    ingredients: items.map((i) => ({
+      name: i.fase ? `${i.ingrediente} · ${i.fase}` : i.ingrediente,
+      pct: i.porcentaje != null ? `${i.porcentaje}%` : "",
+      grams: i.gramos != null ? `${i.gramos} g` : "",
+    })),
+    steps: (f.pasos ?? "")
+      .split("\n")
+      .map((s) => s.replace(/^\s*\d+[.)]\s*/, "").trim())
+      .filter(Boolean),
+  };
+}
+
+async function fetchRecipes(): Promise<Recipe[]> {
+  try {
+    const { data, error } = await supabase
+      .from("formulas")
+      .select(
+        "id, nombre, categoria, descripcion, rinde_gramos, ph_objetivo, pasos, formula_items(ingrediente, gramos, porcentaje, fase)"
+      )
+      .is("deleted_at", null)
+      .order("categoria", { ascending: true })
+      .order("nombre", { ascending: true });
+    if (error || !data) return [];
+    return (data as FormulaRow[]).filter((f) => (f.formula_items?.length ?? 0) > 0).map(mapFormula);
+  } catch {
+    return [];
+  }
+}
+
 // ── Page ───────────────────────────────────────────────────────────────────────
-export default function RecetasPage() {
+export default async function RecetasPage() {
+  const desdeSupabase = await fetchRecipes();
+  const RECIPES = desdeSupabase.length > 0 ? desdeSupabase : RECIPES_FALLBACK;
   return (
     <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.72), rgba(10,16,10,0.88)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />

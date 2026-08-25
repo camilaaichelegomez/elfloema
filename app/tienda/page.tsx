@@ -2,14 +2,17 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoCard from "@/components/tienda/ProductoCard";
-import { productosTienda } from "@/lib/productos-tienda";
+import { getProductos } from "@/lib/productos-db";
 
 export const metadata = {
   title: "Tienda · El Floema",
   description: "Cosmética botánica elaborada con ciencia — sérums, hidrolatos, jabones y velas de El Floema.",
 };
 
-export default function TiendaPage() {
+export const dynamic = "force-dynamic";
+
+export default async function TiendaPage() {
+  const productosTienda = await getProductos();
   return (
     <>
       <Navbar />

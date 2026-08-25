@@ -8,12 +8,13 @@ const ENLACES = [
   { href: "/lab/asistente", label: "Asistente" },
   { href: "/lab/tareas", label: "Tareas" },
   { href: "/lab/productos", label: "Productos" },
+  { href: "/lab/costos", label: "Costos" },
 ];
 
 export function LabNav({
   actual,
 }: {
-  actual: "inventario" | "formulas" | "preparadas" | "asistente" | "tareas" | "productos";
+  actual: "inventario" | "formulas" | "preparadas" | "asistente" | "tareas" | "productos" | "costos";
 }) {
   return (
     <nav style={navStyle}>

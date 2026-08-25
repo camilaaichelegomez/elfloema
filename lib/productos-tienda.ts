@@ -390,18 +390,57 @@ export const productosTienda: ProductoTienda[] = [
       leyenda: "El zinc y la sílice absorben el sebo mientras la piel se hidrata por dentro",
     },
     ingredientes:
-      "Laurus Nobilis (Laurel) Leaf Water, Zinc Oxide, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Urea, Glycerin, Behentrimonium Methosulfate, Silica, Inulin, Cetyl Alcohol, Caffeine, Sodium Hyaluronate, Cinnamomum Camphora (Ho Wood) Oil, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
+      "Laurus Nobilis (Laurel) Leaf Water, Zinc Oxide, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cocos Nucifera (Coconut) Oil, Urea, Glycerin, Behentrimonium Methosulfate, Silica, Inulin, Cetyl Alcohol, Caffeine, Sodium Hyaluronate, Cinnamomum Camphora (Ho Wood) Oil, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid.",
     modoUso:
-      "Aplica una capa fina sobre el rostro limpio, evitando el contorno de los ojos. Úsala en la mañana como último paso de hidratación.",
+      "Aplica una capa fina sobre el rostro limpio, evitando el contorno de los ojos. Usa poca cantidad: el óxido de zinc puede dejar un velo blanco si te pasas. Úsala en la mañana como último paso de hidratación.",
     piel: "Mixta a grasa",
     tamano: "50 ml",
     imagenPrompt:
       "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el envase, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica y mineral: rodeado de hojas de laurel y pequenos cristales minerales claros (zinc/silice), sobre piedra oscura humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
     fichaPrompt:
-      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real del envase de crema dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de laurel y cristales minerales, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CREMA MATIFICANTE - Hidrata y controla el brillo'. Recuadro COMO ACTUA: 'Oxido de zinc y silice: absorben el sebo y difuminan el poro (soft-focus). Urea y acido hialuronico: hidratan por dentro. Inulina: microbioma. Cafeina: vitalidad.'. Recuadro PROPIEDADES: 'Hidrata y matifica. Afina el poro. Acabado aterciopelado.'. Recuadro MODO DE USO: 'En la manana, una capa fina, sola o bajo el maquillaje.'. Recuadro PARA: 'Piel mixta a grasa'. Recuadro RESULTADO: 'Piel comoda, mate y sin tirantez.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real del envase de crema dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de laurel y cristales minerales, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CREMA MATIFICANTE - Hidrata y controla el brillo'. Recuadro COMO ACTUA: 'Oxido de zinc y silice: absorben el sebo y difuminan el poro (soft-focus). Urea y acido hialuronico: hidratan por dentro. Inulina: microbioma. Cafeina: vitalidad.'. Recuadro PROPIEDADES: 'Hidrata y matifica. Afina el poro. Acabado aterciopelado.'. Recuadro MODO DE USO: 'En la manana, poca cantidad, sola o bajo el maquillaje.'. Recuadro PARA: 'Piel mixta a grasa'. Recuadro RESULTADO: 'Piel comoda, mate y sin tirantez.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
     precio: null,
     glyph: "◐",
     accent: "rgba(122,74,138,0.26)",
+  },
+  {
+    slug: "crema-reafirmante-facial",
+    nombre: "Crema Facial Reafirmante",
+    categoria: "Hidratación facial",
+    descripcion: "Crema densa de noche que reafirma y nutre la piel flácida, con centella asiática, cafeína y tallow biomimético.",
+    descripcionLarga:
+      "Un tratamiento facial de noche de textura densa, pensado para la piel flácida o que ha perdido firmeza. La centella asiática estimula la síntesis de colágeno mientras la cafeína activa la microcirculación y aporta un efecto tensor; el tallow infusionado con pitra —biomimético, con un perfil de grasas parecido al de la piel— repara la barrera junto a la manteca de café verde, rica en antioxidantes. La urea, el ácido hialurónico y el pantenol hidratan y calman por dentro, y un toque de dióxido de titanio difumina la piel (efecto soft-focus). Se aplica de noche, en poca cantidad, como último paso.",
+    beneficios: [
+      "Tratamiento de noche que reafirma y nutre la piel flácida",
+      "Centella asiática que estimula el colágeno + cafeína tensora",
+      "Tallow biomimético y café verde que reparan la barrera",
+      "Urea, ácido hialurónico y pantenol para hidratar y calmar",
+    ],
+    ciencia: [
+      { titulo: "Centella asiática", texto: "Sus triterpenos (asiaticósido y madecasósido) estimulan a los fibroblastos a producir colágeno y calman la piel. Por eso se usa para reafirmar y reparar." },
+      { titulo: "Cafeína", texto: "Antioxidante que activa la microcirculación y tiene un efecto tensor y descongestivo: aporta vitalidad y una firmeza aparente al aplicarla." },
+      { titulo: "Tallow infusionado con pitra", texto: "El tallow es biomimético: su perfil de ácidos grasos se parece al de la piel humana, por eso se reconoce y absorbe. Aporta vitaminas A, D, E y K que ayudan a reparar la barrera." },
+      { titulo: "Urea, ácido hialurónico y pantenol", texto: "La urea (parte del factor natural de hidratación) y el ácido hialurónico retienen agua; el pantenol (provitamina B5) calma y refuerza la barrera. Mantienen la piel flexible y confortable." },
+      { titulo: "MaízCare (almidón de maíz hidrolizado)", texto: "Forma un film ligero sobre la piel que da un efecto tensor y aterciopelado inmediato, mejorando el aspecto de firmeza mientras los activos trabajan por dentro." },
+    ],
+    bioquimica: {
+      prompt:
+        "Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra una seccion de piel que recupera firmeza: la centella asiatica estimula a los fibroblastos a producir fibras de colageno nuevas, la cafeina activa la microcirculacion y el tallow biomimetico repara la barrera lipidica. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: 'centella asiatica', 'colageno nuevo', 'cafeina', 'barrera reparada'. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.",
+      leyenda: "La centella estimula el colágeno mientras la cafeína tensa y el tallow repara la barrera",
+    },
+    ingredientes:
+      "Laurus Nobilis (Laurel) Leaf Water, Laurelia Sempervirens (Triwe) Leaf Water, Tallow (sebo infusionado con pitra), Coffea Arabica (Green Coffee) Seed Butter, Behentrimonium Methosulfate, Stearic Acid, Cetyl Alcohol, Urea, Glycerin, Hydrolyzed Corn Starch, Titanium Dioxide, Panthenol, Caffeine, Centella Asiatica Extract, Inulin, Sodium Hyaluronate, Tocopherol, Benzyl Alcohol, Dehydroacetic Acid.",
+    modoUso:
+      "De noche, sobre el rostro limpio, aplica una pequeña cantidad y masajea con movimientos ascendentes hasta absorber. Usa poca: el toque de dióxido de titanio puede dejar un velo blanco si te pasas. Es tu último paso de la noche.",
+    piel: "Piel flácida, madura o con pérdida de firmeza",
+    tamano: "50 g",
+    imagenPrompt:
+      "A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el envase (tarro), su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica y calida: rodeado de granos de cafe verde, hojas nativas y una rama de pitra, sobre madera oscura y piedra, con luz dorada lateral y fondo de bosque verde oscuro difuminado, estetica botanica y mistica de cosmetica natural artesanal, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua.",
+    fichaPrompt:
+      "Poster vertical estilo ficha de producto de El Floema, cosmetica botanica, formato retrato. Fondo de madera oscura con vetas, tonos negro, verde profundo, marron y dorado. Marco ornamental dorado art nouveau alrededor de todo el borde, con volutas botanicas en las esquinas y lunas doradas arriba. Arriba al centro el emblema de El Floema (frasco pocion con raices doradas). En el centro, la foto real del tarro de crema dentro de un ovalo dorado. Alrededor, ilustraciones botanicas coloreadas estilo grabado cientifico de hojas de centella asiatica, granos de cafe verde y una rama de pitra, simetricas y ordenadas, con lineas doradas finas que conectan cada ingrediente con su recuadro. Distribuye recuadros ornamentados dorados con el siguiente texto, en espanol con ORTOGRAFIA PERFECTA y tipografia serif dorada elegante, muy legible y ordenado. TITULO: 'CREMA FACIAL REAFIRMANTE - Reafirma y nutre de noche'. Recuadro COMO ACTUA: 'Centella asiatica: estimula el colageno. Cafeina: efecto tensor y microcirculacion. Tallow biomimetico y cafe verde: reparan la barrera. Urea, acido hialuronico y pantenol: hidratan y calman.'. Recuadro PROPIEDADES: 'Reafirma la piel flacida. Nutre e hidrata. Efecto tensor.'. Recuadro MODO DE USO: 'De noche, poca cantidad, en movimientos ascendentes.'. Recuadro PARA: 'Piel flacida, madura o con perdida de firmeza'. Recuadro RESULTADO: 'Piel mas firme, nutrida y confortable.'. Escribe EXACTAMENTE ese texto, sin inventar ni deformar palabras. Estetica mistica y cientifica, iluminacion calida dorada, composicion equilibrada y muy ordenada, alta calidad.",
+    precio: null,
+    glyph: "❖",
+    accent: "rgba(150,105,60,0.26)",
   },
   {
     slug: "syndet-facial-piel-grasa",

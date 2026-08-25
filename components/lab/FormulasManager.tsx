@@ -1249,7 +1249,7 @@ function TablaFormulas({
         </thead>
         <tbody>
           {formulas.map((f) => (
-            <tr key={f.id}>
+            <tr key={f.id} id={`f-${f.id}`} style={{ scrollMarginTop: "6rem" }}>
               <td style={tdStyle}>
                 <span style={{ color: "#e8dcc8" }}>{f.nombre}</span>
                 {f.categoria && <span style={subtituloStyle}>{f.categoria}</span>}

@@ -1,9 +1,9 @@
 import { BackButton } from "@/components/BackButton";
 import { supabase } from "@/lib/supabase";
 
-// Refresca las fórmulas desde Supabase cada 60 s (transparencia: muestra todas
-// las recetas del Lab). Requiere la política de lectura pública en Supabase.
-export const revalidate = 60;
+// Lee las fórmulas en vivo desde Supabase en cada visita (transparencia: muestra
+// todas las recetas del Lab). Requiere la política de lectura pública en Supabase.
+export const dynamic = "force-dynamic";
 
 // ── Grain overlay ─────────────────────────────────────────────────────────────
 function GrainOverlay() {

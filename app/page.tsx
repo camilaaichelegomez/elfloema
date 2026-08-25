@@ -6,6 +6,7 @@ import { PlantasMedicinalesSection } from "@/components/PlantasMedicinalesSectio
 import { KnowledgeCards } from "@/components/KnowledgeCards";
 import { NavCards, GrimorioSection } from "@/components/NavCards";
 import { LaBotica } from "@/components/LaBotica";
+import { CartProvider } from "@/components/tienda/CartProvider";
 
 export default function Home() {
   return (
@@ -18,7 +19,9 @@ export default function Home() {
       <KnowledgeCards />
       <NavCards />
       <GrimorioSection />
-      <LaBotica />
+      <CartProvider>
+        <LaBotica />
+      </CartProvider>
       <footer className="site-footer">
         <img src="/logo.jpg" alt="El Floema" className="footer-logo" />
         <p className="footer-tagline">Con ciencia, mi magia despierta</p>

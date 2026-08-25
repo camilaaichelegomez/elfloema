@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { productosTienda } from "@/lib/productos-tienda";
+import { getProductos } from "@/lib/productos-db";
 
 // Crea una preferencia de pago en MercadoPago y devuelve el init_point (URL de
 // checkout). Los precios se leen SIEMPRE del catalogo del servidor, nunca del
@@ -36,9 +36,10 @@ export async function POST(req: Request) {
   }
 
   const pedido = Array.isArray(body.items) ? body.items : [];
+  const productos = await getProductos();
   const mpItems = [];
   for (const it of pedido) {
-    const p = productosTienda.find((x) => x.slug === it?.slug && !x.oculto);
+    const p = productos.find((x) => x.slug === it?.slug && !x.oculto);
     if (!p || p.precio == null || p.precio <= 0) continue;
     const cantidad = Math.max(1, Math.min(99, Math.floor(Number(it.cantidad) || 1)));
     mpItems.push({

@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { productosTienda } from "@/lib/productos-tienda";
+import { getProductos } from "@/lib/productos-db";
 import FichaImprimible from "@/components/tienda/FichaImprimible";
 import FichaEstilos from "@/components/tienda/FichaEstilos";
 import BotonImprimir from "@/components/tienda/BotonImprimir";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Fichas imprimibles · El Floema",
@@ -10,8 +12,8 @@ export const metadata = {
 
 // Todas las fichas imprimibles, una por página (page-break al imprimir).
 // Para imprimir todas de una, o usar el rango de páginas del navegador.
-export default function FichasPage() {
-  const productos = productosTienda.filter((p) => !p.oculto);
+export default async function FichasPage() {
+  const productos = (await getProductos()).filter((p) => !p.oculto);
 
   return (
     <div className="ficha-page">

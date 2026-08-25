@@ -9,12 +9,13 @@ const ENLACES = [
   { href: "/lab/tareas", label: "Tareas" },
   { href: "/lab/productos", label: "Productos" },
   { href: "/lab/costos", label: "Costos" },
+  { href: "/lab/catalogo", label: "Catálogo" },
 ];
 
 export function LabNav({
   actual,
 }: {
-  actual: "inventario" | "formulas" | "preparadas" | "asistente" | "tareas" | "productos" | "costos";
+  actual: "inventario" | "formulas" | "preparadas" | "asistente" | "tareas" | "productos" | "costos" | "catalogo";
 }) {
   return (
     <nav style={navStyle}>

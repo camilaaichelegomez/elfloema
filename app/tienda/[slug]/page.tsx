@@ -7,7 +7,7 @@ import { BackButton } from "@/components/BackButton";
 import ProductoImagen from "@/components/tienda/ProductoImagen";
 import FiguraCiencia from "@/components/tienda/FiguraCiencia";
 import AddToCartButton from "@/components/tienda/AddToCartButton";
-import { productosTienda, getProductoTienda } from "@/lib/productos-tienda";
+import { getProducto, getProductos } from "@/lib/productos-db";
 
 const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
@@ -22,9 +22,7 @@ const sectionHeading: CSSProperties = {
   margin: "0 0 0.9rem",
 };
 
-export function generateStaticParams() {
-  return productosTienda.filter((p) => !p.oculto).map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -32,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const producto = getProductoTienda(slug);
+  const producto = await getProducto(slug);
   if (!producto) return { title: "Producto no encontrado · El Floema" };
   return {
     title: `${producto.nombre} · Tienda El Floema`,
@@ -46,8 +44,9 @@ export default async function ProductoPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const producto = getProductoTienda(slug);
+  const producto = await getProducto(slug);
   if (!producto || producto.oculto) notFound();
+  const todos = await getProductos();
 
   return (
     <>
@@ -304,7 +303,7 @@ export default async function ProductoPage({
               </h2>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem", justifyContent: "center" }}>
-              {productosTienda
+              {todos
                 .filter((p) => p.slug !== producto.slug && !p.oculto)
                 .slice(0, 6)
                 .map((p) => (

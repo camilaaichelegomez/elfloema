@@ -20,26 +20,20 @@ interface InventarioCosto {
   costo_unitario: number | null;
   unidad: string | null;
 }
-interface Config {
-  valor_hora: number | null;
-  merma_pct: number | null;
-}
 interface CostoProducto {
   formula_id: string;
-  unidades_lote: number | null;
+  envase_ml: number | null;
   envase: number | null;
   etiqueta: number | null;
-  energia_lote: number | null;
-  minutos_lote: number | null;
+  mano_obra: number | null;
   precio_venta: number | null;
 }
 
 type Extras = {
-  unidades_lote: string;
+  envase_ml: string;
   envase: string;
   etiqueta: string;
-  energia_lote: string;
-  minutos_lote: string;
+  mano_obra: string;
   precio_venta: string;
 };
 
@@ -56,8 +50,6 @@ const STOP = new Set([
   "vencimiento", "pack", "liquido", "liquida", "uso", "cosmetico", "cosmetica",
 ]);
 
-// Divide un nombre en tokens significativos (sin tildes, sin puntuación, sin
-// tamaños tipo "100g"/"5ml", sin palabras de relleno).
 function tokens(s: string): string[] {
   const base = s
     .normalize("NFD")
@@ -73,41 +65,27 @@ function clp(n: number) {
   return `$${Math.round(n).toLocaleString("es-CL")}`;
 }
 
-const vacio: Extras = {
-  unidades_lote: "",
-  envase: "",
-  etiqueta: "",
-  energia_lote: "",
-  minutos_lote: "",
-  precio_venta: "",
-};
+const vacio: Extras = { envase_ml: "", envase: "", etiqueta: "", mano_obra: "", precio_venta: "" };
 
 export function CostosManager({
   userId,
   formulas,
   inventario,
-  configInicial,
   costosIniciales,
 }: {
   userId: string;
   formulas: Formula[];
   inventario: InventarioCosto[];
-  configInicial: Config | null;
   costosIniciales: CostoProducto[];
 }) {
-  const [valorHora, setValorHora] = useState(configInicial?.valor_hora != null ? String(configInicial.valor_hora) : "3000");
-  const [mermaPct, setMermaPct] = useState(configInicial?.merma_pct != null ? String(configInicial.merma_pct) : "8");
-  const [guardadoConfig, setGuardadoConfig] = useState(false);
-
   const [extras, setExtras] = useState<Record<string, Extras>>(() => {
     const m: Record<string, Extras> = {};
     for (const c of costosIniciales) {
       m[c.formula_id] = {
-        unidades_lote: c.unidades_lote != null ? String(c.unidades_lote) : "",
+        envase_ml: c.envase_ml != null ? String(c.envase_ml) : "",
         envase: c.envase != null ? String(c.envase) : "",
         etiqueta: c.etiqueta != null ? String(c.etiqueta) : "",
-        energia_lote: c.energia_lote != null ? String(c.energia_lote) : "",
-        minutos_lote: c.minutos_lote != null ? String(c.minutos_lote) : "",
+        mano_obra: c.mano_obra != null ? String(c.mano_obra) : "",
         precio_venta: c.precio_venta != null ? String(c.precio_venta) : "",
       };
     }
@@ -124,12 +102,11 @@ export function CostosManager({
   );
 
   // Match inteligente: un insumo del inventario calza si contiene TODAS las
-  // palabras del ingrediente de la fórmula. Entre los que calzan, gana el que
-  // tenga menos palabras de sobra (el más parecido).
-  function matchCosto(ingrediente: string): { costo: number; nombre: string } | null {
+  // palabras del ingrediente de la fórmula. Gana el que tenga menos palabras de sobra.
+  function matchCosto(ingrediente: string): number | null {
     const ft = tokens(ingrediente);
     if (ft.length === 0) return null;
-    let best: { costo: number; nombre: string; extra: number } | null = null;
+    let best: { costo: number; extra: number; len: number } | null = null;
     for (const item of invIndex) {
       let all = true;
       for (const t of ft) {
@@ -140,30 +117,18 @@ export function CostosManager({
       }
       if (!all) continue;
       const extra = item.toks.size - ft.length;
-      if (!best || extra < best.extra || (extra === best.extra && item.nombre.length < best.nombre.length)) {
-        best = { costo: item.costo, nombre: item.nombre, extra };
+      if (!best || extra < best.extra || (extra === best.extra && item.nombre.length < best.len)) {
+        best = { costo: item.costo, extra, len: item.nombre.length };
       }
     }
-    return best ? { costo: best.costo, nombre: best.nombre } : null;
+    return best ? best.costo : null;
   }
-
-  const valorHoraN = Number(valorHora) || 0;
-  const mermaN = Number(mermaPct) || 0;
 
   function getExtras(id: string): Extras {
     return extras[id] ?? vacio;
   }
-
   function setExtra(id: string, campo: keyof Extras, valor: string) {
     setExtras((prev) => ({ ...prev, [id]: { ...(prev[id] ?? vacio), [campo]: valor } }));
-  }
-
-  async function guardarConfig() {
-    await supabase
-      .from("costos_config")
-      .upsert({ user_id: userId, valor_hora: valorHoraN, merma_pct: mermaN }, { onConflict: "user_id" });
-    setGuardadoConfig(true);
-    window.setTimeout(() => setGuardadoConfig(false), 1500);
   }
 
   async function guardarFila(id: string) {
@@ -173,11 +138,10 @@ export function CostosManager({
       {
         user_id: userId,
         formula_id: id,
-        unidades_lote: num(e.unidades_lote),
+        envase_ml: num(e.envase_ml),
         envase: num(e.envase),
         etiqueta: num(e.etiqueta),
-        energia_lote: num(e.energia_lote),
-        minutos_lote: num(e.minutos_lote),
+        mano_obra: num(e.mano_obra),
         precio_venta: num(e.precio_venta),
       },
       { onConflict: "user_id,formula_id" }
@@ -191,7 +155,7 @@ export function CostosManager({
     let sinCosto = 0;
     const faltantes: string[] = [];
     for (const it of items) {
-      const costo = matchCosto(it.ingrediente)?.costo;
+      const costo = matchCosto(it.ingrediente);
       if (costo == null) {
         if (it.ingrediente) {
           sinCosto++;
@@ -201,65 +165,34 @@ export function CostosManager({
       }
       materiales += (it.gramos ?? 0) * costo;
     }
-    const e = getExtras(f.id);
-    const unidades = Number(e.unidades_lote) || 1;
-    const envase = Number(e.envase) || 0;
-    const etiqueta = Number(e.etiqueta) || 0;
-    const energiaLote = Number(e.energia_lote) || 0;
-    const minutosLote = Number(e.minutos_lote) || 0;
-    const manoObraLote = (minutosLote / 60) * valorHoraN;
+    const rinde = f.rinde_gramos ?? items.reduce((s, i) => s + (i.gramos ?? 0), 0);
+    const costoPorUnidad = rinde > 0 ? materiales / rinde : 0; // por gramo o por ml
 
-    const costoDirecto =
-      materiales / unidades + envase + etiqueta + energiaLote / unidades + manoObraLote / unidades;
-    const costoUnit = costoDirecto * (1 + mermaN / 100);
+    const e = getExtras(f.id);
+    const envaseMl = Number(e.envase_ml) || 0;
+    const precioEnvase = Number(e.envase) || 0;
+    const etiqueta = Number(e.etiqueta) || 0;
+    const manoObra = Number(e.mano_obra) || 0;
+
+    const contenido = envaseMl * costoPorUnidad;
+    const costoProducto = contenido + precioEnvase + etiqueta + manoObra;
 
     const precio = Number(e.precio_venta) || 0;
-    const margen = precio > 0 ? ((precio - costoUnit) / precio) * 100 : null;
-    const ganancia = precio > 0 ? precio - costoUnit : null;
+    const margen = precio > 0 ? ((precio - costoProducto) / precio) * 100 : null;
+    const ganancia = precio > 0 ? precio - costoProducto : null;
 
-    return { materiales, sinCosto, faltantes, unidades, costoUnit, precio, margen, ganancia };
+    return { costoPorUnidad, sinCosto, faltantes, contenido, costoProducto, precio, margen, ganancia };
   }
 
   return (
     <div>
-      {/* Intro */}
       <p style={introStyle}>
-        Calcula el <strong>costo real</strong> de cada producto usando los gramos de tus fórmulas y el
-        costo por gramo de tu <a href="/lab/inventario" style={{ color: GOLD }}>inventario</a>. Suma
-        envase, etiqueta, gas y tu tiempo, y pones el precio mirando el mercado — te avisa el margen.
+        Cada fórmula te da su <strong>costo por gramo o ml</strong> (materiales, según tu{" "}
+        <a href="/lab/inventario" style={{ color: GOLD }}>inventario</a>). Tú pones el{" "}
+        <strong>tamaño del envase</strong> y su <strong>precio</strong>, y sale el costo del producto y el margen.
       </p>
 
-      {/* Config global */}
-      <div style={configBox}>
-        <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", alignItems: "flex-end" }}>
-          <label style={labelStyle}>
-            Valor de tu hora ($)
-            <input
-              style={inputStyle}
-              inputMode="numeric"
-              value={valorHora}
-              onChange={(e) => setValorHora(e.target.value)}
-              onBlur={guardarConfig}
-            />
-          </label>
-          <label style={labelStyle}>
-            Merma / pérdidas (%)
-            <input
-              style={inputStyle}
-              inputMode="numeric"
-              value={mermaPct}
-              onChange={(e) => setMermaPct(e.target.value)}
-              onBlur={guardarConfig}
-            />
-          </label>
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: guardadoConfig ? "#8fbf6f" : "rgba(212,196,160,0.45)", fontStyle: "italic" }}>
-            {guardadoConfig ? "✓ guardado" : "se guarda solo al salir del campo"}
-          </span>
-        </div>
-      </div>
-
-      {/* Lista de fórmulas */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginTop: "1.75rem" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem", marginTop: "1.4rem" }}>
         {formulas.map((f) => {
           const r = calcular(f);
           const e = getExtras(f.id);
@@ -269,53 +202,53 @@ export function CostosManager({
               <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", alignItems: "baseline" }}>
                 <div>
                   <h3 style={cardTitle}>{f.nombre}</h3>
-                  <span style={cardSub}>
-                    {f.categoria ?? "Fórmula"} · lote {f.rinde_gramos ?? "—"} g
-                  </span>
+                  <span style={cardSub}>{f.categoria ?? "Fórmula"} · lote {f.rinde_gramos ?? "—"} g/ml</span>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.58rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(212,196,160,0.55)" }}>
-                    Costo / unidad
+                  <div style={miniLabel}>Costo por g/ml</div>
+                  <div style={{ fontFamily: "var(--font-grimoire)", fontSize: "1.1rem", color: GOLD }}>
+                    {clp(r.costoPorUnidad)}
                   </div>
-                  <div style={{ fontFamily: "var(--font-grimoire)", fontSize: "1.25rem", color: GOLD }}>{clp(r.costoUnit)}</div>
+                  {r.sinCosto > 0 && (
+                    <div title={r.faltantes.join(", ")} style={{ color: "#d9a84a", fontSize: "0.72rem", marginTop: 2 }}>
+                      ⚠ {r.sinCosto} sin costo
+                    </div>
+                  )}
                 </div>
-              </div>
-
-              {/* Materiales */}
-              <div style={{ marginTop: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(212,196,160,0.7)" }}>
-                Materiales del lote: <strong style={{ color: CREAM }}>{clp(r.materiales)}</strong>
-                {r.sinCosto > 0 && (
-                  <span title={r.faltantes.join(", ")} style={{ color: "#d9a84a", marginLeft: "0.6rem" }}>
-                    ⚠ {r.sinCosto} insumo{r.sinCosto > 1 ? "s" : ""} sin costo (agrégalo en Inventario)
-                  </span>
-                )}
               </div>
 
               {/* Inputs */}
               <div style={gridInputs}>
-                <Campo label="Unidades / lote" value={e.unidades_lote} onChange={(v) => setExtra(f.id, "unidades_lote", v)} onBlur={() => guardarFila(f.id)} placeholder="ej. 17" />
-                <Campo label="Envase ($)" value={e.envase} onChange={(v) => setExtra(f.id, "envase", v)} onBlur={() => guardarFila(f.id)} />
+                <Campo label="Tamaño envase (ml/g)" value={e.envase_ml} onChange={(v) => setExtra(f.id, "envase_ml", v)} onBlur={() => guardarFila(f.id)} placeholder="ej. 50" />
+                <Campo label="Precio envase ($)" value={e.envase} onChange={(v) => setExtra(f.id, "envase", v)} onBlur={() => guardarFila(f.id)} placeholder="ej. 320" />
                 <Campo label="Etiqueta ($)" value={e.etiqueta} onChange={(v) => setExtra(f.id, "etiqueta", v)} onBlur={() => guardarFila(f.id)} />
-                <Campo label="Gas/energía lote ($)" value={e.energia_lote} onChange={(v) => setExtra(f.id, "energia_lote", v)} onBlur={() => guardarFila(f.id)} />
-                <Campo label="Minutos de trabajo (lote)" value={e.minutos_lote} onChange={(v) => setExtra(f.id, "minutos_lote", v)} onBlur={() => guardarFila(f.id)} />
+                <Campo label="Mano de obra ($)" value={e.mano_obra} onChange={(v) => setExtra(f.id, "mano_obra", v)} onBlur={() => guardarFila(f.id)} />
                 <Campo label="Precio de venta ($)" value={e.precio_venta} onChange={(v) => setExtra(f.id, "precio_venta", v)} onBlur={() => guardarFila(f.id)} destacado />
               </div>
 
-              {/* Margen */}
-              {r.margen != null && (
-                <div
-                  style={{
-                    marginTop: "0.9rem",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.9rem",
-                    color: r.margen < 0 ? "#e0715a" : r.margen < 40 ? "#d9a84a" : "#8fbf6f",
-                  }}
-                >
-                  {r.margen < 0
-                    ? `⚠ Estás vendiendo BAJO el costo (pierdes ${clp(-(r.ganancia ?? 0))} por unidad)`
-                    : `Ganancia ${clp(r.ganancia ?? 0)} por unidad · margen ${Math.round(r.margen)}%`}
-                </div>
-              )}
+              {/* Resultado */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "1.4rem", alignItems: "baseline", marginTop: "0.9rem", paddingTop: "0.8rem", borderTop: "1px solid rgba(200,160,80,0.12)" }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(212,196,160,0.75)" }}>
+                  Contenido: <strong style={{ color: CREAM }}>{clp(r.contenido)}</strong>
+                </span>
+                <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.95rem", color: GOLD }}>
+                  Costo del producto: {clp(r.costoProducto)}
+                </span>
+                {r.margen != null && (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.9rem",
+                      marginLeft: "auto",
+                      color: r.margen < 0 ? "#e0715a" : r.margen < 40 ? "#d9a84a" : "#8fbf6f",
+                    }}
+                  >
+                    {r.margen < 0
+                      ? `⚠ Bajo el costo (pierdes ${clp(-(r.ganancia ?? 0))})`
+                      : `Ganancia ${clp(r.ganancia ?? 0)} · margen ${Math.round(r.margen)}%`}
+                  </span>
+                )}
+              </div>
             </div>
           );
         })}
@@ -361,18 +294,11 @@ const introStyle: CSSProperties = {
   lineHeight: 1.6,
   color: "rgba(212,196,160,0.75)",
   maxWidth: 720,
-  marginBottom: "1.5rem",
-};
-const configBox: CSSProperties = {
-  border: "1px solid rgba(200,160,80,0.2)",
-  borderRadius: 10,
-  padding: "1.1rem 1.3rem",
-  background: "rgba(255,255,255,0.02)",
 };
 const cardStyle: CSSProperties = {
   border: "1px solid rgba(200,160,80,0.18)",
   borderRadius: 10,
-  padding: "1.25rem 1.4rem",
+  padding: "1.1rem 1.3rem",
   background: "rgba(15,26,15,0.5)",
 };
 const cardTitle: CSSProperties = {
@@ -389,9 +315,16 @@ const cardSub: CSSProperties = {
   textTransform: "uppercase",
   color: "rgba(154,106,170,0.75)",
 };
+const miniLabel: CSSProperties = {
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "0.55rem",
+  letterSpacing: "0.16em",
+  textTransform: "uppercase",
+  color: "rgba(212,196,160,0.55)",
+};
 const gridInputs: CSSProperties = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+  gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
   gap: "0.8rem",
   marginTop: "1rem",
 };
@@ -400,8 +333,8 @@ const labelStyle: CSSProperties = {
   flexDirection: "column",
   gap: "0.3rem",
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.58rem",
-  letterSpacing: "0.12em",
+  fontSize: "0.56rem",
+  letterSpacing: "0.1em",
   textTransform: "uppercase",
   color: "rgba(212,196,160,0.65)",
 };

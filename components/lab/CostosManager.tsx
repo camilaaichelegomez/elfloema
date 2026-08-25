@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, type CSSProperties } from "react";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 // ── Tipos ────────────────────────────────────────────────────────────────────
@@ -201,7 +202,9 @@ export function CostosManager({
               {/* Cabecera */}
               <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", alignItems: "baseline" }}>
                 <div>
-                  <h3 style={cardTitle}>{f.nombre}</h3>
+                  <Link href={`/lab/formulas#f-${f.id}`} style={{ textDecoration: "none" }}>
+                    <h3 style={{ ...cardTitle, cursor: "pointer" }}>{f.nombre} <span style={{ color: "rgba(200,160,80,0.6)", fontSize: "0.8rem" }}>→</span></h3>
+                  </Link>
                   <span style={cardSub}>{f.categoria ?? "Fórmula"} · lote {f.rinde_gramos ?? "—"} g/ml</span>
                 </div>
                 <div style={{ textAlign: "right" }}>

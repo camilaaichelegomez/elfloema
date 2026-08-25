@@ -46,12 +46,27 @@ type Extras = {
 const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
 
-function normalizar(s: string) {
-  return s
+// Palabras de relleno / cualificadores / unidades que no aportan a la identidad
+// del ingrediente (se ignoran al comparar nombres de fórmula vs inventario).
+const STOP = new Set([
+  "de", "con", "y", "o", "en", "del", "la", "el", "para", "al", "a", "x", "un", "una",
+  "unidad", "unidades", "usp", "bpm", "hg", "bio", "oleosa", "oleoso", "anhidra", "anhidro",
+  "vegetal", "coloidal", "coloido", "polvo", "pellets", "varisoft", "importado", "importada",
+  "artesanal", "natural", "puro", "pura", "fino", "fina", "grueso", "gruesa", "precision",
+  "vencimiento", "pack", "liquido", "liquida", "uso", "cosmetico", "cosmetica",
+]);
+
+// Divide un nombre en tokens significativos (sin tildes, sin puntuación, sin
+// tamaños tipo "100g"/"5ml", sin palabras de relleno).
+function tokens(s: string): string[] {
+  const base = s
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
-    .trim();
+    .replace(/[^a-z0-9\s]/g, " ");
+  return Array.from(
+    new Set(base.split(/\s+/).filter((t) => t && !STOP.has(t) && !/^\d+[a-z]*$/.test(t)))
+  );
 }
 
 function clp(n: number) {
@@ -99,14 +114,38 @@ export function CostosManager({
     return m;
   });
 
-  // Mapa costo por ingrediente (normalizado).
-  const costoPorIngrediente = useMemo(() => {
-    const m = new Map<string, number>();
-    for (const inv of inventario) {
-      if (inv.costo_unitario != null) m.set(normalizar(inv.ingrediente), inv.costo_unitario);
+  // Índice de inventario tokenizado (solo insumos con costo y unidad g/ml).
+  const invIndex = useMemo(
+    () =>
+      inventario
+        .filter((i) => i.costo_unitario != null && (i.unidad === "g" || i.unidad === "ml"))
+        .map((i) => ({ nombre: i.ingrediente, costo: i.costo_unitario as number, toks: new Set(tokens(i.ingrediente)) })),
+    [inventario]
+  );
+
+  // Match inteligente: un insumo del inventario calza si contiene TODAS las
+  // palabras del ingrediente de la fórmula. Entre los que calzan, gana el que
+  // tenga menos palabras de sobra (el más parecido).
+  function matchCosto(ingrediente: string): { costo: number; nombre: string } | null {
+    const ft = tokens(ingrediente);
+    if (ft.length === 0) return null;
+    let best: { costo: number; nombre: string; extra: number } | null = null;
+    for (const item of invIndex) {
+      let all = true;
+      for (const t of ft) {
+        if (!item.toks.has(t)) {
+          all = false;
+          break;
+        }
+      }
+      if (!all) continue;
+      const extra = item.toks.size - ft.length;
+      if (!best || extra < best.extra || (extra === best.extra && item.nombre.length < best.nombre.length)) {
+        best = { costo: item.costo, nombre: item.nombre, extra };
+      }
     }
-    return m;
-  }, [inventario]);
+    return best ? { costo: best.costo, nombre: best.nombre } : null;
+  }
 
   const valorHoraN = Number(valorHora) || 0;
   const mermaN = Number(mermaPct) || 0;
@@ -152,7 +191,7 @@ export function CostosManager({
     let sinCosto = 0;
     const faltantes: string[] = [];
     for (const it of items) {
-      const costo = costoPorIngrediente.get(normalizar(it.ingrediente));
+      const costo = matchCosto(it.ingrediente)?.costo;
       if (costo == null) {
         if (it.ingrediente) {
           sinCosto++;

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoImagen from "@/components/tienda/ProductoImagen";
 import FiguraCiencia from "@/components/tienda/FiguraCiencia";
+import AddToCartButton from "@/components/tienda/AddToCartButton";
 import { productosTienda, getProductoTienda } from "@/lib/productos-tienda";
 
 const GOLD = "#c8a050";
@@ -161,7 +162,8 @@ export default async function ProductoPage({
                 {producto.precio ? `$${producto.precio.toLocaleString("es-CL")} CLP` : "Precio próximamente"}
               </p>
 
-              {/* CTA: encargar por Instagram */}
+              {/* CTA: agregar al carrito + encargar por Instagram */}
+              <AddToCartButton producto={producto} variant="detail" />
               <a
                 href="https://instagram.com/elfloema"
                 target="_blank"

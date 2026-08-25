@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import AddToCartButton from "./AddToCartButton";
 import type { ProductoTienda } from "@/lib/productos-tienda";
 
 const GOLD = "#c8a050";
@@ -30,10 +31,10 @@ export default function ProductoCard({
       onHoverEnd={() => setHovered(false)}
       style={{ display: "flex" }}
     >
-      <Link
-        href={`/tienda/${producto.slug}`}
+      {/* Card box (chrome) — el <Link> envuelve solo imagen + texto; el boton
+          "Agregar" va aparte, para no anidar <button> dentro de <a>. */}
+      <div
         style={{
-          textDecoration: "none",
           display: "flex",
           flexDirection: "column",
           width: "100%",
@@ -104,165 +105,165 @@ export default function ProductoCard({
           }}
         />
 
-        {/* image area */}
-        <div
+        {/* Link: imagen + texto (navega al producto) */}
+        <Link
+          href={`/tienda/${producto.slug}`}
           style={{
-            height: 210,
+            textDecoration: "none",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.6rem",
-            borderBottom: "1px solid rgba(200,160,80,0.08)",
-            position: "relative",
-            overflow: "hidden",
-            background: `radial-gradient(ellipse 70% 60% at 50% 55%, ${producto.accent} 0%, transparent 70%), linear-gradient(135deg, rgba(21,37,21,0.4) 0%, rgba(13,26,13,0.4) 100%)`,
-            filter: hovered ? "brightness(1.1)" : "brightness(1)",
-            transition: "filter 0.4s",
+            flex: 1,
+            color: "inherit",
           }}
         >
-          {/* real photo when available */}
-          {imgOk && (
-            <img
-              src={`/tienda/${producto.slug}.jpg`}
-              alt={producto.nombre}
-              onError={() => setImgOk(false)}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transform: hovered ? "scale(1.05)" : "scale(1)",
-                transition: "transform 0.6s ease",
-              }}
-            />
-          )}
-          {/* glyph placeholder (shown until a photo exists) */}
-          {!imgOk && (
-            <>
-              <span
+          {/* image area */}
+          <div
+            style={{
+              height: 210,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.6rem",
+              borderBottom: "1px solid rgba(200,160,80,0.08)",
+              position: "relative",
+              overflow: "hidden",
+              background: `radial-gradient(ellipse 70% 60% at 50% 55%, ${producto.accent} 0%, transparent 70%), linear-gradient(135deg, rgba(21,37,21,0.4) 0%, rgba(13,26,13,0.4) 100%)`,
+              filter: hovered ? "brightness(1.1)" : "brightness(1)",
+              transition: "filter 0.4s",
+            }}
+          >
+            {/* real photo when available */}
+            {imgOk && (
+              <img
+                src={`/tienda/${producto.slug}.jpg`}
+                alt={producto.nombre}
+                onError={() => setImgOk(false)}
                 style={{
                   position: "absolute",
-                  width: 80,
-                  height: 80,
-                  borderRadius: "50%",
-                  border: `1px solid ${hovered ? "rgba(154,106,170,0.25)" : "rgba(200,160,80,0.12)"}`,
-                  transition: "border-color 0.4s",
-                  pointerEvents: "none",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  transform: hovered ? "scale(1.05)" : "scale(1)",
+                  transition: "transform 0.6s ease",
                 }}
               />
-              <span
-                style={{
-                  fontSize: "3.4rem",
-                  color: hovered ? "rgba(200,160,80,0.45)" : "rgba(200,160,80,0.2)",
-                  lineHeight: 1,
-                  transform: hovered ? "scale(1.12)" : "scale(1)",
-                  transition: "color 0.4s, transform 0.4s",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                {producto.glyph}
-              </span>
-            </>
-          )}
-        </div>
-
-        {/* body */}
-        <div
-          style={{
-            padding: "1.4rem 1.6rem 1.65rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.45rem",
-            flex: 1,
-          }}
-        >
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-grimoire)",
-                fontSize: "0.62rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(154,106,170,0.7)",
-                margin: "0 0 0.2rem",
-                borderBottom: "1px solid rgba(200,160,80,0.2)",
-                paddingBottom: "0.4rem",
-              }}
-            >
-              {producto.categoria}
-            </p>
-            <h3
-              style={{
-                fontFamily: "var(--font-grimoire)",
-                fontSize: "0.9rem",
-                color: CREAM,
-                letterSpacing: "0.06em",
-                lineHeight: 1.25,
-                margin: 0,
-              }}
-            >
-              {producto.nombre}
-            </h3>
+            )}
+            {/* glyph placeholder (shown until a photo exists) */}
+            {!imgOk && (
+              <>
+                <span
+                  style={{
+                    position: "absolute",
+                    width: 80,
+                    height: 80,
+                    borderRadius: "50%",
+                    border: `1px solid ${hovered ? "rgba(154,106,170,0.25)" : "rgba(200,160,80,0.12)"}`,
+                    transition: "border-color 0.4s",
+                    pointerEvents: "none",
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: "3.4rem",
+                    color: hovered ? "rgba(200,160,80,0.45)" : "rgba(200,160,80,0.2)",
+                    lineHeight: 1,
+                    transform: hovered ? "scale(1.12)" : "scale(1)",
+                    transition: "color 0.4s, transform 0.4s",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
+                  {producto.glyph}
+                </span>
+              </>
+            )}
           </div>
 
-          <p
+          {/* body text */}
+          <div
             style={{
-              fontFamily: "var(--font-body)",
-              fontStyle: "italic",
-              fontSize: "0.82rem",
-              color: "rgba(212,196,160,0.4)",
-              lineHeight: 1.5,
-              margin: 0,
+              padding: "1.4rem 1.6rem 0.9rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.45rem",
               flex: 1,
             }}
           >
-            {producto.descripcion}
-          </p>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-grimoire)",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(154,106,170,0.7)",
+                  margin: "0 0 0.2rem",
+                  borderBottom: "1px solid rgba(200,160,80,0.2)",
+                  paddingBottom: "0.4rem",
+                }}
+              >
+                {producto.categoria}
+              </p>
+              <h3
+                style={{
+                  fontFamily: "var(--font-grimoire)",
+                  fontSize: "0.9rem",
+                  color: CREAM,
+                  letterSpacing: "0.06em",
+                  lineHeight: 1.25,
+                  margin: 0,
+                }}
+              >
+                {producto.nombre}
+              </h3>
+            </div>
 
-          {/* footer: price + CTA */}
-          <div
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontStyle: "italic",
+                fontSize: "0.82rem",
+                color: "rgba(212,196,160,0.4)",
+                lineHeight: 1.5,
+                margin: 0,
+                flex: 1,
+              }}
+            >
+              {producto.descripcion}
+            </p>
+          </div>
+        </Link>
+
+        {/* footer: price + agregar (fuera del Link) */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.75rem",
+            margin: "0 1.6rem",
+            padding: "0.85rem 0 1.4rem",
+            borderTop: "1px solid rgba(200,160,80,0.1)",
+            flexWrap: "wrap",
+          }}
+        >
+          <span
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "0.75rem",
-              marginTop: "0.75rem",
-              paddingTop: "0.75rem",
-              borderTop: "1px solid rgba(200,160,80,0.1)",
-              flexWrap: "wrap",
+              fontFamily: "var(--font-grimoire)",
+              fontSize: producto.precio ? "0.92rem" : "0.7rem",
+              color: producto.precio ? GOLD : "rgba(212,196,160,0.4)",
+              letterSpacing: "0.04em",
+              fontStyle: producto.precio ? "normal" : "italic",
+              whiteSpace: "nowrap",
             }}
           >
-            <span
-              style={{
-                fontFamily: "var(--font-grimoire)",
-                fontSize: producto.precio ? "0.92rem" : "0.7rem",
-                color: producto.precio ? GOLD : "rgba(212,196,160,0.4)",
-                letterSpacing: "0.04em",
-                fontStyle: producto.precio ? "normal" : "italic",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {producto.precio ? `$${producto.precio.toLocaleString("es-CL")} CLP` : "Precio pronto"}
-            </span>
-            <span
-              style={{
-                fontFamily: "var(--font-grimoire)",
-                fontSize: "0.68rem",
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: hovered ? "#e8c878" : GOLD,
-                whiteSpace: "nowrap",
-                transition: "color 0.25s",
-              }}
-            >
-              Ver producto →
-            </span>
-          </div>
+            {producto.precio ? `$${producto.precio.toLocaleString("es-CL")} CLP` : "Precio pronto"}
+          </span>
+          <AddToCartButton producto={producto} variant="card" />
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }

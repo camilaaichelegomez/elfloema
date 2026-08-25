@@ -194,6 +194,24 @@ export default async function ProductoPage({
               >
                 Escríbenos a @elfloema para conocer disponibilidad y precios.
               </p>
+
+              <Link
+                href={`/tienda/${producto.slug}/ficha`}
+                style={{
+                  display: "inline-block",
+                  fontFamily: "var(--font-cinzel), serif",
+                  fontSize: "0.66rem",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "rgba(212,196,160,0.6)",
+                  textDecoration: "none",
+                  borderBottom: "1px solid rgba(200,160,80,0.3)",
+                  paddingBottom: "2px",
+                  marginTop: "0.4rem",
+                }}
+              >
+                🖨 Imprimir ficha (B&N)
+              </Link>
             </div>
           </div>
 

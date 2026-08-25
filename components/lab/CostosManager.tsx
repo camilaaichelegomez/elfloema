@@ -49,6 +49,7 @@ const STOP = new Set([
   "vegetal", "coloidal", "coloido", "polvo", "pellets", "varisoft", "importado", "importada",
   "artesanal", "natural", "puro", "pura", "fino", "fina", "grueso", "gruesa", "precision",
   "vencimiento", "pack", "liquido", "liquida", "uso", "cosmetico", "cosmetica",
+  "kg", "ml", "gr", "grs", "cc", "mg", "lt", "gramos", "kilo", "kilos",
 ]);
 
 function tokens(s: string): string[] {
@@ -57,9 +58,10 @@ function tokens(s: string): string[] {
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, " ");
-  return Array.from(
-    new Set(base.split(/\s+/).filter((t) => t && !STOP.has(t) && !/^\d+[a-z]*$/.test(t)))
-  );
+  const raw = base.split(/\s+/).filter((t) => t && !STOP.has(t) && !/^\d+[a-z]*$/.test(t));
+  // Normaliza plurales simples (abejas -> abeja) para que calcen singular/plural.
+  const stem = raw.map((t) => (t.length > 3 && t.endsWith("s") ? t.slice(0, -1) : t));
+  return Array.from(new Set(stem));
 }
 
 function clp(n: number) {
@@ -102,24 +104,23 @@ export function CostosManager({
     [inventario]
   );
 
-  // Match inteligente: un insumo del inventario calza si contiene TODAS las
-  // palabras del ingrediente de la fórmula. Gana el que tenga menos palabras de sobra.
+  // Match inteligente por palabras compartidas. Calza si comparten >= 2 palabras
+  // significativas (o si el ingrediente es de una sola palabra que aparece en el
+  // insumo). Gana el que comparte más palabras y tiene menos de sobra. Evita
+  // falsos positivos como "base de jabon DE GLICERINA" -> "Glicerina".
   function matchCosto(ingrediente: string): number | null {
-    const ft = tokens(ingrediente);
-    if (ft.length === 0) return null;
-    let best: { costo: number; extra: number; len: number } | null = null;
+    const ft = new Set(tokens(ingrediente));
+    if (ft.size === 0) return null;
+    let best: { costo: number; inter: number; extra: number } | null = null;
     for (const item of invIndex) {
-      let all = true;
-      for (const t of ft) {
-        if (!item.toks.has(t)) {
-          all = false;
-          break;
-        }
-      }
-      if (!all) continue;
-      const extra = item.toks.size - ft.length;
-      if (!best || extra < best.extra || (extra === best.extra && item.nombre.length < best.len)) {
-        best = { costo: item.costo, extra, len: item.nombre.length };
+      let inter = 0;
+      for (const t of ft) if (item.toks.has(t)) inter++;
+      if (inter === 0) continue;
+      const ok = inter >= 2 || (ft.size === 1 && inter === 1);
+      if (!ok) continue;
+      const extra = ft.size - inter + (item.toks.size - inter);
+      if (!best || inter > best.inter || (inter === best.inter && extra < best.extra)) {
+        best = { costo: item.costo, inter, extra };
       }
     }
     return best ? best.costo : null;

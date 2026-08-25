@@ -21,12 +21,12 @@ function construirContextoInventario(
     .join("\n");
 }
 
-function construirSystemInstruction(contextoInventario: string): string {
+function construirSystemInstruction(contextoInventario: string, contextoBiblioteca: string): string {
   return `Eres el asistente de formulación del Lab de El Floema, una marca de cosmética natural artesanal. Ayudas a la formuladora a diseñar y ajustar fórmulas de cosmética natural.
 
 Este es el inventario actual de la usuaria:
 ${contextoInventario}
-
+${contextoBiblioteca ? `\n${contextoBiblioteca}\n` : ""}
 Instrucciones:
 - Prioriza usar ingredientes que ya están en el inventario de arriba, para que no tenga que comprar de más.
 - Si la fórmula necesita un ingrediente que no está en el inventario, dilo explícitamente.
@@ -82,7 +82,27 @@ export async function POST(request: NextRequest) {
     .order("ingrediente", { ascending: true });
 
   const contextoInventario = construirContextoInventario(inventario ?? []);
-  const systemInstruction = construirSystemInstruction(contextoInventario);
+
+  // RAG: recupera fragmentos relevantes de la biblioteca de formulación (búsqueda
+  // de texto en español). Si la tabla `biblioteca` aún no existe, sigue sin ella.
+  const consulta = mensajes[mensajes.length - 1].content.slice(0, 400);
+  let contextoBiblioteca = "";
+  try {
+    const { data: fuentes } = await supabase
+      .from("biblioteca")
+      .select("fuente, texto")
+      .textSearch("tsv", consulta, { type: "websearch", config: "spanish" })
+      .limit(5);
+    if (fuentes && fuentes.length > 0) {
+      contextoBiblioteca =
+        "Referencias de la biblioteca de formulación (fuente confiable — basa la ciencia y las proporciones en esto; no inventes propiedades que no aparezcan aquí o que no sean razonables. Los claims de tradición dilos como \"se le atribuye\"):\n" +
+        fuentes.map((f) => `- [${f.fuente}] ${f.texto}`).join("\n");
+    }
+  } catch {
+    // La tabla `biblioteca` todavía no existe: el asistente responde sin ella.
+  }
+
+  const systemInstruction = construirSystemInstruction(contextoInventario, contextoBiblioteca);
 
   const groqMensajes: Groq.Chat.ChatCompletionMessageParam[] = [
     { role: "system", content: systemInstruction },

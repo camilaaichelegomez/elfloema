@@ -186,6 +186,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "hidrolato-triwe",
+    oculto: true,
     nombre: "Hidrolato de Triwe",
     categoria: "Agua floral",
     descripcion: "Tónico relajante y astringente del laurel nativo (triwe).",
@@ -222,6 +223,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "hidrolato-laurel",
+    oculto: true,
     nombre: "Hidrolato de Laurel",
     categoria: "Agua floral",
     descripcion: "Tónico tonificante y antimicrobiano suave de laurel.",
@@ -258,6 +260,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "hidrolato-eucalipto",
+    oculto: true,
     nombre: "Hidrolato de Eucalipto",
     categoria: "Agua floral",
     descripcion: "Agua floral purificante y descongestiva de eucalipto.",
@@ -294,6 +297,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "spray-capilar-cafeina-laurel",
+    oculto: true,
     nombre: "Spray Capilar Anticaída",
     categoria: "Cuidado capilar",
     descripcion: "Tónico sin enjuague con cafeína, ortiga, té verde y tomillo que fortalece la raíz.",
@@ -1048,6 +1052,7 @@ export const productosTienda: ProductoTienda[] = [
   },
   {
     slug: "spray-antiinsectos",
+    oculto: true,
     nombre: "Spray Antiinsectos",
     categoria: "Cuerpo",
     descripcion: "Repelente botánico con citronela, cedro y clavo. Reaplicar cada 1-2 h.",

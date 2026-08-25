@@ -12,6 +12,15 @@ import { productosTienda } from "@/lib/productos-tienda";
 // muestra "el pago estará disponible pronto".
 
 type ItemPedido = { slug: string; cantidad: number };
+type Cliente = {
+  nombre?: string;
+  email?: string;
+  telefono?: string;
+  metodoEnvio?: "domicilio" | "sucursal";
+  direccion?: string;
+  sucursal?: string;
+  comentarios?: string;
+};
 
 export async function POST(req: Request) {
   const token = process.env.MP_ACCESS_TOKEN;
@@ -19,7 +28,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ configured: false });
   }
 
-  let body: { items?: ItemPedido[] };
+  let body: { items?: ItemPedido[]; cliente?: Cliente };
   try {
     body = await req.json();
   } catch {
@@ -45,8 +54,29 @@ export async function POST(req: Request) {
   }
 
   const origin = req.headers.get("origin") ?? "https://elfloema.vercel.app";
+  const cliente = body.cliente ?? {};
+  const direccionEnvio =
+    cliente.metodoEnvio === "sucursal" ? cliente.sucursal : cliente.direccion;
+
   const preferencia = {
     items: mpItems,
+    // Datos del comprador: MercadoPago los muestra en el detalle de la venta.
+    payer: cliente.email
+      ? {
+          name: cliente.nombre,
+          email: cliente.email,
+          phone: cliente.telefono ? { number: String(cliente.telefono) } : undefined,
+          address: direccionEnvio ? { street_name: direccionEnvio } : undefined,
+        }
+      : undefined,
+    // Datos de envio y comentarios (visibles via metadata de la preferencia).
+    metadata: {
+      metodo_envio: cliente.metodoEnvio ?? null,
+      direccion_domicilio: cliente.direccion ?? null,
+      sucursal_correos: cliente.sucursal ?? null,
+      telefono: cliente.telefono ?? null,
+      comentarios: cliente.comentarios ?? null,
+    },
     back_urls: {
       success: `${origin}/tienda?pago=exito`,
       failure: `${origin}/tienda?pago=error`,

@@ -14,6 +14,7 @@ import {
   useCallback,
   type ReactNode,
 } from "react";
+import { useRouter } from "next/navigation";
 
 const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
@@ -184,8 +185,7 @@ function CartButton() {
 // ---------- Panel lateral ----------
 function CartDrawer() {
   const { items, open, setOpen, remove, setQty, total, count, allPriced, clear } = useCart();
-  const [procesando, setProcesando] = useState(false);
-  const [aviso, setAviso] = useState<string | null>(null);
+  const router = useRouter();
 
   // Cerrar con Escape.
   useEffect(() => {
@@ -197,30 +197,9 @@ function CartDrawer() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, setOpen]);
 
-  async function pagar() {
-    setAviso(null);
-    setProcesando(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: items.map((x) => ({ slug: x.slug, cantidad: x.cantidad })) }),
-      });
-      const data = await res.json();
-      if (data?.init_point) {
-        window.location.href = data.init_point;
-        return;
-      }
-      if (data?.configured === false) {
-        setAviso("El pago online estará disponible muy pronto. Por ahora puedes encargar por Instagram (@elfloema).");
-      } else {
-        setAviso("No pudimos iniciar el pago. Intenta de nuevo o escríbenos a @elfloema.");
-      }
-    } catch {
-      setAviso("Hubo un problema de conexión. Intenta de nuevo.");
-    } finally {
-      setProcesando(false);
-    }
+  function continuar() {
+    setOpen(false);
+    router.push("/tienda/checkout");
   }
 
   return (
@@ -444,27 +423,9 @@ function CartDrawer() {
               </span>
             </div>
 
-            {aviso && (
-              <p
-                style={{
-                  fontSize: "0.82rem",
-                  fontStyle: "italic",
-                  color: "rgba(212,196,160,0.75)",
-                  background: "rgba(122,74,138,0.12)",
-                  border: "1px solid rgba(122,74,138,0.3)",
-                  borderRadius: 4,
-                  padding: "0.6rem 0.8rem",
-                  margin: "0 0 0.8rem",
-                  lineHeight: 1.5,
-                }}
-              >
-                {aviso}
-              </p>
-            )}
-
             <button
-              onClick={pagar}
-              disabled={!allPriced || procesando}
+              onClick={continuar}
+              disabled={!allPriced}
               style={{
                 width: "100%",
                 fontFamily: "var(--font-cinzel), serif",
@@ -478,11 +439,11 @@ function CartDrawer() {
                 border: "1px solid rgba(200,160,80,0.5)",
                 borderRadius: 3,
                 padding: "0.95rem",
-                cursor: allPriced && !procesando ? "pointer" : "not-allowed",
+                cursor: allPriced ? "pointer" : "not-allowed",
                 transition: "opacity 0.25s",
               }}
             >
-              {procesando ? "Redirigiendo…" : allPriced ? "Pagar con MercadoPago" : "Precios próximamente"}
+              {allPriced ? "Continuar al pago →" : "Precios próximamente"}
             </button>
 
             {!allPriced && (

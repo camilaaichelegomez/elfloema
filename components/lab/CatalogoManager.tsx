@@ -88,6 +88,7 @@ export function CatalogoManager({
   const [form, setForm] = useState<Row | null>(null);
   const [guardando, setGuardando] = useState(false);
   const [sincronizando, setSincronizando] = useState(false);
+  const [generando, setGenerando] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
   const supabase = createClient();
@@ -114,6 +115,50 @@ export function CatalogoManager({
 
   function set<K extends keyof Row>(campo: K, valor: Row[K]) {
     setForm((f) => (f ? { ...f, [campo]: valor } : f));
+  }
+
+  // Genera los textos de tienda con IA (fórmula + biblioteca) y rellena el form.
+  async function generar() {
+    if (!form) return;
+    if (!form.nombre.trim()) {
+      setMsg("Pon el nombre del producto primero.");
+      return;
+    }
+    setGenerando(true);
+    setMsg(null);
+    try {
+      const res = await fetch("/api/lab/catalogo-texto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: form.nombre, categoria: form.categoria, piel: form.piel }),
+      });
+      const d = await res.json();
+      if (!res.ok) {
+        setMsg(d?.error ?? "No se pudo generar.");
+        return;
+      }
+      setForm((f) =>
+        f
+          ? {
+              ...f,
+              descripcion: d.descripcion || f.descripcion,
+              descripcion_larga: d.descripcionLarga || f.descripcion_larga,
+              beneficios: Array.isArray(d.beneficios) && d.beneficios.length ? d.beneficios : f.beneficios,
+              ciencia: Array.isArray(d.ciencia) && d.ciencia.length ? d.ciencia : f.ciencia,
+              ingredientes: d.ingredientes || f.ingredientes,
+              modo_uso: d.modoUso || f.modo_uso,
+              resultado: d.resultado || f.resultado,
+              imagen_prompt: d.imagenPrompt || f.imagen_prompt,
+              ficha_prompt: d.fichaPrompt || f.ficha_prompt,
+            }
+          : f
+      );
+      setMsg("Textos generados ✓ — revísalos y guarda.");
+    } catch {
+      setMsg("Error de conexión.");
+    } finally {
+      setGenerando(false);
+    }
   }
 
   async function guardar() {
@@ -161,6 +206,9 @@ export function CatalogoManager({
         <div style={{ display: "flex", gap: "0.8rem", marginBottom: "1.2rem", flexWrap: "wrap" }}>
           <button onClick={guardar} disabled={guardando} style={botonPrimario}>
             {guardando ? "Guardando…" : "Guardar"}
+          </button>
+          <button onClick={generar} disabled={generando} style={botonSecundario}>
+            {generando ? "Generando…" : "✨ Generar textos con IA"}
           </button>
           <button onClick={() => { setForm(null); setMsg(null); }} style={botonSecundario}>Cancelar</button>
           {msg && <span style={{ alignSelf: "center", color: CREAM, fontFamily: "var(--font-body)", fontSize: "0.9rem" }}>{msg}</span>}

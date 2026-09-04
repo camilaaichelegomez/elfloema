@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoCard from "@/components/tienda/ProductoCard";
 import { getProductos } from "@/lib/productos-db";
+import type { ProductoTienda } from "@/lib/productos-tienda";
 
 export const metadata = {
   title: "Tienda · El Floema",
@@ -11,8 +12,45 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
+// Orden de exhibición: primero el ritual facial completo, luego capilar,
+// cuerpo y por último aromaterapia/hogar. Una categoría que no está en esta
+// lista (por ejemplo una nueva creada desde el Lab) simplemente aparece al
+// final, ordenada alfabéticamente — nunca desaparece.
+const ORDEN_CATEGORIAS = [
+  "Sérum facial",
+  "Hidratación facial",
+  "Limpieza facial",
+  "Ritual facial",
+  "Mascarilla exfoliante en polvo",
+  "Tratamiento localizado",
+  "Ungüentos medicinales",
+  "Cuidado capilar",
+  "Cuerpo",
+  "Agua floral",
+  "Aromaterapia",
+];
+
+function agruparPorCategoria(productos: ProductoTienda[]) {
+  const grupos = new Map<string, ProductoTienda[]>();
+  for (const p of productos) {
+    const cat = p.categoria?.trim() || "Otros";
+    if (!grupos.has(cat)) grupos.set(cat, []);
+    grupos.get(cat)!.push(p);
+  }
+  const categorias = Array.from(grupos.keys()).sort((a, b) => {
+    const ia = ORDEN_CATEGORIAS.indexOf(a);
+    const ib = ORDEN_CATEGORIAS.indexOf(b);
+    if (ia === -1 && ib === -1) return a.localeCompare(b, "es");
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+  return categorias.map((cat) => ({ categoria: cat, productos: grupos.get(cat)! }));
+}
+
 export default async function TiendaPage() {
   const productosTienda = await getProductos();
+  const secciones = agruparPorCategoria(productosTienda.filter((p) => !p.oculto));
   return (
     <>
       <Navbar />
@@ -69,20 +107,38 @@ export default async function TiendaPage() {
             </Link>
           </div>
 
-          {/* Product grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))",
-              gap: "clamp(1rem,2vw,1.75rem)",
-            }}
-          >
-            {productosTienda
-              .filter((p) => !p.oculto)
-              .map((p, i) => (
-                <ProductoCard key={p.slug} producto={p} index={i} />
-              ))}
-          </div>
+          {/* Productos agrupados por categoría */}
+          {secciones.map(({ categoria, productos }) => (
+            <section key={categoria} style={{ marginBottom: "clamp(2.5rem,5vh,4rem)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "clamp(1.2rem,2.5vh,1.8rem)" }}>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-cinzel), serif",
+                    fontSize: "clamp(1.05rem,2.2vw,1.4rem)",
+                    color: "#c8a050",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                    margin: 0,
+                  }}
+                >
+                  {categoria}
+                </h2>
+                <div style={{ flex: 1, height: 1, background: "linear-gradient(to right, rgba(200,160,80,0.3), transparent)" }} />
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(270px, 1fr))",
+                  gap: "clamp(1rem,2vw,1.75rem)",
+                }}
+              >
+                {productos.map((p, i) => (
+                  <ProductoCard key={p.slug} producto={p} index={i} />
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
       </main>
     </>

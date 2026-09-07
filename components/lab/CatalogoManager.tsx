@@ -86,6 +86,7 @@ export function CatalogoManager({
 }) {
   const [productos, setProductos] = useState<Row[]>(productosDb);
   const [form, setForm] = useState<Row | null>(null);
+  const [viendo, setViendo] = useState<Row | null>(null);
   const [guardando, setGuardando] = useState(false);
   const [sincronizando, setSincronizando] = useState(false);
   const [generando, setGenerando] = useState(false);
@@ -198,6 +199,71 @@ export function CatalogoManager({
     await recargar();
   }
 
+  // ── Vista de solo lectura ───────────────────────────────────────────────────
+  if (viendo) {
+    const p = viendo;
+    return (
+      <div>
+        <div style={{ display: "flex", gap: "0.8rem", marginBottom: "1.4rem", flexWrap: "wrap" }}>
+          <button onClick={() => setViendo(null)} style={botonSecundario}>← Volver a la lista</button>
+          <button onClick={() => { setForm(p); setViendo(null); setMsg(null); }} style={botonPrimario}>Editar</button>
+          {!p.oculto && (
+            <a href={`/tienda/${p.slug}`} target="_blank" rel="noopener noreferrer" style={{ ...botonSecundario, textDecoration: "none", display: "inline-flex", alignItems: "center" }}>
+              Ver en la tienda →
+            </a>
+          )}
+        </div>
+
+        <div style={{ display: "flex", alignItems: "baseline", gap: "0.8rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
+          <h2 style={{ fontFamily: "var(--font-grimoire)", fontSize: "1.3rem", color: GOLD, margin: 0 }}>{p.glyph} {p.nombre}</h2>
+          {p.oculto && <span style={etiquetaEstado}>OCULTO</span>}
+          {p.destacado && <span style={etiquetaEstado}>DESTACADO</span>}
+        </div>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(212,196,160,0.6)", margin: "0 0 1.4rem" }}>
+          {[p.categoria, p.tamano, p.piel, p.precio ? `$${p.precio.toLocaleString("es-CL")} CLP` : "sin precio"].filter(Boolean).join(" · ")}
+        </p>
+
+        {(p.descripcion || p.descripcion_larga) && (
+          <Seccion titulo="Descripción">
+            {p.descripcion && <p style={{ ...verTexto, fontStyle: "italic" }}>{p.descripcion}</p>}
+            {p.descripcion_larga && <p style={verTexto}>{p.descripcion_larga}</p>}
+          </Seccion>
+        )}
+
+        {p.beneficios && p.beneficios.length > 0 && (
+          <Seccion titulo="Beneficios">
+            <ul style={{ margin: 0, paddingLeft: "1.2rem" }}>
+              {p.beneficios.map((b, i) => <li key={i} style={verTexto}>{b}</li>)}
+            </ul>
+          </Seccion>
+        )}
+
+        {p.ciencia && p.ciencia.length > 0 && (
+          <Seccion titulo="Ciencia molecular">
+            {p.ciencia.map((c, i) => (
+              <p key={i} style={{ ...verTexto, marginBottom: "0.6rem" }}>
+                <strong style={{ color: CREAM }}>{c.titulo}:</strong> {c.texto}
+              </p>
+            ))}
+          </Seccion>
+        )}
+
+        {p.ingredientes && (
+          <Seccion titulo="Ingredientes (INCI)"><p style={verTexto}>{p.ingredientes}</p></Seccion>
+        )}
+        {p.modo_uso && <Seccion titulo="Modo de uso"><p style={verTexto}>{p.modo_uso}</p></Seccion>}
+        {p.resultado && <Seccion titulo="Qué esperar"><p style={verTexto}>{p.resultado}</p></Seccion>}
+
+        {(p.imagen_prompt || p.ficha_prompt) && (
+          <Seccion titulo="Prompts (foto y ficha)">
+            {p.imagen_prompt && <p style={{ ...verTexto, opacity: 0.65 }}><strong>Foto:</strong> {p.imagen_prompt}</p>}
+            {p.ficha_prompt && <p style={{ ...verTexto, opacity: 0.65 }}><strong>Ficha:</strong> {p.ficha_prompt}</p>}
+          </Seccion>
+        )}
+      </div>
+    );
+  }
+
   // ── Formulario de edición ──────────────────────────────────────────────────
   if (form) {
     const f = form;
@@ -214,32 +280,33 @@ export function CatalogoManager({
           {msg && <span style={{ alignSelf: "center", color: CREAM, fontFamily: "var(--font-body)", fontSize: "0.9rem" }}>{msg}</span>}
         </div>
 
-        <div style={grid2}>
-          <Campo label="Slug (url, sin espacios) *"><input style={input} value={f.slug} onChange={(e) => set("slug", e.target.value)} /></Campo>
-          <Campo label="Nombre *"><input style={input} value={f.nombre} onChange={(e) => set("nombre", e.target.value)} /></Campo>
-          <Campo label="Categoría"><input style={input} value={f.categoria ?? ""} onChange={(e) => set("categoria", e.target.value)} /></Campo>
-          <Campo label="Precio (CLP)"><input style={input} inputMode="numeric" value={f.precio ?? ""} onChange={(e) => set("precio", e.target.value === "" ? null : Number(e.target.value))} /></Campo>
-          <Campo label="Tamaño (ej. 50 ml)"><input style={input} value={f.tamano ?? ""} onChange={(e) => set("tamano", e.target.value)} /></Campo>
-          <Campo label="Piel"><input style={input} value={f.piel ?? ""} onChange={(e) => set("piel", e.target.value)} /></Campo>
-          <Campo label="Ícono (glyph)"><input style={input} value={f.glyph ?? ""} onChange={(e) => set("glyph", e.target.value)} /></Campo>
-          <Campo label="Color (accent)"><input style={input} value={f.accent ?? ""} onChange={(e) => set("accent", e.target.value)} /></Campo>
-        </div>
+        <Seccion titulo="Datos generales">
+          <div style={grid2}>
+            <Campo label="Slug (url, sin espacios) *"><input style={input} value={f.slug} onChange={(e) => set("slug", e.target.value)} /></Campo>
+            <Campo label="Nombre *"><input style={input} value={f.nombre} onChange={(e) => set("nombre", e.target.value)} /></Campo>
+            <Campo label="Categoría"><input style={input} value={f.categoria ?? ""} onChange={(e) => set("categoria", e.target.value)} /></Campo>
+            <Campo label="Precio (CLP)"><input style={input} inputMode="numeric" value={f.precio ?? ""} onChange={(e) => set("precio", e.target.value === "" ? null : Number(e.target.value))} /></Campo>
+            <Campo label="Tamaño (ej. 50 ml)"><input style={input} value={f.tamano ?? ""} onChange={(e) => set("tamano", e.target.value)} /></Campo>
+            <Campo label="Piel"><input style={input} value={f.piel ?? ""} onChange={(e) => set("piel", e.target.value)} /></Campo>
+            <Campo label="Ícono (glyph)"><input style={input} value={f.glyph ?? ""} onChange={(e) => set("glyph", e.target.value)} /></Campo>
+            <Campo label="Color (accent)"><input style={input} value={f.accent ?? ""} onChange={(e) => set("accent", e.target.value)} /></Campo>
+          </div>
+          <div style={{ display: "flex", gap: "1.5rem", marginTop: "0.9rem" }}>
+            <label style={checkLabel}><input type="checkbox" checked={!!f.oculto} onChange={(e) => set("oculto", e.target.checked)} /> Oculto (no aparece en la tienda)</label>
+            <label style={checkLabel}><input type="checkbox" checked={!!f.destacado} onChange={(e) => set("destacado", e.target.checked)} /> Destacado</label>
+          </div>
+        </Seccion>
 
-        <div style={{ display: "flex", gap: "1.5rem", margin: "1rem 0" }}>
-          <label style={checkLabel}><input type="checkbox" checked={!!f.oculto} onChange={(e) => set("oculto", e.target.checked)} /> Oculto (no aparece en la tienda)</label>
-          <label style={checkLabel}><input type="checkbox" checked={!!f.destacado} onChange={(e) => set("destacado", e.target.checked)} /> Destacado</label>
-        </div>
+        <Seccion titulo="Textos de la tienda">
+          <Campo label="Descripción corta"><textarea style={area} value={f.descripcion ?? ""} onChange={(e) => set("descripcion", e.target.value)} /></Campo>
+          <Campo label="Descripción larga"><textarea style={{ ...area, minHeight: 120 }} value={f.descripcion_larga ?? ""} onChange={(e) => set("descripcion_larga", e.target.value)} /></Campo>
+          <Campo label="Beneficios (uno por línea)">
+            <textarea style={area} value={(f.beneficios ?? []).join("\n")} onChange={(e) => set("beneficios", e.target.value.split("\n").map((x) => x.trim()).filter(Boolean))} />
+          </Campo>
+        </Seccion>
 
-        <Campo label="Descripción corta"><textarea style={area} value={f.descripcion ?? ""} onChange={(e) => set("descripcion", e.target.value)} /></Campo>
-        <Campo label="Descripción larga"><textarea style={{ ...area, minHeight: 120 }} value={f.descripcion_larga ?? ""} onChange={(e) => set("descripcion_larga", e.target.value)} /></Campo>
-        <Campo label="Beneficios (uno por línea)">
-          <textarea style={area} value={(f.beneficios ?? []).join("\n")} onChange={(e) => set("beneficios", e.target.value.split("\n").map((x) => x.trim()).filter(Boolean))} />
-        </Campo>
-
-        {/* Ciencia */}
-        <div style={{ margin: "1rem 0" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-            <span style={labelTexto}>Ciencia (tarjetas “Cómo actúa”)</span>
+        <Seccion titulo="Ciencia molecular">
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.5rem" }}>
             <button style={botonMini} onClick={() => set("ciencia", [...(f.ciencia ?? []), { titulo: "", texto: "" }])}>+ tarjeta</button>
           </div>
           {(f.ciencia ?? []).map((c, i) => (
@@ -251,20 +318,27 @@ export function CatalogoManager({
               <button style={{ ...botonMini, marginTop: "0.3rem" }} onClick={() => set("ciencia", (f.ciencia ?? []).filter((_, j) => j !== i))}>quitar</button>
             </div>
           ))}
-        </div>
+        </Seccion>
 
-        <Campo label="Bioquímica — prompt de ilustración">
-          <textarea style={area} value={f.bioquimica?.prompt ?? ""} onChange={(e) => set("bioquimica", { prompt: e.target.value, leyenda: f.bioquimica?.leyenda ?? "" })} />
-        </Campo>
-        <Campo label="Bioquímica — leyenda">
-          <input style={input} value={f.bioquimica?.leyenda ?? ""} onChange={(e) => set("bioquimica", { prompt: f.bioquimica?.prompt ?? "", leyenda: e.target.value })} />
-        </Campo>
+        <Seccion titulo="Bioquímica (ilustración)">
+          <Campo label="Prompt de ilustración">
+            <textarea style={area} value={f.bioquimica?.prompt ?? ""} onChange={(e) => set("bioquimica", { prompt: e.target.value, leyenda: f.bioquimica?.leyenda ?? "" })} />
+          </Campo>
+          <Campo label="Leyenda">
+            <input style={input} value={f.bioquimica?.leyenda ?? ""} onChange={(e) => set("bioquimica", { prompt: f.bioquimica?.prompt ?? "", leyenda: e.target.value })} />
+          </Campo>
+        </Seccion>
 
-        <Campo label="Ingredientes (INCI)"><textarea style={area} value={f.ingredientes ?? ""} onChange={(e) => set("ingredientes", e.target.value)} /></Campo>
-        <Campo label="Modo de uso"><textarea style={area} value={f.modo_uso ?? ""} onChange={(e) => set("modo_uso", e.target.value)} /></Campo>
-        <Campo label="Qué esperar (resultado)"><textarea style={area} value={f.resultado ?? ""} onChange={(e) => set("resultado", e.target.value)} /></Campo>
-        <Campo label="Prompt para mejorar la FOTO"><textarea style={{ ...area, minHeight: 110 }} value={f.imagen_prompt ?? ""} onChange={(e) => set("imagen_prompt", e.target.value)} /></Campo>
-        <Campo label="Prompt para generar la FICHA"><textarea style={{ ...area, minHeight: 110 }} value={f.ficha_prompt ?? ""} onChange={(e) => set("ficha_prompt", e.target.value)} /></Campo>
+        <Seccion titulo="Ingredientes y uso">
+          <Campo label="Ingredientes (INCI)"><textarea style={area} value={f.ingredientes ?? ""} onChange={(e) => set("ingredientes", e.target.value)} /></Campo>
+          <Campo label="Modo de uso"><textarea style={area} value={f.modo_uso ?? ""} onChange={(e) => set("modo_uso", e.target.value)} /></Campo>
+          <Campo label="Qué esperar (resultado)"><textarea style={area} value={f.resultado ?? ""} onChange={(e) => set("resultado", e.target.value)} /></Campo>
+        </Seccion>
+
+        <Seccion titulo="Prompts de imagen">
+          <Campo label="Prompt para mejorar la FOTO"><textarea style={{ ...area, minHeight: 110 }} value={f.imagen_prompt ?? ""} onChange={(e) => set("imagen_prompt", e.target.value)} /></Campo>
+          <Campo label="Prompt para generar la FICHA"><textarea style={{ ...area, minHeight: 110 }} value={f.ficha_prompt ?? ""} onChange={(e) => set("ficha_prompt", e.target.value)} /></Campo>
+        </Seccion>
       </div>
     );
   }
@@ -301,6 +375,7 @@ export function CatalogoManager({
                 </span>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button style={botonMini} onClick={() => { setViendo(p); setMsg(null); }}>Ver</button>
                 <button style={botonMini} onClick={() => { setForm(p); setMsg(null); }}>Editar</button>
                 <button style={botonMini} onClick={() => borrar(p.slug)}>Borrar</button>
               </div>
@@ -321,6 +396,26 @@ function Campo({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
+function Seccion({ titulo, children }: { titulo: string; children: React.ReactNode }) {
+  return (
+    <div style={{ margin: "1.6rem 0" }}>
+      <h3 style={seccionTitulo}>{titulo}</h3>
+      {children}
+    </div>
+  );
+}
+
+const seccionTitulo: CSSProperties = {
+  fontFamily: "var(--font-grimoire)", fontSize: "0.7rem", letterSpacing: "0.18em", textTransform: "uppercase",
+  color: GOLD, margin: "0 0 0.8rem", paddingBottom: "0.5rem", borderBottom: "1px solid rgba(200,160,80,0.18)",
+};
+const verTexto: CSSProperties = {
+  fontFamily: "var(--font-body)", fontSize: "0.95rem", color: CREAM, lineHeight: 1.6, margin: "0 0 0.4rem",
+};
+const etiquetaEstado: CSSProperties = {
+  fontFamily: "var(--font-grimoire)", fontSize: "0.6rem", letterSpacing: "0.12em", color: GOLD,
+  border: "1px solid rgba(200,160,80,0.4)", borderRadius: 3, padding: "0.15rem 0.5rem",
+};
 const labelTexto: CSSProperties = {
   display: "block", fontFamily: "var(--font-grimoire)", fontSize: "0.58rem", letterSpacing: "0.14em",
   textTransform: "uppercase", color: "rgba(212,196,160,0.65)", marginBottom: "0.35rem",

@@ -2026,3 +2026,100 @@ img {
   .bg-vivo { animation: none; }
   .revelar { opacity: 1; transform: none; }
 }
+
+/* ── HERO: entrada escalonada, botones y señal de scroll ── */
+
+/* Cada bloque entra por separado con ~160ms de diferencia. */
+.hero-entra {
+  opacity: 0;
+  animation: heroEntra 0.9s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+@keyframes heroEntra {
+  from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.hero-acciones {
+  display: flex;
+  gap: 0.9rem;
+  margin-top: 2.4rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 1.9rem;
+  border-radius: 3px;
+  font-family: var(--font-grimoire);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-cta--primario {
+  background: rgba(200, 160, 80, 0.92);
+  color: #16240f;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 30px rgba(200, 160, 80, 0.28);
+}
+.hero-cta--primario:hover {
+  background: #e8c878;
+  color: #16240f;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 44px rgba(200, 160, 80, 0.45);
+}
+.hero-cta--secundario {
+  border: 1px solid rgba(200, 160, 80, 0.55);
+  color: #d4c4a0;
+  background: rgba(13, 26, 13, 0.35);
+  backdrop-filter: blur(6px);
+}
+.hero-cta--secundario:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+  background: rgba(200, 160, 80, 0.12);
+}
+
+/* Señal de scroll: latido suave para invitar a bajar. */
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  opacity: 0;
+  animation: heroEntra 0.9s cubic-bezier(0.2, 0, 0, 1) 700ms forwards;
+  transition: opacity 0.3s ease;
+}
+.hero-scroll:hover { opacity: 0.95 !important; }
+.hero-scroll-texto {
+  font-family: var(--font-grimoire);
+  font-size: 0.55rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(212, 196, 160, 0.65);
+}
+.hero-scroll-linea {
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, rgba(200, 160, 80, 0.75), transparent);
+  animation: bajarLinea 2.4s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes bajarLinea {
+  0%, 100% { transform: scaleY(0.45); opacity: 0.45; }
+  50%      { transform: scaleY(1);    opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-entra, .hero-scroll { opacity: 1; animation: none; }
+  .hero-scroll-linea { animation: none; }
+}

@@ -14,6 +14,7 @@ export default function Home() {
       <PageBackground />
       <Navbar />
       <ParallaxHero />
+      <div id="contenido" style={{ scrollMarginTop: "72px" }} />
       <AgentesIA />
       <PlantasMedicinalesSection />
       <KnowledgeCards />

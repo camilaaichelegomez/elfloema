@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const EMBERS = [
   { left: '9%', bottom: '18%', size: '5px', delay: '0s', duration: '4.5s' },
@@ -14,23 +15,32 @@ const EMBERS = [
 ];
 
 export function ParallaxHero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const capaRef = useRef<HTMLDivElement>(null);
 
+  /* Parallax escribiendo directo al DOM dentro de un rAF: sin estado de React,
+     así el scroll no dispara un re-render por píxel. */
   useEffect(() => {
-    const handleScroll = () => {
-      const el = ref.current;
-      if (!el) return;
-      const progress = Math.min(1, window.scrollY / window.innerHeight);
-      setScale(1 + progress * 0.12);
+    const capa = capaRef.current;
+    if (!capa) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let pendiente = false;
+    const aplicar = () => {
+      pendiente = false;
+      const avance = Math.min(1, window.scrollY / window.innerHeight);
+      capa.style.transform = `scale(${1 + avance * 0.12})`;
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(aplicar);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <div
-      ref={ref}
       style={{
         position: 'relative',
         height: '100vh',
@@ -40,37 +50,29 @@ export function ParallaxHero() {
       }}
     >
       <div
+        ref={capaRef}
         style={{
           position: 'absolute',
           inset: 0,
-          transform: `scale(${scale})`,
           transformOrigin: 'center center',
           willChange: 'transform',
         }}
       >
-        <Image
-          src="/hero.png"
-          alt="El Floema"
-          fill
-          style={{ objectFit: 'cover' }}
-          priority
-          sizes="100vw"
-        />
+        <Image src="/hero.png" alt="" fill style={{ objectFit: 'cover' }} priority sizes="100vw" />
       </div>
 
       <div
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(13,35,24,0.5) 0%, rgba(13,35,24,0.2) 50%, rgba(13,35,24,0.7) 100%)',
+          background:
+            'linear-gradient(to bottom, rgba(13,35,24,0.5) 0%, rgba(13,35,24,0.2) 45%, rgba(13,35,24,0.82) 100%)',
           zIndex: 10,
         }}
       />
 
-      {/* Brasas y chispas ambientales: suben desde las velas y pociones de la
-          escena, como si la bruja siguiera trabajando. Posiciones fijas (no
-          Math.random) para evitar desajustes de hidratacion entre servidor y
-          cliente. */}
+      {/* Brasas que suben desde las velas de la escena. Posiciones fijas (no
+          Math.random) para no desajustar la hidratación servidor/cliente. */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 15, pointerEvents: 'none', overflow: 'hidden' }}>
         {EMBERS.map((e, i) => (
           <span
@@ -100,10 +102,11 @@ export function ParallaxHero() {
           justifyContent: 'center',
           textAlign: 'center',
           padding: '0 1.5rem',
-          pointerEvents: 'none',
+          pointerEvents: 'none', // el fondo no intercepta; los botones sí (abajo)
         }}
       >
         <h1
+          className="hero-entra"
           style={{
             fontFamily: '"Cormorant Garamond", var(--font-cormorant), var(--font-cinzel), serif',
             fontSize: 'clamp(3.5rem, 10vw, 9rem)',
@@ -118,7 +121,9 @@ export function ParallaxHero() {
         >
           El Floema
         </h1>
+
         <p
+          className="hero-entra"
           style={{
             fontFamily: '"Cormorant Garamond", var(--font-cormorant), var(--font-crimson), serif',
             fontSize: 'clamp(1rem, 2.2vw, 1.6rem)',
@@ -128,11 +133,31 @@ export function ParallaxHero() {
             marginTop: '1.25rem',
             letterSpacing: '0.12em',
             textShadow: '0 2px 24px rgba(13,35,24,0.95)',
+            animationDelay: '160ms',
           }}
         >
           Con ciencia, mi magia despierta
         </p>
+
+        {/* Qué hacer al llegar: antes no había ninguna acción posible. */}
+        <div
+          className="hero-entra hero-acciones"
+          style={{ animationDelay: '320ms', pointerEvents: 'auto' }}
+        >
+          <Link href="/tienda" className="hero-cta hero-cta--primario">
+            Ver la tienda
+          </Link>
+          <Link href="/biblioteca" className="hero-cta hero-cta--secundario">
+            Explorar la biblioteca
+          </Link>
+        </div>
       </div>
+
+      {/* Señal de que hay más abajo. */}
+      <a href="#contenido" className="hero-scroll" aria-label="Bajar al contenido">
+        <span className="hero-scroll-texto">Desliza</span>
+        <span className="hero-scroll-linea" aria-hidden="true" />
+      </a>
     </div>
   );
 }

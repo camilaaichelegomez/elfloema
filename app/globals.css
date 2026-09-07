@@ -99,6 +99,11 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Texto más nítido y sin huérfanas al final de párrafo. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  text-wrap: pretty;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -106,8 +111,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-gold-light);
   letter-spacing: 0.05em;
   text-shadow: 0 2px 12px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
+  /* Reparte las líneas de forma pareja en vez de dejar una palabra sola. */
+  text-wrap: balance;
 }
 
+/* Cifras que cambian (precios, totales, contadores) sin saltos de ancho. */
+.tabular, [data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
 
 a {
   color: var(--color-gold);
@@ -115,6 +126,42 @@ a {
   transition: color 0.3s ease;
 }
 a:hover { color: var(--color-gold-light); }
+
+/* ── FOCO ACCESIBLE ─────────────────────────────────────── */
+/* Anillo visible solo al navegar con teclado, nunca al hacer clic. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* ── FEEDBACK TÁCTIL ────────────────────────────────────── */
+/* Leve hundido al presionar: da sensación de botón real. */
+button:not(:disabled):active,
+a[role="button"]:active,
+.press:active {
+  scale: 0.96;
+}
+button, a[role="button"], .press {
+  transition: scale 0.14s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Imágenes con un contorno sutil para que no floten sobre el fondo. */
+img {
+  outline: 1px solid rgba(200, 160, 80, 0.06);
+  outline-offset: -1px;
+}
+
+/* ── MOVIMIENTO REDUCIDO ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 /* ── ANIMATIONS ─────────────────────────────────────────── */
 @keyframes fadeInUp {
@@ -178,34 +225,123 @@ a:hover { color: var(--color-gold-light); }
 }
 .navbar-links {
   display: flex;
-  gap: 1.4rem;
+  align-items: center;
+  gap: 0.35rem;
   list-style: none;
 }
-.navbar-links a {
+.nav-item {
+  position: relative;
+  display: flex;
+}
+/* Enlace y disparador comparten forma: área de clic cómoda (≥40px de alto). */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 40px;
+  padding: 0 0.85rem;
+  border: none;
+  background: none;
+  cursor: pointer;
   font-family: var(--font-grimoire);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-cream);
-  opacity: 0.9;
-  transition: color 0.3s, opacity 0.3s;
-  position: relative;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  opacity: 0.82;
+  border-radius: 6px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  transition: color 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
 }
-.navbar-links a::after {
-  content: '';
-  display: block;
-  height: 1px;
-  background: var(--color-gold);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-gold);
+  opacity: 1;
+  background-color: rgba(200, 160, 80, 0.08);
 }
-.navbar-links a:hover {
+/* Página actual: se nota dónde estás. */
+.nav-link.is-active {
   color: var(--color-gold);
   opacity: 1;
 }
-.navbar-links a:hover::after {
-  transform: scaleX(1);
+.nav-link.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 2px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+}
+.nav-chevron {
+  opacity: 0.6;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), opacity 0.25s ease;
+}
+.nav-trigger.is-open .nav-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* ── Desplegable ─────────────────────────────────────────── */
+.nav-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  min-width: 232px;
+  padding: 4px;
+  border-radius: 10px; /* concéntrico: 6px del item + 4px de padding */
+  background: rgba(14, 24, 14, 0.97);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 0 0 1px rgba(200, 160, 80, 0.16),
+    0 12px 28px rgba(0, 0, 0, 0.5),
+    0 32px 64px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-4px);
+  transition: opacity 0.22s cubic-bezier(0.2, 0, 0, 1), transform 0.22s cubic-bezier(0.2, 0, 0, 1), visibility 0.22s;
+  z-index: 20;
+}
+.nav-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-menu-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.55rem 0.7rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.nav-menu-item:hover,
+.nav-menu-item:focus-visible {
+  background-color: rgba(200, 160, 80, 0.1);
+}
+.nav-menu-item.is-active {
+  background-color: rgba(200, 160, 80, 0.07);
+}
+.nav-menu-label {
+  font-family: var(--font-grimoire);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  transition: color 0.2s ease;
+}
+.nav-menu-item:hover .nav-menu-label,
+.nav-menu-item.is-active .nav-menu-label {
+  color: var(--color-gold);
+}
+.nav-menu-hint {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(212, 196, 160, 0.5);
+  text-transform: none;
+  letter-spacing: 0;
 }
 .navbar-burger {
   display: none;
@@ -223,20 +359,50 @@ a:hover { color: var(--color-gold-light); }
   background: var(--color-gold);
   transition: transform 0.3s, opacity 0.3s;
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbar-burger { display: flex; }
   .navbar-links {
     display: none;
     position: absolute;
     top: 72px; left: 0; right: 0;
     flex-direction: column;
-    gap: 1.2rem;
+    align-items: stretch;
+    gap: 0.15rem;
     background: rgba(12, 20, 12, 0.98);
-    padding: 2rem 2.5rem;
+    padding: 1.25rem 1.5rem 1.75rem;
     border-bottom: 1px solid rgba(200, 160, 80, 0.15);
     backdrop-filter: blur(16px);
+    max-height: calc(100vh - 72px);
+    overflow-y: auto;
   }
   .navbar-links.open { display: flex; }
+  .nav-item { display: block; }
+  .nav-link {
+    width: 100%;
+    justify-content: space-between;
+    min-height: 46px;
+    padding: 0 0.6rem;
+  }
+  .nav-link.is-active::after { left: 0.6rem; right: auto; width: 18px; }
+
+  /* En móvil el desplegable se expande en línea, sin flotar. */
+  .nav-menu {
+    position: static;
+    transform: none;
+    min-width: 0;
+    padding: 0 0 0 0.6rem;
+    margin: 0;
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-left: 1px solid rgba(200, 160, 80, 0.18);
+    display: none;
+  }
+  .nav-menu.is-open {
+    display: block;
+    transform: none;
+  }
+  .nav-menu-hint { display: none; }
 }
 
 /* ── PARALLAX HERO ──────────────────────────────────────── */
@@ -1562,10 +1728,18 @@ a:hover { color: var(--color-gold-light); }
 
 .lab-bg {
   background:
+    /* atmósfera morada/verde del grimorio */
     radial-gradient(ellipse 60% 40% at 12% 0%, rgba(122, 74, 138, 0.14), transparent),
     radial-gradient(ellipse 60% 40% at 88% 100%, rgba(122, 74, 138, 0.11), transparent),
-    radial-gradient(ellipse 90% 70% at 50% 45%, rgba(26, 46, 26, 0.55), transparent),
+    radial-gradient(ellipse 90% 70% at 50% 45%, rgba(26, 46, 26, 0.5), transparent),
+    /* velo oscuro: el Lab es una herramienta, el fondo debe insinuarse sin estorbar */
+    linear-gradient(rgba(10, 16, 10, 0.82), rgba(10, 16, 10, 0.9)),
+    url('/fondo_lab.jpg') center top / cover fixed,
     var(--bg-primary);
+}
+/* `fixed` cuesta caro en móvil (el Lab se usa desde el teléfono). */
+@media (max-width: 900px) {
+  .lab-bg { background-attachment: scroll; }
 }
 
 /* Panel ornamental: doble marco dorado + gemas moradas en las esquinas */

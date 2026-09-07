@@ -5,7 +5,7 @@ const AGENTES = [
     href: "/agente",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 34, height: 34 }}>
-        <path d="M24 6C24 6 10 14 10 26C10 33.7 16.3 40 24 40C31.7 40 38 33.7 38 26C38 14 24 6Z" stroke="#c8a050" strokeWidth="1.5" fill="rgba(200,160,80,0.06)"/>
+        <path d="M24 6C24 6 10 14 10 26C10 33.7 16.3 40 24 40C31.7 40 38 33.7 38 26C38 14 24 6 24 6Z" stroke="#c8a050" strokeWidth="1.5" fill="rgba(200,160,80,0.06)"/>
         <path d="M24 40V22" stroke="#c8a050" strokeWidth="1.5" strokeLinecap="round"/>
         <path d="M24 28C24 28 18 24 16 18" stroke="#c8a050" strokeWidth="1.2" strokeLinecap="round"/>
         <path d="M24 32C24 32 29 28 31 22" stroke="#c8a050" strokeWidth="1.2" strokeLinecap="round"/>

@@ -1732,8 +1732,10 @@ img {
     radial-gradient(ellipse 60% 40% at 12% 0%, rgba(122, 74, 138, 0.14), transparent),
     radial-gradient(ellipse 60% 40% at 88% 100%, rgba(122, 74, 138, 0.11), transparent),
     radial-gradient(ellipse 90% 70% at 50% 45%, rgba(26, 46, 26, 0.5), transparent),
-    /* velo oscuro: el Lab es una herramienta, el fondo debe insinuarse sin estorbar */
-    linear-gradient(rgba(10, 16, 10, 0.82), rgba(10, 16, 10, 0.9)),
+    /* velo: el Lab es una herramienta, pero el fondo debe lucirse igual.
+       Los paneles (.lab-panel) llevan su propio fondo, así que las tablas y
+       formularios siguen legibles aunque la botica se vea detrás. */
+    linear-gradient(rgba(10, 16, 10, 0.68), rgba(10, 16, 10, 0.8)),
     url('/fondo_lab.jpg') center top / cover fixed,
     var(--bg-primary);
 }

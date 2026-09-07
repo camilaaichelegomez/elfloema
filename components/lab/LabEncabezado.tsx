@@ -1,6 +1,8 @@
 import type { CSSProperties } from "react";
 import { SignOutButton } from "@/components/lab/SignOutButton";
-import { LabNav } from "@/components/lab/LabNav";
+/* La navegación ya vive fija en LabShell (barra lateral / barra inferior),
+   así que aquí solo queda el título de la sección. `actual` se mantiene en la
+   firma para no tener que tocar las 10 páginas que ya lo pasan. */
 
 export function LabEncabezado({
   titulo,
@@ -32,8 +34,6 @@ export function LabEncabezado({
         <span className="lab-hojas">❦</span>
         <span style={{ color: "rgba(200,160,80,0.8)", fontSize: "0.7rem" }}>✦</span>
       </div>
-
-      <LabNav actual={actual} />
     </>
   );
 }

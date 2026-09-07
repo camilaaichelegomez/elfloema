@@ -204,13 +204,13 @@ export function CatalogoManager({
     return (
       <div>
         <div style={{ display: "flex", gap: "0.8rem", marginBottom: "1.2rem", flexWrap: "wrap" }}>
+          <button onClick={() => { setForm(null); setMsg(null); }} style={botonSecundario}>← Volver a la lista</button>
           <button onClick={guardar} disabled={guardando} style={botonPrimario}>
             {guardando ? "Guardando…" : "Guardar"}
           </button>
           <button onClick={generar} disabled={generando} style={botonSecundario}>
             {generando ? "Generando…" : "✨ Generar textos con IA"}
           </button>
-          <button onClick={() => { setForm(null); setMsg(null); }} style={botonSecundario}>Cancelar</button>
           {msg && <span style={{ alignSelf: "center", color: CREAM, fontFamily: "var(--font-body)", fontSize: "0.9rem" }}>{msg}</span>}
         </div>
 

@@ -151,6 +151,7 @@ export function CatalogoManager({
               resultado: d.resultado || f.resultado,
               imagen_prompt: d.imagenPrompt || f.imagen_prompt,
               ficha_prompt: d.fichaPrompt || f.ficha_prompt,
+              bioquimica: d.bioquimica || f.bioquimica,
             }
           : f
       );

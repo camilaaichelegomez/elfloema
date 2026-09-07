@@ -11,6 +11,11 @@ interface CienciaCard {
   titulo: string;
   texto: string;
 }
+interface ComoActua {
+  escena: string;
+  rotulos: string[];
+  leyenda: string;
+}
 interface Generado {
   descripcion: string;
   descripcionLarga: string;
@@ -19,6 +24,7 @@ interface Generado {
   ingredientes: string;
   modoUso: string;
   resultado: string;
+  comoActua?: ComoActua;
 }
 
 function extraerJson(texto: string): Generado | null {
@@ -34,6 +40,15 @@ function extraerJson(texto: string): Generado | null {
 
 function promptImagen(nombre: string, categoria: string): string {
   return `A partir de la FOTO REAL del producto que se entrega, mejora SOLO el fondo y la ambientacion. NO modifiques el producto: conserva exactamente el envase, su forma, tapa, color, la etiqueta y el contenido tal como estan en la foto. Reemplaza unicamente el fondo por una escena botanica y mistica de cosmetica natural artesanal: plantas nativas, hojas y elementos naturales acordes a un ${categoria.toLowerCase()}, sobre madera oscura o piedra humeda, con luz calida dorada lateral y fondo de bosque verde oscuro difuminado, tonos verdes profundos, dorados y tierra. Manten la iluminacion y las sombras coherentes con el producto real. No anadas ningun texto ni marca de agua. (Producto: ${nombre}).`;
+}
+
+// Ilustracion "como actua" (bioquimica): misma plantilla visual on-brand que
+// usan Calma/Ilumina/Purifica/Mate, con la escena y los rotulos que redacta
+// la IA (verificados con la biblioteca, igual que la ciencia).
+function promptComoActua(c: ComoActua): { prompt: string; leyenda: string } {
+  const rotulos = c.rotulos.slice(0, 4).map((r) => `'${r}'`).join(", ");
+  const prompt = `Ilustracion cientifica estilo lamina antigua de botanica, tinta y acuarela sobre fondo verde muy oscuro, con tonos dorado, sepia y verde apagado. Muestra ${c.escena}. IMPORTANTE: incluir rotulos de texto en ESPANOL con letra serif clara y ortografia correcta, con finas lineas guia. Rotula exactamente: ${rotulos}. Estetica mistica y cientifica de cosmetica natural, sin ningun otro texto ni marca de agua.`;
+  return { prompt, leyenda: c.leyenda };
 }
 
 function promptFicha(g: Generado, nombre: string, piel: string): string {
@@ -94,8 +109,9 @@ REGLAS ESTRICTAS:
 - Describe SOLO el producto y sus propiedades. No compares con otras formulas ni digas "simple".
 - Espanol, cercano y elegante.
 Responde UNICAMENTE un JSON valido con esta forma exacta (sin texto fuera del JSON):
-{"descripcion":"1 frase","descripcionLarga":"1 parrafo","beneficios":["4 vinetas"],"ciencia":[{"titulo":"molecula/ingrediente","texto":"como actua (mecanismo real)"}],"ingredientes":"INCI en una linea","modoUso":"1-2 frases","resultado":"que esperar, 1 frase"}
-- "ciencia": 3 a 5 tarjetas.`;
+{"descripcion":"1 frase","descripcionLarga":"1 parrafo","beneficios":["4 vinetas"],"ciencia":[{"titulo":"molecula/ingrediente","texto":"como actua (mecanismo real)"}],"ingredientes":"INCI en una linea","modoUso":"1-2 frases","resultado":"que esperar, 1 frase","comoActua":{"escena":"describe en 1-2 frases, en español y en tercera persona, la escena molecular/biologica que ilustraria el mecanismo principal (ej. 'una seccion de piel reactiva calmandose: la centella asiatica estimula a los fibroblastos a producir colageno mientras la cafeina activa la microcirculacion')","rotulos":["3 a 4 palabras o frases cortas para rotular la ilustracion, ej. 'centella asiatica', 'colageno nuevo'"],"leyenda":"1 frase corta que resuma la escena, para mostrar como pie de foto"}}
+- "ciencia": 3 a 5 tarjetas.
+- "comoActua": describe SOLO el mecanismo real de 1-2 ingredientes destacados de la ciencia de arriba, coherente con la biblioteca. Si el producto no tiene un mecanismo biologico ilustrable (por ejemplo una vela), omite "comoActua" del JSON.`;
 
   const userMsg = `PRODUCTO: ${nombre}${categoria ? ` (categoria: ${categoria})` : ""}${piel ? ` — piel: ${piel}` : ""}
 ${formula?.descripcion ? `Descripcion de la formula: ${formula.descripcion}` : ""}
@@ -128,6 +144,7 @@ ${biblioteca || "(sin coincidencias; se prudente y no inventes mecanismos)"}`;
       resultado: g.resultado ?? "",
       imagenPrompt: promptImagen(nombre, categoria || "producto"),
       fichaPrompt: promptFicha(g, nombre, piel),
+      bioquimica: g.comoActua ? promptComoActua(g.comoActua) : null,
     });
   } catch (error) {
     console.error("[lab/catalogo-texto] groq", error);

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
 import ProductoCard from "@/components/tienda/ProductoCard";
+import { Revelar } from "@/components/Revelar";
 import { getProductos } from "@/lib/productos-db";
 import type { ProductoTienda } from "@/lib/productos-tienda";
 
@@ -54,7 +55,7 @@ export default async function TiendaPage() {
   return (
     <>
       <Navbar />
-      <main
+      <main className="bg-vivo"
         style={{
           background:
             "linear-gradient(rgba(8,13,8,0.58), rgba(8,13,8,0.74)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",
@@ -108,8 +109,9 @@ export default async function TiendaPage() {
           </div>
 
           {/* Productos agrupados por categoría */}
-          {secciones.map(({ categoria, productos }) => (
-            <section key={categoria} style={{ marginBottom: "clamp(2.5rem,5vh,4rem)" }}>
+          {secciones.map(({ categoria, productos }, iSec) => (
+            <Revelar key={categoria} delay={iSec * 90}>
+            <section style={{ marginBottom: "clamp(2.5rem,5vh,4rem)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "clamp(1.2rem,2.5vh,1.8rem)" }}>
                 <h2
                   style={{
@@ -138,6 +140,7 @@ export default async function TiendaPage() {
                 ))}
               </div>
             </section>
+            </Revelar>
           ))}
         </div>
       </main>

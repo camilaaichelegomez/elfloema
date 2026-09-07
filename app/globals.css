@@ -1941,3 +1941,88 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .hero-ember { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   DINAMISMO — polvo dorado, respiración de fondos, revelados
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Polvo dorado suspendido ────────────────────────────── */
+.polvo-dorado {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+.polvo-dorado .mota {
+  position: absolute;
+  bottom: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f0d89a, #c8a050 55%, rgba(200, 160, 80, 0) 72%);
+  box-shadow: 0 0 6px rgba(200, 160, 80, 0.75), 0 0 14px rgba(200, 160, 80, 0.35);
+  animation-name: flotarPolvo;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+@keyframes flotarPolvo {
+  0%   { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translate3d(calc(var(--deriva) * 0.5), -52vh, 0) scale(1.15); }
+  90%  { opacity: 1; }
+  100% { transform: translate3d(var(--deriva), -104vh, 0) scale(0.75); opacity: 0; }
+}
+
+/* ── Respiración del fondo (Ken Burns) ──────────────────── */
+/* Se aplica al elemento que lleva la imagen: hace un zoom lentísimo y
+   continuo, de modo que la página deja de sentirse como una foto pegada.
+   `background-size` se declara por capa; la de la imagen es la 2ª. */
+.bg-vivo {
+  animation: respirarFondo 34s ease-in-out infinite alternate;
+}
+/* Se fija la ALTURA (no el ancho): como las fotos son apaisadas, al anclar el
+   alto por encima del 100% el ancho resultante siempre desborda y la imagen
+   cubre entera, en cualquier pantalla — incluidas las verticales del celular. */
+@keyframes respirarFondo {
+  from { background-size: auto, auto 112%, auto; }
+  to   { background-size: auto, auto 128%, auto; }
+}
+
+/* ── Revelado escalonado al hacer scroll ────────────────── */
+.revelar {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0, 0, 1), transform 0.7s cubic-bezier(0.2, 0, 0, 1);
+}
+.revelar.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Tarjetas más vivas al pasar el mouse ───────────────── */
+.tarjeta-viva {
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+.tarjeta-viva:hover {
+  transform: translateY(-10px);
+  border-color: rgba(200, 160, 80, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(200, 160, 80, 0.28),
+    0 20px 44px rgba(0, 0, 0, 0.55),
+    0 0 34px rgba(200, 160, 80, 0.14);
+}
+.tarjeta-viva img {
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1);
+}
+.tarjeta-viva:hover img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polvo-dorado { display: none; }
+  .bg-vivo { animation: none; }
+  .revelar { opacity: 1; transform: none; }
+}

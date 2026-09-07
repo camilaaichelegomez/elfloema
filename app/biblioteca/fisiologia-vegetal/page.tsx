@@ -192,7 +192,7 @@ function InlineFormula({ children }: { children: React.ReactNode }) {
 export default function FisiologiaVegetal() {
   return (
     <main
-      className="parchment-bg"
+      className="parchment-bg bg-vivo"
       style={{ position: "relative", minHeight: "100vh", overflowX: "hidden", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_fisiologiavegetal.jpg') center top / cover fixed, var(--bg-primary)", }}
     >
       <GrainOverlay />

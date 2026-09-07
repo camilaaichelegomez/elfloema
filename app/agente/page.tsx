@@ -93,7 +93,7 @@ export default function AgentePage() {
   }
 
   return (
-    <div
+    <div className="bg-vivo"
       style={{
         minHeight: "100vh",
         background: "linear-gradient(rgba(8,14,8,0.58), rgba(8,14,8,0.74)), url('/fondo_naturopata.jpg') center top / cover fixed, var(--bg-primary)",

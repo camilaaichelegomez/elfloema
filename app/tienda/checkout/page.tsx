@@ -81,7 +81,7 @@ export default function CheckoutPage() {
   return (
     <>
       <Navbar />
-      <main
+      <main className="bg-vivo"
         style={{
           background:
             "linear-gradient(rgba(8,13,8,0.58), rgba(8,13,8,0.74)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",

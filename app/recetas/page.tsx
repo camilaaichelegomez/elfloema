@@ -376,7 +376,7 @@ export default async function RecetasPage() {
   const desdeSupabase = await fetchRecipes();
   const RECIPES = desdeSupabase.length > 0 ? desdeSupabase : RECIPES_FALLBACK;
   return (
-    <div className="parchment-bg" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
+    <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
 
       <div

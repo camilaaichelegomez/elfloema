@@ -1,6 +1,7 @@
 import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
+import { resumenBases } from "@/lib/bases-cosmetica";
 
 interface MensajeChat {
   role: "user" | "model";
@@ -27,7 +28,15 @@ function construirSystemInstruction(contextoInventario: string, contextoBibliote
 Este es el inventario actual de la usuaria:
 ${contextoInventario}
 ${contextoBiblioteca ? `\n${contextoBiblioteca}\n` : ""}
+BASES DE COSMÉTICA DE LA BIBLIOTECA (rangos de referencia obligatorios):
+${resumenBases()}
+
 Instrucciones:
+- CÍÑETE A LOS RANGOS DE ESAS BASES. Son la referencia de la marca: no inventes porcentajes ni los estires "a ojo".
+- Si por alguna razón necesitas salirte de un rango, dilo de forma explícita y explica por qué; nunca lo hagas en silencio.
+- En cualquier base con agua, el conservante es OBLIGATORIO: jamás propongas una fórmula acuosa sin él, e indica su porcentaje.
+- Los porcentajes de una fórmula deben sumar 100%. Revísalo antes de responder.
+- Respeta el pH objetivo de la base e indica con qué se ajusta.
 - Prioriza usar ingredientes que ya están en el inventario de arriba, para que no tenga que comprar de más.
 - Si la fórmula necesita un ingrediente que no está en el inventario, dilo explícitamente.
 - Responde siempre en español, de forma cercana y profesional, sin inventar propiedades cosméticas que no sean razonables.

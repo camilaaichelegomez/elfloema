@@ -1,11 +1,13 @@
 "use client";
 
-import { useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Archive, ArrowLeft, Check, Eye, FlaskConical, ListChecks, Package, Pencil, Plus, RotateCcw, Tag, Trash2, X } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 import { adivinarCoincidencia } from "@/lib/lab/coincidencias";
+import { ValidadorBases } from "@/components/lab/ValidadorBases";
+import { guardarBorrador, leerBorrador, borrarBorrador } from "@/lib/lab/borrador-formula";
 
 export interface InventarioOpcion {
   id: number;
@@ -137,6 +139,13 @@ export function FormulasManager({
   const [productos, setProductos] = useState<Set<number>>(() => new Set(productoIdsIniciales));
   const [guardandoProducto, setGuardandoProducto] = useState<number | null>(null);
   const [form, setForm] = useState<FormulaFormState | null>(null);
+
+  /* Va guardando en el propio navegador la fórmula NUEVA que se está
+     escribiendo, para no perderla si se corta la señal o se cierra la app.
+     Solo las nuevas: las existentes ya viven en el servidor. */
+  useEffect(() => {
+    if (form && !form.id) guardarBorrador(form);
+  }, [form]);
   const [itemsOriginales, setItemsOriginales] = useState<FormulaItemRow[]>([]);
   const [cargando, setCargando] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -205,7 +214,10 @@ export function FormulasManager({
 
   async function abrirNueva() {
     setViendo(null);
-    setForm(formBlank());
+    // Si quedó una fórmula a medio escribir (por ejemplo, sin señal en el
+    // taller), se recupera en vez de empezar de cero.
+    const borrador = leerBorrador();
+    setForm(borrador ? (borrador.datos as FormulaFormState) : formBlank());
     setItemsOriginales([]);
     setError(null);
   }
@@ -352,6 +364,7 @@ export function FormulasManager({
       }
     }
 
+    borrarBorrador(); // se guardó de verdad: el borrador local ya no hace falta
     await recargarLista();
     setForm(null);
     setGuardando(false);
@@ -977,6 +990,15 @@ function FormularioFormula({
           Costo estimado del lote (según tu inventario actual): <strong>{formatoCLP(costoEstimado)}</strong>
         </p>
       </div>
+
+      {/* Contraste con los rangos documentados en la Biblioteca. */}
+      <ValidadorBases
+        items={form.items.map((it) => ({
+          ingrediente: it.ingrediente,
+          porcentaje: it.porcentaje ? Number(it.porcentaje) : null,
+          gramos: it.gramos ? Number(it.gramos) : null,
+        }))}
+      />
 
       <div style={accionesFormularioStyle}>
         <button type="button" onClick={onCancel} style={botonSecundarioStyle}>

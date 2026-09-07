@@ -386,3 +386,19 @@ export const basesCosmetica: Formula[] = [
     ],
   },
 ];
+
+/** Resumen compacto de las bases, para dárselo al asistente del Lab como
+ *  referencia obligatoria y que no invente porcentajes. */
+export function resumenBases(): string {
+  return basesCosmetica
+    .map((b) => {
+      const cats = b.categories
+        .map((c) => {
+          const items = c.items.map((i) => `${i.name} ${i.range}`).join("; ");
+          return `  · ${c.title} (${c.range}): ${items}`;
+        })
+        .join("\n");
+      return `— ${b.title} [pH ${b.ph} | conservante: ${b.preservative}]\n${cats}${b.note ? `\n  Nota: ${b.note}` : ""}`;
+    })
+    .join("\n");
+}

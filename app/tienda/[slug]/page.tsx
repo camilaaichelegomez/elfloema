@@ -54,7 +54,7 @@ export default async function ProductoPage({
       <main
         style={{
           background:
-            "linear-gradient(rgba(8,13,8,0.82), rgba(8,13,8,0.92)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",
+            "linear-gradient(rgba(8,13,8,0.58), rgba(8,13,8,0.74)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",
           minHeight: "100vh",
           paddingTop: "5rem",
         }}

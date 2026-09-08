@@ -40,6 +40,19 @@ export default function Home() {
           >
             Política de privacidad
           </a>
+          <span style={{ color: "rgba(212,196,160,0.25)", margin: "0 0.6rem" }}>·</span>
+          <a
+            href="/terminos"
+            style={{
+              fontFamily: "var(--font-cinzel), serif",
+              fontSize: "0.58rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(212,196,160,0.45)",
+            }}
+          >
+            Términos de uso
+          </a>
         </p>
       </footer>
     </>

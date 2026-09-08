@@ -104,7 +104,7 @@ export function CatalogoManager({
     setSincronizando(true);
     setMsg(null);
     const filas = semilla.map((p, i) => ({ ...semillaARow(p, i), user_id: userId }));
-    const { error } = await supabase.from("productos").upsert(filas, { onConflict: "slug" });
+    const { error } = await supabase.from("productos").upsert(filas, { onConflict: "user_id,slug" });
     setSincronizando(false);
     if (error) {
       setMsg("Error al sincronizar: " + error.message);
@@ -179,7 +179,7 @@ export function CatalogoManager({
       bioquimica: form.bioquimica && (form.bioquimica.prompt || form.bioquimica.leyenda) ? form.bioquimica : null,
       precio: form.precio === null || Number.isNaN(form.precio) ? null : Number(form.precio),
     };
-    const { error } = await supabase.from("productos").upsert(fila, { onConflict: "slug" });
+    const { error } = await supabase.from("productos").upsert(fila, { onConflict: "user_id,slug" });
     setGuardando(false);
     if (error) {
       setMsg("Error al guardar: " + error.message);

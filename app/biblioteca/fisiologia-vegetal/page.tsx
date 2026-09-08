@@ -56,63 +56,6 @@ function BotanicalDivider({ width = 200, opacity = 0.45 }: { width?: number; opa
   );
 }
 
-function IllustrationPlaceholder({ label, height = 220 }: { label: string; height?: number }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "580px",
-        margin: "clamp(28px, 4vh, 48px) auto",
-        height: `${height}px`,
-        border: "1.5px dashed rgba(200, 160, 80, 0.32)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-        position: "relative",
-        background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,160,80,0.025) 0%, transparent 80%)",
-      }}
-    >
-      {/* Corner marks */}
-      {(["tl", "tr", "bl", "br"] as const).map((pos) => (
-        <span
-          key={pos}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: pos.includes("b") ? "auto" : "-4px",
-            bottom: pos.includes("b") ? "-4px" : "auto",
-            left: pos.includes("r") ? "auto" : "-4px",
-            right: pos.includes("r") ? "-4px" : "auto",
-            width: "10px",
-            height: "10px",
-            borderTop: pos.includes("t") ? "1px solid rgba(200,160,80,0.5)" : "none",
-            borderBottom: pos.includes("b") ? "1px solid rgba(200,160,80,0.5)" : "none",
-            borderLeft: pos.includes("l") ? "1px solid rgba(200,160,80,0.5)" : "none",
-            borderRight: pos.includes("r") ? "1px solid rgba(200,160,80,0.5)" : "none",
-          }}
-        />
-      ))}
-      <span aria-hidden="true" style={{ color: "rgba(200,160,80,0.28)", fontSize: "0.7rem", letterSpacing: "0.08em" }}>✦</span>
-      <span
-        style={{
-          fontFamily: "var(--font-crimson), serif",
-          fontSize: "0.82rem",
-          fontStyle: "italic",
-          color: "#d4c4a0",
-          letterSpacing: "0.1em",
-          textAlign: "center",
-          padding: "0 20px",
-        }}
-      >
-        {label}
-      </span>
-      <span aria-hidden="true" style={{ color: "rgba(200,160,80,0.28)", fontSize: "0.7rem", letterSpacing: "0.08em" }}>✦</span>
-    </div>
-  );
-}
-
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
@@ -345,9 +288,6 @@ export default function FisiologiaVegetal() {
             </HighlightText>
           </article>
 
-          {/* ── Illustration 1 ── */}
-          <IllustrationPlaceholder label="La célula vegetal — diagrama de sección transversal" height={240} />
-
           {/* ── Section 2: La Célula Vegetal ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
             <SectionTitle>La Célula Vegetal — Estructura y Función</SectionTitle>
@@ -437,9 +377,6 @@ export default function FisiologiaVegetal() {
               clorofila atrapa un fotón de luz.
             </HighlightText>
           </article>
-
-          {/* ── Illustration 2 ── */}
-          <IllustrationPlaceholder label="Sistema vascular — xilema y floema en sección" height={260} />
 
           {/* ── Section 4: Xilema y Floema ── */}
           <article style={{ marginBottom: "clamp(36px, 5vh, 56px)" }}>
@@ -558,9 +495,6 @@ export default function FisiologiaVegetal() {
               ciclo, decide más de la mitad del resultado de una fórmula.
             </HighlightText>
           </article>
-
-          {/* ── Illustration 3 ── */}
-          <IllustrationPlaceholder label="De la planta a la piel — ruta de extracción y bioactividad" height={220} />
 
           {/* ── Section 6: De la Planta a tu Piel ── */}
           <article style={{ marginBottom: "clamp(48px, 7vh, 72px)" }}>

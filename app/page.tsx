@@ -27,6 +27,20 @@ export default function Home() {
         <img src="/logo.jpg" alt="El Floema" className="footer-logo" />
         <p className="footer-tagline">Con ciencia, mi magia despierta</p>
         <p className="footer-handle">@elfloema</p>
+        <p style={{ marginTop: "0.9rem" }}>
+          <a
+            href="/privacidad"
+            style={{
+              fontFamily: "var(--font-cinzel), serif",
+              fontSize: "0.58rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(212,196,160,0.45)",
+            }}
+          >
+            Política de privacidad
+          </a>
+        </p>
       </footer>
     </>
   );

@@ -356,15 +356,38 @@ function mapFormula(f: FormulaRow): Recipe {
 
 async function fetchRecipes(): Promise<Recipe[]> {
   try {
-    const { data, error } = await supabase
-      .from("formulas")
-      .select(
-        "id, nombre, categoria, descripcion, rinde_gramos, ph_objetivo, pasos, formula_items(ingrediente, gramos, porcentaje, fase)"
-      )
-      .is("deleted_at", null)
+    /* Se lee de `formulas_publicas`, una vista que expone SOLO las fórmulas de
+       El Floema y solo las columnas que corresponde mostrar (sin margen, notas
+       ni lote). Las fórmulas de las demás usuarias del Lab quedan privadas.
+       Van dos consultas porque una vista no arrastra la relación entre tablas,
+       así que los ingredientes se unen aquí. */
+    const { data: formulas, error } = await supabase
+      .from("formulas_publicas")
+      .select("id, nombre, categoria, descripcion, rinde_gramos, ph_objetivo, pasos")
       .order("categoria", { ascending: true })
       .order("nombre", { ascending: true });
-    if (error || !data) return [];
+    if (error || !formulas) return [];
+
+    const { data: itemsTodos } = await supabase
+      .from("formula_items_publicos")
+      .select("formula_id, ingrediente, gramos, porcentaje, fase");
+
+    const porFormula = new Map<string, FormulaRow["formula_items"]>();
+    for (const it of itemsTodos ?? []) {
+      const clave = String(it.formula_id);
+      if (!porFormula.has(clave)) porFormula.set(clave, []);
+      porFormula.get(clave)!.push({
+        ingrediente: it.ingrediente,
+        gramos: it.gramos,
+        porcentaje: it.porcentaje,
+        fase: it.fase,
+      });
+    }
+
+    const data = formulas.map((f) => ({
+      ...f,
+      formula_items: porFormula.get(String(f.id)) ?? [],
+    }));
     return (data as FormulaRow[]).filter((f) => (f.formula_items?.length ?? 0) > 0).map(mapFormula);
   } catch {
     return [];

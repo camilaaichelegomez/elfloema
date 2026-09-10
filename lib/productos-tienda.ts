@@ -16,6 +16,7 @@ export type ProductoTienda = {
   resultado?: string; // "qué esperar" — resultado breve para la ficha imprimible
   piel?: string; // para qué tipo de piel
   tamano?: string; // ej "100 ml"
+  imagenUrl?: string; // foto subida por la usuaria (Storage)
   imagenPrompt?: string; // prompt para generar la foto del producto (placeholder)
   fichaPrompt?: string; // prompt para generar la ficha ilustrada (infografía estilo El Floema)
   precio: number | null;

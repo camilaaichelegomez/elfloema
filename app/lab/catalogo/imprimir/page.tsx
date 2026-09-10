@@ -20,7 +20,7 @@ export default async function MiCatalogoImprimirPage() {
 
   const { data } = await supabase
     .from("productos")
-    .select("slug, nombre, categoria, descripcion, ingredientes, modo_uso, tamano, precio, oculto, orden")
+    .select("slug, nombre, categoria, descripcion, ingredientes, modo_uso, tamano, precio, oculto, orden, imagen_url")
     .order("orden", { ascending: true })
     .order("nombre", { ascending: true });
 
@@ -34,6 +34,7 @@ export default async function MiCatalogoImprimirPage() {
       ingredientes: p.ingredientes ?? undefined,
       modoUso: p.modo_uso ?? undefined,
       tamano: p.tamano ?? undefined,
+      imagenUrl: p.imagen_url ?? undefined,
       precio: p.precio ?? null,
       glyph: "✦",
       accent: "rgba(200,160,80,0.24)",
@@ -81,7 +82,7 @@ export default async function MiCatalogoImprimirPage() {
           </p>
         </div>
 
-        <CatalogoPersonal productos={productos} />
+        <CatalogoPersonal productos={productos} userId={user.id} />
       </div>
     </main>
   );

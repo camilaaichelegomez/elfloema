@@ -51,6 +51,12 @@ const I = {
       <path d="M12.4 7.4H9.2a1.7 1.7 0 0 0 0 3.4h1.6a1.7 1.7 0 0 1 0 3.4H7.6M10 6v8.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   ),
+  etiquetas: (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M10.6 3H16a1 1 0 0 1 1 1v5.4a1.4 1.4 0 0 1-.4 1l-6.2 6.2a1.4 1.4 0 0 1-2 0l-5-5a1.4 1.4 0 0 1 0-2l6.2-6.2a1.4 1.4 0 0 1 1-.4Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+      <circle cx="13.2" cy="6.8" r="1.1" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
+  ),
   catalogo: (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path d="M4 4.5h4.6c.9 0 1.6.7 1.6 1.6v9.4c0-.7-.6-1.3-1.3-1.3H4v-9.7Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
@@ -65,6 +71,7 @@ const SECCIONES: Seccion[] = [
   { href: "/lab/preparadas", label: "Preparadas", icono: I.preparadas },
   { href: "/lab/productos", label: "Mis productos", icono: I.productos },
   { href: "/lab/catalogo", label: "Mi catálogo", icono: I.catalogo },
+  { href: "/lab/etiquetas", label: "Etiquetas", icono: I.etiquetas },
   { href: "/lab/costos", label: "Costos", icono: I.costos },
   { href: "/lab/tareas", label: "Tareas", icono: I.tareas },
   { href: "/lab/asistente", label: "Asistente", icono: I.asistente },

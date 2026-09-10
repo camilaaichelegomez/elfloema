@@ -1,26 +1,31 @@
 import type { CSSProperties } from "react";
 import DescargarPdfCatalogo from "@/components/tienda/DescargarPdfCatalogo";
 import CatalogoImagen from "@/components/tienda/CatalogoImagen";
-import { productosTienda } from "@/lib/productos-tienda";
+import { getProductos } from "@/lib/productos-db";
+import type { ProductoTienda } from "@/lib/productos-tienda";
 
 export const metadata = {
   title: "Catálogo · El Floema",
   description: "Catálogo de El Floema — cosmética botánica elaborada con ciencia.",
 };
 
+export const dynamic = "force-dynamic";
+
 const GOLD = "#c8a050";
 const GOLD_LIGHT = "#e8c878";
 const CREAM = "#d4c4a0";
 
 // Orden de categorías según su primera aparición en el catálogo de productos.
-function categoriasOrdenadas(): string[] {
+function categoriasOrdenadas(productos: ProductoTienda[]): string[] {
   const cats: string[] = [];
-  for (const p of productosTienda) if (!cats.includes(p.categoria)) cats.push(p.categoria);
+  for (const p of productos) if (!cats.includes(p.categoria)) cats.push(p.categoria);
   return cats;
 }
 
-export default function CatalogoPage() {
-  const categorias = categoriasOrdenadas();
+export default async function CatalogoPage() {
+  const todos = await getProductos();
+  const productosTienda = todos.filter((p) => !p.oculto);
+  const categorias = categoriasOrdenadas(productosTienda);
 
   return (
     <div style={pageStyle}>

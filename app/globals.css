@@ -2314,3 +2314,27 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .lab-estado-punto { animation: none; }
 }
+
+/* Botón para generar el catálogo propio desde el editor */
+.lab-cta-catalogo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 1.3rem;
+  border-radius: 4px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0d1a0d;
+  background: rgba(200, 160, 80, 0.92);
+  text-decoration: none;
+  transition: background-color 0.25s ease;
+}
+.lab-cta-catalogo:hover { background: #e8c878; color: #0d1a0d; }
+
+/* Al imprimir el catálogo, fuera todo lo que no sea el catálogo */
+@media print {
+  .lab-sidebar, .lab-estado-offline, .polvo-dorado, .no-print { display: none !important; }
+  .lab-contenido { padding: 0 !important; }
+}

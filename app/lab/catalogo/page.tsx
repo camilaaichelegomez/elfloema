@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
 import { LabEncabezado } from "@/components/lab/LabEncabezado";
@@ -28,7 +29,12 @@ export default async function CatalogoLabPage() {
       style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(20px, 5vw, 64px) 64px" }}
     >
       <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-        <LabEncabezado titulo="Catálogo de la tienda" actual="catalogo" />
+        <LabEncabezado titulo="Mi catálogo" actual="catalogo" />
+        <div style={{ marginBottom: "1.2rem" }}>
+          <Link href="/lab/catalogo/imprimir" className="lab-cta-catalogo">
+            Generar mi catálogo (PDF o Word) →
+          </Link>
+        </div>
         <CatalogoManager userId={user.id} productosDb={productos ?? []} semilla={productosTienda} />
       </div>
     </main>

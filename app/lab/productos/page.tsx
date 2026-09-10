@@ -30,7 +30,7 @@ export default async function ProductosLabPage() {
       style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(20px, 5vw, 64px) 64px" }}
     >
       <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-        <LabEncabezado titulo="Productos" actual="productos" />
+        <LabEncabezado titulo="Mis productos" actual="productos" />
 
         {error ? (
           <p style={{ fontFamily: "var(--font-body)", color: "#e05a4a" }}>

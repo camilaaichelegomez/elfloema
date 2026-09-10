@@ -59,7 +59,7 @@ export default function FichaImprimible({ producto }: { producto: ProductoTienda
       <footer className="ficha-foot">
         <div className="ficha-rule" />
         <p>El Floema · La Unión, Región de Los Ríos, Chile</p>
-        <p>@elfloema · Con ciencia, mi magia despierta</p>
+        <p>@elfloema.cl · Con ciencia, mi magia despierta</p>
       </footer>
     </article>
   );

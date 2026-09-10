@@ -456,7 +456,7 @@ function CartDrawer() {
                   margin: "0.7rem 0 0",
                 }}
               >
-                Estamos cargando los precios. Mientras, encarga por Instagram (@elfloema).
+                Estamos cargando los precios. Mientras, encarga por Instagram (@elfloema.cl).
               </p>
             )}
 

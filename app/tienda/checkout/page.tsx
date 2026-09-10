@@ -64,12 +64,12 @@ export default function CheckoutPage() {
       }
       if (data?.configured === false) {
         setAviso(
-          "El pago online estará disponible muy pronto. Mientras tanto, escríbenos a Instagram (@elfloema) con tu pedido y estos datos."
+          "El pago online estará disponible muy pronto. Mientras tanto, escríbenos a Instagram (@elfloema.cl) con tu pedido y estos datos."
         );
       } else if (data?.error === "sin_items_con_precio") {
         setAviso("Aún no hay precios cargados para estos productos.");
       } else {
-        setAviso("No pudimos iniciar el pago. Intenta de nuevo o escríbenos a @elfloema.");
+        setAviso("No pudimos iniciar el pago. Intenta de nuevo o escríbenos a @elfloema.cl.");
       }
     } catch {
       setAviso("Hubo un problema de conexión. Intenta de nuevo.");
@@ -249,7 +249,7 @@ export default function CheckoutPage() {
 
                 {!allPriced && (
                   <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(212,196,160,0.45)", textAlign: "center", marginTop: "0.8rem" }}>
-                    El pago se activará cuando los productos tengan precio. Mientras, encarga por Instagram (@elfloema).
+                    El pago se activará cuando los productos tengan precio. Mientras, encarga por Instagram (@elfloema.cl).
                   </p>
                 )}
               </section>

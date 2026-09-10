@@ -37,7 +37,18 @@ export default async function CatalogoPage() {
         <DescargarPdfCatalogo targetId="catalogo-contenido" />
       </div>
 
-      <div id="catalogo-contenido" style={{ maxWidth: 900, margin: "0 auto", padding: "0 clamp(1rem,4vw,2.5rem) 3rem" }}>
+      {/* El fondo oscuro va aquí (no solo en el contenedor exterior): al generar
+          el PDF, html2canvas captura este nodo y necesita su propio color de
+          fondo, o el archivo sale con fondo blanco. */}
+      <div
+        id="catalogo-contenido"
+        style={{
+          maxWidth: 900,
+          margin: "0 auto",
+          padding: "clamp(1rem,4vw,2.5rem) clamp(1rem,4vw,2.5rem) 3rem",
+          background: "#0b140b",
+        }}
+      >
         {/* Portada */}
         <section className="cat-cover" style={coverStyle}>
           <Gemas />
@@ -109,7 +120,7 @@ export default async function CatalogoPage() {
           <p style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.9rem", letterSpacing: "0.24em", textTransform: "uppercase", color: GOLD, margin: "1.5rem 0 0.6rem" }}>
             Encarga por Instagram
           </p>
-          <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "1.1rem", color: CREAM }}>@elfloema</p>
+          <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "1.1rem", color: CREAM }}>@elfloema.cl</p>
           <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(212,196,160,0.5)", marginTop: "0.8rem" }}>
             El Floema · La Unión, Región de Los Ríos, Chile
           </p>

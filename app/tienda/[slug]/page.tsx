@@ -164,7 +164,7 @@ export default async function ProductoPage({
               {/* CTA: agregar al carrito + encargar por Instagram */}
               <AddToCartButton producto={producto} variant="detail" />
               <a
-                href="https://instagram.com/elfloema"
+                href="https://instagram.com/elfloema.cl"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -191,7 +191,7 @@ export default async function ProductoPage({
                   marginTop: "1rem",
                 }}
               >
-                Escríbenos a @elfloema para conocer disponibilidad y precios.
+                Escríbenos a @elfloema.cl para conocer disponibilidad y precios.
               </p>
 
               <Link

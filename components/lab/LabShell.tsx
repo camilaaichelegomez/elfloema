@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
 /* Estructura de aplicación para el Lab: barra lateral fija en escritorio y
@@ -65,25 +66,52 @@ const I = {
   ),
 };
 
-const SECCIONES: Seccion[] = [
+const MAS_ICONO = (
+  <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <circle cx="4.5" cy="10" r="1.5" fill="currentColor" />
+    <circle cx="10" cy="10" r="1.5" fill="currentColor" />
+    <circle cx="15.5" cy="10" r="1.5" fill="currentColor" />
+  </svg>
+);
+
+/* En el celular solo caben unas pocas sin apretujarse. Estas son las de uso
+   diario en el taller y quedan siempre a la vista; el resto vive en «Más».
+   Antes iban las 9 en una barra con scroll horizontal: las de la derecha no
+   las encontraba nadie, porque en una barra inferior no se ve que se pueda
+   deslizar. */
+const PRINCIPALES: Seccion[] = [
   { href: "/lab/inventario", label: "Inventario", icono: I.inventario },
   { href: "/lab/formulas", label: "Fórmulas", icono: I.formulas },
   { href: "/lab/preparadas", label: "Preparadas", icono: I.preparadas },
-  { href: "/lab/productos", label: "Mis productos", icono: I.productos },
-  { href: "/lab/catalogo", label: "Mi catálogo", icono: I.catalogo },
-  { href: "/lab/etiquetas", label: "Etiquetas", icono: I.etiquetas },
-  { href: "/lab/costos", label: "Costos", icono: I.costos },
-  { href: "/lab/tareas", label: "Tareas", icono: I.tareas },
-  { href: "/lab/asistente", label: "Asistente", icono: I.asistente },
 ];
+
+const SECUNDARIAS: (Seccion & { descripcion: string })[] = [
+  { href: "/lab/productos", label: "Mis productos", icono: I.productos, descripcion: "Marcar fórmulas como producto y sus etiquetas" },
+  { href: "/lab/catalogo", label: "Mi catálogo", icono: I.catalogo, descripcion: "Precios, fotos y generar el catálogo" },
+  { href: "/lab/etiquetas", label: "Etiquetas", icono: I.etiquetas, descripcion: "Diseñar e imprimir etiquetas de tus envases" },
+  { href: "/lab/costos", label: "Costos", icono: I.costos, descripcion: "Cuánto te cuesta cada producto" },
+  { href: "/lab/tareas", label: "Tareas", icono: I.tareas, descripcion: "Pendientes del taller" },
+  { href: "/lab/asistente", label: "Asistente", icono: I.asistente, descripcion: "Ayuda para formular" },
+];
+
+const SECCIONES: Seccion[] = [...PRINCIPALES, ...SECUNDARIAS];
 
 export function LabShell({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "";
+  const [masAbierto, setMasAbierto] = useState(false);
+
+  useEffect(() => setMasAbierto(false), [pathname]);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMasAbierto(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   // El login no lleva navegación: aún no hay sesión.
   if (pathname.startsWith("/lab/login")) return <>{children}</>;
 
   const activo = (href: string) => pathname.startsWith(href);
+  const enSecundaria = SECUNDARIAS.some((s) => activo(s.href));
 
   return (
     <div className="lab-shell">
@@ -119,6 +147,64 @@ export function LabShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="lab-contenido">{children}</div>
+
+      {/* ── Celular: 3 fijas + «Más», sin scroll escondido ── */}
+      <nav className="lab-tabbar" aria-label="Secciones del Lab">
+        {PRINCIPALES.map((s) => (
+          <Link
+            key={s.href}
+            href={s.href}
+            className={`lab-tab${activo(s.href) ? " is-active" : ""}`}
+            aria-current={activo(s.href) ? "page" : undefined}
+          >
+            <span className="lab-tab-icono">{s.icono}</span>
+            <span className="lab-tab-label">{s.label}</span>
+          </Link>
+        ))}
+        <button
+          type="button"
+          className={`lab-tab${masAbierto || enSecundaria ? " is-active" : ""}`}
+          aria-expanded={masAbierto}
+          onClick={() => setMasAbierto((v) => !v)}
+        >
+          <span className="lab-tab-icono">{MAS_ICONO}</span>
+          <span className="lab-tab-label">Más</span>
+        </button>
+      </nav>
+
+      {/* Panel «Más»: aquí se ve de una todo lo que la app sabe hacer. */}
+      {masAbierto && (
+        <>
+          <div className="lab-mas-fondo" onClick={() => setMasAbierto(false)} aria-hidden="true" />
+          <div className="lab-mas-panel" role="dialog" aria-label="Todas las secciones">
+            <span className="lab-mas-asa" aria-hidden="true" />
+            <p className="lab-mas-titulo">Todo lo que puedes hacer</p>
+
+            {SECUNDARIAS.map((s) => (
+              <Link key={s.href} href={s.href} className={`lab-mas-item${activo(s.href) ? " is-active" : ""}`}>
+                <span className="lab-nav-icono">{s.icono}</span>
+                <span>
+                  <span className="lab-mas-item-label">{s.label}</span>
+                  <span className="lab-mas-item-desc">{s.descripcion}</span>
+                </span>
+              </Link>
+            ))}
+
+            <Link href="/" className="lab-mas-item">
+              <span className="lab-nav-icono">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M12 6.5V4.8c0-.8-.7-1.5-1.5-1.5h-5C4.7 3.3 4 4 4 4.8v10.4c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  <path d="M8.5 10H17m0 0-2.4-2.4M17 10l-2.4 2.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span>
+                <span className="lab-mas-item-label">Ir al sitio</span>
+                <span className="lab-mas-item-desc">Volver a la web de El Floema</span>
+              </span>
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 }

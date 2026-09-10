@@ -2224,45 +2224,6 @@ img {
 }
 
 /* ── Barra inferior (móvil), como app nativa ────────────── */
-@media (max-width: 900px) {
-  .lab-shell { display: block; }
-  .lab-sidebar {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: auto;
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.2rem;
-    padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom));
-    overflow-x: auto;
-    box-shadow: 0 -1px 0 rgba(200, 160, 80, 0.16), 0 -6px 24px rgba(0, 0, 0, 0.45);
-  }
-  .lab-sidebar::-webkit-scrollbar { display: none; }
-  .lab-sidebar { scrollbar-width: none; }
-  .lab-sidebar-marca { display: none; }
-  .lab-sidebar-nav {
-    flex-direction: row;
-    gap: 0.2rem;
-    overflow: visible;
-  }
-  .lab-nav-item {
-    flex-direction: column;
-    gap: 0.2rem;
-    min-width: 62px;
-    min-height: 52px;
-    padding: 0.35rem 0.4rem;
-    justify-content: center;
-  }
-  .lab-nav-item.is-active { box-shadow: inset 0 2px 0 var(--color-gold); }
-  .lab-nav-label { font-size: 0.5rem; letter-spacing: 0.08em; }
-  .lab-nav-salir { margin-top: 0; }
-  /* Que la barra no tape el final del contenido. */
-  .lab-contenido { padding-bottom: 86px; }
-}
 
 /* ── Aviso de conexión / cola de cambios del Lab ─────────── */
 .lab-estado-offline {
@@ -2337,4 +2298,127 @@ img {
 @media print {
   .lab-sidebar, .lab-estado-offline, .polvo-dorado, .no-print { display: none !important; }
   .lab-contenido { padding: 0 !important; }
+}
+
+/* ── Lab en el celular: barra fija de 4 + panel «Más» ───── */
+.lab-tabbar { display: none; }
+
+@media (max-width: 900px) {
+  .lab-shell { display: block; }
+  .lab-sidebar { display: none; }          /* la lateral es solo de escritorio */
+  .lab-contenido { padding-bottom: calc(88px + env(safe-area-inset-bottom)); } /* que la barra no tape el final */
+
+  .lab-tabbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 4 fijas: nada queda escondido */
+    background: rgba(12, 20, 12, 0.97);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 -1px 0 rgba(200,160,80,0.18), 0 -8px 26px rgba(0,0,0,0.45);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .lab-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 58px;
+    padding: 6px 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(212,196,160,0.66);
+    transition: color 0.2s ease;
+  }
+  .lab-tab.is-active { color: var(--color-gold-light); }
+  .lab-tab.is-active .lab-tab-icono { transform: translateY(-1px); }
+  .lab-tab-icono { width: 22px; height: 22px; display: block; transition: transform 0.2s ease; }
+  .lab-tab-icono svg { width: 100%; height: 100%; display: block; }
+  .lab-tab-label {
+    font-family: var(--font-grimoire);
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  /* Panel «Más» */
+  .lab-mas-fondo {
+    position: fixed; inset: 0; z-index: 55;
+    background: rgba(0,0,0,0.55);
+    animation: masFondo 0.2s ease forwards;
+  }
+  @keyframes masFondo { from { opacity: 0; } to { opacity: 1; } }
+
+  .lab-mas-panel {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 56;
+    max-height: 78vh;
+    overflow-y: auto;
+    background: #101c10;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -2px 0 rgba(200,160,80,0.25), 0 -18px 46px rgba(0,0,0,0.6);
+    padding: 10px 14px calc(18px + env(safe-area-inset-bottom));
+    animation: masSube 0.26s cubic-bezier(0.2, 0, 0, 1) forwards;
+  }
+  @keyframes masSube { from { transform: translateY(18px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .lab-mas-asa {
+    display: block;
+    width: 38px; height: 4px;
+    margin: 0 auto 12px;
+    border-radius: 999px;
+    background: rgba(200,160,80,0.35);
+  }
+  .lab-mas-titulo {
+    font-family: var(--font-grimoire);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,160,80,0.75);
+    margin: 0 0 10px 6px;
+  }
+  .lab-mas-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 8px 10px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: var(--color-cream);
+    transition: background-color 0.2s ease;
+  }
+  .lab-mas-item:hover, .lab-mas-item.is-active { background: rgba(200,160,80,0.12); }
+  .lab-mas-item.is-active .lab-mas-item-label { color: var(--color-gold-light); }
+  .lab-mas-item-label {
+    display: block;
+    font-family: var(--font-grimoire);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .lab-mas-item-desc {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(212,196,160,0.55);
+    margin-top: 2px;
+    line-height: 1.35;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lab-mas-fondo, .lab-mas-panel { animation: none; }
+  }
+}
+
+@media print {
+  .lab-tabbar, .lab-mas-panel, .lab-mas-fondo { display: none !important; }
 }

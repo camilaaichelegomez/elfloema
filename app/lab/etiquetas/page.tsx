@@ -2,8 +2,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
 import { GeneradorEtiquetas } from "@/components/lab/GeneradorEtiquetas";
 
-/* Generador de etiquetas para envases: elegir estilo y tamaño, escribir los
-   datos y bajar una hoja con todas las que quepan, lista para recortar. */
+/* Generador de etiquetas para envases: se diseña una etiqueta a la vez y se van
+   sumando a la hoja las que se quieran imprimir, lista para recortar. */
 
 export const dynamic = "force-dynamic";
 
@@ -42,8 +42,8 @@ export default async function EtiquetasPage() {
               lineHeight: 1.6,
             }}
           >
-            Elige un estilo, dime el tamaño de tu envase y te armo una hoja completa de etiquetas para
-            imprimir y recortar.
+            Diseña una etiqueta a la vez y mírala grande. Cuando te guste, súmala a la hoja: puedes
+            juntar varias, incluso de productos distintos, e imprimirlas todas en la misma hoja.
           </p>
         </div>
 

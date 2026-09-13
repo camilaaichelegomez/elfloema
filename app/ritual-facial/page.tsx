@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BackButton } from "@/components/BackButton";
 import { RitualFacial } from "@/components/ritual/RitualFacial";
 import { PAUTAS } from "@/lib/ritual-facial";
+import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 
 /* Ritual facial: arma una rutina de drenaje linfático y ejercicios faciales
    según lo que cada persona quiera trabajar, y la guía paso a paso.
@@ -15,6 +16,8 @@ export const metadata: Metadata = {
   title: "Ritual facial — El Floema",
   description:
     "Arma tu rutina de yoga facial y drenaje linfático según lo que quieras trabajar, y síguela paso a paso con dibujos.",
+  // Su propio manifiesto: se instala como app aparte del Lab.
+  manifest: "/ritual-facial/manifest.webmanifest",
 };
 
 export default function RitualFacialPage() {
@@ -24,6 +27,7 @@ export default function RitualFacialPage() {
       style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
+        <RegistrarServiceWorker />
         <BackButton />
 
         <header style={{ margin: "0 0 2.2rem" }}>

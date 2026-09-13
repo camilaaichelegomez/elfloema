@@ -14,11 +14,13 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-lab-v3";
+const VERSION = "floema-v4";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 
-const RUTAS_BASE = ["/lab", "/lab/inventario", "/lab/formulas", "/lab/preparadas"];
+/* Dos apps instalables (el Lab y el Ritual facial) comparten este worker:
+   dos workers en el mismo scope se pisan entre sí. */
+const RUTAS_BASE = ["/lab", "/lab/inventario", "/lab/formulas", "/lab/preparadas", "/ritual-facial"];
 
 /* ── IndexedDB mínima para la cola ───────────────────────── */
 const DB_NOMBRE = "floema-lab-cola";

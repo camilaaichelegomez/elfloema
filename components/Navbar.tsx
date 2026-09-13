@@ -26,6 +26,7 @@ const NAV: NavGroup[] = [
       { href: "/agente", label: "Naturópata", hint: "Salud y bienestar" },
       { href: "/botanico", label: "Botánico", hint: "Plantas y evidencia" },
       { href: "/belleza", label: "Belleza", hint: "Rutina y tipo de piel" },
+      { href: "/ritual-facial", label: "Ritual facial", hint: "Yoga facial y drenaje linfático" },
       { href: "/formulacion", label: "Formulación", hint: "Crear tus fórmulas" },
     ],
   },

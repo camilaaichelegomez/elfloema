@@ -2422,3 +2422,36 @@ img {
 @media print {
   .lab-tabbar, .lab-mas-panel, .lab-mas-fondo { display: none !important; }
 }
+
+/* ── RITUAL FACIAL ─────────────────────────────────────────── */
+
+/* Mismo patrón que el resto de las secciones: atmósfera + velo + foto.
+   Usa el fondo de belleza hasta que haya uno propio. */
+.ritual-bg {
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(122, 74, 138, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(168, 200, 138, 0.1), transparent),
+    linear-gradient(rgba(10, 16, 10, 0.7), rgba(10, 16, 10, 0.82)),
+    url('/fondo_belleza.jpg') center top / cover fixed,
+    var(--bg-primary);
+}
+@media (max-width: 900px) {
+  .ritual-bg { background-attachment: scroll; }
+}
+
+/* La flecha se dibuja sola para que se vea hacia dónde va el recorrido: en el
+   drenaje la dirección ES el contenido. */
+.ritual-flecha {
+  stroke-dasharray: 200;
+  animation: ritualTrazo 2.6s ease-in-out infinite;
+}
+@keyframes ritualTrazo {
+  0%   { stroke-dashoffset: 200; opacity: 0.25; }
+  25%  { opacity: 1; }
+  60%  { stroke-dashoffset: 0; opacity: 1; }
+  85%  { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.25; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ritual-flecha { animation: none; stroke-dasharray: none; }
+}

@@ -28,6 +28,21 @@ export type Necesidad =
 export type Momento = "manana" | "noche";
 export type Nivel = "primera" | "practico";
 
+/* Cómo está la piel hoy. Cambia la rutina de verdad, no es decorativo: el
+   manual indica el DLM en acné y rosácea, pero la cosmetología de la
+   biblioteca deja fuera la masofilaxia (el masaje facial) en esas dos pieles.
+   Así que en acné o rosácea se drena, pero no se amasa. */
+export type EstadoPiel = "normal" | "acne" | "rosacea" | "deshidratada" | "cicatriz" | "postop";
+
+export const ESTADOS_PIEL: { id: EstadoPiel; label: string; detalle: string }[] = [
+  { id: "normal", label: "Sin novedad", detalle: "Piel tranquila hoy" },
+  { id: "deshidratada", label: "Apagada y sin tono", detalle: "Tirante, sin luz" },
+  { id: "acne", label: "Con acné activo", detalle: "Granitos, zonas inflamadas" },
+  { id: "rosacea", label: "Rosácea o muy reactiva", detalle: "Se enrojece con todo" },
+  { id: "cicatriz", label: "Con una cicatriz", detalle: "Mientras más reciente, mejor responde" },
+  { id: "postop", label: "Después de una cirugía", detalle: "Solo con permiso de tu cirujano" },
+];
+
 export const NECESIDADES: { id: Necesidad; label: string; detalle: string }[] = [
   { id: "hinchazon", label: "Cara hinchada", detalle: "Sobre todo al despertar" },
   { id: "ojeras", label: "Ojeras y bolsas", detalle: "Párpado inferior cargado" },
@@ -63,6 +78,8 @@ export type Paso = {
   prioridad: number;
   /** Presión a la mitad (párpados). */
   mediaPresion?: boolean;
+  /** Es masofilaxia (masaje), no drenaje: fuera en acné y rosácea. */
+  esMasaje?: boolean;
   fuente?: string;
 };
 
@@ -532,6 +549,7 @@ export const CATALOGO: Paso[] = [
     ],
     necesidades: ["mandibula"],
     prioridad: 1,
+    esMasaje: true,
   },
   {
     id: "ej-abrir-cerrar",
@@ -563,6 +581,7 @@ export const CATALOGO: Paso[] = [
     base: true,
     necesidades: [],
     prioridad: 0,
+    esMasaje: true,
   },
   {
     id: "cie-mandibula",
@@ -603,6 +622,7 @@ export type Rutina = {
   minutos: number;
   momento: Momento;
   nivel: Nivel;
+  estadoPiel: EstadoPiel;
 };
 
 export type Opciones = {
@@ -610,6 +630,7 @@ export type Opciones = {
   minutos: number;
   momento: Momento;
   nivel: Nivel;
+  estadoPiel: EstadoPiel;
 };
 
 const indice = new Map(CATALOGO.map((p, i) => [p.id, i]));
@@ -617,6 +638,8 @@ const indice = new Map(CATALOGO.map((p, i) => [p.id, i]));
 function aplica(p: Paso, o: Opciones) {
   if (p.soloPrimeraVez && o.nivel !== "primera") return false;
   if (p.soloMomento && p.soloMomento !== o.momento) return false;
+  // Masofilaxia fuera en acné y rosácea (cosmetología integral de la biblioteca).
+  if (p.esMasaje && (o.estadoPiel === "acne" || o.estadoPiel === "rosacea")) return false;
   return true;
 }
 
@@ -689,6 +712,7 @@ export function armarRutina(o: Opciones): Rutina {
     minutos: o.minutos,
     momento: o.momento,
     nivel: o.nivel,
+    estadoPiel: o.estadoPiel,
   };
 }
 
@@ -704,3 +728,156 @@ export function mmss(segundos: number) {
   const s = segundos % 60;
   return `${m}:${String(s).padStart(2, "0")}`;
 }
+
+
+/* ── Asesoría ────────────────────────────────────────────────
+   Lo que hay que saber antes de tocarse la cara. Todo lo que dice "el manual"
+   sale de Archiprete/Ciucci/Ferreira/Marcovecchio; lo de la masofilaxia, de la
+   cosmetología integral de la biblioteca; lo de las 20 semanas, del estudio de
+   JAMA Dermatology de 2018. */
+
+export type Aviso = { tono: "cuidado" | "nota"; texto: string };
+
+export const AVISOS_PIEL: Record<EstadoPiel, Aviso[]> = {
+  normal: [],
+  deshidratada: [
+    {
+      tono: "nota",
+      texto:
+        "El masaje facial es justamente lo indicado para una piel deshidratada y sin tono. Tómate el cierre con calma, es la parte que más te sirve.",
+    },
+  ],
+  acne: [
+    {
+      tono: "cuidado",
+      texto:
+        "Te saqué el amasado y la percusión: el masaje facial no va en acné. El drenaje sí está indicado, y mejora cómo responde la piel a los demás tratamientos.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Hazlo con la cara ya limpia, y nunca encima de lesiones que estés manipulando.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Si tienes pústulas, no drenes directo sobre la piel: pon una compresa fría con manzanilla o aloe y trabaja sobre ella.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Cuando hay inflamación, el manual concentra el trabajo en las zonas terminales: cuello, nuca y debajo del mentón.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Después queda bien una mascarilla antiinflamatoria o de arcilla, mientras no lleve nada irritante ni que estimule la circulación.",
+    },
+  ],
+  rosacea: [
+    {
+      tono: "cuidado",
+      texto:
+        "Sin amasado ni percusión: el masaje facial no va en rosácea. El drenaje sí, como refuerzo del tratamiento médico.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Con pústulas, drena sobre una compresa fría con manzanilla o aloe, no directo sobre la piel.",
+    },
+    { tono: "nota", texto: "La pauta del manual es de al menos 2 veces por semana." },
+    {
+      tono: "cuidado",
+      texto: "La rosácea necesita tratamiento médico. Esto lo acompaña, no lo reemplaza.",
+    },
+  ],
+  cicatriz: [
+    {
+      tono: "nota",
+      texto:
+        "El drenaje influye en cómo se forma la cicatriz, sobre todo si es reciente. También se obtienen resultados en cicatrices que ya no lo son.",
+    },
+    {
+      tono: "cuidado",
+      texto: "Nunca sobre una herida abierta o con puntos, salvo que te lo autorice tu médica.",
+    },
+  ],
+  postop: [
+    {
+      tono: "cuidado",
+      texto:
+        "Solo con indicación de tu cirujano. Después de un lifting, el manual recién empieza a la semana de la operación.",
+    },
+    {
+      tono: "nota",
+      texto:
+        "Pauta del manual: 2 veces por semana durante 4 semanas, y después 1 vez por semana durante 2 semanas más.",
+    },
+  ],
+};
+
+export const CONSEJOS: Record<Necesidad, { pasa: string; esperar: string; cada: string }> = {
+  hinchazon: {
+    pasa: "La linfa no tiene una bomba propia como el corazón: se mueve con la respiración y el movimiento. Al dormir acostada, el líquido se queda en la cara.",
+    esperar: "Se nota el mismo día, a los minutos. Es el efecto más inmediato de todos, y también el más pasajero.",
+    cada: "Todas las mañanas si quieres. El drenaje suave no cansa la piel.",
+  },
+  ojeras: {
+    pasa: "El párpado es de los tejidos más laxos que tenemos, y en los sitios laxos es donde el líquido se acumula primero.",
+    esperar: "La hinchazón baja el mismo día. Si tu ojera es de pigmento o es la sombra del hueso, el drenaje no la va a cambiar.",
+    cada: "A diario, siempre a media presión y con el dedo anular.",
+  },
+  mandibula: {
+    pasa: "El masetero es un músculo muy potente para su tamaño. Apretar los dientes de noche lo mantiene contraído y con el tiempo lo engrosa.",
+    esperar: "El alivio de la tensión se siente en la misma sesión. Que baje el volumen es cosa de semanas.",
+    cada: "De noche, todos los días. Es el que más rápido se agradece.",
+  },
+  frente: {
+    pasa: "Las líneas de la frente vienen de músculos que se contraen todo el día sin que te des cuenta, muchas veces por la vista o la concentración.",
+    esperar: "Lo primero que cambia es que te das cuenta de cuándo frunces. Lo demás es de meses.",
+    cada: "Día por medio alcanza.",
+  },
+  ovalo: {
+    pasa: "El contorno depende del músculo y de la grasa que hay debajo, no solo de la piel. Eso es lo que los ejercicios pueden trabajar.",
+    esperar: "Es el que más tarda. En el estudio de 2018 los cambios se vieron a las 20 semanas, y lo que más mejoró fue el volumen de las mejillas.",
+    cada: "Diario las primeras 8 semanas y después día por medio: es el protocolo del estudio.",
+  },
+  labios: {
+    pasa: "Alrededor de la boca hay un músculo en anillo. Los ejercicios buscan que recupere tono, igual que cualquier otro músculo.",
+    esperar: "Semanas. Y ojo: fruncir mucho para ejercitar puede marcar más las líneas. Por eso aquí los gestos son amplios, no apretados.",
+    cada: "Diario. Son ejercicios cortos.",
+  },
+  cuello: {
+    pasa: "El platisma es una lámina muscular delgada que va del pecho a la mandíbula, justo debajo de la piel. Por eso su tono se nota tanto desde fuera.",
+    esperar: "Semanas para el tono. La postura frente al teléfono influye más de lo que parece.",
+    cada: "Diario, junto con el drenaje del cuello.",
+  },
+};
+
+export const PAUTAS: { caso: string; frecuencia: string; fuente: string }[] = [
+  {
+    caso: "Hinchazón de todos los días",
+    frecuencia: "A diario, si te hace bien",
+    fuente: "El manual no fija pauta cosmética; el drenaje suave no tiene por qué cansar la piel",
+  },
+  {
+    caso: "Rosácea, acompañando el tratamiento médico",
+    frecuencia: "Al menos 2 veces por semana",
+    fuente: "Manual de DLM",
+  },
+  {
+    caso: "Después de una cirugía estética",
+    frecuencia: "2 veces por semana durante 4 semanas, después 1 vez por semana durante 2 semanas",
+    fuente: "Manual de DLM, siempre con indicación del cirujano",
+  },
+  {
+    caso: "Ejercicios faciales, por tono",
+    frecuencia: "30 minutos diarios durante 8 semanas, después día por medio",
+    fuente: "Protocolo del estudio de JAMA Dermatology, 2018",
+  },
+  {
+    caso: "Linfedema",
+    frecuencia: "1 a 2 veces al día durante 3 o 4 semanas",
+    fuente: "Manual de DLM. Es tratamiento médico, no cosmético",
+  },
+];

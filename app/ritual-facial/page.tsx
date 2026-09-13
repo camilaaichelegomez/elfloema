@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BackButton } from "@/components/BackButton";
 import { RitualFacial } from "@/components/ritual/RitualFacial";
+import { PAUTAS } from "@/lib/ritual-facial";
 
 /* Ritual facial: arma una rutina de drenaje linfático y ejercicios faciales
    según lo que cada persona quiera trabajar, y la guía paso a paso.
@@ -102,6 +103,37 @@ export default function RitualFacialPage() {
           </div>
         </section>
 
+        {/* ── Qué es la linfa ── */}
+        <section style={{ marginTop: "2.4rem" }}>
+          <h2 style={titulo2}>Por qué el cuello y no la cara</h2>
+          <div style={{ display: "grid", gap: "1.1rem", gridTemplateColumns: "repeat(auto-fit,minmax(17rem,1fr))" }}>
+            <article style={tarjeta}>
+              <p style={texto}>
+                Tenemos dos circulaciones. La sanguínea es un circuito <strong>cerrado</strong>: sale y
+                vuelve. La linfática es <strong>abierta</strong> — nace en el espacio que queda entre
+                las células, recoge lo que sobra y lo lleva de vuelta a la sangre.
+              </p>
+              <p style={{ ...texto, marginBottom: 0 }}>
+                No tiene una bomba como el corazón. Se mueve con la respiración, con el movimiento y,
+                si hace falta, con las manos. Por eso amaneces hinchada: pasaste ocho horas sin
+                moverte y acostada.
+              </p>
+            </article>
+            <article style={tarjeta}>
+              <p style={texto}>
+                En el cuerpo hay entre <strong>600 y 700 ganglios</strong>, y una cuarta parte de ellos
+                está en la parte de arriba: la cabeza y sobre todo el cuello.
+              </p>
+              <p style={texto}>
+                Los ganglios filtran la linfa, guardan una parte y producen linfocitos, que son
+                defensa. Eso explica dos cosas de la rutina: por qué todo termina bajando al cuello, y
+                por qué un ganglio que se palpa es señal de inflamación y no se toca.
+              </p>
+              <p style={{ ...fuente, margin: 0 }}>Manual de DLM de la biblioteca, capítulos 1 y 2</p>
+            </article>
+          </div>
+        </section>
+
         {/* ── Las tres reglas del manual ── */}
         <section style={{ marginTop: "2.4rem" }}>
           <h2 style={titulo2}>Las tres reglas que no se rompen</h2>
@@ -123,6 +155,78 @@ export default function RitualFacialPage() {
               <li key={t} style={{ ...tarjeta, padding: "0.9rem 1.1rem" }}>
                 <p style={{ ...texto, color: "#e8c878", marginBottom: "0.3rem" }}>{t}</p>
                 <p style={{ ...texto, margin: 0 }}>{d}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* ── Cada cuánto ── */}
+        <section style={{ marginTop: "2.4rem" }}>
+          <h2 style={titulo2}>Cada cuánto, según para qué</h2>
+          <p style={{ ...texto, maxWidth: "62ch" }}>
+            El drenaje cosmético no tiene una pauta fija en el manual, pero sí la tienen los casos
+            clínicos. Sirven de referencia para entender el orden de magnitud: esto no es cosa de una
+            sesión.
+          </p>
+          <div style={{ overflowX: "auto", border: "1px solid rgba(200,160,80,0.2)", borderRadius: 8 }}>
+            <table style={{ borderCollapse: "collapse", width: "100%", minWidth: 520 }}>
+              <thead>
+                <tr>
+                  {["Para qué", "Cada cuánto", "De dónde sale"].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        textAlign: "left",
+                        fontFamily: "var(--font-grimoire)",
+                        fontSize: "0.58rem",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "#c8a050",
+                        padding: "0.7rem 0.9rem",
+                        background: "rgba(200,160,80,0.07)",
+                        borderBottom: "1px solid rgba(200,160,80,0.2)",
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {PAUTAS.map((p) => (
+                  <tr key={p.caso}>
+                    <td style={{ ...celda, color: "#e8c878" }}>{p.caso}</td>
+                    <td style={celda}>{p.frecuencia}</td>
+                    <td style={{ ...celda, opacity: 0.62, fontStyle: "italic" }}>{p.fuente}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Dónde encaja ── */}
+        <section style={{ marginTop: "2.4rem" }}>
+          <h2 style={titulo2}>Dónde encaja en tu rutina de cuidado</h2>
+          <p style={{ ...texto, maxWidth: "62ch" }}>
+            El orden de la cosmetología de la biblioteca, con el ritual metido donde corresponde:
+          </p>
+          <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: "0.5rem" }}>
+            {[
+              ["Limpieza", "Primero la cara limpia. El drenaje sobre maquillaje no tiene sentido."],
+              ["El ritual", "Con unas gotas de aceite para que los dedos resbalen sin tironear."],
+              ["Los activos", "Del más acuoso al más pesado. El aceite del ritual ya es una capa: tenlo en cuenta."],
+              ["La mascarilla", "Si toca ese día, de 10 a 20 minutos. Sella lo que pusiste antes."],
+              ["Protector solar", "De día, siempre, y es lo último."],
+            ].map(([t, d], i) => (
+              <li key={t} style={{ ...tarjeta, padding: "0.8rem 1rem", display: "flex", gap: "0.9rem" }}>
+                <span style={{ fontFamily: "var(--font-grimoire)", color: "rgba(200,160,80,0.7)", fontSize: "0.8rem" }}>
+                  {i + 1}
+                </span>
+                <span>
+                  <span style={{ ...texto, color: "#e8c878", display: "block", margin: 0 }}>{t}</span>
+                  <span style={{ ...texto, display: "block", margin: 0 }}>{d}</span>
+                </span>
               </li>
             ))}
           </ol>
@@ -205,6 +309,15 @@ const texto = {
   lineHeight: 1.65,
   color: "rgba(217,203,170,0.82)",
   margin: "0 0 0.7rem",
+};
+const celda = {
+  fontFamily: "var(--font-crimson), serif",
+  fontSize: "0.92rem",
+  lineHeight: 1.5,
+  color: "rgba(217,203,170,0.82)",
+  padding: "0.75rem 0.9rem",
+  borderBottom: "1px solid rgba(200,160,80,0.1)",
+  verticalAlign: "top" as const,
 };
 const fuente = {
   fontFamily: "var(--font-crimson), serif",

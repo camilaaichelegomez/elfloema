@@ -3,12 +3,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import {
+  AVISOS_PIEL,
   CATALOGO,
+  CONSEJOS,
+  ESTADOS_PIEL,
   ETIQUETA_FASE,
   MINUTOS,
   NECESIDADES,
   armarRutina,
   mmss,
+  type EstadoPiel,
   type Fase,
   type Momento,
   type Necesidad,
@@ -34,6 +38,7 @@ type Guardado = {
   minutos: number;
   momento: Momento;
   nivel: Nivel;
+  estadoPiel: EstadoPiel;
   racha: number;
   ultimoDia: string;
 };
@@ -109,6 +114,7 @@ export function RitualFacial() {
   const [minutos, setMinutos] = useState<number>(10);
   const [momento, setMomento] = useState<Momento>("manana");
   const [nivel, setNivel] = useState<Nivel>("primera");
+  const [estadoPiel, setEstadoPiel] = useState<EstadoPiel>("normal");
   const [rutina, setRutina] = useState<Rutina | null>(null);
 
   const [indice, setIndice] = useState(0);
@@ -128,6 +134,7 @@ export function RitualFacial() {
     setMinutos(g.minutos ?? 10);
     setMomento(g.momento ?? "manana");
     setNivel(g.nivel === "primera" ? "practico" : g.nivel ?? "practico");
+    setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
   }, []);
 
@@ -182,8 +189,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, nivel, racha: nueva, ultimoDia: hoy() });
-  }, [etapa, necesidades, minutos, momento, nivel]);
+    guardar({ necesidades, minutos, momento, nivel, estadoPiel, racha: nueva, ultimoDia: hoy() });
+  }, [etapa, necesidades, minutos, momento, nivel, estadoPiel]);
 
   const porFase = useMemo(() => {
     if (!rutina) return [];
@@ -198,7 +205,7 @@ export function RitualFacial() {
   }
 
   function armar() {
-    const r = armarRutina({ necesidades, minutos, momento, nivel });
+    const r = armarRutina({ necesidades, minutos, momento, nivel, estadoPiel });
     setRutina(r);
     setIndice(0);
     setRestante(r.pasos[0]?.segundos ?? 0);
@@ -309,6 +316,34 @@ export function RitualFacial() {
           )}
         </div>
 
+        <p style={paso}>5 · ¿Cómo está tu piel hoy?</p>
+        <p style={ayuda}>
+          No es un detalle: en acné y en rosácea el drenaje está indicado, pero el masaje facial no.
+          Según lo que marques, saco o dejo pasos.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.8rem" }}>
+          {ESTADOS_PIEL.map((e) => {
+            const activo = estadoPiel === e.id;
+            return (
+              <button
+                key={e.id}
+                type="button"
+                onClick={() => setEstadoPiel(e.id)}
+                aria-pressed={activo}
+                style={{
+                  ...chip,
+                  borderColor: activo ? "#e8c878" : "rgba(200,160,80,0.28)",
+                  background: activo ? "rgba(200,160,80,0.16)" : "rgba(13,26,13,0.5)",
+                  color: activo ? "#e8c878" : "#d4c4a0",
+                }}
+              >
+                <span style={{ fontSize: "0.94rem", display: "block" }}>{e.label}</span>
+                <span style={{ fontSize: "0.78rem", opacity: 0.6, display: "block" }}>{e.detalle}</span>
+              </button>
+            );
+          })}
+        </div>
+
         <button
           type="button"
           onClick={armar}
@@ -347,7 +382,56 @@ export function RitualFacial() {
           </button>
         </div>
 
-        <div style={{ marginTop: "1.4rem", display: "grid", gap: "1.4rem" }}>
+        {/* Lo que hay que saber antes de tocarse la cara */}
+        {AVISOS_PIEL[estadoPiel].length > 0 && (
+          <div style={{ marginTop: "1.3rem", display: "grid", gap: "0.5rem" }}>
+            {AVISOS_PIEL[estadoPiel].map((a, i) => (
+              <p
+                key={i}
+                style={{
+                  fontFamily: "var(--font-crimson), serif",
+                  fontSize: "0.93rem",
+                  lineHeight: 1.55,
+                  margin: 0,
+                  padding: "0.6rem 0.8rem",
+                  borderRadius: 5,
+                  border: `1px solid ${a.tono === "cuidado" ? "rgba(221,148,100,0.34)" : "rgba(200,160,80,0.2)"}`,
+                  background: a.tono === "cuidado" ? "rgba(221,148,100,0.08)" : "rgba(200,160,80,0.05)",
+                  color: a.tono === "cuidado" ? "#dd9464" : "rgba(217,203,170,0.82)",
+                }}
+              >
+                {a.texto}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {/* Asesoría: qué pasa, qué esperar y cada cuánto, por cada cosa elegida */}
+        {necesidades.length > 0 && (
+          <div style={{ marginTop: "1.5rem", display: "grid", gap: "0.7rem" }}>
+            <p style={rotulo}>Lo que elegiste</p>
+            {necesidades.map((n) => {
+              const c = CONSEJOS[n];
+              const label = NECESIDADES.find((x) => x.id === n)?.label ?? n;
+              return (
+                <div key={n} style={{ ...fila, display: "block" }}>
+                  <p style={{ ...ayuda, color: "#e8c878", margin: "0 0 0.35rem", fontSize: "0.98rem" }}>{label}</p>
+                  <p style={{ ...ayuda, margin: "0 0 0.4rem" }}>{c.pasa}</p>
+                  <p style={{ ...ayuda, margin: "0 0 0.4rem" }}>
+                    <span style={{ color: "rgba(168,200,138,0.9)" }}>Qué esperar: </span>
+                    {c.esperar}
+                  </p>
+                  <p style={{ ...ayuda, margin: 0 }}>
+                    <span style={{ color: "rgba(168,200,138,0.9)" }}>Cada cuánto: </span>
+                    {c.cada}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div style={{ marginTop: "1.6rem", display: "grid", gap: "1.4rem" }}>
           {porFase.map(({ fase, pasos }) => (
             <div key={fase}>
               <p style={rotulo}>

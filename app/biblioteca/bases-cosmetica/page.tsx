@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackButton } from "@/components/BackButton";
 import { FiguraLibro } from "@/components/biblioteca/FiguraLibro";
+import { llevarLaVistaAlAbrir } from "@/lib/llevar-la-vista";
 
 // ── Grain overlay ─────────────────────────────────────────────────────────────
 function GrainOverlay() {
@@ -88,7 +89,7 @@ function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) 
       }}
     >
       <button
-        onClick={(e) => { const el = e.currentTarget as HTMLElement; const abrir = !open; onToggle(); if (abrir) setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }), 400); }}
+        onClick={(e) => { const el = e.currentTarget as HTMLElement; const abrir = !open; onToggle(); if (abrir) llevarLaVistaAlAbrir(el); }}
         style={{
           width: "100%",
           display: "flex",

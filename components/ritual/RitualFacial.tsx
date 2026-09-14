@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { llevarLaVista } from "@/lib/llevar-la-vista";
 import Link from "next/link";
 import {
   AVISOS_PIEL,
@@ -125,6 +126,20 @@ export function RitualFacial() {
 
   const pitar = usarPitido(sonido);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
+  /* Al cambiar de etapa el contenido se reemplaza entero, pero el navegador
+     deja el scroll donde estaba: el botón «Armar mi rutina» está abajo del
+     cuestionario, así que la rutina aparecía arriba de donde quedó la persona.
+     Esto la lleva al principio de lo nuevo. */
+  const panelRef = useRef<HTMLDivElement>(null);
+  const yaMontado = useRef(false);
+
+  useEffect(() => {
+    if (!yaMontado.current) {
+      yaMontado.current = true; // al cargar la página no se mueve nada
+      return;
+    }
+    llevarLaVista(panelRef.current);
+  }, [etapa]);
 
   // Recupera la última elección y la racha.
   useEffect(() => {
@@ -237,7 +252,7 @@ export function RitualFacial() {
   // ── Elección ───────────────────────────────────────────────
   if (etapa === "eleccion") {
     return (
-      <div style={panel}>
+      <div ref={panelRef} style={panel}>
         <p style={paso}>1 · ¿Qué quieres trabajar?</p>
         <p style={ayuda}>Elige todo lo que aplique. Puedes marcar una sola cosa.</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.6rem" }}>
@@ -369,7 +384,7 @@ export function RitualFacial() {
   // ── Rutina armada ──────────────────────────────────────────
   if (etapa === "rutina" && rutina) {
     return (
-      <div style={panel}>
+      <div ref={panelRef} style={panel}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", flexWrap: "wrap" }}>
           <div>
             <p style={{ ...paso, marginBottom: "0.2rem" }}>Tu rutina</p>
@@ -489,7 +504,7 @@ export function RitualFacial() {
     const perimetro = 2 * Math.PI * 52;
 
     return (
-      <div style={{ ...panel, textAlign: "center" }}>
+      <div ref={panelRef} style={{ ...panel, textAlign: "center" }}>
         {/* Progreso general */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1.2rem" }}>
           <span style={{ ...rotulo, margin: 0, flexShrink: 0 }}>
@@ -641,7 +656,7 @@ export function RitualFacial() {
 
   // ── Final ──────────────────────────────────────────────────
   return (
-    <div style={{ ...panel, textAlign: "center" }}>
+    <div ref={panelRef} style={{ ...panel, textAlign: "center" }}>
       <p style={rotulo}>Terminaste</p>
       <h2
         style={{

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { llevarLaVista } from "@/lib/llevar-la-vista";
 import {
   TAMANOS,
   HOJAS,
@@ -151,6 +152,7 @@ export function GeneradorEtiquetas() {
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [seSalen, setSeSalen] = useState(false);
 
+  const editorRef = useRef<HTMLDivElement>(null);
   const hojaRef = useRef<HTMLDivElement>(null);
   const rejillaRef = useRef<HTMLDivElement>(null);
 
@@ -238,7 +240,7 @@ export function GeneradorEtiquetas() {
     setDatos(e.datos);
     setTamanoId(TAMANOS.find((t) => t.ancho === e.ancho && t.alto === e.alto)?.id ?? "personalizado");
     setEditandoId(e.id);
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    llevarLaVista(editorRef.current); // al editor, no al tope de la página
   }
 
   const acotar = (n: number) => Math.max(1, Math.min(200, n || 1));
@@ -397,7 +399,7 @@ export function GeneradorEtiquetas() {
       </div>
 
       {/* ── Una sola etiqueta, grande, mientras se edita ── */}
-      <div className="no-print" style={{ ...panel, textAlign: "center" }}>
+      <div ref={editorRef} className="no-print" style={{ ...panel, textAlign: "center" }}>
         <p style={{ ...lbl, textAlign: "left" }}>
           {editandoId ? "Editando una etiqueta de la hoja" : "Así se verá tu etiqueta"}
         </p>

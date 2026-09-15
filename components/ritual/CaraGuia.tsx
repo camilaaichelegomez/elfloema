@@ -35,8 +35,9 @@ type Marca =
   | { t: "flecha"; d: string; n?: number }
   /** Dónde se apoyan los dedos y se hacen los círculos fijos, sin avanzar. */
   | { t: "puntos"; p: [number, number][] }
-  /** Yemas de los dedos: dónde se pone la mano (resistencia, amasado). */
-  | { t: "dedos"; p: [number, number][] }
+  /** La mano haciendo la maniobra: `p` es la yema del dedo del medio, `ang`
+   *  hacia dónde apuntan los dedos (0 arriba, 90 a la derecha) y `n` cuántos. */
+  | { t: "mano"; p: [number, number]; ang: number; n?: number }
   /** Músculo que trabaja. Relleno suave, sin borde punteado. */
   | { t: "zona"; d: string }
   /** Aro de atención: párpados, articulación. */
@@ -130,7 +131,10 @@ function Boca({ tipo = "neutra" }: { tipo?: Gesto["boca"] }) {
         <>
           <path d="M 92 148 Q 110 142 128 148" />
           <path d="M 92 148 Q 110 172 128 148 Z" />
-          <path d="M 99 153 L 121 153" opacity="0.5" />
+            <path d="M 99 153 L 121 153" opacity="0.5" />
+          {/* las cuerdas que saltan en el cuello al hacer el gesto */}
+          <path d="M 94 196 C 92 214 92 228 94 240" opacity="0.65" />
+          <path d="M 126 196 C 128 214 128 228 126 240" opacity="0.65" />
         </>
       );
     default:
@@ -216,11 +220,13 @@ function Antebrazo() {
   return (
     <g fill="none" stroke={TRAZO} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       {/* brazo: del codo abajo a la izquierda, a la muñeca arriba a la derecha */}
-      <path d="M 34 262 C 50 246 96 190 120 158 L 148 176 C 124 210 76 266 60 282 C 52 292 36 290 30 280 C 26 272 28 268 34 262 Z" />
-      {/* muñeca */}
-      <path d="M 120 158 L 148 176" opacity="0.55" />
-      {/* mano insinuada */}
-      <path d="M 120 158 C 126 140 144 130 158 138 C 172 147 168 166 148 176" />
+      {/* antebrazo acostado: el codo a la izquierda, la muñeca y la mano a la derecha */}
+      <path d="M 30 196 C 26 178 34 166 52 164 L 140 168 L 140 232 L 52 236 C 34 234 26 222 30 204 Z" />
+      {/* pliegue de la muñeca */}
+      <path d="M 140 172 L 140 228" opacity="0.5" />
+      {/* mano cerrada, solo insinuada */}
+      <path d="M 140 168 C 164 166 186 176 188 198 C 190 220 166 232 140 232" />
+      <path d="M 166 174 C 172 184 172 214 166 226" opacity="0.5" />
     </g>
   );
 }
@@ -244,10 +250,22 @@ const MARCAS: Record<string, Guia> = {
   "prep-presion": {
     vista: "antebrazo",
     marcas: [
-      { t: "dedos", p: [[80, 224], [94, 208]] },
+      { t: "mano", p: [88, 214], ang: 38, n: 2 },
       { t: "aro", c: [87, 216], r: 26 },
       { t: "nota", xy: [110, 84], texto: "55 g · como un huevo" },
       { t: "flecha", d: "M 66 168 L 78 198" },
+    ],
+  },
+
+  /* El círculo fijo es la maniobra base de todo el drenaje. Se dibuja grande,
+     sin espejar, con la mano y la vuelta que da el círculo. */
+  "prep-circulo": {
+    marcas: [
+      { t: "mano", p: [84, 128], ang: 20, n: 2 },
+      { t: "aro", c: [84, 128], r: 17 },
+      { t: "flecha", d: "M 96 118 A 16 16 0 1 1 74 116" },
+      { t: "nota", xy: [110, 214], texto: "la piel gira, el dedo no resbala" },
+      { t: "nota", xy: [110, 230], texto: "el giro va hacia el meñique" },
     ],
   },
 
@@ -255,15 +273,16 @@ const MARCAS: Record<string, Guia> = {
   /* La respiración no se ve. Lo que sí se ve es el pecho subiendo: dos flechas
      grandes sobre las costillas, no dos rayitas en la clavícula. */
   "dre-respirar": {
-    simetrico: true,
     marcas: [
-      { t: "flecha", d: "M 92 292 Q 86 278 92 262" },
-      { t: "nota", xy: [110, 232], texto: "5 respiraciones" },
+      { t: "mano", p: [96, 272], ang: 118, n: 3 },
+      { t: "flecha", d: "M 132 292 Q 126 276 132 258" },
+      { t: "nota", xy: [110, 240], texto: "5 respiraciones lentas" },
     ],
   },
   "dre-apertura": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [104, 250], ang: -18, n: 1 },
       { t: "puntos", p: [[110, 254]] },
       { t: "flecha", d: "M 106 252 Q 84 248 58 252" },
     ],
@@ -271,6 +290,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-cadena-cuello": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [82, 196], ang: 12, n: 2 },
       { t: "puntos", p: [[82, 192], [79, 210], [76, 228], [73, 246]] },
       { t: "flecha", d: "M 88 190 Q 80 218 76 250" },
     ],
@@ -288,6 +308,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-menton": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [104, 192], ang: 10, n: 2 },
       { t: "puntos", p: [[104, 190], [88, 184], [70, 168], [56, 146]] },
       { t: "flecha", d: "M 108 192 Q 78 184 52 142", n: 1 },
       { t: "flecha", d: "M 52 146 Q 62 196 74 248", n: 2 },
@@ -298,6 +319,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-orejas": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [47, 112], ang: 16, n: 2 },
       { t: "puntos", p: [[56, 112], [38, 112]] },
       { t: "nota", xy: [58, 88], texto: "delante y detrás" },
       { t: "flecha", d: "M 44 130 Q 58 190 74 248" },
@@ -306,6 +328,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-hombros": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [40, 264], ang: 62, n: 3 },
       { t: "puntos", p: [[34, 266], [56, 258], [78, 250]] },
       { t: "flecha", d: "M 32 266 Q 66 254 100 248" },
     ],
@@ -315,6 +338,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-roce-rostro": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [84, 142], ang: -90, n: 3 },
       { t: "flecha", d: "M 106 160 L 72 158" },
       { t: "flecha", d: "M 106 144 L 74 142" },
       { t: "flecha", d: "M 106 124 L 80 122" },
@@ -324,6 +348,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-labios": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [99, 172], ang: 44, n: 2 },
       { t: "puntos", p: [[104, 160], [90, 162], [76, 158]] },
       { t: "flecha", d: "M 106 160 Q 88 166 68 156", n: 1 },
       { t: "flecha", d: "M 68 158 Q 66 204 72 248", n: 2 },
@@ -332,6 +357,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-nariz": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [100, 114], ang: 6, n: 1 },
       { t: "puntos", p: [[101, 98], [99, 112], [99, 126]] },
       { t: "flecha", d: "M 98 128 Q 90 136 80 138" },
     ],
@@ -341,6 +367,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-viaje-largo": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [82, 118], ang: 12, n: 2 },
       { t: "flecha", d: "M 82 116 Q 92 142 100 160", n: 1 },
       { t: "flecha", d: "M 100 162 Q 105 178 107 190", n: 2 },
       { t: "flecha", d: "M 107 192 Q 78 184 54 144", n: 3 },
@@ -353,6 +380,7 @@ const MARCAS: Record<string, Guia> = {
     simetrico: true,
     gesto: { ojos: "cerrados" },
     marcas: [
+      { t: "mano", p: [100, 108], ang: 16, n: 1 },
       { t: "puntos", p: [[100, 106], [88, 113], [76, 112], [66, 104]] },
       { t: "flecha", d: "M 101 106 Q 84 118 64 102" },
       { t: "nota", xy: [110, 84], texto: "media presión" },
@@ -361,13 +389,16 @@ const MARCAS: Record<string, Guia> = {
   "dre-cejas": {
     simetrico: true,
     marcas: [
-      { t: "puntos", p: [[99, 84], [86, 78], [71, 83]] },
+      { t: "mano", p: [86, 74], ang: 180, n: 1 },
+      { t: "mano", p: [86, 92], ang: 0, n: 1 },
+      { t: "nota", xy: [110, 210], texto: "una pinza blanda, sin tirar" },
       { t: "flecha", d: "M 101 85 Q 86 76 66 83" },
     ],
   },
   "dre-frente": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [96, 64], ang: 4, n: 3 },
       { t: "puntos", p: [[104, 62], [88, 64], [70, 74]] },
       { t: "flecha", d: "M 107 62 Q 82 64 54 94" },
     ],
@@ -375,6 +406,7 @@ const MARCAS: Record<string, Guia> = {
   "dre-cierre": {
     simetrico: true,
     marcas: [
+      { t: "mano", p: [54, 118], ang: 14, n: 2 },
       { t: "puntos", p: [[54, 116], [66, 152], [78, 182]] },
       { t: "flecha", d: "M 54 116 Q 68 152 86 184", n: 1 },
       { t: "flecha", d: "M 86 186 Q 78 216 74 250", n: 2 },
@@ -394,7 +426,7 @@ const MARCAS: Record<string, Guia> = {
     gesto: { boca: "sonrisa", mejillas: "elevadas" },
     marcas: [
       { t: "zona", d: "M 60 114 Q 84 106 102 122 Q 92 148 66 142 Z" },
-      { t: "dedos", p: [[72, 118], [88, 122]] },
+      { t: "mano", p: [80, 122], ang: 18, n: 2 },
       { t: "flecha", d: "M 80 106 L 80 116" },
     ],
   },
@@ -411,7 +443,7 @@ const MARCAS: Record<string, Guia> = {
     gesto: { cejas: "arriba" },
     marcas: [
       { t: "zona", d: "M 62 46 Q 90 36 110 42 L 110 70 Q 86 64 64 72 Z" },
-      { t: "dedos", p: [[78, 76], [96, 72]] },
+      { t: "mano", p: [87, 76], ang: 6, n: 3 },
       { t: "flecha", d: "M 87 70 L 87 54" },
       { t: "nota", xy: [110, 214], texto: "los dedos no dejan subir" },
     ],
@@ -420,7 +452,8 @@ const MARCAS: Record<string, Guia> = {
     gesto: { cejas: "fruncidas" },
     marcas: [
       { t: "zona", d: "M 102 76 Q 110 72 118 76 L 118 92 Q 110 88 102 92 Z" },
-      { t: "dedos", p: [[96, 82], [124, 82]] },
+      { t: "mano", p: [96, 84], ang: 28 },
+      { t: "mano", p: [124, 84], ang: -28 },
       { t: "flecha", d: "M 96 82 L 84 80" },
       { t: "flecha", d: "M 124 82 L 136 80" },
       { t: "nota", xy: [110, 214], texto: "separan mientras frunces" },
@@ -430,7 +463,8 @@ const MARCAS: Record<string, Guia> = {
     simetrico: true,
     gesto: { ojos: "entrecerrados" },
     marcas: [
-      { t: "dedos", p: [[64, 100], [102, 102]] },
+      { t: "mano", p: [64, 102], ang: 22, n: 1 },
+      { t: "mano", p: [102, 104], ang: 14, n: 1 },
       { t: "flecha", d: "M 86 116 L 86 106" },
       { t: "nota", xy: [110, 214], texto: "sube solo el párpado de abajo" },
     ],
@@ -475,14 +509,15 @@ const MARCAS: Record<string, Guia> = {
     gesto: { boca: "labio-abajo" },
     marcas: [
       { t: "zona", d: "M 84 194 Q 98 188 108 194 L 108 240 Q 94 246 86 240 Z" },
-      { t: "nota", xy: [110, 272], texto: "se marcan las cuerdas" },
+      { t: "flecha", d: "M 92 160 L 88 178" },
+      { t: "nota", xy: [110, 272], texto: "se marcan las cuerdas del cuello" },
     ],
   },
   "ej-masetero": {
     simetrico: true,
     marcas: [
       { t: "zona", d: "M 52 116 Q 68 112 74 130 Q 70 158 54 150 Z" },
-      { t: "dedos", p: [[62, 132]] },
+      { t: "mano", p: [62, 134], ang: 20, n: 2 },
       { t: "flecha", d: "M 54 126 Q 74 128 72 142 Q 56 146 56 132" },
       { t: "nota", xy: [110, 214], texto: "amasa con los nudillos" },
     ],
@@ -521,6 +556,48 @@ const MARCAS: Record<string, Guia> = {
 };
 
 // ── Dibujo de las marcas ──────────────────────────────────────────────────────
+
+/* Un dedo: la yema en (x, y) y el resto del dedo saliendo hacia atrás. Se
+   dibuja apuntando hacia arriba y después se gira, que es más fácil de ajustar
+   que calcular cada curva a mano. */
+function Dedo({ x, y, ang, largo = 30 }: { x: number; y: number; ang: number; largo?: number }) {
+  return (
+    <g transform={`rotate(${ang} ${x} ${y})`}>
+      <path
+        d={`M ${x - 5} ${y + largo} L ${x - 5} ${y + 5.4} A 5 5 0 0 1 ${x + 5} ${y + 5.4} L ${x + 5} ${y + largo}`}
+        fill="rgba(232,200,120,0.18)"
+        stroke={ORO_CLARO}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      {/* la uña, que es lo que hace que se lea como un dedo y no como un palo */}
+      <path
+        d={`M ${x - 2.8} ${y + 4} A 3.2 3.2 0 0 1 ${x + 2.8} ${y + 4}`}
+        fill="none"
+        stroke={ORO_CLARO}
+        strokeWidth="1.2"
+        opacity="0.8"
+      />
+    </g>
+  );
+}
+
+/** Varios dedos juntos, repartidos a lo ancho de la dirección en que apuntan. */
+function Mano({ p, ang, n = 2 }: { p: [number, number]; ang: number; n?: number }) {
+  const rad = (ang * Math.PI) / 180;
+  // perpendicular a la dirección de los dedos
+  const px = Math.cos(rad);
+  const py = Math.sin(rad);
+  const sep = 10.5;
+  return (
+    <>
+      {Array.from({ length: n }).map((_, i) => {
+        const d = (i - (n - 1) / 2) * sep;
+        return <Dedo key={i} x={p[0] + px * d} y={p[1] + py * d} ang={ang} largo={n > 2 ? 28 : 30} />;
+      })}
+    </>
+  );
+}
 
 /** Punto medio aproximado de un trazo, para colgarle el número de orden. */
 function inicioDe(d: string): [number, number] {
@@ -572,18 +649,8 @@ function Marcas({ marcas, animar }: { marcas: Marca[]; animar: boolean }) {
           );
         }
 
-        if (m.t === "dedos") {
-          // Yema: una elipse con su uña. Se distingue de los puntos de presión.
-          return (
-            <g key={i}>
-              {m.p.map(([x, y], j) => (
-                <g key={j}>
-                  <ellipse cx={x} cy={y} rx="5.6" ry="7" fill="rgba(232,200,120,0.3)" stroke={ORO_CLARO} strokeWidth="1.3" />
-                  <path d={`M ${x - 2.6} ${y - 2.4} Q ${x} ${y - 4.6} ${x + 2.6} ${y - 2.4}`} fill="none" stroke={ORO_CLARO} strokeWidth="1.1" opacity="0.85" />
-                </g>
-              ))}
-            </g>
-          );
+        if (m.t === "mano") {
+          return <Mano key={i} p={m.p} ang={m.ang} n={m.n} />;
         }
 
         if (m.t === "puntos") {

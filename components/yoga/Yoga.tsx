@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { armarRutina, enBloques, porFase, type Rutina } from "@/lib/yoga/armar";
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
+import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import {
   CUIDADOS,
   ESTILOS,
@@ -133,6 +134,7 @@ export function Yoga() {
   const [segundoLado, setSegundoLado] = useState(false);
 
   const pitar = usarPitido(prefs.sonido);
+  const { decir, callar, desbloquear } = usarVoz(prefs.voz);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   const cajaRef = useRef<HTMLDivElement | null>(null);
   const primeraVista = useRef(true);
@@ -196,6 +198,37 @@ export function Yoga() {
     return () => clearInterval(id);
   }, [corriendo, indice, rutina, pasoActual, pitar]);
 
+  /* La voz dice la postura al entrar en ella. Cuánto dice depende del caso:
+     en una serie que se repite, a la segunda vuelta ya no hace falta repetir
+     las instrucciones completas — molesta más de lo que ayuda. */
+  useEffect(() => {
+    if (etapa !== "guiado" || !pasoActual || !corriendo) return;
+    const enVuelta = pasoActual.secuencia?.vuelta ?? 1;
+    const partes: string[] = [pasoActual.nombre];
+    if (pasoActual.secuencia?.lado) partes.push(`lado ${pasoActual.secuencia.lado}`);
+    else if (pasoActual.porLado) partes.push("Empieza por un lado");
+
+    if (enVuelta === 1) {
+      const lineas = pasoActual.duracion < 20 ? pasoActual.como.slice(0, 1) : pasoActual.como;
+      partes.push(...lineas);
+      if (pasoActual.cuidado) partes.push(pasoActual.cuidado);
+    }
+    decir(unirFrases(partes));
+    // Solo cuando cambia el paso: no hay que releer al pausar y seguir.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indice, etapa]);
+
+  // Avisa el cambio de lado sin que haya que mirar la pantalla.
+  useEffect(() => {
+    if (etapa !== "guiado" || !segundoLado) return;
+    decir("Cambia de lado");
+  }, [segundoLado, etapa, decir]);
+
+  // Al pausar o salir, se calla.
+  useEffect(() => {
+    if (!corriendo) callar();
+  }, [corriendo, callar]);
+
   // Que no se apague la pantalla a mitad de la práctica.
   useEffect(() => {
     type ConWakeLock = Navigator & {
@@ -254,6 +287,7 @@ export function Yoga() {
 
   function empezar() {
     if (!rutina) return;
+    desbloquear();
     setIndice(0);
     setSegundoLado(false);
     setRestante(rutina.pasos[0]?.duracion ?? 0);
@@ -491,6 +525,16 @@ export function Yoga() {
             >
               {prefs.sonido ? "Con sonido" : "Sin sonido"}
             </button>
+            {hayVoz() && (
+              <button
+                type="button"
+                onClick={() => setPrefs({ ...prefs, voz: !prefs.voz })}
+                aria-pressed={prefs.voz}
+                style={{ ...chip, ...(prefs.voz ? chipActivo : null) }}
+              >
+                {prefs.voz ? "Con voz que guía" : "Sin voz"}
+              </button>
+            )}
           </div>
         </Pregunta>
 

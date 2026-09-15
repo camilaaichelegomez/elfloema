@@ -454,6 +454,9 @@ export type Preferencias = {
   meditacion: boolean;
   /** Avisos sonoros al cambiar de postura. */
   sonido: boolean;
+  /** Una voz va diciendo la postura y sus instrucciones. Con las manos
+      ocupadas y los ojos cerrados, es la unica forma de seguir la practica. */
+  voz: boolean;
   /** Segundos extra o de menos sobre lo calculado, por si va muy rápido. */
   ritmo: "pausado" | "normal" | "ligero";
 };
@@ -471,6 +474,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   respiracion: true,
   meditacion: false,
   sonido: true,
+  voz: true,
   ritmo: "normal",
 };
 

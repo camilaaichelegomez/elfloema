@@ -27,7 +27,33 @@ type Opciones = {
   enCola?: boolean;
 };
 
-export function usarVoz(activa: boolean) {
+/* Qué tan buena suena una voz, para ordenarlas. No todas las del sistema son
+   iguales: las de Google y las de Siri son de las que suenan naturales, y las
+   antiguas de Microsoft son las que suenan a robot de los noventa. Como no hay
+   forma de preguntarle eso al navegador, se ordena por el nombre. */
+function calidad(v: SpeechSynthesisVoice) {
+  const nombre = v.name.toLowerCase();
+  let puntos = 0;
+  if (/google/.test(nombre)) puntos += 5;
+  if (/siri/.test(nombre)) puntos += 5;
+  if (/natural|neural|premium|enhanced|mejorada/.test(nombre)) puntos += 4;
+  if (/microsoft/.test(nombre)) puntos -= 1;
+  // Acento: primero el de acá, después el resto de América.
+  if (/es[-_]CL/i.test(v.lang)) puntos += 3;
+  else if (/es[-_](MX|AR|US|CO|PE)/i.test(v.lang)) puntos += 2;
+  return puntos;
+}
+
+/** Las voces en español que tiene este dispositivo, de la que mejor suena a la peor. */
+export function vocesEnEspanol(): SpeechSynthesisVoice[] {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return [];
+  return window.speechSynthesis
+    .getVoices()
+    .filter((v) => v.lang.toLowerCase().startsWith("es"))
+    .sort((a, b) => calidad(b) - calidad(a));
+}
+
+export function usarVoz(activa: boolean, nombreElegido?: string) {
   const vozRef = useRef<SpeechSynthesisVoice | null>(null);
 
   // Las voces llegan tarde en varios navegadores: hay que esperar el aviso.
@@ -35,21 +61,16 @@ export function usarVoz(activa: boolean) {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
 
     const elegir = () => {
-      const voces = window.speechSynthesis.getVoices();
-      if (voces.length === 0) return;
-      const enEspanol = voces.filter((v) => v.lang.toLowerCase().startsWith("es"));
-      // Preferimos español de Chile, después cualquier americano, después el que haya.
+      const enEspanol = vocesEnEspanol();
+      if (enEspanol.length === 0) return;
       vozRef.current =
-        enEspanol.find((v) => /es[-_]CL/i.test(v.lang)) ??
-        enEspanol.find((v) => /es[-_](MX|AR|US|CO|PE)/i.test(v.lang)) ??
-        enEspanol[0] ??
-        null;
+        (nombreElegido && enEspanol.find((v) => v.name === nombreElegido)) || enEspanol[0];
     };
 
     elegir();
     window.speechSynthesis.addEventListener("voiceschanged", elegir);
     return () => window.speechSynthesis.removeEventListener("voiceschanged", elegir);
-  }, []);
+  }, [nombreElegido]);
 
   const callar = useCallback(() => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
@@ -61,13 +82,26 @@ export function usarVoz(activa: boolean) {
       if (!activa || !texto) return;
       if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
       try {
-        if (!enCola) window.speechSynthesis.cancel();
-        const frase = new SpeechSynthesisUtterance(texto);
-        if (vozRef.current) frase.voice = vozRef.current;
-        frase.lang = vozRef.current?.lang ?? "es-ES";
-        frase.rate = velocidad;
-        frase.pitch = 1;
-        window.speechSynthesis.speak(frase);
+        const hablar = () => {
+          const frase = new SpeechSynthesisUtterance(texto);
+          if (vozRef.current) frase.voice = vozRef.current;
+          frase.lang = vozRef.current?.lang ?? "es-ES";
+          frase.rate = velocidad;
+          frase.pitch = 1;
+          /* Chrome deja la sintesis en pausa cuando la pestaña pierde el foco y
+             no la reanuda solo. Sin esto, la voz enmudece a mitad de práctica. */
+          window.speechSynthesis.resume();
+          window.speechSynthesis.speak(frase);
+        };
+
+        if (enCola || !window.speechSynthesis.speaking) {
+          hablar();
+          return;
+        }
+        /* Cancelar y hablar en el mismo tic hace que Chrome se trague la frase
+           (es un error conocido suyo). Hay que darle un respiro. */
+        window.speechSynthesis.cancel();
+        setTimeout(hablar, 140);
       } catch {
         /* Si el navegador no quiere hablar, la práctica sigue igual. */
       }

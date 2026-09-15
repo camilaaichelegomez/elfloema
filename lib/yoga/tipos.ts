@@ -457,6 +457,9 @@ export type Preferencias = {
   /** Una voz va diciendo la postura y sus instrucciones. Con las manos
       ocupadas y los ojos cerrados, es la unica forma de seguir la practica. */
   voz: boolean;
+  /** Nombre de la voz del dispositivo. Vacío = la que mejor suene de las que
+      haya. Las voces varían mucho entre teléfonos, así que se puede elegir. */
+  vozNombre?: string;
   /** Segundos extra o de menos sobre lo calculado, por si va muy rápido. */
   ritmo: "pausado" | "normal" | "ligero";
 };

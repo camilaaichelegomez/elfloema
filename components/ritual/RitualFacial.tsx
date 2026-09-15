@@ -22,6 +22,7 @@ import {
 } from "@/lib/ritual-facial";
 import { CaraGuia } from "./CaraGuia";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
+import { SelectorDeVoz } from "@/components/SelectorDeVoz";
 
 /* La aplicación del ritual facial: se elige qué trabajar, se arma la rutina y
    se sigue paso a paso con el dibujo y el temporizador.
@@ -45,6 +46,8 @@ type Guardado = {
   ultimoDia: string;
   /** Opcional: quien guardó antes de que existiera la voz no queda sin ella. */
   voz?: boolean;
+  /** Nombre de la voz elegida; vacío = la que mejor suene del dispositivo. */
+  vozNombre?: string;
 };
 
 function hoy() {
@@ -126,10 +129,11 @@ export function RitualFacial() {
   const [corriendo, setCorriendo] = useState(false);
   const [sonido, setSonido] = useState(true);
   const [voz, setVoz] = useState(true);
+  const [vozNombre, setVozNombre] = useState<string | undefined>();
   const [racha, setRacha] = useState(0);
 
   const pitar = usarPitido(sonido);
-  const { decir, callar, desbloquear } = usarVoz(voz);
+  const { decir, callar, desbloquear } = usarVoz(voz, vozNombre);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   /* Al cambiar de etapa el contenido se reemplaza entero, pero el navegador
      deja el scroll donde estaba: el botón «Armar mi rutina» está abajo del
@@ -157,6 +161,7 @@ export function RitualFacial() {
     setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
     setVoz(g.voz ?? true);
+    setVozNombre(g.vozNombre);
 
     /* Si ya eligió alguna vez, la rutina se arma sola y se entra directo a
        ella: volver a la pantalla de preguntas cada vez, con la cabecera
@@ -226,8 +231,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz });
-  }, [etapa, necesidades, minutos, momento, nivel, estadoPiel, voz]);
+    guardar({ necesidades, minutos, momento, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre });
+  }, [etapa, necesidades, minutos, momento, nivel, estadoPiel, voz, vozNombre]);
 
   /* La voz lee la maniobra al entrar en ella. En el drenaje esto pesa más que
      en yoga: tienes las dos manos en la cara y los ojos cerrados, así que la
@@ -534,7 +539,29 @@ export function RitualFacial() {
               {voz ? "Con voz que guía" : "Sin voz"}
             </button>
           )}
+          {hayVoz() && voz && (
+            <button
+              type="button"
+              onClick={() => {
+                desbloquear();
+                decir("Esta es la voz que te va a guiar. Si no la escuchas, revisa el volumen.");
+              }}
+              style={botonSec}
+            >
+              Probar la voz
+            </button>
+          )}
         </div>
+        {hayVoz() && voz && (
+          <SelectorDeVoz
+            valor={vozNombre}
+            onElegir={setVozNombre}
+            decir={decir}
+            chip={chip}
+            chipActivo={chipActivo}
+            ayuda={ayuda}
+          />
+        )}
         <p style={{ ...ayuda, marginTop: "0.9rem" }}>
           Avanza sola y suena al cambiar de paso, así no tienes que soltarte la cara para tocar la
           pantalla.

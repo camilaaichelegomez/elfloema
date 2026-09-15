@@ -267,7 +267,7 @@ export const POSTURAS: Paso[] = [
     estilos: [],
     objetivos: [],
     trabaja:
-      "La espalda plana a media altura. Es el paso que enseña a bisagrar desde la cadera en vez de redondear.",
+      "La espalda plana a media altura. Es el paso que enseña a doblarse desde la cadera, como una bisagra, en vez de redondear la espalda.",
     como: [
       "Manos en las espinillas o en bloques, y alarga el pecho hacia adelante.",
       "La espalda queda plana, la mirada un poco adelante.",
@@ -294,7 +294,7 @@ export const POSTURAS: Paso[] = [
     trabaja:
       "Bajada controlada desde la plancha con los codos pegados al cuerpo. Es el paso donde más se lesiona el hombro en vinyasa, por dejar caer el pecho.",
     como: [
-      "Desde la plancha, ve hacia adelante sobre las puntas de los pies.",
+      "Desde la plancha, rueda un poco hacia adelante sobre los dedos de los pies, hasta que los hombros queden por delante de las muñecas.",
       "Baja hasta que los codos queden a noventa grados, pegados a las costillas.",
       "Hombros nunca más abajo que los codos.",
     ],
@@ -318,7 +318,8 @@ export const POSTURAS: Paso[] = [
     carga: 2,
     estilos: ["vinyasa", "ashtanga"],
     objetivos: ["pecho", "postura"],
-    trabaja: "Apertura de pecho con los muslos despegados del suelo: el peso queda en las manos y en los empeines.",
+    trabaja:
+      "Apertura de pecho con los muslos despegados del suelo: el peso queda en las manos y en el empeine, que es la parte de arriba del pie apoyada contra el suelo.",
     como: [
       "Empuja las manos y sube el pecho llevándolo adelante.",
       "Muslos y rodillas despegados del suelo.",
@@ -374,7 +375,7 @@ export const POSTURAS: Paso[] = [
     trabaja:
       "Estira la parte de atrás de las piernas y abre los hombros mientras los brazos sostienen parte del peso. Es la postura de descanso del vinyasa y el eje del saludo al sol.",
     como: [
-      "Desde cuatro apoyos, mete los dedos de los pies y sube las caderas.",
+      "Desde cuatro apoyos, dobla los dedos de los pies contra el suelo, como si fueras a empujar con ellos, y sube las caderas.",
       "Dobla las rodillas todo lo que necesites: primero la espalda larga, después las piernas.",
       "Empuja el suelo con las manos y lleva las caderas atrás y arriba.",
       "Cabeza suelta entre los brazos, orejas lejos de los hombros.",
@@ -429,7 +430,7 @@ export const POSTURAS: Paso[] = [
     como: [
       "De pie, pies juntos o a lo ancho de las caderas.",
       "Dobla las rodillas como si te sentaras en una silla que no está.",
-      "Lleva el peso a los talones: tienes que ver tus dedos de los pies.",
+      "Lleva el peso a los talones: si te miras los pies, tienes que poder verte los dedos.",
       "Sube los brazos, mira al frente.",
     ],
     respirar: "Respira parejo, aunque quemen las piernas.",
@@ -591,7 +592,7 @@ export const POSTURAS: Paso[] = [
     como: [
       "Un pie adelante entre las manos, la rodilla de atrás en el suelo.",
       "Hunde la cadera hacia adelante y hacia abajo.",
-      "Mete el coxis hacia abajo: el estiramiento aparece cuando dejas de arquear la lumbar.",
+      "Lleva el hueso de la cola hacia abajo, como metiendo la pelvis: el estiramiento aparece justo cuando dejas de arquear la espalda baja.",
       "Sube los brazos si quieres más.",
     ],
     mejoraCon: ["manta", "bloque"],
@@ -1050,7 +1051,8 @@ export const POSTURAS: Paso[] = [
       "Brazos paralelos al suelo.",
     ],
     evita: ["lumbar", "embarazo", "cirugia"],
-    masFacil: "Toma la parte de atrás de los muslos con las manos y deja los dedos de los pies en el suelo.",
+    masFacil:
+      "Tómate la parte de atrás de los muslos con las manos y deja las puntas de los pies apoyadas en el suelo.",
     masExigente: "Estira las piernas hasta formar una V.",
     prioridad: 5,
     figura: "barco",
@@ -1206,7 +1208,7 @@ export const POSTURAS: Paso[] = [
     trabaja:
       "La misma apertura del puente pero sin esfuerzo: el bloque sostiene el sacro y el cuerpo se puede apagar. Es una de las posturas base del restaurativo.",
     como: [
-      "Sube la pelvis y desliza un bloque bajo el sacro, en su altura más baja.",
+      "Sube la pelvis y desliza un bloque en su altura más baja bajo el sacro, el hueso plano del final de la columna.",
       "El bloque va bajo el hueso plano, no bajo la cintura.",
       "Estira las piernas si te resulta cómodo, o déjalas dobladas.",
       "Brazos abiertos. Quédate varios minutos.",
@@ -1261,7 +1263,7 @@ export const POSTURAS: Paso[] = [
     objetivos: ["cuello_hombros", "pecho", "postura"],
     trabaja: "Rota el hombro hacia afuera por arriba y hacia adentro por abajo: los dos rangos que se pierden primero.",
     como: [
-      "Sube el brazo derecho y dobla el codo llevando la mano entre las escápulas.",
+      "Sube el brazo derecho y dobla el codo llevando la mano entre los omóplatos.",
       "Baja el brazo izquierdo y sube la mano por la espalda.",
       "Engancha los dedos, o usa un cinturón entre las manos.",
       "Pecho abierto, costillas adentro. Cambia de lado.",

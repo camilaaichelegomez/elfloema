@@ -59,14 +59,15 @@ const FIGURAS: Record<string, Esqueleto> = {
   silla_postura: {
     cab: [88, 42], cue: [92, 53], pec: [97, 64], pel: [112, 88],
     mira: "izq",
-    br: [[95, 56], [86, 40], [80, 24]],
+    br: [[95, 56], [82, 47], [68, 36]],
+    br2: [[94, 57], [80, 51], [66, 43]],
     pi: [[112, 90], [110, 110], [94, SUELO]],
     pi2: [[110, 90], [108, 110], [92, SUELO]],
   },
   guerrero1: {
     cab: [100, 32], cue: [100, 44], pec: [100, 54], pel: [100, 78],
-    br: [[100, 46], [100, 32], [100, 17]],
-    br2: [[100, 46], [96, 32], [94, 17]],
+    br: [[100, 46], [112, 33], [118, 16]],
+    br2: [[100, 46], [88, 33], [82, 16]],
     pi: [[103, 80], [124, 103], [126, SUELO]],
     pi2: [[97, 80], [80, 105], [68, SUELO]],
   },
@@ -87,7 +88,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   triangulo: {
     cab: [82, 48], cue: [86, 57], pec: [92, 67], pel: [100, 82],
     mira: "izq",
-    br: [[89, 60], [85, 40], [81, 20]],
+    br: [[89, 60], [95, 40], [99, 20]],
     br2: [[90, 63], [86, 84], [82, 106]],
     pi: [[100, 84], [78, 108], [62, SUELO]],
     pi2: [[100, 84], [124, 108], [140, SUELO]],
@@ -95,7 +96,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   angulo_lateral: {
     cab: [74, 60], cue: [80, 67], pec: [88, 75], pel: [100, 86],
     mira: "izq",
-    br: [[83, 69], [65, 51], [50, 37]],
+    br: [[83, 69], [72, 48], [62, 30]],
     br2: [[86, 77], [77, 94], [71, 110]],
     pi: [[100, 88], [76, 110], [62, SUELO]],
     pi2: [[100, 88], [124, 110], [140, SUELO]],
@@ -116,13 +117,15 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   estocada_alta: {
     cab: [98, 48], cue: [98, 58], pec: [98, 67], pel: [100, 87],
-    br: [[98, 60], [98, 44], [98, 29]],
+    br: [[98, 61], [110, 48], [116, 31]],
+    br2: [[98, 61], [86, 48], [80, 31]],
     pi: [[103, 89], [124, 108], [126, SUELO]],
     pi2: [[97, 89], [78, 112], [62, SUELO]],
   },
   estocada_baja: {
     cab: [100, 56], cue: [100, 66], pec: [100, 75], pel: [100, 95],
-    br: [[100, 68], [100, 52], [100, 37]],
+    br: [[100, 69], [112, 56], [118, 39]],
+    br2: [[100, 69], [88, 56], [82, 39]],
     pi: [[103, 97], [124, 111], [126, SUELO]],
     pi2: [[97, 97], [80, 124], [60, 130]],
     manta: [82, 128],
@@ -150,8 +153,8 @@ const FIGURAS: Record<string, Esqueleto> = {
 
   brazos_arriba_pie: {
     cab: [100, 30], cue: [100, 42], pec: [100, 52], pel: [100, 76],
-    br: [[100, 44], [100, 28], [100, 12]],
-    br2: [[100, 44], [95, 28], [93, 12]],
+    br: [[100, 44], [113, 31], [120, 15]],
+    br2: [[100, 44], [87, 31], [80, 15]],
     pi: [[102, 78], [103, 105], [103, SUELO]],
     pi2: [[98, 78], [97, 105], [97, SUELO]],
   },
@@ -371,8 +374,8 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   brazos_arriba_sentada: {
     cab: [100, 74], cue: [100, 86], pec: [100, 96], pel: [100, 120],
-    br: [[100, 88], [113, 72], [124, 55]],
-    br2: [[100, 88], [87, 72], [76, 55]],
+    br: [[100, 88], [118, 76], [128, 58]],
+    br2: [[100, 88], [82, 76], [72, 58]],
     pi: [[103, 121], [124, 127], [100, 131]],
     pi2: [[97, 121], [78, 127], [104, 131]],
   },
@@ -392,7 +395,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   luna_sentada: {
     cab: [88, 76], cue: [93, 86], pec: [96, 96], pel: [100, 120],
-    br: [[93, 88], [83, 72], [74, 57]],
+    br: [[93, 88], [80, 78], [68, 66]],
     br2: [[96, 90], [106, 104], [114, 114]],
     pi: [[103, 121], [124, 127], [100, 131]],
     pi2: [[97, 121], [78, 127], [104, 131]],
@@ -471,6 +474,39 @@ const VERDE = "#8aa86a";
 
 function linea(puntos: P[]) {
   return puntos.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
+}
+
+/* El pie se dibuja perpendicular a la pierna y apuntando hacia donde mira la
+   figura. Es la pista de si está de pie, de rodillas o acostada. */
+function Pie({
+  rodilla,
+  pie,
+  mira = "der",
+  tenue,
+}: {
+  rodilla: P;
+  pie: P;
+  mira?: "der" | "izq" | "arriba" | "abajo";
+  tenue?: boolean;
+}) {
+  const [vx, vy] = [pie[0] - rodilla[0], pie[1] - rodilla[1]];
+  const largo = Math.hypot(vx, vy) || 1;
+  // Perpendicular a la pierna, en el sentido que coincide con la mirada.
+  let [px, py] = [-vy / largo, vx / largo];
+  const [mx, my] = RUMBO[mira];
+  if (px * mx + py * my < 0) [px, py] = [-px, -py];
+  const l = tenue ? 6 : 7.5;
+  return (
+    <line
+      x1={pie[0]}
+      y1={pie[1]}
+      x2={pie[0] + px * l}
+      y2={pie[1] + py * l}
+      stroke={DORADO}
+      strokeWidth={tenue ? 2 : 2.4}
+      strokeLinecap="round"
+    />
+  );
 }
 
 export function FiguraYoga({
@@ -575,21 +611,26 @@ export function FiguraYoga({
         <path d={linea(f.pi)} />
       </g>
 
-      {/* Cabeza, con la nariz marcando hacia dónde mira */}
+      {/* Manos y pies. Sin ellos la figura se lee como un palo doblado: son
+          dos puntos y dos rayas, y cambian por completo si se entiende o no
+          dónde está apoyada la persona. */}
+      <g fill={DORADO} opacity="0.32">
+        {f.br2 && <circle cx={f.br2[2][0]} cy={f.br2[2][1]} r="2.6" />}
+        {f.pi2 && <Pie rodilla={f.pi2[1]} pie={f.pi2[2]} mira={f.mira} tenue />}
+      </g>
+      <g fill={DORADO} opacity="0.85">
+        {f.br && <circle cx={f.br[2][0]} cy={f.br[2][1]} r="2.8" />}
+        <Pie rodilla={f.pi[1]} pie={f.pi[2]} mira={f.mira} />
+      </g>
+
+      {/* La cabeza va al final y con relleno opaco: así tapa cualquier brazo
+          que pase por detrás en vez de cruzarla. */}
       <circle cx={f.cab[0]} cy={f.cab[1]} r="8" fill="#0e1a0e" stroke={DORADO} strokeWidth="2" />
+      {/* La cara es un punto en el borde, no una raya: una raya que sale de la
+          cabeza parecía un pincho y se confundía con los brazos. */}
       {(() => {
         const [dx, dy] = RUMBO[f.mira ?? "der"];
-        return (
-          <line
-            x1={f.cab[0] + dx * 4}
-            y1={f.cab[1] + dy * 4}
-            x2={f.cab[0] + dx * 14}
-            y2={f.cab[1] + dy * 14}
-            stroke={DORADO}
-            strokeWidth="2.4"
-            strokeLinecap="round"
-          />
-        );
+        return <circle cx={f.cab[0] + dx * 7.2} cy={f.cab[1] + dy * 7.2} r="2.6" fill={DORADO} />;
       })()}
     </svg>
   );

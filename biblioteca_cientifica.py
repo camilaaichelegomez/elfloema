@@ -30,6 +30,7 @@ except ImportError:
 OUTPUT_DIR = Path("biblioteca-cientifica")
 MAX_RESULTS_PER_SOURCE = 50
 REQUEST_DELAY = 0.8  # segundos entre requests (respetar rate limits)
+ESPERA_MAXIMA = 90   # más que esto no es una pausa, es la cuota del día
 
 logging.basicConfig(
     level=logging.INFO,
@@ -1389,6 +1390,40 @@ PLANTS["libros"]["search_terms"] += [
 # ── Registro de fuentes ────────────────────────────────────────────────────────
 # Para agregar una fuente: implementa fetch_<nombre> y agrégala aquí.
 
+# ── Pedido con reintento ──────────────────────────────────────────────────────
+# Las APIs abiertas cortan cuando se las consulta mucho rato seguido (429).
+# No es un error: es "espérate". Sin esto se perdían temas enteros.
+
+def _pedir_json(url: str, params: dict, headers: dict, intentos: int = 4, timeout: int = 25):
+    espera = 3.0
+    for intento in range(intentos):
+        try:
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
+            if r.status_code == 429:
+                pausa = float(r.headers.get("Retry-After") or espera)
+                # OpenAlex a veces contesta "vuelve en 11 horas": eso es la cuota
+                # del día, no una pausa. Esperar tanto deja el proceso colgado,
+                # así que se abandona esa fuente y se sigue con las demás.
+                if pausa > ESPERA_MAXIMA:
+                    log.warning(
+                        f"    cuota agotada por hoy (pide {pausa / 3600:.1f} h). "
+                        "Se salta esta fuente; vuelve a correrla mañana."
+                    )
+                    return None
+                log.info(f"    límite alcanzado, esperando {pausa:.0f}s")
+                time.sleep(pausa)
+                espera *= 2
+                continue
+            r.raise_for_status()
+            return r.json()
+        except requests.RequestException as e:
+            if intento == intentos - 1:
+                raise
+            time.sleep(espera)
+            espera *= 2
+    return None
+
+
 # ── Fetcher: OpenAlex ─────────────────────────────────────────────────────────
 # La base abierta más grande que existe (más de 250 millones de trabajos) y con
 # buena cobertura latinoamericana, que es justo lo que SciELO dejó de darnos.
@@ -1416,12 +1451,12 @@ def fetch_openalex(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> li
 
     for term in plant["search_terms"]:
         try:
-            r = requests.get(_OPENALEX_SEARCH, params={
+            data = _pedir_json(_OPENALEX_SEARCH, {
                 "search": term,
                 "per-page": min(per_term, 50),
-            }, headers=headers, timeout=25)
-            r.raise_for_status()
-            data = r.json()
+            }, headers)
+            if data is None:
+                break  # cuota agotada: se devuelve lo que alcanzó a juntar
         except Exception as e:
             log.warning(f"OpenAlex [{term}]: {e}")
             time.sleep(REQUEST_DELAY)
@@ -1465,13 +1500,12 @@ def fetch_crossref(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> li
 
     for term in plant["search_terms"]:
         try:
-            r = requests.get(_CROSSREF_SEARCH, params={
+            data = _pedir_json(_CROSSREF_SEARCH, {
                 "query.bibliographic": term,
                 "rows": min(per_term, 50),
                 "select": "title,author,issued,DOI,abstract,container-title,URL",
-            }, headers=headers, timeout=25)
-            r.raise_for_status()
-            items = r.json().get("message", {}).get("items", [])
+            }, headers)
+            items = (data or {}).get("message", {}).get("items", [])
         except Exception as e:
             log.warning(f"Crossref [{term}]: {e}")
             time.sleep(REQUEST_DELAY)
@@ -1528,14 +1562,12 @@ def fetch_doaj(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> list[A
 
     for term in plant["search_terms"]:
         try:
-            r = requests.get(
+            data = _pedir_json(
                 _DOAJ_SEARCH + quote(term, safe=""),
-                params={"pageSize": min(per_term, 50)},
-                headers=headers,
-                timeout=25,
+                {"pageSize": min(per_term, 50)},
+                headers,
             )
-            r.raise_for_status()
-            resultados = r.json().get("results", [])
+            resultados = (data or {}).get("results", [])
         except Exception as e:
             log.warning(f"DOAJ [{term}]: {e}")
             time.sleep(REQUEST_DELAY)

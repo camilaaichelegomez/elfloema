@@ -277,7 +277,7 @@ export const AVISOS_CUIDADO: Record<Cuidado, Aviso[]> = {
     {
       tono: "nota",
       texto:
-        "Lo de no invertirse durante la regla es tradición, no ciencia: no hay evidencia de que haga daño. Decide tú por cómo te sientes. Lo que sí tiene ensayos es que la práctica suave ayuda con los cólicos.",
+        "Lo de no invertirse durante la menstruación es tradición, no ciencia: no hay evidencia de que haga daño. Decide tú por cómo te sientes. Lo que sí tiene ensayos es que la práctica suave ayuda con los cólicos.",
     },
   ],
   osteoporosis: [

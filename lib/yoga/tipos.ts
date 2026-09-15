@@ -273,7 +273,7 @@ export const CUIDADOS: {
   },
   {
     id: "menstruacion",
-    label: "Estoy con la regla",
+    label: "En días de menstruación",
     detalle: "Días de sangrado",
     quita: "Bajo la intensidad y priorizo apoyo. Las invertidas quedan a tu criterio.",
   },

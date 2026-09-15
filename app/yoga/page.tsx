@@ -30,7 +30,7 @@ const SERIES_TOTAL = SECUENCIAS.length;
 export default function YogaPage() {
   return (
     <main
-      className="ritual-bg"
+      className="yoga-bg"
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>

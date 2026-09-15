@@ -25,6 +25,7 @@ exactamente como los de cosmética.
 """
 
 import re
+import shutil
 import sys
 import unicodedata
 from pathlib import Path
@@ -119,7 +120,13 @@ def traer_de_descargas() -> int:
         destino = ENTRADA / archivo.name
         if destino.exists():
             continue
-        archivo.rename(destino)
+        try:
+            archivo.rename(destino)
+        except PermissionError:
+            # En Windows, un PDF abierto en un visor no se puede mover, pero sí
+            # se puede leer: se copia y el original se queda donde está.
+            shutil.copy2(archivo, destino)
+            print(f"  (estaba abierto, así que lo copié en vez de moverlo)")
         print(f"  traído de Descargas: {archivo.name}")
         traidos += 1
     if not traidos:

@@ -12,6 +12,10 @@ Cómo usarlo:
     2) python extraer_yoga.py
     3) El texto queda en biblioteca-yoga/<nombre>.txt
 
+Si los bajaste del Drive y quedaron en Descargas:
+    python extraer_yoga.py --desde-descargas
+Eso los busca ahí por el nombre, los mueve a libros-yoga/ y sigue igual.
+
 El nombre del .txt sale del nombre del archivo, en minúsculas y con guiones,
 igual que en biblioteca-formulacion/.
 
@@ -94,7 +98,39 @@ def de_docx(ruta: Path) -> str:
 LECTORES = {".pdf": de_pdf, ".epub": de_epub, ".docx": de_docx}
 
 
+DESCARGAS = Path.home() / "Downloads"
+
+# Con esto se reconocen los libros entre los cientos de archivos de Descargas.
+PISTAS = ("yoga", "pranayama", "asana", "stephens", "iyengar", "secuencia", "respiracion")
+
+
+def traer_de_descargas() -> int:
+    """Mueve a libros-yoga/ los PDF de Descargas que parezcan libros de yoga."""
+    if not DESCARGAS.exists():
+        print(f"No encuentro la carpeta de descargas ({DESCARGAS}).")
+        return 0
+    ENTRADA.mkdir(exist_ok=True)
+    traidos = 0
+    for archivo in DESCARGAS.iterdir():
+        if archivo.suffix.lower() not in LECTORES:
+            continue
+        if not any(p in archivo.name.lower() for p in PISTAS):
+            continue
+        destino = ENTRADA / archivo.name
+        if destino.exists():
+            continue
+        archivo.rename(destino)
+        print(f"  traído de Descargas: {archivo.name}")
+        traidos += 1
+    if not traidos:
+        print("  no había libros de yoga en Descargas")
+    return traidos
+
+
 def main() -> None:
+    if "--desde-descargas" in sys.argv:
+        traer_de_descargas()
+
     if not ENTRADA.exists():
         ENTRADA.mkdir()
         print(f"Creé la carpeta {ENTRADA}/. Deja ahí los libros y vuelve a correr esto.")

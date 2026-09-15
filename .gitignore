@@ -113,3 +113,7 @@ prospectos_los_rios.xlsx
 migrate_to_postgres.py
 railway.json
 Procfile
+
+# Libros de yoga y su texto extraido: material con derechos, solo local
+libros-yoga/
+biblioteca-yoga/

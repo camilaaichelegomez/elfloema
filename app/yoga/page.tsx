@@ -4,6 +4,7 @@ import { BackButton } from "@/components/BackButton";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Yoga } from "@/components/yoga/Yoga";
 import { CATALOGO } from "@/lib/yoga/armar";
+import { SECUENCIAS } from "@/lib/yoga/secuencias";
 import { AVISOS_CUIDADO, CADA_CUANTO, ETIQUETA_GRADO, EVIDENCIA, MITOS } from "@/lib/yoga/evidencia";
 import { ESTILOS, OBJETIVOS, type Objetivo } from "@/lib/yoga/tipos";
 
@@ -24,37 +25,45 @@ export const metadata: Metadata = {
 
 const POSTURAS_TOTAL = CATALOGO.filter((p) => p.familia !== "respiracion" && p.familia !== "quietud").length;
 const RESPIRACIONES_TOTAL = CATALOGO.filter((p) => p.familia === "respiracion").length;
+const SERIES_TOTAL = SECUENCIAS.length;
 
 export default function YogaPage() {
   return (
     <main
       className="ritual-bg"
-      style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(16px, 5vw, 64px) 80px" }}
+      style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
         <BackButton />
 
-        <header style={{ margin: "0 0 2.2rem" }}>
+        {/* Cabecera corta a propósito: lo primero que tiene que aparecer al
+            entrar es la práctica. La presentación larga va más abajo. */}
+        <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Cuidado del cuerpo</p>
           <h1
             style={{
               fontFamily: "var(--font-grimoire)",
-              fontSize: "clamp(1.9rem, 5.5vw, 3.1rem)",
+              fontSize: "clamp(1.4rem, 3.6vw, 2.1rem)",
               color: "#c8a050",
               letterSpacing: "0.16em",
               textTransform: "uppercase",
-              margin: "0.4rem 0 0.8rem",
+              margin: "0.3rem 0 0",
               textShadow: "0 0 60px rgba(200,160,80,0.2)",
               textWrap: "balance",
             }}
           >
             Ritual de yoga
           </h1>
+        </header>
+
+        <Yoga />
+
+        <section style={{ marginTop: "2.4rem" }}>
           <p
             style={{
               fontFamily: "var(--font-crimson), serif",
-              fontSize: "clamp(1rem, 2.2vw, 1.18rem)",
+              fontSize: "clamp(1rem, 2.2vw, 1.14rem)",
               lineHeight: 1.65,
               color: "rgba(217,203,170,0.8)",
               maxWidth: "58ch",
@@ -62,16 +71,15 @@ export default function YogaPage() {
             }}
           >
             Dime qué necesitas, cuánto rato tienes y qué hay que cuidar. Te armo la práctica con
-            posturas de todos los estilos, te la dibujo y te la voy pasando sola. Respondes una vez:
-            de ahí en adelante, al entrar ya está lista.
+            posturas y secuencias de todos los estilos, te la dibujo y te la voy pasando sola.
+            Respondes una vez: de ahí en adelante, al entrar ya está lista.
           </p>
           <p style={{ ...fuente, marginTop: "0.9rem" }}>
-            {POSTURAS_TOTAL} posturas y {RESPIRACIONES_TOTAL} respiraciones de hatha, vinyasa,
-            ashtanga, iyengar, yin, restaurativo, kundalini, yoga nidra, silla y somático.
+            {POSTURAS_TOTAL} posturas, {RESPIRACIONES_TOTAL} respiraciones y {SERIES_TOTAL} series de
+            hatha, vinyasa, ashtanga, iyengar, yin, restaurativo, kundalini, yoga nidra, silla y
+            somático.
           </p>
-        </header>
-
-        <Yoga />
+        </section>
 
         {/* ── Qué está probado, objetivo por objetivo ── */}
         <section style={{ marginTop: "3rem" }}>

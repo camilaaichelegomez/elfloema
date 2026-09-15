@@ -18,7 +18,7 @@ export default async function EtiquetasPage() {
   return (
     <main
       className="parchment-bg lab-bg"
-      style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(20px, 5vw, 64px) 64px" }}
+      style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(20px, 5vw, 64px) 64px" }}
     >
       <div style={{ maxWidth: 1000, margin: "0 auto" }}>
         <div className="no-print" style={{ marginBottom: "1.4rem" }}>

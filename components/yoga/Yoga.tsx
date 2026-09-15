@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { armarRutina, porFase, type Rutina } from "@/lib/yoga/armar";
+import { armarRutina, enBloques, porFase, type Rutina } from "@/lib/yoga/armar";
+import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import {
   CUIDADOS,
   ESTILOS,
@@ -133,6 +134,20 @@ export function Yoga() {
 
   const pitar = usarPitido(prefs.sonido);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
+  const cajaRef = useRef<HTMLDivElement | null>(null);
+  const primeraVista = useRef(true);
+
+  /* Al cambiar de pantalla (armar, empezar, terminar) la vista sube al panel.
+     Sin esto te quedas donde estaba el botón, mirando texto, y parece que la
+     app no hizo nada. La primera carga no se toca: ahí el panel ya está
+     arriba y mover la página sola es peor. */
+  useEffect(() => {
+    if (primeraVista.current) {
+      primeraVista.current = false;
+      return;
+    }
+    cajaRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [etapa]);
 
   // Recupera lo guardado. Si ya hay preferencias, se salta el cuestionario.
   useEffect(() => {
@@ -141,7 +156,12 @@ export function Yoga() {
       setPrefs(g.prefs);
       setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha : 0);
       setHistorial(g.historial ?? []);
-      if (g.prefs.objetivos.length > 0) setEtapa("resumen");
+      if (g.prefs.objetivos.length > 0) {
+        const r = armarRutina(g.prefs);
+        setRutina(r);
+        setRestante(r.pasos[0]?.duracion ?? 0);
+        setEtapa("rutina");
+      }
     }
     setListo(true);
   }, []);
@@ -155,7 +175,7 @@ export function Yoga() {
     const id = setInterval(() => {
       setRestante((r) => {
         const mitad = Math.round(pasoActual.duracion / 2);
-        if (pasoActual.porLado && r === mitad + 1) {
+        if (pasoActual.porLado && !pasoActual.secuencia && r === mitad + 1) {
           setSegundoLado(true);
           pitar(true);
         }
@@ -264,7 +284,7 @@ export function Yoga() {
   if (etapa === "preferencias") {
     const yaRespondio = prefs.objetivos.length > 0;
     return (
-      <div style={panel}>
+      <div ref={cajaRef} style={{ ...panel, scrollMarginTop: "5.5rem" }}>
         <p style={paso}>Tus preferencias</p>
         <p style={ayuda}>
           Esto se responde una sola vez. Queda guardado en este dispositivo y la próxima vez que
@@ -398,7 +418,54 @@ export function Yoga() {
           </div>
         </Pregunta>
 
-        <Pregunta n={9} titulo="¿Qué más incluyo?">
+        <Pregunta
+          n={9}
+          titulo="¿Quieres trabajar algún chakra?"
+          nota="Los chakras son tradición del yoga, no anatomía: no hay órganos que correspondan a ellos y no se pueden medir. Lo que hace marcar uno acá es inclinar la práctica hacia esa zona del cuerpo, que sí es real."
+        >
+          <div style={{ display: "grid", gap: "0.4rem" }}>
+            {CHAKRAS.map((c) => {
+              const activo = (prefs.chakras ?? []).includes(c.id);
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() =>
+                    setPrefs({ ...prefs, chakras: alternar(prefs.chakras ?? [], c.id as Chakra) })
+                  }
+                  aria-pressed={activo}
+                  style={{
+                    ...chip,
+                    display: "flex",
+                    gap: "0.7rem",
+                    alignItems: "baseline",
+                    ...(activo ? chipActivo : null),
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: "50%",
+                      background: c.color,
+                      flexShrink: 0,
+                      alignSelf: "center",
+                    }}
+                  />
+                  <span style={{ minWidth: 92, color: activo ? "#e8c878" : "#d4c4a0" }}>
+                    {c.nombre}
+                  </span>
+                  <span style={{ fontSize: "0.82rem", opacity: 0.62 }}>
+                    {activo ? c.enElCuerpo : c.donde}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </Pregunta>
+
+        <Pregunta n={10} titulo="¿Qué más incluyo?">
           <div style={fila}>
             <button
               type="button"
@@ -428,7 +495,7 @@ export function Yoga() {
         </Pregunta>
 
         <Pregunta
-          n={10}
+          n={11}
           titulo="¿Cómo prefieres el ritmo?"
           nota="Pausado: menos posturas, sostenidas más rato. Ligero: más posturas, más movimiento."
         >
@@ -484,7 +551,7 @@ export function Yoga() {
       .join(" · ");
 
     return (
-      <div style={panel}>
+      <div ref={cajaRef} style={{ ...panel, scrollMarginTop: "5.5rem" }}>
         <p style={paso}>Tu práctica de hoy</p>
         <h2
           style={{
@@ -579,7 +646,7 @@ export function Yoga() {
   if (etapa === "rutina" && rutina) {
     const grupos = porFase(rutina);
     return (
-      <div style={panel}>
+      <div ref={cajaRef} style={{ ...panel, scrollMarginTop: "5.5rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", flexWrap: "wrap" }}>
           <div>
             <p style={{ ...paso, marginBottom: "0.2rem" }}>Tu práctica</p>
@@ -628,22 +695,57 @@ export function Yoga() {
                 {ETIQUETA_FASE[fase]} · {mmss(pasos.reduce((a, p) => a + p.duracion, 0))}
               </p>
               <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.4rem" }}>
-                {pasos.map((p) => (
-                  <li key={p.id} style={filaPaso}>
-                    <FiguraYoga figura={p.figura} tamano={62} estilo={{ flexShrink: 0, opacity: 0.85 }} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ color: "#e8c878", fontSize: "0.97rem", display: "block" }}>{p.nombre}</span>
-                      <span style={{ fontSize: "0.82rem", opacity: 0.6 }}>
-                        {[p.sanscrito, p.porLado ? "los dos lados" : null]
-                          .filter(Boolean)
-                          .join(" · ")}
-                      </span>
-                    </div>
-                    <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.78rem", color: "rgba(200,160,80,0.75)", flexShrink: 0 }}>
-                      {mmss(p.duracion)}
-                    </span>
-                  </li>
-                ))}
+                {enBloques(pasos).map((b) =>
+                  b.tipo === "paso" ? (
+                    <li key={b.paso.clave} style={filaPaso}>
+                      <FiguraYoga figura={b.paso.figura} tamano={62} estilo={{ flexShrink: 0, opacity: 0.85 }} />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ color: "#e8c878", fontSize: "0.97rem", display: "block" }}>
+                          {b.paso.nombre}
+                        </span>
+                        <span style={{ fontSize: "0.82rem", opacity: 0.6 }}>
+                          {[b.paso.sanscrito, b.paso.porLado ? "los dos lados" : null]
+                            .filter(Boolean)
+                            .join(" · ")}
+                        </span>
+                      </div>
+                      <span style={tiempoFila}>{mmss(b.paso.duracion)}</span>
+                    </li>
+                  ) : (
+                    <li key={b.pasos[0].clave} style={cajaSerie}>
+                      <div style={{ display: "flex", gap: "0.7rem", alignItems: "baseline", flexWrap: "wrap" }}>
+                        <span style={{ color: "#e8c878", fontSize: "0.99rem" }}>{b.nombre}</span>
+                        <span style={{ ...rotulo, margin: 0, color: "rgba(168,200,138,0.9)" }}>
+                          {b.vueltas} {b.vueltas === 1 ? "vuelta" : "vueltas"}
+                          {b.porLado ? " · cada lado" : ""}
+                        </span>
+                        <span style={{ ...tiempoFila, marginLeft: "auto" }}>{mmss(b.duracion)}</span>
+                      </div>
+                      <p style={{ ...ayuda, fontSize: "0.87rem", margin: "0.4rem 0 0.6rem" }}>{b.porque}</p>
+                      <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.3rem" }}>
+                        {b.pasos
+                          .filter(
+                            (x) =>
+                              x.secuencia?.vuelta === 1 &&
+                              (x.secuencia?.lado === undefined || x.secuencia?.lado === "derecho")
+                          )
+                          .map((x, i) => (
+                            <li
+                              key={x.clave}
+                              style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}
+                            >
+                              <span style={{ ...rotulo, margin: 0, minWidth: 16 }}>{i + 1}</span>
+                              <FiguraYoga figura={x.figura} tamano={46} estilo={{ flexShrink: 0, opacity: 0.8 }} />
+                              <span style={{ fontSize: "0.9rem", color: "rgba(217,203,170,0.85)", flex: 1 }}>
+                                {x.nombre}
+                              </span>
+                              <span style={{ ...tiempoFila, fontSize: "0.72rem" }}>{x.duracion}s</span>
+                            </li>
+                          ))}
+                      </ol>
+                    </li>
+                  )
+                )}
               </ol>
             </div>
           ))}
@@ -669,7 +771,7 @@ export function Yoga() {
     const perimetro = 2 * Math.PI * 52;
 
     return (
-      <div style={{ ...panel, textAlign: "center" }}>
+      <div ref={cajaRef} style={{ ...panel, textAlign: "center", scrollMarginTop: "5.5rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "1.2rem" }}>
           <span style={{ ...rotulo, margin: 0, flexShrink: 0 }}>
             {indice + 1}/{rutina.pasos.length}
@@ -690,7 +792,13 @@ export function Yoga() {
           </span>
         </div>
 
-        <p style={{ ...rotulo, color: "rgba(168,200,138,0.85)" }}>{ETIQUETA_FASE[pasoActual.fase]}</p>
+        <p style={{ ...rotulo, color: "rgba(168,200,138,0.85)" }}>
+          {pasoActual.secuencia
+            ? `${pasoActual.secuencia.nombre} · vuelta ${pasoActual.secuencia.vuelta} de ${pasoActual.secuencia.vueltas}${
+                pasoActual.secuencia.lado ? ` · lado ${pasoActual.secuencia.lado}` : ""
+              }`
+            : ETIQUETA_FASE[pasoActual.fase]}
+        </p>
 
         <h2
           style={{
@@ -706,7 +814,7 @@ export function Yoga() {
         </h2>
         <p style={{ ...ayuda, margin: "0 0 1rem" }}>
           {pasoActual.sanscrito ?? ""}
-          {pasoActual.porLado && (
+          {pasoActual.porLado && !pasoActual.secuencia && (
             <span style={{ color: "#a8c88a" }}>
               {pasoActual.sanscrito ? " · " : ""}
               {segundoLado ? "ahora el otro lado" : "primer lado"}
@@ -824,7 +932,7 @@ export function Yoga() {
 
   // ══ Final ════════════════════════════════════════════════════
   return (
-    <div style={{ ...panel, textAlign: "center" }}>
+    <div ref={cajaRef} style={{ ...panel, textAlign: "center", scrollMarginTop: "5.5rem" }}>
       <p style={rotulo}>Terminaste</p>
       <h2
         style={{
@@ -970,6 +1078,18 @@ const filaPaso: CSSProperties = {
   borderRadius: 5,
   padding: "0.45rem 0.7rem",
   background: "rgba(13,26,13,0.4)",
+};
+const tiempoFila: CSSProperties = {
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "0.78rem",
+  color: "rgba(200,160,80,0.75)",
+  flexShrink: 0,
+};
+const cajaSerie: CSSProperties = {
+  border: "1px solid rgba(168,200,138,0.28)",
+  background: "rgba(13,26,13,0.55)",
+  borderRadius: 6,
+  padding: "0.7rem 0.85rem",
 };
 const botonPri: CSSProperties = {
   fontFamily: "var(--font-grimoire)",

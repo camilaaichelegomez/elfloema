@@ -1,5 +1,7 @@
+import { posturasDeChakras } from "./chakras";
 import { POSTURAS } from "./posturas";
 import { RESPIRACIONES } from "./respiracion";
+import { SECUENCIAS, type Secuencia } from "./secuencias";
 import {
   FASES,
   type Cuidado,
@@ -12,34 +14,57 @@ import {
   type Prop,
 } from "./tipos";
 
-/* Cómo se arma una rutina.
+/* Cómo se arma una práctica.
 
-   En tres movimientos:
+   Una clase no es una lista de posturas sueltas. Tiene tres capas, y el
+   armado las respeta en este orden:
 
-   1. SE FILTRA. Sale todo lo que no corresponde: contraindicado por un
-      cuidado marcado, por encima del nivel, más fuerte que la intensidad
-      pedida, o que necesita un prop que no hay. Lo que se saca por un cuidado
-      queda anotado: la persona tiene derecho a saber qué le quitamos y por qué.
+   1. SECUENCIAS. Cadenas que van juntas y se repiten: el saludo al sol tres
+      vueltas, la serie de guerreros de un lado y después del otro, tres
+      vueltas de cobra. Son el esqueleto de la clase, así que se eligen
+      PRIMERO en cada fase y se llevan el mejor pedazo del tiempo.
 
-   2. SE REPARTE EL TIEMPO POR FASE. Cada fase recibe un pedazo del tiempo
-      según la hora del día, los objetivos, la intensidad y los estilos
-      elegidos. De mañana pesa el saludo al sol; de noche pesan el suelo y el
-      savasana. Ese reparto es lo que hace que dos personas con el mismo rato
-      disponible reciban prácticas distintas.
+   2. POSTURAS QUE PREPARAN. Si entra una postura exigente que tiene
+      preparación declarada (`prepararCon`), su preparación entra antes. La
+      paloma no se hace en frío; el camello tampoco.
 
-   3. SE AJUSTA LA DURACIÓN. Cada postura tiene un mínimo y un máximo propio:
-      un yin de treinta segundos no es yin, y un guerrero de cuatro minutos es
-      una tortura. El ajuste estira o encoge dentro de esos límites hasta que
-      el total calce con el tiempo pedido.
+   3. POSTURAS SUELTAS. Con lo que queda, se rellena con lo que responda a los
+      objetivos, al estilo y a los chakras elegidos.
 
-   El ORDEN nunca se toca: es el de FASES y, dentro de cada fase, el del
-   catálogo. */
+   Después de eso se ajustan las duraciones: cada postura tiene su mínimo y su
+   máximo, y todo se estira o encoge dentro de esos límites hasta calzar con el
+   rato disponible.
+
+   El ORDEN nunca se toca: el de FASES, y dentro de cada fase primero las
+   secuencias y después lo suelto. */
 
 export const CATALOGO: Paso[] = [...RESPIRACIONES, ...POSTURAS];
+
+const POR_ID = new Map(CATALOGO.map((p) => [p.id, p]));
+
+/** Marca que un paso viene dentro de una serie, y en qué vuelta va. */
+export type EnSecuencia = {
+  id: string;
+  nombre: string;
+  vuelta: number;
+  vueltas: number;
+  lado?: "derecho" | "izquierdo";
+  porque: string;
+};
 
 export type PasoRutina = Paso & {
   /** Duración final, ya ajustada. Si es por lado, este es el tiempo TOTAL. */
   duracion: number;
+  /** Clave única: una misma postura puede repetirse en varias vueltas. */
+  clave: string;
+  secuencia?: EnSecuencia;
+  /** Fase bajo la que se muestra. Para una serie es la fase de la serie, no
+      la de cada postura: si no, el saludo al sol aparece partido. */
+  faseVisible: Fase;
+  /** Lo que dura este paso por diseño de la serie. Manda sobre el mínimo y el
+      máximo de la postura suelta: dentro de un saludo al sol, la pinza son
+      doce segundos, no cuarenta. */
+  disenada?: number;
 };
 
 export type Quitada = { nombre: string; motivo: string };
@@ -48,10 +73,10 @@ export type Rutina = {
   pasos: PasoRutina[];
   segundos: number;
   prefs: Preferencias;
-  /** Lo que se sacó por un cuidado marcado, para poder mostrarlo. */
   quitadas: Quitada[];
-  /** Props que aparecen en la rutina y que la persona dijo tener. */
   propsUsados: Prop[];
+  /** Las series que quedaron en la práctica, con sus vueltas. */
+  series: { nombre: string; vueltas: number; porque: string; porLado?: boolean }[];
 };
 
 const NIVEL_MAX: Record<Nivel, 1 | 2 | 3> = {
@@ -68,8 +93,7 @@ const CARGA_MAX: Record<Preferencias["intensidad"], 1 | 2 | 3> = {
 };
 
 /* La intensidad no corta en seco: inclina la elección. En suave entra algo de
-   trabajo, pero primero todo lo blando; en fuerte pasa al revés. Cortar en
-   seco dejaba las rutinas suaves con cuatro pasos y mucho relleno. */
+   trabajo, pero primero todo lo blando; en fuerte pasa al revés. */
 const SESGO_CARGA: Record<Preferencias["intensidad"], number> = {
   suave: -1.6,
   media: -0.3,
@@ -82,13 +106,13 @@ const RITMO: Record<Preferencias["ritmo"], number> = {
   ligero: 0.78,
 };
 
-/* Peso base de cada fase. Es la forma de una clase equilibrada antes de saber
+/* Peso base de cada fase: la forma de una clase equilibrada antes de saber
    nada de quién la va a hacer. */
 const PESO_BASE: Record<Fase, number> = {
   centrado: 0.5,
   respiracion: 1,
   calentamiento: 1.5,
-  saludos: 1.2,
+  saludos: 1.6,
   de_pie: 2,
   equilibrio: 0.8,
   suelo: 2,
@@ -104,7 +128,7 @@ const PESO_BASE: Record<Fase, number> = {
 /* La hora del día es lo que más cambia la forma de la práctica. */
 const POR_MOMENTO: Record<Preferencias["momento"], Partial<Record<Fase, number>>> = {
   manana: { saludos: 1.9, de_pie: 1.4, calentamiento: 1.2, invertidas: 0.6, savasana: 0.8, meditacion: 0.7 },
-  dia: { calentamiento: 1.3, de_pie: 1.2, extensiones: 1.2, savasana: 0.9, saludos: 0.8 },
+  dia: { calentamiento: 1.3, de_pie: 1.2, extensiones: 1.2, savasana: 0.9, saludos: 0.9 },
   noche: {
     saludos: 0.15,
     de_pie: 0.45,
@@ -119,15 +143,15 @@ const POR_MOMENTO: Record<Preferencias["momento"], Partial<Record<Fase, number>>
 };
 
 const POR_INTENSIDAD: Record<Preferencias["intensidad"], Partial<Record<Fase, number>>> = {
-  suave: { saludos: 0.25, de_pie: 0.55, equilibrio: 0.7, suelo: 1.4, enfriamiento: 1.3, savasana: 1.3 },
+  suave: { saludos: 0.4, de_pie: 0.55, equilibrio: 0.7, suelo: 1.4, enfriamiento: 1.3, savasana: 1.3 },
   media: {},
   fuerte: { saludos: 1.7, de_pie: 1.6, equilibrio: 1.3, extensiones: 1.2, suelo: 0.8, savasana: 0.9 },
 };
 
-/* Cuánto suma cada objetivo a cada fase. Esto es el corazón de que la rutina
+/* Cuánto suma cada objetivo a cada fase. Es el corazón de que la práctica
    responda a lo que se pidió y no sea siempre la misma clase. */
 const POR_OBJETIVO: Record<Objetivo, Partial<Record<Fase, number>>> = {
-  energia: { saludos: 1.4, de_pie: 0.9, calentamiento: 0.4 },
+  energia: { saludos: 1.6, de_pie: 0.9, calentamiento: 0.4 },
   calma: { respiracion: 0.9, suelo: 0.5, respiracion_final: 0.7, savasana: 0.7 },
   dormir: { suelo: 0.6, invertidas: 0.6, enfriamiento: 0.9, respiracion_final: 0.9, savasana: 1.1 },
   espalda: { calentamiento: 0.9, suelo: 0.7, extensiones: 0.6, torsiones: 0.4 },
@@ -154,7 +178,7 @@ const POR_ESTILO: Record<Estilo, Partial<Record<Fase, number>>> = {
   restaurativo: { suelo: 1.5, enfriamiento: 1.4, savasana: 1.5, de_pie: 0.3, saludos: 0.2 },
   kundalini: { respiracion: 1.8, meditacion: 1.3 },
   nidra: { savasana: 2, respiracion_final: 1.3, de_pie: 0.4, saludos: 0.2 },
-  silla: { de_pie: 1.2, calentamiento: 1.3, suelo: 0.4, invertidas: 0.5, saludos: 0.2 },
+  silla: { de_pie: 1.2, calentamiento: 1.3, suelo: 0.4, extensiones: 0.45, invertidas: 0.5, saludos: 0.2 },
   somatico: { calentamiento: 1.5, suelo: 1.2, saludos: 0.3 },
 };
 
@@ -205,27 +229,14 @@ function motivoDeCuidado(paso: Paso, p: Preferencias): string | null {
   return null;
 }
 
-/* Cuántos pasos como máximo por fase. Savasana es uno: savasana y yoga nidra
-   juntos son dos finales seguidos. Respiración es dos: tres pranayamas antes
-   de moverse es una clase de respiración, no de yoga. */
-const MAX_POR_FASE: Partial<Record<Fase, number>> = {
-  centrado: 2,
-  respiracion: 2,
-  respiracion_final: 1,
-  savasana: 1,
-  meditacion: 1,
-  saludos: 2,
-  invertidas: 1,
-};
-
 function pasaElFiltro(paso: Paso, p: Preferencias) {
-  if (paso.soloAvanzada && p.nivel !== "avanzada") return false;
   if (paso.soloCuidados && !paso.soloCuidados.some((c) => p.cuidados.includes(c))) return false;
   if (paso.evita?.some((c) => p.cuidados.includes(c))) return false;
   if (paso.necesita?.some((prop) => !p.props.includes(prop))) return false;
   if (paso.nivel > NIVEL_MAX[p.nivel]) return false;
   if (paso.carga > CARGA_MAX[p.intensidad]) return false;
   if (paso.soloPrimeraVez && p.nivel !== "primera") return false;
+  if (paso.soloAvanzada && p.nivel !== "avanzada") return false;
   if (paso.soloMomento && !paso.soloMomento.includes(p.momento)) return false;
   if (
     p.cuidados.includes("cirugia") &&
@@ -241,6 +252,7 @@ function quitadasPorCuidado(p: Preferencias): Quitada[] {
   const quitadas: Quitada[] = [];
   const vistos = new Set<string>();
   for (const paso of CATALOGO) {
+    if (paso.soloEnSecuencia) continue;
     const motivo = motivoDeCuidado(paso, p);
     if (!motivo || vistos.has(paso.nombre)) continue;
     vistos.add(paso.nombre);
@@ -249,128 +261,248 @@ function quitadasPorCuidado(p: Preferencias): Quitada[] {
   return quitadas;
 }
 
-/** Cuánto responde este paso a lo que se pidió. Más alto, entra antes. */
-function puntaje(paso: Paso, p: Preferencias) {
-  const objetivos = paso.objetivos.filter((o) => p.objetivos.includes(o)).length;
-  const estilo = paso.estilos.some((e) => p.estilos.includes(e)) ? 1 : 0;
-  const neutro = paso.estilos.length === 0 ? 0.35 : 0;
-  const carga = (paso.carga - 1) * SESGO_CARGA[p.intensidad];
-  return objetivos * 3 + estilo * 2.2 + neutro + carga - paso.prioridad * 0.45;
+/** Una secuencia solo entra si TODOS sus pasos pasan el filtro. */
+function secuenciaDisponible(sec: Secuencia, p: Preferencias) {
+  if (sec.evita?.some((c) => p.cuidados.includes(c))) return false;
+  if (sec.necesita?.some((prop) => !p.props.includes(prop))) return false;
+  if (sec.nivel > NIVEL_MAX[p.nivel]) return false;
+  if (sec.carga > CARGA_MAX[p.intensidad]) return false;
+  if (sec.soloMomento && !sec.soloMomento.includes(p.momento)) return false;
+  return sec.pasos.every((id) => {
+    const paso = POR_ID.get(id);
+    return paso ? pasaElFiltro(paso, p) : false;
+  });
+}
+
+/** Cuánto responde algo a lo que se pidió. Más alto, entra antes. */
+function puntaje(
+  cosa: { objetivos: Objetivo[]; estilos: Estilo[]; carga: 1 | 2 | 3; prioridad: number; id: string },
+  p: Preferencias,
+  deChakras: Set<string>
+) {
+  const objetivos = cosa.objetivos.filter((o) => p.objetivos.includes(o)).length;
+  const estilo = cosa.estilos.some((e) => p.estilos.includes(e)) ? 1 : 0;
+  const neutro = cosa.estilos.length === 0 ? 0.35 : 0;
+  const carga = (cosa.carga - 1) * SESGO_CARGA[p.intensidad];
+  const chakra = deChakras.has(cosa.id) ? 2.6 : 0;
+  return objetivos * 3 + estilo * 2.2 + neutro + carga + chakra - cosa.prioridad * 0.45;
 }
 
 function duracionBase(paso: Paso, p: Preferencias) {
   const factor = paso.familia === "quietud" || paso.familia === "respiracion" ? 1 : RITMO[p.ritmo];
   const bruta = Math.round(paso.segundos * factor);
-  const min = paso.minimo ?? Math.round(paso.segundos * 0.6);
-  const max = paso.maximo ?? Math.round(paso.segundos * 1.8);
-  return Math.min(max, Math.max(min, bruta));
+  return Math.min(maximoDe(paso), Math.max(minimoDe(paso), bruta));
 }
 
-function total(paso: Paso, segundos: number) {
-  return paso.porLado ? segundos * 2 : segundos;
+const minimoDe = (paso: Paso) => paso.minimo ?? Math.round(paso.segundos * 0.6);
+const maximoDe = (paso: Paso) => paso.maximo ?? Math.round(paso.segundos * 1.8);
+
+const conLado = (paso: Paso, segundos: number) => (paso.porLado ? segundos * 2 : segundos);
+
+/** Lo que cuesta una secuencia entera, con sus vueltas y sus dos lados. */
+function costoSecuencia(sec: Secuencia, vueltas: number) {
+  const vuelta = sec.segundos.reduce((a, s) => a + s, 0);
+  return vuelta * vueltas * (sec.porLado ? 2 : 1);
 }
+
+/* Lo elegido, antes de convertirse en pasos con duración. */
+type Elegido =
+  | { tipo: "paso"; paso: Paso; segundos: number }
+  | { tipo: "secuencia"; sec: Secuencia; vueltas: number };
 
 export function armarRutina(prefs: Preferencias): Rutina {
   const quitadas = quitadasPorCuidado(prefs);
-  const disponibles = CATALOGO.filter((p) => pasaElFiltro(p, prefs));
+  const deChakras = posturasDeChakras(prefs.chakras ?? []);
+  const disponibles = CATALOGO.filter((p) => !p.soloEnSecuencia && pasaElFiltro(p, prefs));
 
   const objetivoSegundos = prefs.minutos * 60;
+  const usados = new Set<string>();
+  const porFaseElegido = new Map<Fase, Elegido[]>();
+  const meter = (fase: Fase, e: Elegido) => {
+    const lista = porFaseElegido.get(fase) ?? [];
+    lista.push(e);
+    porFaseElegido.set(fase, lista);
+  };
 
-  // Lo que entra sí o sí.
-  const base = disponibles.filter((p) => p.base);
-  const usados = new Map<string, number>();
-  for (const p of base) usados.set(p.id, duracionBase(p, prefs));
+  // ── Lo que entra sí o sí ──────────────────────────────────
+  let gastado = 0;
+  const topeBase = Math.max(20, Math.round(objetivoSegundos * 0.08));
+  for (const paso of disponibles.filter((p) => p.base && pesoDeFase(p.fase, prefs) > 0)) {
+    usados.add(paso.id);
+    const s = Math.min(duracionBase(paso, prefs), Math.max(minimoDe(paso), topeBase));
+    meter(paso.fase, { tipo: "paso", paso, segundos: Math.min(s, topeBase) });
+    gastado += conLado(paso, Math.min(s, topeBase));
+  }
 
-  const gastoBase = base.reduce((a, p) => a + total(p, usados.get(p.id) ?? 0), 0);
-  const libre = Math.max(0, objetivoSegundos - gastoBase);
-
-  // Reparto del tiempo libre entre las fases.
+  // ── Reparto del tiempo por fase ───────────────────────────
   const pesos = FASES.map((f) => [f, pesoDeFase(f, prefs)] as const);
   const sumaPesos = pesos.reduce((a, [, w]) => a + w, 0) || 1;
+  const libre = Math.max(0, objetivoSegundos - gastado);
 
   for (const [fase, peso] of pesos) {
     let cupo = Math.round((peso / sumaPesos) * libre);
     if (cupo <= 0) continue;
 
+    /* 1. La secuencia primero: es el esqueleto de la fase. */
+    const seriesPosibles = SECUENCIAS.filter(
+      (s) =>
+        s.fase === fase &&
+        secuenciaDisponible(s, prefs) &&
+        !s.pasos.some((id) => usados.has(id) && !POR_ID.get(id)?.base)
+    ).sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras));
+
+    const cupoSerie = Math.round(cupo * 1.45);
+    for (const sec of seriesPosibles) {
+      if (costoSecuencia(sec, sec.vueltasMin) > cupoSerie) continue;
+      // Cuántas vueltas caben: se parte de las que pide la serie y se sube si
+      // sobra tiempo, porque repetir es la gracia.
+      let vueltas = sec.vueltasMin;
+      for (let v = sec.vueltas; v >= sec.vueltasMin; v--) {
+        if (costoSecuencia(sec, v) <= cupoSerie) {
+          vueltas = v;
+          break;
+        }
+      }
+      // Si después de eso todavía sobra sitio, se suman vueltas: repetir es
+      // justamente la gracia de una serie.
+      while (vueltas < sec.vueltasMax && costoSecuencia(sec, vueltas + 1) <= cupoSerie) vueltas++;
+      meter(fase, { tipo: "secuencia", sec, vueltas });
+      for (const id of sec.pasos) {
+        const dentro = POR_ID.get(id);
+        if (dentro?.base && usados.has(id)) {
+          porFaseElegido.set(
+            dentro.fase,
+            (porFaseElegido.get(dentro.fase) ?? []).filter(
+              (e) => !(e.tipo === "paso" && e.paso.id === id)
+            )
+          );
+        }
+        usados.add(id);
+      }
+      cupo -= costoSecuencia(sec, vueltas);
+      break; // una serie por fase: dos seguidas ya es otra clase
+    }
+
+    /* 2. Con lo que queda, posturas sueltas. */
+    const tope = MAX_POR_FASE[fase] ?? 99;
+    let puestas = (porFaseElegido.get(fase) ?? []).filter((e) => e.tipo === "paso").length;
     const candidatos = disponibles
       .filter((p) => p.fase === fase && !usados.has(p.id))
-      .sort((a, b) => puntaje(b, prefs) - puntaje(a, prefs));
+      .sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras));
 
-    const tope = MAX_POR_FASE[fase] ?? 99;
-    let puestos = 0;
     for (const paso of candidatos) {
-      if (puestos >= tope) break;
-      const minimo = total(paso, paso.minimo ?? Math.round(paso.segundos * 0.6));
-      if (minimo > cupo) continue;
-      const quiere = total(paso, duracionBase(paso, prefs));
-      const gasta = Math.min(quiere, cupo);
-      usados.set(paso.id, paso.porLado ? Math.round(gasta / 2) : gasta);
-      puestos++;
-      cupo -= gasta;
+      if (puestas >= tope) break;
       if (cupo < 30) break;
+      if (conLado(paso, minimoDe(paso)) > cupo) continue;
+
+      /* La preparación entra antes que la postura que prepara. */
+      const previas = (paso.prepararCon ?? [])
+        .map((id) => POR_ID.get(id))
+        .filter((p): p is Paso => !!p && !usados.has(p.id) && pasaElFiltro(p, prefs));
+      const costoPrevias = previas.reduce((a, p) => a + conLado(p, minimoDe(p)), 0);
+      if (conLado(paso, minimoDe(paso)) + costoPrevias > cupo) continue;
+
+      for (const previa of previas) {
+        usados.add(previa.id);
+        const s = Math.min(duracionBase(previa, prefs), maximoDe(previa));
+        meter(previa.fase, { tipo: "paso", paso: previa, segundos: s });
+        cupo -= conLado(previa, s);
+        puestas++;
+      }
+
+      const quiere = conLado(paso, duracionBase(paso, prefs));
+      const gasta = Math.min(quiere, Math.max(cupo, conLado(paso, minimoDe(paso))));
+      usados.add(paso.id);
+      meter(paso.fase, { tipo: "paso", paso, segundos: paso.porLado ? Math.round(gasta / 2) : gasta });
+      cupo -= gasta;
+      puestas++;
     }
   }
 
-  /* Si sobró tiempo, se agregan más posturas antes de estirar las que ya están.
-     Una rutina de veinte minutos con seis posturas larguísimas no es lo que
-     alguien pidió: es la misma clase corta, inflada. */
-  const sumaActual = () =>
-    CATALOGO.filter((x) => usados.has(x.id)).reduce((a, x) => a + total(x, usados.get(x.id) ?? 0), 0);
+  // ── Se aplana en el orden de la práctica ──────────────────
+  let pasos = aplanar(porFaseElegido, prefs);
 
-  const porPeso = [...pesos].sort((a, b) => b[1] - a[1]);
+  /* Si sobró tiempo, se agregan más posturas antes de estirar las que ya
+     están: una práctica de veinte minutos con seis posturas larguísimas no es
+     lo que alguien pidió. */
+  const suma = () => pasos.reduce((a, p) => a + p.duracion, 0);
   let vueltasRelleno = 0;
-  while (objetivoSegundos - sumaActual() > 45 && vueltasRelleno < 4) {
+  while (objetivoSegundos - suma() > 45 && vueltasRelleno < 4) {
     vueltasRelleno++;
     let agrego = false;
-    for (const [fase, peso] of porPeso) {
+    for (const [fase, peso] of [...pesos].sort((a, b) => b[1] - a[1])) {
       if (peso <= 0) continue;
-      const resto = objetivoSegundos - sumaActual();
+      const resto = objetivoSegundos - suma();
       if (resto <= 45) break;
-      const yaPuestos = CATALOGO.filter((x) => x.fase === fase && usados.has(x.id)).length;
-      if (yaPuestos >= (MAX_POR_FASE[fase] ?? 99)) continue;
+      const yaPuestas = (porFaseElegido.get(fase) ?? []).filter((e) => e.tipo === "paso").length;
+      if (yaPuestas >= (MAX_POR_FASE[fase] ?? 99)) continue;
       const siguiente = disponibles
-        .filter((x) => x.fase === fase && !usados.has(x.id))
-        .sort((a, b) => puntaje(b, prefs) - puntaje(a, prefs))
-        .find((x) => total(x, x.minimo ?? Math.round(x.segundos * 0.6)) <= resto);
+        .filter((p) => p.fase === fase && !usados.has(p.id))
+        .sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras))
+        .find((p) => conLado(p, minimoDe(p)) <= resto);
       if (!siguiente) continue;
-      const quiere = total(siguiente, duracionBase(siguiente, prefs));
+      usados.add(siguiente.id);
+      const quiere = conLado(siguiente, duracionBase(siguiente, prefs));
       const gasta = Math.min(quiere, resto);
-      usados.set(siguiente.id, siguiente.porLado ? Math.round(gasta / 2) : gasta);
+      meter(siguiente.fase, {
+        tipo: "paso",
+        paso: siguiente,
+        segundos: siguiente.porLado ? Math.round(gasta / 2) : gasta,
+      });
       agrego = true;
     }
+    pasos = aplanar(porFaseElegido, prefs);
     if (!agrego) break;
   }
 
-  /* Ajuste fino: lo elegido casi nunca suma justo el tiempo pedido. Se estira
-     o se encoge todo en proporción, respetando el mínimo y el máximo de cada
-     postura. Dos pasadas bastan para quedar cerca. */
-  let elegidos = CATALOGO.filter((p) => usados.has(p.id));
-  for (let vuelta = 0; vuelta < 2; vuelta++) {
-    const suma = elegidos.reduce((a, p) => a + total(p, usados.get(p.id) ?? 0), 0);
-    if (suma === 0) break;
-    const factor = objetivoSegundos / suma;
-    if (factor > 0.97 && factor < 1.03) break;
-    for (const p of elegidos) {
-      const min = p.minimo ?? Math.round(p.segundos * 0.6);
-      /* Tope duro: ninguna postura se lleva más del 15% de la práctica. Sin
-         esto el savasana se comía la mitad de una rutina de diez minutos,
-         porque su máximo son diez minutos. */
-      const techo = Math.max(min, Math.round(objetivoSegundos * 0.15));
-      const max = Math.min(p.maximo ?? Math.round(p.segundos * 1.8), techo);
-      const ahora = usados.get(p.id) ?? p.segundos;
-      usados.set(p.id, Math.round(Math.min(max, Math.max(min, ahora * factor)) / 5) * 5);
-    }
-  }
+  ajustarDuraciones(pasos, objetivoSegundos);
 
-  elegidos = CATALOGO.filter((p) => usados.has(p.id));
-  const pasos: PasoRutina[] = elegidos.map((p) => ({
-    ...p,
-    duracion: total(p, usados.get(p.id) ?? p.segundos),
-  }));
+  /* Recorte: si aun con todo en su mínimo la práctica se pasa del rato pedido,
+     se saca la postura suelta que menos aporta y se vuelve a ajustar. Es
+     preferible una práctica más corta que una que miente con el tiempo. */
+  for (let intento = 0; intento < 10; intento++) {
+    const total = pasos.reduce((a, p) => a + p.duracion, 0);
+    if (total <= objetivoSegundos * 1.02) break;
+    let peorFase: Fase | null = null;
+    let peorId: string | null = null;
+    let peorPuntaje = Infinity;
+    for (const [fase, lista] of porFaseElegido) {
+      for (const e of lista) {
+        if (e.tipo !== "paso" || e.paso.base) continue;
+        const pts = puntaje(e.paso, prefs, deChakras);
+        if (pts < peorPuntaje) {
+          peorPuntaje = pts;
+          peorFase = fase;
+          peorId = e.paso.id;
+        }
+      }
+    }
+    if (!peorFase || !peorId) break;
+    porFaseElegido.set(
+      peorFase,
+      (porFaseElegido.get(peorFase) ?? []).filter((e) => !(e.tipo === "paso" && e.paso.id === peorId))
+    );
+    usados.delete(peorId);
+    pasos = aplanar(porFaseElegido, prefs);
+    ajustarDuraciones(pasos, objetivoSegundos);
+  }
 
   const propsUsados = [
     ...new Set(pasos.flatMap((p) => [...(p.necesita ?? []), ...(p.mejoraCon ?? [])])),
   ].filter((prop) => prefs.props.includes(prop));
+
+  const series: Rutina["series"] = [];
+  for (const lista of porFaseElegido.values()) {
+    for (const e of lista) {
+      if (e.tipo !== "secuencia") continue;
+      series.push({
+        nombre: e.sec.nombre,
+        vueltas: e.vueltas,
+        porque: e.sec.porque,
+        porLado: e.sec.porLado,
+      });
+    }
+  }
 
   return {
     pasos,
@@ -378,13 +510,153 @@ export function armarRutina(prefs: Preferencias): Rutina {
     prefs,
     quitadas,
     propsUsados,
+    series,
   };
+}
+
+/* Ajuste fino: lo elegido casi nunca suma justo el tiempo pedido. Se estira o
+   se encoge todo en proporción, respetando los límites de cada postura. */
+function ajustarDuraciones(pasos: PasoRutina[], objetivoSegundos: number) {
+  for (let vuelta = 0; vuelta < 3; vuelta++) {
+    const total = pasos.reduce((a, p) => a + p.duracion, 0);
+    if (total === 0) break;
+    const factor = objetivoSegundos / total;
+    if (factor > 0.97 && factor < 1.03) break;
+    /* Tope duro: ninguna postura se lleva más del 15% de la práctica. Sin esto
+       el savasana se comía la mitad de una rutina de diez minutos. */
+    const techo = Math.round(objetivoSegundos * 0.15);
+    for (const p of pasos) {
+      const dobla = p.porLado && !p.secuencia ? 2 : 1;
+      const min = p.disenada ? Math.max(6, Math.round(p.disenada * 0.85)) : minimoDe(p) * dobla;
+      const max = p.disenada
+        ? Math.round(p.disenada * 1.6)
+        : Math.min(maximoDe(p) * dobla, Math.max(min, techo));
+      const ajustada = Math.min(max, Math.max(min, p.duracion * factor));
+      // Los pasos cortos de una serie se redondean al segundo; lo demás, a
+      // cinco, que se lee mejor en pantalla.
+      p.duracion = ajustada > 25 ? Math.round(ajustada / 5) * 5 : Math.max(5, Math.round(ajustada));
+    }
+  }
+}
+
+/* Cuántas posturas sueltas como máximo por fase. Savasana es una: savasana y
+   yoga nidra juntos son dos finales seguidos. */
+const MAX_POR_FASE: Partial<Record<Fase, number>> = {
+  centrado: 2,
+  respiracion: 2,
+  respiracion_final: 1,
+  savasana: 1,
+  meditacion: 1,
+  saludos: 1,
+  invertidas: 1,
+};
+
+/* Convierte lo elegido en la lista de pasos, en el orden de la práctica:
+   fase por fase, primero la serie (vuelta por vuelta, lado por lado) y después
+   lo suelto en el orden del catálogo. */
+function aplanar(porFaseElegido: Map<Fase, Elegido[]>, prefs: Preferencias): PasoRutina[] {
+  const salida: PasoRutina[] = [];
+  let n = 0;
+
+  for (const fase of FASES) {
+    const lista = porFaseElegido.get(fase) ?? [];
+
+    for (const e of lista.filter((x) => x.tipo === "secuencia")) {
+      if (e.tipo !== "secuencia") continue;
+      const lados: ("derecho" | "izquierdo" | undefined)[] = e.sec.porLado
+        ? ["derecho", "izquierdo"]
+        : [undefined];
+      for (let v = 1; v <= e.vueltas; v++) {
+        for (const lado of lados) {
+          e.sec.pasos.forEach((id, i) => {
+            const paso = POR_ID.get(id);
+            if (!paso) return;
+            salida.push({
+              ...paso,
+              faseVisible: fase,
+              duracion: e.sec.segundos[i] ?? minimoDe(paso),
+              disenada: e.sec.segundos[i] ?? minimoDe(paso),
+              clave: `${id}-${n++}`,
+              secuencia: {
+                id: e.sec.id,
+                nombre: e.sec.nombre,
+                vuelta: v,
+                vueltas: e.vueltas,
+                lado,
+                porque: e.sec.porque,
+              },
+            });
+          });
+        }
+      }
+    }
+
+    const sueltas = lista.filter((x) => x.tipo === "paso");
+    const orden = new Map(CATALOGO.map((p, i) => [p.id, i]));
+    sueltas.sort((a, b) => {
+      if (a.tipo !== "paso" || b.tipo !== "paso") return 0;
+      return (orden.get(a.paso.id) ?? 0) - (orden.get(b.paso.id) ?? 0);
+    });
+    for (const e of sueltas) {
+      if (e.tipo !== "paso") continue;
+      salida.push({
+        ...e.paso,
+        faseVisible: fase,
+        duracion: conLado(e.paso, e.segundos),
+        clave: `${e.paso.id}-${n++}`,
+      });
+    }
+  }
+
+  void prefs;
+  return salida;
 }
 
 /** Agrupa la rutina por fase, en el orden de la práctica, sin fases vacías. */
 export function porFase(rutina: Rutina) {
   return FASES.map((fase) => ({
     fase,
-    pasos: rutina.pasos.filter((p) => p.fase === fase),
+    pasos: rutina.pasos.filter((p) => p.faseVisible === fase),
   })).filter((g) => g.pasos.length > 0);
+}
+
+/* Para la lista: junta los pasos seguidos de una misma serie en un solo
+   bloque, así se lee «Saludo al sol ×3» y no ocho posturas repetidas tres
+   veces. */
+export type Bloque =
+  | { tipo: "paso"; paso: PasoRutina }
+  | {
+      tipo: "serie";
+      nombre: string;
+      vueltas: number;
+      porque: string;
+      porLado?: boolean;
+      pasos: PasoRutina[];
+      duracion: number;
+    };
+
+export function enBloques(pasos: PasoRutina[]): Bloque[] {
+  const bloques: Bloque[] = [];
+  for (const paso of pasos) {
+    if (!paso.secuencia) {
+      bloques.push({ tipo: "paso", paso });
+      continue;
+    }
+    const ultimo = bloques[bloques.length - 1];
+    if (ultimo && ultimo.tipo === "serie" && ultimo.nombre === paso.secuencia.nombre) {
+      ultimo.pasos.push(paso);
+      ultimo.duracion += paso.duracion;
+      continue;
+    }
+    bloques.push({
+      tipo: "serie",
+      nombre: paso.secuencia.nombre,
+      vueltas: paso.secuencia.vueltas,
+      porque: paso.secuencia.porque,
+      porLado: !!paso.secuencia.lado,
+      pasos: [paso],
+      duracion: paso.duracion,
+    });
+  }
+  return bloques;
 }

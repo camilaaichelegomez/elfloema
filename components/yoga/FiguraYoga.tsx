@@ -40,6 +40,9 @@ type Esqueleto = {
   manta?: P;
   /** Sin línea de suelo (nadie está en el suelo). */
   sinSuelo?: boolean;
+  /** Hacia dónde mira la cara. Sin esto la cabeza es un círculo y no se sabe
+      si la postura va hacia adelante o hacia atrás. Por defecto, a la derecha. */
+  mira?: "der" | "izq" | "arriba" | "abajo";
 };
 
 const SUELO = 132;
@@ -55,6 +58,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   silla_postura: {
     cab: [88, 42], cue: [92, 53], pec: [97, 64], pel: [112, 88],
+    mira: "izq",
     br: [[95, 56], [86, 40], [80, 24]],
     pi: [[112, 90], [110, 110], [94, SUELO]],
     pi2: [[110, 90], [108, 110], [92, SUELO]],
@@ -75,12 +79,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   guerrero3: {
     cab: [60, 70], cue: [71, 72], pec: [86, 76], pel: [104, 80],
+    mira: "izq",
     br: [[71, 73], [58, 81], [46, 89]],
     pi: [[104, 82], [106, 107], [106, SUELO]],
     pi2: [[104, 79], [124, 75], [144, 71]],
   },
   triangulo: {
     cab: [82, 48], cue: [86, 57], pec: [92, 67], pel: [100, 82],
+    mira: "izq",
     br: [[89, 60], [85, 40], [81, 20]],
     br2: [[90, 63], [86, 84], [82, 106]],
     pi: [[100, 84], [78, 108], [62, SUELO]],
@@ -88,6 +94,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   angulo_lateral: {
     cab: [74, 60], cue: [80, 67], pec: [88, 75], pel: [100, 86],
+    mira: "izq",
     br: [[83, 69], [65, 51], [50, 37]],
     br2: [[86, 77], [77, 94], [71, 110]],
     pi: [[100, 88], [76, 110], [62, SUELO]],
@@ -95,12 +102,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   piernas_abiertas_pie: {
     cab: [100, 116], cue: [100, 105], pec: [100, 92], pel: [100, 72],
+    mira: "abajo",
     br: [[100, 96], [100, 113], [100, 129]],
     pi: [[103, 74], [79, 103], [63, SUELO]],
     pi2: [[97, 74], [121, 103], [139, SUELO]],
   },
   pinza_de_pie: {
     cab: [84, 112], cue: [89, 101], pec: [94, 90], pel: [102, 72],
+    mira: "abajo",
     br: [[93, 93], [88, 110], [84, 127]],
     pi: [[104, 74], [106, 104], [106, SUELO]],
     pi2: [[100, 74], [102, 104], [102, SUELO]],
@@ -132,25 +141,63 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   hombros_pared: {
     cab: [66, 88], cue: [77, 88], pec: [92, 88], pel: [112, 89],
+    mira: "abajo",
     br: [[78, 87], [108, 85], [140, 84]],
     pi: [[112, 91], [114, 111], [116, SUELO]],
     pi2: [[112, 91], [110, 111], [110, SUELO]],
     pared: true,
   },
 
+  brazos_arriba_pie: {
+    cab: [100, 30], cue: [100, 42], pec: [100, 52], pel: [100, 76],
+    br: [[100, 44], [100, 28], [100, 12]],
+    br2: [[100, 44], [95, 28], [93, 12]],
+    pi: [[102, 78], [103, 105], [103, SUELO]],
+    pi2: [[98, 78], [97, 105], [97, SUELO]],
+  },
+  media_pinza: {
+    cab: [72, 97], cue: [83, 94], pec: [94, 88], pel: [104, 74],
+    mira: "izq",
+    br: [[88, 91], [89, 111], [90, 131]],
+    pi: [[104, 76], [106, 104], [106, SUELO]],
+    pi2: [[100, 76], [102, 104], [102, SUELO]],
+  },
+  perro_abajo: {
+    cab: [80, 104], cue: [86, 96], pec: [93, 86], pel: [112, 62],
+    mira: "abajo",
+    br: [[89, 92], [79, 112], [70, 131]],
+    pi: [[113, 64], [126, 98], [134, 131]],
+    pi2: [[111, 64], [122, 98], [130, 131]],
+  },
+  chaturanga: {
+    cab: [66, 104], cue: [77, 106], pec: [90, 110], pel: [110, 116],
+    mira: "izq",
+    br: [[78, 108], [88, 126], [76, 131]],
+    pi: [[110, 118], [124, 124], [138, 129]],
+  },
+  perro_arriba: {
+    cab: [84, 83], cue: [89, 93], pec: [96, 105], pel: [112, 120],
+    mira: "izq",
+    br: [[93, 97], [93, 114], [93, 131]],
+    pi: [[112, 122], [128, 128], [143, 131]],
+  },
+
   // ── Cuadrupedia ──
   cuadrupedia: {
     cab: [76, 84], cue: [85, 88], pec: [98, 90], pel: [122, 90],
+    mira: "izq",
     br: [[86, 90], [86, 111], [86, 131]],
     pi: [[122, 92], [124, 112], [126, 131]],
   },
   gato: {
     cab: [78, 100], cue: [84, 90], pec: [96, 83], pel: [122, 92],
+    mira: "abajo",
     br: [[85, 92], [85, 112], [85, 131]],
     pi: [[122, 94], [124, 113], [126, 131]],
   },
   gato_equilibrio: {
     cab: [76, 82], cue: [85, 86], pec: [98, 88], pel: [122, 88],
+    mira: "izq",
     br: [[85, 87], [70, 80], [54, 73]],
     br2: [[90, 90], [90, 111], [90, 131]],
     pi: [[122, 90], [124, 111], [126, 131]],
@@ -158,27 +205,32 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   cachorro: {
     cab: [80, 126], cue: [89, 122], pec: [100, 116], pel: [122, 98],
+    mira: "izq",
     br: [[98, 118], [82, 124], [64, 128]],
     pi: [[122, 100], [128, 120], [118, 131]],
   },
   aguja: {
     cab: [86, 127], cue: [93, 123], pec: [101, 117], pel: [122, 96],
+    mira: "izq",
     br: [[97, 120], [80, 126], [60, 130]],
     br2: [[101, 115], [105, 123], [110, 131]],
     pi: [[122, 98], [126, 116], [128, 131]],
   },
   plancha: {
     cab: [70, 88], cue: [80, 92], pec: [92, 98], pel: [112, 108],
+    mira: "izq",
     br: [[80, 94], [81, 112], [82, 131]],
     pi: [[112, 110], [126, 119], [140, 129]],
   },
   camello: {
     cab: [111, 67], cue: [103, 74], pec: [99, 85], pel: [104, 105],
+    mira: "arriba",
     br: [[100, 77], [108, 92], [113, 106]],
     pi: [[104, 107], [102, 128], [117, 131]],
   },
   nino: {
     cab: [76, 124], cue: [87, 121], pec: [100, 117], pel: [121, 112],
+    mira: "izq",
     br: [[98, 119], [84, 124], [68, 128]],
     pi: [[121, 114], [132, 126], [122, 131]],
   },
@@ -186,16 +238,19 @@ const FIGURAS: Record<string, Esqueleto> = {
   // ── Boca abajo ──
   cobra: {
     cab: [85, 91], cue: [90, 101], pec: [97, 112], pel: [113, 126],
+    mira: "izq",
     br: [[93, 104], [93, 118], [93, 131]],
     pi: [[113, 128], [129, 130], [144, 131]],
   },
   esfinge: {
     cab: [85, 96], cue: [90, 105], pec: [97, 114], pel: [113, 126],
+    mira: "izq",
     br: [[93, 108], [85, 124], [68, 130]],
     pi: [[113, 128], [129, 130], [144, 131]],
   },
   langosta: {
     cab: [85, 101], cue: [90, 109], pec: [97, 116], pel: [113, 122],
+    mira: "izq",
     br: [[93, 112], [101, 120], [110, 125]],
     pi: [[113, 124], [127, 120], [142, 113]],
   },
@@ -203,17 +258,20 @@ const FIGURAS: Record<string, Esqueleto> = {
   // ── De espaldas ──
   savasana: {
     cab: [68, 124], cue: [79, 126], pec: [95, 128], pel: [116, 130],
+    mira: "arriba",
     br: [[79, 127], [96, 132], [112, 133]],
     pi: [[116, 130], [132, 131], [149, 130]],
   },
   savasana_lateral: {
     cab: [72, 116], cue: [83, 119], pec: [97, 122], pel: [114, 125],
+    mira: "izq",
     br: [[83, 118], [96, 114], [110, 113]],
     pi: [[114, 127], [120, 112], [104, 106]],
     bolster: [113, 120],
   },
   nidra: {
     cab: [68, 124], cue: [79, 126], pec: [95, 128], pel: [116, 130],
+    mira: "arriba",
     br: [[79, 127], [96, 132], [112, 133]],
     pi: [[116, 130], [130, 122], [146, 128]],
     bolster: [131, 126],
@@ -221,51 +279,60 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   puente: {
     cab: [72, 128], cue: [82, 126], pec: [94, 116], pel: [110, 102],
+    mira: "arriba",
     br: [[82, 128], [93, 131], [105, 131]],
     pi: [[110, 104], [126, 113], [126, 131]],
   },
   puente_apoyado: {
     cab: [72, 128], cue: [82, 127], pec: [94, 120], pel: [110, 109],
+    mira: "arriba",
     br: [[82, 128], [93, 131], [105, 131]],
     pi: [[110, 111], [127, 117], [127, 131]],
     bloque: [110, 120],
   },
   torsion_supina: {
     cab: [77, 120], cue: [86, 120], pec: [98, 121], pel: [110, 123],
+    mira: "izq",
     br: [[86, 118], [73, 112], [60, 107]],
     br2: [[86, 119], [98, 114], [110, 112]],
     pi: [[110, 125], [122, 112], [131, 103]],
   },
   rodillas_pecho: {
     cab: [76, 122], cue: [86, 123], pec: [98, 124], pel: [111, 126],
+    mira: "arriba",
     br: [[86, 123], [99, 116], [111, 113]],
     pi: [[111, 126], [107, 107], [92, 113]],
   },
   cuatro_supina: {
     cab: [68, 124], cue: [79, 126], pec: [94, 127], pel: [110, 127],
+    mira: "arriba",
     br: [[79, 126], [92, 120], [105, 115]],
     pi: [[110, 127], [112, 101], [98, 95]],
     pi2: [[110, 127], [127, 105], [106, 103]],
   },
   supina_pierna_estirada: {
     cab: [68, 124], cue: [79, 126], pec: [94, 128], pel: [110, 130],
+    mira: "arriba",
     br: [[79, 126], [94, 115], [109, 102]],
     pi: [[110, 130], [112, 101], [114, 72]],
     pi2: [[110, 130], [127, 131], [144, 130]],
   },
   bebe_feliz: {
     cab: [68, 126], cue: [79, 128], pec: [94, 128], pel: [110, 128],
+    mira: "arriba",
     br: [[79, 128], [95, 116], [110, 103]],
     pi: [[110, 128], [116, 103], [111, 94]],
     pi2: [[110, 128], [131, 110], [126, 99]],
   },
   banana: {
     cab: [60, 116], cue: [71, 120], pec: [88, 126], pel: [108, 130],
+    mira: "arriba",
     br: [[71, 118], [61, 109], [52, 102]],
     pi: [[108, 130], [126, 126], [144, 117]],
   },
   zapatero_apoyado: {
     cab: [70, 102], cue: [81, 107], pec: [95, 114], pel: [112, 124],
+    mira: "arriba",
     br: [[81, 108], [73, 120], [64, 130]],
     pi: [[112, 126], [130, 121], [116, 131]],
     pi2: [[112, 126], [98, 121], [113, 131]],
@@ -273,6 +340,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   piernas_pared: {
     cab: [60, 124], cue: [71, 126], pec: [90, 128], pel: [112, 130],
+    mira: "arriba",
     br: [[71, 126], [85, 133], [99, 134]],
     pi: [[112, 130], [130, 106], [136, 58]],
     pi2: [[112, 130], [126, 106], [130, 58]],
@@ -280,6 +348,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   vela_hombros: {
     cab: [78, 128], cue: [89, 128], pec: [96, 112], pel: [100, 88],
+    mira: "arriba",
     br: [[89, 126], [94, 112], [101, 100]],
     pi: [[100, 86], [100, 62], [100, 36]],
     pi2: [[100, 86], [96, 62], [96, 36]],
@@ -337,12 +406,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   pinza_sentada: {
     cab: [119, 118], cue: [110, 116], pec: [100, 115], pel: [86, 120],
+    mira: "abajo",
     br: [[100, 115], [117, 121], [133, 126]],
     pi: [[88, 122], [113, 126], [141, 128]],
     pi2: [[88, 122], [113, 129], [141, 131]],
   },
   cabeza_rodilla: {
     cab: [119, 114], cue: [110, 112], pec: [100, 114], pel: [88, 120],
+    mira: "abajo",
     br: [[100, 114], [117, 118], [133, 122]],
     pi: [[90, 122], [115, 126], [142, 128]],
     pi2: [[90, 122], [72, 130], [97, 131]],
@@ -356,12 +427,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   barco: {
     cab: [72, 92], cue: [81, 99], pec: [91, 108], pel: [104, 121],
+    mira: "izq",
     br: [[81, 101], [96, 105], [111, 109]],
     pi: [[104, 121], [122, 100], [137, 85]],
     pi2: [[104, 121], [122, 105], [137, 90]],
   },
   paloma: {
     cab: [93, 77], cue: [95, 86], pec: [98, 95], pel: [104, 111],
+    mira: "izq",
     br: [[98, 89], [92, 105], [87, 121]],
     pi: [[104, 113], [84, 124], [68, 128]],
     pi2: [[106, 113], [126, 125], [147, 130]],
@@ -383,6 +456,14 @@ const FIGURAS: Record<string, Esqueleto> = {
     pi2: [[90, 106], [114, 108], [114, 131]],
     silla: true,
   },
+};
+
+/* Hacia dónde apunta la nariz en cada caso. */
+const RUMBO: Record<"der" | "izq" | "arriba" | "abajo", [number, number]> = {
+  der: [1, 0],
+  izq: [-1, 0],
+  arriba: [0, -1],
+  abajo: [0, 1],
 };
 
 const DORADO = "#c8a050";
@@ -494,8 +575,22 @@ export function FiguraYoga({
         <path d={linea(f.pi)} />
       </g>
 
-      {/* Cabeza */}
+      {/* Cabeza, con la nariz marcando hacia dónde mira */}
       <circle cx={f.cab[0]} cy={f.cab[1]} r="8" fill="#0e1a0e" stroke={DORADO} strokeWidth="2" />
+      {(() => {
+        const [dx, dy] = RUMBO[f.mira ?? "der"];
+        return (
+          <line
+            x1={f.cab[0] + dx * 4}
+            y1={f.cab[1] + dy * 4}
+            x2={f.cab[0] + dx * 14}
+            y2={f.cab[1] + dy * 14}
+            stroke={DORADO}
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+        );
+      })()}
     </svg>
   );
 }

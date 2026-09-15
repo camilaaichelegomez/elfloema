@@ -308,6 +308,8 @@ export const CUIDADOS: {
 /* EL ORDEN DE ESTE ARRAY ES EL ORDEN DE LA CLASE. No se reordena: es el arco
    de una práctica completa — llegar, respirar, calentar, trabajar de pie,
    bajar al suelo, abrir, invertir suave, enfriar y descansar. */
+import type { Chakra } from "./chakras";
+
 export type Fase =
   | "centrado"
   | "respiracion"
@@ -419,6 +421,11 @@ export type Paso = {
   /** Solo para quien lleva años: posturas que no se aprenden solas desde
       una pantalla, como la vela sobre los hombros. */
   soloAvanzada?: boolean;
+  /** Es un paso de paso: solo tiene sentido dentro de una secuencia (el
+      chaturanga del saludo al sol, por ejemplo). Nunca se elige suelta. */
+  soloEnSecuencia?: boolean;
+  /** Posturas que preparan a esta. Si entra esta, entran antes esas. */
+  prepararCon?: string[];
   /** Solo a esta hora del día. */
   soloMomento?: Momento[];
   /** Menor número, entra antes cuando el tiempo no alcanza. */
@@ -438,6 +445,9 @@ export type Preferencias = {
   estilos: Estilo[];
   cuidados: Cuidado[];
   props: Prop[];
+  /** Chakras que se quieren trabajar. Es tradición, no fisiología: inclina la
+      elección de posturas hacia esa zona del cuerpo y nada más. */
+  chakras: Chakra[];
   /** Incluir pranayama al principio y al final. */
   respiracion: boolean;
   /** Cerrar con meditación guiada. */
@@ -457,6 +467,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   estilos: [],
   cuidados: [],
   props: ["mat"],
+  chakras: [],
   respiracion: true,
   meditacion: false,
   sonido: true,

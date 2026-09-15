@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties }
 import { armarRutina, enBloques, porFase, type Rutina } from "@/lib/yoga/armar";
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
+import { SelectorDeVoz } from "@/components/SelectorDeVoz";
 import {
   CUIDADOS,
   ESTILOS,
@@ -134,7 +135,7 @@ export function Yoga() {
   const [segundoLado, setSegundoLado] = useState(false);
 
   const pitar = usarPitido(prefs.sonido);
-  const { decir, callar, desbloquear } = usarVoz(prefs.voz);
+  const { decir, callar, desbloquear } = usarVoz(prefs.voz, prefs.vozNombre);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   const cajaRef = useRef<HTMLDivElement | null>(null);
   const primeraVista = useRef(true);
@@ -526,16 +527,42 @@ export function Yoga() {
               {prefs.sonido ? "Con sonido" : "Sin sonido"}
             </button>
             {hayVoz() && (
-              <button
-                type="button"
-                onClick={() => setPrefs({ ...prefs, voz: !prefs.voz })}
-                aria-pressed={prefs.voz}
-                style={{ ...chip, ...(prefs.voz ? chipActivo : null) }}
-              >
-                {prefs.voz ? "Con voz que guía" : "Sin voz"}
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={() => setPrefs({ ...prefs, voz: !prefs.voz })}
+                  aria-pressed={prefs.voz}
+                  style={{ ...chip, ...(prefs.voz ? chipActivo : null) }}
+                >
+                  {prefs.voz ? "Con voz que guía" : "Sin voz"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    desbloquear();
+                    decir("Esta es la voz que te va a guiar. Si no la escuchas, revisa el volumen.");
+                  }}
+                  style={chip}
+                >
+                  Probar la voz
+                </button>
+              </>
             )}
           </div>
+
+          {/* Las voces del sistema suenan muy distinto entre sí: las de Google y
+              las de Siri son naturales, las viejas de Microsoft son las que
+              suenan a robot. Acá se elige, y al tocar una se escucha. */}
+          {prefs.voz && (
+            <SelectorDeVoz
+              valor={prefs.vozNombre}
+              onElegir={(nombre) => setPrefs({ ...prefs, vozNombre: nombre })}
+              decir={decir}
+              chip={chip}
+              chipActivo={chipActivo}
+              ayuda={ayuda}
+            />
+          )}
         </Pregunta>
 
         <Pregunta

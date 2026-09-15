@@ -76,6 +76,21 @@ function IconMortar() {
   );
 }
 
+function IconYoga() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="10" r="4.5" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.6" />
+      <line x1="19" y1="15" x2="19" y2="30" stroke="#c8a050" strokeWidth="1" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,18 C14,22 11,27 9,32" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,18 C24,22 27,27 29,32" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,30 C13,31 8,34 7,38" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.5" strokeLinecap="round" />
+      <path d="M19,30 C25,31 30,34 31,38" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.5" strokeLinecap="round" />
+      <line x1="6" y1="39" x2="32" y2="39" stroke="#c8a050" strokeWidth="0.8" opacity="0.4" strokeLinecap="round" />
+      <circle cx="19" cy="10" r="1" fill="#7a4a8a" opacity="0.45" />
+    </svg>
+  );
+}
+
 const CARDS = [
   {
     key: "botanica",
@@ -104,6 +119,13 @@ const CARDS = [
     desc: "Infusión, decocción, maceración y tintura: cómo capturar los activos de cada planta.",
     Icon: IconMortar,
     href: "/biblioteca/metodos-extraccion",
+  },
+  {
+    key: "yoga",
+    label: "Yoga y cuerpo",
+    desc: "Qué está probado de cada práctica, con las revisiones al lado, y la app que arma tu rutina.",
+    Icon: IconYoga,
+    href: "/yoga",
   },
 ];
 

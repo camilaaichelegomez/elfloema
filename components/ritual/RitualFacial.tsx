@@ -151,6 +151,22 @@ export function RitualFacial() {
     setNivel(g.nivel === "primera" ? "practico" : g.nivel ?? "practico");
     setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
+
+    /* Si ya eligió alguna vez, la rutina se arma sola y se entra directo a
+       ella: volver a la pantalla de preguntas cada vez, con la cabecera
+       arriba, hacía parecer que la página no había cargado. */
+    if ((g.necesidades ?? []).length > 0) {
+      const r = armarRutina({
+        necesidades: g.necesidades,
+        minutos: g.minutos ?? 10,
+        momento: g.momento ?? "manana",
+        nivel: g.nivel === "primera" ? "practico" : g.nivel ?? "practico",
+        estadoPiel: g.estadoPiel ?? "normal",
+      });
+      setRutina(r);
+      setRestante(r.pasos[0]?.segundos ?? 0);
+      setEtapa("rutina");
+    }
   }, []);
 
   const pasoActual = rutina?.pasos[indice];

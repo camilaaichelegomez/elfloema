@@ -30,7 +30,7 @@ export default async function CostosLabPage() {
   return (
     <main
       className="parchment-bg lab-bg"
-      style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(20px, 5vw, 64px) 64px" }}
+      style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(20px, 5vw, 64px) 64px" }}
     >
       <div style={{ maxWidth: 1180, margin: "0 auto" }}>
         <LabEncabezado titulo="Costos y Precios" actual="costos" />

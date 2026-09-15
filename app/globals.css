@@ -2427,16 +2427,50 @@ img {
 
 /* Mismo patrón que el resto de las secciones: atmósfera + velo + foto.
    Usa el fondo de belleza hasta que haya uno propio. */
+/* El Ritual facial se queda con el fondo de belleza: son frascos y cremas
+   sobre una mesa, que es exactamente de lo que trata. */
 .ritual-bg {
   background:
-    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(122, 74, 138, 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(168, 200, 138, 0.1), transparent),
-    linear-gradient(rgba(10, 16, 10, 0.7), rgba(10, 16, 10, 0.82)),
+    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(122, 74, 138, 0.1), transparent),
+    /* Mismo velo desparejo que en yoga: oscuro arriba para que se lea el
+       título, liviano al medio para que se vea la foto, y oscuro abajo, que es
+       donde viene todo el texto. Antes era parejo y apagaba la imagen entera. */
+    linear-gradient(
+      rgba(10, 16, 10, 0.82) 0,
+      rgba(10, 16, 10, 0.48) 240px,
+      rgba(10, 16, 10, 0.6) 60%,
+      rgba(10, 16, 10, 0.84) 100%
+    ),
     url('/fondo_belleza.jpg') center top / cover fixed,
     var(--bg-primary);
 }
+
+/* El de yoga tenía ese mismo fondo, y unos tarros de crema no dicen nada de
+   una práctica de yoga. Va el bosque con los rayos de luz, y el velo un poco
+   más oscuro abajo porque la app es larga y el texto tiene que ganarle a las
+   copas de los árboles. */
+.yoga-bg {
+  background:
+    /* El velo no es parejo a propósito: oscuro en los primeros 240 px para que
+       el título y el enlace de volver se lean sobre los rayos de luz, liviano
+       en el medio para que el bosque se vea, y oscuro otra vez abajo, donde la
+       página es larga y hay mucho texto. Con un velo parejo y oscuro la foto
+       se convertía en un café barroso. */
+    linear-gradient(
+      rgba(10, 16, 10, 0.82) 0,
+      rgba(10, 16, 10, 0.5) 240px,
+      rgba(10, 16, 10, 0.62) 60%,
+      rgba(10, 16, 10, 0.84) 100%
+    ),
+    url('/bosque-3.jpg') center top / cover fixed,
+    var(--bg-primary);
+}
+
 @media (max-width: 900px) {
-  .ritual-bg { background-attachment: scroll; }
+  .ritual-bg,
+  .yoga-bg {
+    background-attachment: scroll;
+  }
 }
 
 /* La flecha se dibuja sola para que se vea hacia dónde va el recorrido: en el

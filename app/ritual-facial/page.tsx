@@ -24,44 +24,47 @@ export default function RitualFacialPage() {
   return (
     <main
       className="ritual-bg"
-      style={{ minHeight: "100vh", padding: "clamp(90px, 14vh, 140px) clamp(16px, 5vw, 64px) 80px" }}
+      style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
         <BackButton />
 
-        <header style={{ margin: "0 0 2.2rem" }}>
+        {/* Cabecera corta a propósito: lo primero que tiene que aparecer al
+            entrar es la rutina. La presentación larga va debajo. */}
+        <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Cuidado del rostro</p>
           <h1
             style={{
               fontFamily: "var(--font-grimoire)",
-              fontSize: "clamp(1.9rem, 5.5vw, 3.1rem)",
+              fontSize: "clamp(1.4rem, 3.6vw, 2.1rem)",
               color: "#c8a050",
               letterSpacing: "0.16em",
               textTransform: "uppercase",
-              margin: "0.4rem 0 0.8rem",
+              margin: "0.3rem 0 0",
               textShadow: "0 0 60px rgba(200,160,80,0.2)",
               textWrap: "balance",
             }}
           >
             Ritual facial
           </h1>
-          <p
-            style={{
-              fontFamily: "var(--font-crimson), serif",
-              fontSize: "clamp(1rem, 2.2vw, 1.18rem)",
-              lineHeight: 1.65,
-              color: "rgba(217,203,170,0.8)",
-              maxWidth: "56ch",
-              margin: 0,
-            }}
-          >
-            Dime qué quieres trabajar y cuánto tiempo tienes. Te armo la rutina, te la dibujo y te la
-            voy pasando sola — con las manos en la cara no puedes andar tocando la pantalla.
-          </p>
         </header>
 
         <RitualFacial />
+
+        <p
+          style={{
+            fontFamily: "var(--font-crimson), serif",
+            fontSize: "clamp(1rem, 2.2vw, 1.14rem)",
+            lineHeight: 1.65,
+            color: "rgba(217,203,170,0.8)",
+            maxWidth: "56ch",
+            margin: "2.4rem 0 0",
+          }}
+        >
+          Dime qué quieres trabajar y cuánto tiempo tienes. Te armo la rutina, te la dibujo y te la
+          voy pasando sola — con las manos en la cara no puedes andar tocando la pantalla.
+        </p>
 
         {/* ── Qué está probado y qué no ── */}
         <section style={{ marginTop: "3rem" }}>

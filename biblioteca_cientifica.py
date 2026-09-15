@@ -10,6 +10,7 @@ Para agregar una fuente: implementa fetch_<nombre>(plant, max_results) -> list[A
 
 import argparse
 import json
+import re
 import time
 import logging
 import sys
@@ -427,6 +428,214 @@ PLANTS: dict[str, dict] = {
             "biofield therapy clinical evidence",
             "energy medicine integrative health",
             "prana vital energy yoga science",
+        ],
+    },
+
+    # -- Yoga -----------------------------------------------------------------
+    # Un tema por objetivo de practica: la app de rutinas necesita saber que
+    # esta probado para CADA cosa que alguien puede querer trabajar, y que no.
+    # Todo va a la carpeta yoga/ para no mezclarlo con las plantas.
+    "yoga_dolor_espalda": {
+        "common_name": "Yoga y dolor de espalda",
+        "scientific_name": "Tematica",
+        "folder": "yoga/dolor_espalda",
+        "search_terms": [
+            "yoga chronic low back pain randomized trial",
+            "yoga versus physical therapy back pain",
+            "yoga neck pain randomized controlled trial",
+            "yoga sciatica lumbar disc",
+            "yoga core stability lumbar muscles",
+            "Iyengar yoga back pain trial",
+        ],
+    },
+    "yoga_ansiedad_estres": {
+        "common_name": "Yoga, ansiedad y estres",
+        "scientific_name": "Tematica",
+        "folder": "yoga/ansiedad_estres",
+        "search_terms": [
+            "yoga anxiety randomized controlled trial",
+            "yoga depression meta-analysis",
+            "yoga cortisol stress biomarkers",
+            "yoga heart rate variability vagal tone",
+            "yoga PTSD trauma trial",
+            "yoga GABA brain neuroimaging",
+        ],
+    },
+    "yoga_sueno_nidra": {
+        "common_name": "Yoga, sueno y yoga nidra",
+        "scientific_name": "Tematica",
+        "folder": "yoga/sueno_nidra",
+        "search_terms": [
+            "yoga insomnia sleep quality randomized",
+            "yoga nidra sleep trial",
+            "yoga nidra autonomic dopamine",
+            "restorative yoga sleep older adults",
+            "yoga melatonin sleep",
+        ],
+    },
+    "yoga_pranayama": {
+        "common_name": "Pranayama y respiracion",
+        "scientific_name": "Tematica",
+        "folder": "yoga/pranayama",
+        "search_terms": [
+            "pranayama randomized controlled trial",
+            "slow breathing heart rate variability baroreflex",
+            "nadi shodhana alternate nostril breathing effects",
+            "kapalabhati bhastrika physiological effects",
+            "bhramari humming breathing nitric oxide",
+            "ujjayi breathing respiratory physiology",
+            "breathing exercises blood pressure meta-analysis",
+        ],
+    },
+    "yoga_menstrual_hormonal": {
+        "common_name": "Yoga, ciclo y hormonas",
+        "scientific_name": "Tematica",
+        "folder": "yoga/menstrual_hormonal",
+        "search_terms": [
+            "yoga dysmenorrhea menstrual pain trial",
+            "yoga premenstrual syndrome randomized",
+            "yoga polycystic ovary syndrome PCOS",
+            "yoga menopause hot flashes randomized",
+            "yoga inversions menstruation evidence",
+        ],
+    },
+    "yoga_embarazo": {
+        "common_name": "Yoga y embarazo",
+        "scientific_name": "Tematica",
+        "folder": "yoga/embarazo",
+        "search_terms": [
+            "prenatal yoga randomized controlled trial",
+            "yoga pregnancy safety adverse outcomes",
+            "yoga labor pain duration trial",
+            "yoga pregnancy anxiety depression",
+            "supine position pregnancy hemodynamics",
+        ],
+    },
+    "yoga_fuerza_flexibilidad": {
+        "common_name": "Yoga, fuerza y flexibilidad",
+        "scientific_name": "Tematica",
+        "folder": "yoga/fuerza_flexibilidad",
+        "search_terms": [
+            "yoga flexibility range of motion trial",
+            "yoga muscular strength endurance randomized",
+            "yoga balance proprioception trial",
+            "stretching duration flexibility adaptation",
+            "yoga bone mineral density",
+            "hamstring stretching connective tissue adaptation",
+        ],
+    },
+    "yoga_cardio_metabolico": {
+        "common_name": "Yoga, corazon y metabolismo",
+        "scientific_name": "Tematica",
+        "folder": "yoga/cardio_metabolico",
+        "search_terms": [
+            "yoga hypertension blood pressure meta-analysis",
+            "yoga type 2 diabetes glycemic control",
+            "yoga lipid profile metabolic syndrome",
+            "yoga cardiorespiratory fitness VO2",
+            "yoga cardiac rehabilitation trial",
+        ],
+    },
+    "yoga_seguridad_lesiones": {
+        "common_name": "Seguridad y lesiones en yoga",
+        "scientific_name": "Tematica",
+        "folder": "yoga/seguridad_lesiones",
+        "search_terms": [
+            "yoga adverse events",
+            "yoga injury",
+            "yoga safety",
+            "yoga musculoskeletal pain onset",
+            "intraocular pressure yoga",
+            "inversion posture intraocular pressure",
+            "headstand injury",
+            "yoga contraindications",
+            "exercise hypermobility injury",
+            "stretching injury risk",
+        ],
+    },
+    "yoga_estilos_comparados": {
+        "common_name": "Estilos de yoga comparados",
+        "scientific_name": "Tematica",
+        "folder": "yoga/estilos_comparados",
+        "search_terms": [
+            "hatha yoga versus vinyasa energy expenditure",
+            "Iyengar yoga props alignment clinical",
+            "yin yoga fascia connective tissue",
+            "restorative yoga clinical trial",
+            "Ashtanga yoga physiological demands",
+            "Kundalini yoga randomized trial",
+            "chair yoga feasibility trial",
+            "hot yoga Bikram randomized trial",
+        ],
+    },
+    "yoga_meditacion_mindfulness": {
+        "common_name": "Meditacion y mindfulness",
+        "scientific_name": "Tematica",
+        "folder": "yoga/meditacion_mindfulness",
+        "search_terms": [
+            "mindfulness meditation randomized controlled trial",
+            "meditation attention cognitive function",
+            "body scan relaxation response physiology",
+            "mantra meditation blood pressure",
+            "meditation adverse effects",
+        ],
+    },
+    "yoga_mayores_movilidad": {
+        "common_name": "Yoga en personas mayores",
+        "scientific_name": "Tematica",
+        "folder": "yoga/mayores_movilidad",
+        "search_terms": [
+            "yoga older adults falls balance randomized",
+            "chair yoga older adults osteoarthritis",
+            "yoga osteoporosis spinal flexion fracture",
+            "yoga knee osteoarthritis trial",
+            "yoga mobility frailty elderly",
+        ],
+    },
+    "yoga_digestivo": {
+        "common_name": "Yoga y digestion",
+        "scientific_name": "Tematica",
+        "folder": "yoga/digestivo",
+        "search_terms": [
+            "yoga irritable bowel syndrome randomized",
+            "yoga constipation gastrointestinal motility",
+            "yoga gut brain axis vagus",
+            "abdominal massage twisting digestion physiology",
+        ],
+    },
+    "yoga_inflamacion_inmunidad": {
+        "common_name": "Yoga, inflamacion e inmunidad",
+        "scientific_name": "Tematica",
+        "folder": "yoga/inflamacion_inmunidad",
+        "search_terms": [
+            "yoga inflammatory markers IL-6 CRP randomized",
+            "yoga immune function trial",
+            "yoga telomerase cellular aging",
+            "mind body practices gene expression inflammation",
+        ],
+    },
+    "yoga_dolor_cronico": {
+        "common_name": "Yoga y dolor cronico",
+        "scientific_name": "Tematica",
+        "folder": "yoga/dolor_cronico",
+        "search_terms": [
+            "yoga fibromyalgia randomized controlled trial",
+            "yoga chronic pain central sensitization",
+            "yoga migraine headache trial",
+            "yoga rheumatoid arthritis trial",
+            "yoga carpal tunnel wrist",
+        ],
+    },
+    "yoga_postura_escritorio": {
+        "common_name": "Yoga, postura y trabajo sentado",
+        "scientific_name": "Tematica",
+        "folder": "yoga/postura_escritorio",
+        "search_terms": [
+            "yoga office workers neck shoulder pain trial",
+            "forward head posture exercise intervention",
+            "thoracic mobility exercise kyphosis",
+            "sedentary behavior movement breaks musculoskeletal",
+            "hip flexor tightness sitting exercise",
         ],
     },
 }
@@ -941,15 +1150,439 @@ PLANTS["libros"] = {
     ],
 }
 
+# -- Ampliación: ciencia cosmética, rostro y nativas de Chile -------------------
+# Tres huecos que tenía la biblioteca:
+#   1. Casi todo eran plantas. De cómo se formula (conservación, emulsión, pH,
+#      penetración) solo estaban "piel" y "fundamentos".
+#   2. Cero artículos sobre drenaje linfático y ejercicios faciales: solo libros.
+#   3. Faltaban nativas chilenas con literatura propia y activos del inventario.
+
+PLANTS.update({
+    # -- Cómo se formula --
+    "conservacion_cosmetica": {
+        "common_name": "Conservación cosmética",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "cosmetic preservative efficacy challenge test",
+            "natural preservative cosmetics antimicrobial",
+            "microbiological contamination cosmetic products",
+            "water activity cosmetic microbial growth",
+        ],
+    },
+    "emulsiones": {
+        "common_name": "Emulsiones y emulsionantes",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "cosmetic emulsion stability emulsifier HLB",
+            "oil in water emulsion skin cream formulation",
+            "natural emulsifier cosmetic stability",
+        ],
+    },
+    "ph_barrera_cutanea": {
+        "common_name": "pH y barrera cutánea",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "skin surface pH acid mantle barrier function",
+            "stratum corneum barrier lipids ceramides",
+            "transepidermal water loss skin measurement",
+        ],
+    },
+    "penetracion_cutanea": {
+        "common_name": "Penetración cutánea",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "percutaneous absorption skin penetration cosmetic ingredient",
+            "penetration enhancer topical formulation",
+            "in vitro skin permeation Franz cell",
+        ],
+    },
+    "microbioma_cutaneo": {
+        "common_name": "Microbioma cutáneo",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "skin microbiome cosmetic products effect",
+            "Cutibacterium acnes skin microbiota",
+            "prebiotic postbiotic skin care",
+        ],
+    },
+    "antioxidantes_topicos": {
+        "common_name": "Antioxidantes tópicos",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "topical antioxidant skin oxidative stress",
+            "polyphenols skin photoprotection topical",
+            "vitamin E tocopherol skin topical",
+        ],
+    },
+    "vitamina_c_topica": {
+        "common_name": "Vitamina C tópica",
+        "scientific_name": "Ascorbic acid",
+        "search_terms": [
+            "topical ascorbic acid skin clinical",
+            "vitamin C derivative stability cosmetic formulation",
+            "ascorbic acid collagen synthesis skin",
+        ],
+    },
+    "niacinamida": {
+        "common_name": "Niacinamida",
+        "scientific_name": "Nicotinamide",
+        "search_terms": [
+            "topical niacinamide skin clinical trial",
+            "nicotinamide barrier function sebum",
+            "niacinamide hyperpigmentation topical",
+        ],
+    },
+    "fotoproteccion": {
+        "common_name": "Fotoprotección",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "zinc oxide titanium dioxide sunscreen efficacy",
+            "mineral sunscreen SPF in vitro testing",
+            "sunscreen photostability formulation",
+        ],
+    },
+    "tensioactivos_jabon": {
+        "common_name": "Tensioactivos y jabón",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "surfactant skin irritation cleanser mildness",
+            "saponification soap chemistry",
+            "syndet bar skin pH cleansing",
+        ],
+    },
+    "aceites_vegetales": {
+        "common_name": "Aceites vegetales en la piel",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "plant oil topical skin barrier fatty acid composition",
+            "linoleic acid oleic acid skin barrier topical",
+            "vegetable oil comedogenicity skin",
+        ],
+    },
+    "extraccion_activos": {
+        "common_name": "Extracción de activos",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "plant extraction method polyphenol yield comparison",
+            "ultrasound assisted extraction plant bioactive",
+            "maceration infusion extraction medicinal plant",
+        ],
+    },
+    "arcillas_cosmetica": {
+        "common_name": "Arcillas en cosmética",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "clay mask cosmetic bentonite kaolin skin",
+            "clay mineral dermatological application",
+            "montmorillonite topical skin",
+        ],
+    },
+
+    # -- Rostro: drenaje y ejercicio facial --
+    "drenaje_linfatico": {
+        "common_name": "Drenaje linfático",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "manual lymphatic drainage randomized controlled trial",
+            "lymphatic drainage facial edema",
+            "manual lymph drainage lymphedema systematic review",
+            "lymphatic system anatomy head neck drainage",
+        ],
+    },
+    "ejercicios_faciales": {
+        "common_name": "Ejercicios faciales",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "facial exercise aging appearance clinical trial",
+            "face yoga facial muscle tone",
+            "facial muscle exercise rejuvenation",
+        ],
+    },
+    "masaje_facial": {
+        "common_name": "Masaje facial",
+        "scientific_name": "Temática",
+        "search_terms": [
+            "facial massage skin effect clinical",
+            "massage skin blood flow microcirculation",
+            "facial massage wrinkle device",
+        ],
+    },
+
+    # -- Activos que ya usa --
+    "centella_asiatica": {
+        "common_name": "Centella asiática",
+        "scientific_name": "Centella asiatica",
+        "search_terms": [
+            "Centella asiatica wound healing topical",
+            "madecassoside asiaticoside skin",
+            "Centella asiatica cosmetic clinical trial",
+        ],
+    },
+    "acido_hialuronico": {
+        "common_name": "Ácido hialurónico",
+        "scientific_name": "Hyaluronic acid",
+        "search_terms": [
+            "topical hyaluronic acid skin hydration clinical",
+            "hyaluronic acid molecular weight skin penetration",
+        ],
+    },
+
+    # -- Nativas chilenas que faltaban --
+    "quillay": {
+        "common_name": "Quillay",
+        "scientific_name": "Quillaja saponaria",
+        "search_terms": ["Quillaja saponaria saponin", "quillay extracto actividad"],
+    },
+    "avellano_chileno": {
+        "common_name": "Avellano chileno",
+        "scientific_name": "Gevuina avellana",
+        "search_terms": ["Gevuina avellana oil", "avellano chileno aceite"],
+    },
+    "murtilla": {
+        "common_name": "Murtilla",
+        "scientific_name": "Ugni molinae",
+        "search_terms": ["Ugni molinae polyphenols", "murtilla antioxidant activity"],
+    },
+    "calafate": {
+        "common_name": "Calafate",
+        "scientific_name": "Berberis microphylla",
+        "search_terms": ["Berberis microphylla anthocyanin", "calafate antioxidant"],
+    },
+    "maiten": {
+        "common_name": "Maitén",
+        "scientific_name": "Maytenus boaria",
+        "search_terms": ["Maytenus boaria", "maiten planta medicinal"],
+    },
+    "ulmo": {
+        "common_name": "Ulmo",
+        "scientific_name": "Eucryphia cordifolia",
+        "search_terms": ["Eucryphia cordifolia", "ulmo honey antibacterial"],
+    },
+    "nalca": {
+        "common_name": "Nalca o pangue",
+        "scientific_name": "Gunnera tinctoria",
+        "search_terms": ["Gunnera tinctoria", "nalca pangue compuestos"],
+    },
+    "michay": {
+        "common_name": "Michay",
+        "scientific_name": "Berberis darwinii",
+        "search_terms": ["Berberis darwinii", "michay berberina"],
+    },
+    "quinchamali": {
+        "common_name": "Quinchamalí",
+        "scientific_name": "Quinchamalium chilense",
+        "search_terms": ["Quinchamalium chilense", "quinchamali planta medicinal"],
+    },
+})
+
+# Más libros: la búsqueda anterior era solo de plantas y etnobotánica.
+PLANTS["libros"]["search_terms"] += [
+    "cosmetic science formulation",
+    "cosmetic chemistry handbook",
+    "manual lymphatic drainage",
+    "dermatology skin care textbook",
+    "essential oils aromatherapy science",
+    "soap making handbook",
+]
+
 
 # ── Registro de fuentes ────────────────────────────────────────────────────────
 # Para agregar una fuente: implementa fetch_<nombre> y agrégala aquí.
 
+# ── Fetcher: OpenAlex ─────────────────────────────────────────────────────────
+# La base abierta más grande que existe (más de 250 millones de trabajos) y con
+# buena cobertura latinoamericana, que es justo lo que SciELO dejó de darnos.
+
+_OPENALEX_SEARCH = "https://api.openalex.org/works"
+
+
+def _openalex_abstract(inverted: Optional[dict]) -> Optional[str]:
+    """OpenAlex guarda el resumen como índice invertido (palabra -> posiciones)."""
+    if not inverted:
+        return None
+    posiciones: list[tuple[int, str]] = []
+    for palabra, indices in inverted.items():
+        for i in indices:
+            posiciones.append((i, palabra))
+    posiciones.sort()
+    return _clean(" ".join(p for _, p in posiciones))
+
+
+def fetch_openalex(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> list[Article]:
+    """Busca en OpenAlex."""
+    articles: list[Article] = []
+    per_term = max(max_results // len(plant["search_terms"]), 5)
+    headers = {"User-Agent": "ElFloemaBiblioteca/1.0 (investigacion cosmetica botanica)"}
+
+    for term in plant["search_terms"]:
+        try:
+            r = requests.get(_OPENALEX_SEARCH, params={
+                "search": term,
+                "per-page": min(per_term, 50),
+            }, headers=headers, timeout=25)
+            r.raise_for_status()
+            data = r.json()
+        except Exception as e:
+            log.warning(f"OpenAlex [{term}]: {e}")
+            time.sleep(REQUEST_DELAY)
+            continue
+
+        for w in data.get("results", []):
+            loc = w.get("primary_location") or {}
+            fuente = (loc.get("source") or {}).get("display_name")
+            oa = w.get("open_access") or {}
+            articles.append(Article(
+                title=_clean(w.get("display_name")) or "",
+                source="OpenAlex",
+                authors=[
+                    _clean((a.get("author") or {}).get("display_name")) or ""
+                    for a in (w.get("authorships") or [])
+                ][:15],
+                year=w.get("publication_year"),
+                abstract=_openalex_abstract(w.get("abstract_inverted_index")),
+                doi=_clean((w.get("doi") or "").replace("https://doi.org/", "")) or None,
+                pdf_url=_clean(oa.get("oa_url")),
+                url=_clean(w.get("id")),
+                journal=_clean(fuente),
+            ))
+        time.sleep(REQUEST_DELAY)
+
+    return [a for a in articles if a.title]
+
+
+# ── Fetcher: Crossref ─────────────────────────────────────────────────────────
+# El registro de DOI. Trae mucho que no está en PubMed, sobre todo revistas de
+# cosmética, química aplicada y publicaciones en español.
+
+_CROSSREF_SEARCH = "https://api.crossref.org/works"
+
+
+def fetch_crossref(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> list[Article]:
+    """Busca en Crossref."""
+    articles: list[Article] = []
+    per_term = max(max_results // len(plant["search_terms"]), 5)
+    headers = {"User-Agent": "ElFloemaBiblioteca/1.0 (investigacion cosmetica botanica)"}
+
+    for term in plant["search_terms"]:
+        try:
+            r = requests.get(_CROSSREF_SEARCH, params={
+                "query.bibliographic": term,
+                "rows": min(per_term, 50),
+                "select": "title,author,issued,DOI,abstract,container-title,URL",
+            }, headers=headers, timeout=25)
+            r.raise_for_status()
+            items = r.json().get("message", {}).get("items", [])
+        except Exception as e:
+            log.warning(f"Crossref [{term}]: {e}")
+            time.sleep(REQUEST_DELAY)
+            continue
+
+        for it in items:
+            titulos = it.get("title") or []
+            if not titulos:
+                continue
+            partes = (it.get("issued") or {}).get("date-parts") or [[]]
+            anio = partes[0][0] if partes and partes[0] else None
+            revista = (it.get("container-title") or [None])[0]
+            # El resumen viene en XML de JATS; se le quitan las etiquetas.
+            resumen = it.get("abstract")
+            if resumen:
+                resumen = _clean(re.sub(r"<[^>]+>", " ", resumen))
+            articles.append(Article(
+                title=_clean(titulos[0]) or "",
+                source="Crossref",
+                authors=[
+                    _clean(f"{a.get('given', '')} {a.get('family', '')}") or ""
+                    for a in (it.get("author") or [])
+                ][:15],
+                year=anio if isinstance(anio, int) else None,
+                abstract=resumen,
+                doi=_clean(it.get("DOI")),
+                url=_clean(it.get("URL")),
+                journal=_clean(revista),
+            ))
+        time.sleep(REQUEST_DELAY)
+
+    return [a for a in articles if a.title]
+
+
+# ── Fetcher: DOAJ ─────────────────────────────────────────────────────────────
+# Solo revistas de acceso abierto: todo lo que aparezca aquí se puede leer
+# completo y gratis. Fuerte en español y portugués.
+
+_DOAJ_SEARCH = "https://doaj.org/api/search/articles/"
+
+
+def fetch_doaj(plant: dict, max_results: int = MAX_RESULTS_PER_SOURCE) -> list[Article]:
+    """Busca en DOAJ (revistas de acceso abierto)."""
+    from urllib.parse import quote
+
+    articles: list[Article] = []
+    per_term = max(max_results // len(plant["search_terms"]), 5)
+    # DOAJ responde 403 a agentes que no parecen navegador.
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/140.0 Safari/537.36",
+        "Accept": "application/json",
+    }
+
+    for term in plant["search_terms"]:
+        try:
+            r = requests.get(
+                _DOAJ_SEARCH + quote(term, safe=""),
+                params={"pageSize": min(per_term, 50)},
+                headers=headers,
+                timeout=25,
+            )
+            r.raise_for_status()
+            resultados = r.json().get("results", [])
+        except Exception as e:
+            log.warning(f"DOAJ [{term}]: {e}")
+            time.sleep(REQUEST_DELAY)
+            continue
+
+        for it in resultados:
+            b = it.get("bibjson") or {}
+            enlaces = b.get("link") or []
+            texto_completo = next(
+                (l.get("url") for l in enlaces if l.get("type") == "fulltext"), None
+            )
+            doi = next(
+                (i.get("id") for i in (b.get("identifier") or []) if i.get("type") == "doi"),
+                None,
+            )
+            anio = b.get("year")
+            try:
+                anio = int(anio) if anio else None
+            except (TypeError, ValueError):
+                anio = None
+            articles.append(Article(
+                title=_clean(b.get("title")) or "",
+                source="DOAJ",
+                authors=[_clean(a.get("name")) or "" for a in (b.get("author") or [])][:15],
+                year=anio,
+                abstract=_clean(b.get("abstract")),
+                doi=_clean(doi),
+                pdf_url=_clean(texto_completo),
+                url=_clean(texto_completo),
+                journal=_clean((b.get("journal") or {}).get("title")),
+            ))
+        time.sleep(REQUEST_DELAY)
+
+    return [a for a in articles if a.title]
+
+
+# SciELO quedó fuera: desde 2026 search.scielo.org responde 403 detrás de un
+# escudo anti-bots, así que raspar la salida RIS ya no funciona. La función
+# sigue aquí por si vuelve a abrirse. Su cobertura la reemplazan OpenAlex
+# (que indexa SciELO) y DOAJ.
 SOURCES = [
     fetch_pubmed,
     fetch_semantic_scholar,
     fetch_europe_pmc,
-    fetch_scielo,
+    fetch_openalex,
+    fetch_crossref,
+    fetch_doaj,
     fetch_redalyc,
 ]
 
@@ -985,12 +1618,14 @@ def collect_plant(plant_key: str, plant: dict) -> dict[str, int]:
 
     # Índice combinado sin duplicados
     all_articles: list[Article] = []
-    for fetcher in sources:
-        source_name = fetcher.__name__.replace("fetch_", "")
-        f_path = plant_dir / f"{source_name}.json"
-        if f_path.exists():
+    for f_path in sorted(plant_dir.glob("*.json")):
+        if f_path.name == "todos.json":
+            continue
+        try:
             with open(f_path, encoding="utf-8") as f:
                 all_articles.extend(Article(**a) for a in json.load(f))
+        except (json.JSONDecodeError, TypeError) as e:
+            log.warning(f"  [índice] {f_path.name} ilegible: {e}")
 
     unique = _deduplicate(all_articles)
     todos_path = plant_dir / "todos.json"
@@ -1008,7 +1643,20 @@ def main() -> None:
         "--only", nargs="+", metavar="CLAVE",
         help="Procesar solo estas claves (ej: --only matico maqui ayurveda)",
     )
+    parser.add_argument(
+        "--sources", nargs="+", metavar="FUENTE",
+        help="Consultar solo estas fuentes (ej: --sources openalex crossref doaj). "
+             "El índice igual se rehace con todo lo que ya esté descargado.",
+    )
     args = parser.parse_args()
+
+    if args.sources:
+        disponibles = {f.__name__.replace("fetch_", ""): f for f in SOURCES}
+        desconocidas = set(args.sources) - set(disponibles)
+        if desconocidas:
+            log.error(f"Fuentes desconocidas: {desconocidas}. Hay: {list(disponibles)}")
+            sys.exit(1)
+        globals()["SOURCES"] = [disponibles[n] for n in args.sources]
 
     keys_to_run = set(args.only) if args.only else set(PLANTS)
     unknown = keys_to_run - set(PLANTS)
@@ -1028,8 +1676,16 @@ def main() -> None:
         global_summary[plant_key] = collect_plant(plant_key, plant)
 
     summary_path = OUTPUT_DIR / "resumen.json"
+    previo: dict[str, dict] = {}
+    if summary_path.exists():
+        try:
+            with open(summary_path, encoding="utf-8") as f:
+                previo = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            log.warning("resumen.json ilegible; se reescribe desde cero")
+    previo.update(global_summary)
     with open(summary_path, "w", encoding="utf-8") as f:
-        json.dump(global_summary, f, ensure_ascii=False, indent=2)
+        json.dump(previo, f, ensure_ascii=False, indent=2)
 
     log.info(f"\n{'=' * 60}")
     log.info("RESUMEN FINAL")

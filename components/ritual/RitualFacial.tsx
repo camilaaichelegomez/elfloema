@@ -7,12 +7,14 @@ import {
   AVISOS_PIEL,
   CATALOGO,
   CONSEJOS,
+  ENFOQUES,
   ESTADOS_PIEL,
   ETIQUETA_FASE,
   MINUTOS,
   NECESIDADES,
   armarRutina,
   mmss,
+  type Enfoque,
   type EstadoPiel,
   type Fase,
   type Momento,
@@ -40,6 +42,8 @@ type Guardado = {
   necesidades: Necesidad[];
   minutos: number;
   momento: Momento;
+  /** Opcional: quien guardó antes de que el enfoque existiera no se rompe. */
+  enfoque?: Enfoque;
   nivel: Nivel;
   estadoPiel: EstadoPiel;
   racha: number;
@@ -120,6 +124,7 @@ export function RitualFacial() {
   const [necesidades, setNecesidades] = useState<Necesidad[]>([]);
   const [minutos, setMinutos] = useState<number>(10);
   const [momento, setMomento] = useState<Momento>("manana");
+  const [enfoque, setEnfoque] = useState<Enfoque>("equilibrado");
   const [nivel, setNivel] = useState<Nivel>("primera");
   const [estadoPiel, setEstadoPiel] = useState<EstadoPiel>("normal");
   const [rutina, setRutina] = useState<Rutina | null>(null);
@@ -157,6 +162,7 @@ export function RitualFacial() {
     setNecesidades(g.necesidades ?? []);
     setMinutos(g.minutos ?? 10);
     setMomento(g.momento ?? "manana");
+    setEnfoque(g.enfoque ?? "equilibrado");
     setNivel(g.nivel === "primera" ? "practico" : g.nivel ?? "practico");
     setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
@@ -171,6 +177,7 @@ export function RitualFacial() {
         necesidades: g.necesidades,
         minutos: g.minutos ?? 10,
         momento: g.momento ?? "manana",
+        enfoque: g.enfoque ?? "equilibrado",
         nivel: g.nivel === "primera" ? "practico" : g.nivel ?? "practico",
         estadoPiel: g.estadoPiel ?? "normal",
       });
@@ -231,8 +238,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre });
-  }, [etapa, necesidades, minutos, momento, nivel, estadoPiel, voz, vozNombre]);
+    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre });
+  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre]);
 
   /* La voz lee la maniobra al entrar en ella. En el drenaje esto pesa más que
      en yoga: tienes las dos manos en la cara y los ojos cerrados, así que la
@@ -265,7 +272,7 @@ export function RitualFacial() {
   }
 
   function armar() {
-    const r = armarRutina({ necesidades, minutos, momento, nivel, estadoPiel });
+    const r = armarRutina({ necesidades, minutos, momento, enfoque, nivel, estadoPiel });
     setRutina(r);
     setIndice(0);
     setRestante(r.pasos[0]?.segundos ?? 0);
@@ -360,7 +367,28 @@ export function RitualFacial() {
           )}
         </div>
 
-        <p style={paso}>4 · ¿Ya lo has hecho antes?</p>
+        <p style={paso}>4 · ¿En qué te enfocas hoy?</p>
+        <p style={ayuda}>
+          El drenaje deshincha hoy mismo; los ejercicios son cosa de meses. Aunque elijas más
+          ejercicios, el drenaje no desaparece: abrir el cuello y cerrar el circuito son la entrada
+          y la salida de todo lo que muevas.
+        </p>
+        <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.6rem", flexWrap: "wrap" }}>
+          {ENFOQUES.map((e) => (
+            <button
+              key={e.id}
+              type="button"
+              onClick={() => setEnfoque(e.id)}
+              aria-pressed={enfoque === e.id}
+              style={{ ...chip, ...(enfoque === e.id ? chipActivo : null), minWidth: 130 }}
+            >
+              <span style={{ display: "block" }}>{e.label}</span>
+              <span style={{ display: "block", fontSize: "0.78rem", opacity: 0.7 }}>{e.detalle}</span>
+            </button>
+          ))}
+        </div>
+
+        <p style={paso}>5 · ¿Ya lo has hecho antes?</p>
         <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.8rem", flexWrap: "wrap" }}>
           {([["primera", "Es mi primera vez"], ["practico", "Ya practico"]] as [Nivel, string][]).map(
             ([id, label]) => (

@@ -53,6 +53,21 @@ export const NECESIDADES: { id: Necesidad; label: string; detalle: string }[] = 
   { id: "cuello", label: "Cuello y papada", detalle: "Piel del cuello, doble mentón" },
 ];
 
+/* En qué se carga la sesión. Antes lo decidía sola la hora del día, y no
+   siempre coincide con lo que una quiere trabajar ese rato.
+
+   «Más ejercicios» llega hasta 70/30, no hasta 100: el drenaje mínimo se
+   mantiene siempre porque abrir el cuello y cerrar el circuito son la entrada
+   y la salida de todo lo que se mueva. Sin eso, lo movido no tiene por dónde
+   irse. */
+export type Enfoque = "drenaje" | "equilibrado" | "ejercicios";
+
+export const ENFOQUES: { id: Enfoque; label: string; detalle: string }[] = [
+  { id: "drenaje", label: "Más drenaje", detalle: "Deshinchar hoy" },
+  { id: "equilibrado", label: "Equilibrado", detalle: "Según la hora" },
+  { id: "ejercicios", label: "Más ejercicios", detalle: "Trabajar el músculo" },
+];
+
 export const MINUTOS = [5, 10, 15] as const;
 
 export type Paso = {
@@ -80,6 +95,22 @@ export type Paso = {
   mediaPresion?: boolean;
   /** Es masofilaxia (masaje), no drenaje: fuera en acné y rosácea. */
   esMasaje?: boolean;
+  /* Qué se busca con el ejercicio, y no es un detalle:
+
+     Los músculos de la cara no son todos iguales. Los de EXPRESIÓN (frontal,
+     ceño, orbiculares) no se atrofian con la edad — se midió con resonancia y
+     no hay diferencia de grosor ni volumen entre gente joven y mayor. Lo que
+     hacen es marcar la arruga al contraerse, así que fortalecerlos trabaja en
+     contra. Esos se sueltan.
+
+     Los FUNCIONALES (lengua, suprahioideos, buccinador) sí pierden fuerza: es
+     la «fragilidad oral», y está documentada. Y responden al entrenamiento.
+     Esos se fortalecen.
+
+     Y hay que mirar hacia dónde tira cada uno: el platisma y el depresor de la
+     comisura tiran hacia ABAJO. Por eso en medicina estética se relajan, no se
+     entrenan. */
+  grupo?: "fortalecer" | "soltar";
   fuente?: string;
 };
 
@@ -422,6 +453,7 @@ export const CATALOGO: Paso[] = [
   // ── Ejercicios faciales ──────────────────────────────────────
   {
     id: "ej-pomulos",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "Pómulos con resistencia",
     zona: "Mejillas",
@@ -437,6 +469,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-pez",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "El pez",
     zona: "Mejillas",
@@ -452,20 +485,25 @@ export const CATALOGO: Paso[] = [
   {
     id: "ej-frente",
     fase: "ejercicios",
-    nombre: "Frente contra resistencia",
+    nombre: "Soltar la frente",
     zona: "Frente",
     segundos: 40,
     como: [
-      "Apoya los índices justo encima de las cejas.",
-      "Intenta levantar las cejas mientras los dedos lo impiden.",
-      "Diez veces, sin arrugar la frente.",
+      "La arruga de la frente la hace este músculo al contraerse, así que aquí no se fortalece: se suelta.",
+      "Dedos planos sobre la frente. Empuja la piel hacia arriba y sostén 10 segundos, sin arrugar.",
+      "Suelta despacio y repite tres veces.",
+      "Termina apoyando las palmas sobre la frente, sin presionar, y afloja las cejas.",
     ],
-    repeticiones: "10 veces",
+    repeticiones: "3 veces",
+    grupo: "soltar",
     necesidades: ["frente"],
     prioridad: 1,
+    esMasaje: true,
+    fuente: "Los músculos de expresión bajan tono y rigidez con el trabajo facial (Myoton®PRO, 2025); no se atrofian con la edad (resonancia de alta resolución)",
   },
   {
     id: "ej-entrecejo",
+    grupo: "soltar",
     fase: "ejercicios",
     nombre: "Soltar el entrecejo",
     zona: "Glabela",
@@ -481,6 +519,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-ojos",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "Párpado inferior",
     zona: "Contorno de ojos",
@@ -496,6 +535,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-o-sonrisa",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "O y sonrisa alternadas",
     zona: "Boca y mejillas",
@@ -511,6 +551,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-labios-dentro",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "Labios hacia dentro",
     zona: "Contorno de labios",
@@ -525,6 +566,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-lengua",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "Lengua al paladar",
     zona: "Suelo de la boca",
@@ -540,6 +582,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-beso-techo",
+    grupo: "fortalecer",
     fase: "ejercicios",
     nombre: "Beso al techo",
     zona: "Cuello",
@@ -556,19 +599,24 @@ export const CATALOGO: Paso[] = [
   {
     id: "ej-platisma",
     fase: "ejercicios",
-    nombre: "Tensar el cuello",
+    nombre: "Soltar el cuello",
     zona: "Platisma",
-    segundos: 35,
+    segundos: 40,
     como: [
-      "Mentón un poco adelante. Baja el labio inferior mostrando los dientes de abajo.",
-      "Se marcan las cuerdas del cuello. Sostén 5 segundos.",
+      "El platisma tira las comisuras hacia abajo: es un depresor. Por eso aquí se estira, no se tensa.",
+      "Gira la cabeza despacio a un lado y estira el cuello, sin forzar. Diez segundos.",
+      "Al otro lado, otros diez.",
+      "Termina con los hombros sueltos y la mandíbula entreabierta.",
     ],
-    repeticiones: "5 veces",
+    repeticiones: "10 segundos por lado",
+    grupo: "soltar",
     necesidades: ["cuello"],
     prioridad: 4,
+    fuente: "Las bandas del platisma se tratan relajando el músculo, no fortaleciéndolo",
   },
   {
     id: "ej-masetero",
+    grupo: "soltar",
     fase: "ejercicios",
     nombre: "Amasar el masetero",
     zona: "Mandíbula",
@@ -584,6 +632,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "ej-abrir-cerrar",
+    grupo: "soltar",
     fase: "ejercicios",
     nombre: "Abrir sin apretar",
     zona: "Articulación",
@@ -596,6 +645,149 @@ export const CATALOGO: Paso[] = [
     repeticiones: "8 veces",
     necesidades: ["mandibula"],
     prioridad: 3,
+  },
+
+  /* ── Fuerza de verdad ──────────────────────────────────────────
+     Fortalecer pide volumen: con dos o tres ejercicios no pasa nada. Este
+     bloque es el que sostiene la parte de fuerza cuando se elige el enfoque
+     «más ejercicios». La lengua y los suprahioideos son los que tienen mejor
+     respaldo: se entrenan y se miden. */
+  {
+    id: "ej-lengua-mejilla",
+    fase: "ejercicios",
+    nombre: "Lengua contra la mejilla",
+    zona: "Lengua",
+    segundos: 45,
+    como: [
+      "Empuja la lengua contra el interior de la mejilla, fuerte.",
+      "Pon el dedo por fuera haciendo resistencia, para que la lengua tenga contra qué empujar.",
+      "Sostén 5 segundos. Cinco veces por lado.",
+    ],
+    repeticiones: "5 por lado",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "labios"],
+    prioridad: 2,
+    fuente: "Entrenamiento de fuerza lingual: +11,5% de presión máxima en 8 semanas en adultos mayores sanos",
+  },
+  {
+    id: "ej-lengua-fuera",
+    fase: "ejercicios",
+    nombre: "Lengua afuera, sostenida",
+    zona: "Lengua",
+    segundos: 40,
+    como: [
+      "Saca la lengua recta, todo lo que puedas, sin torcerla.",
+      "Sostén 8 segundos sintiendo el trabajo bajo el mentón.",
+      "Cinco veces, descansando entre una y otra.",
+    ],
+    repeticiones: "5 veces",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "cuello"],
+    prioridad: 3,
+    fuente: "Ejercicios orofaríngeos de lengua y paladar (Guimarães et al., ensayo aleatorizado con grupo placebo)",
+  },
+  {
+    id: "ej-deglucion",
+    fase: "ejercicios",
+    nombre: "Tragar con fuerza",
+    zona: "Suprahioideos",
+    segundos: 40,
+    como: [
+      "Junta saliva, aprieta la lengua entera contra el paladar y traga con todas tus fuerzas.",
+      "Vas a sentir cómo se tensa todo bajo el mentón: esos son los suprahioideos.",
+      "Seis veces, sin apuro.",
+    ],
+    repeticiones: "6 veces",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "cuello"],
+    prioridad: 2,
+    fuente: "Deglución con esfuerzo: ejercicio de suprahioideos usado en rehabilitación de la deglución",
+  },
+  {
+    id: "ej-abrir-resistencia",
+    fase: "ejercicios",
+    nombre: "Abrir contra el puño",
+    zona: "Suprahioideos",
+    segundos: 40,
+    como: [
+      "Pon el puño bajo el mentón e intenta abrir la boca mientras el puño lo impide.",
+      "Sostén 5 segundos. Es el ejercicio del doble mentón que sí tiene respaldo.",
+      "Seis veces. Si la mandíbula cruje o duele, sáltalo.",
+    ],
+    repeticiones: "6 veces",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "cuello"],
+    prioridad: 2,
+    fuente: "La fuerza de apertura mandibular se asocia a la masa de los suprahioideos y a la presión lingual",
+  },
+  {
+    id: "ej-pomulo-elevador",
+    fase: "ejercicios",
+    nombre: "Elevador de pómulo",
+    zona: "Cigomáticos",
+    segundos: 45,
+    como: [
+      "Boca en O, con el labio de arriba cubriendo los dientes.",
+      "Sonríe para levantar los pómulos y apoya los dedos arriba de la mejilla.",
+      "Baja los pómulos y vuelve a subirlos, sintiendo el músculo bajo los dedos.",
+      "Diez veces.",
+    ],
+    repeticiones: "10 veces",
+    grupo: "fortalecer",
+    necesidades: ["ovalo"],
+    prioridad: 1,
+    fuente: "Uno de los dos ejercicios publicados del programa de Northwestern (JAMA Dermatology, 2018), donde mejoró el volumen de la mejilla",
+  },
+  {
+    id: "ej-aire-mejillas",
+    fase: "ejercicios",
+    nombre: "Pasar el aire",
+    zona: "Buccinador",
+    segundos: 40,
+    como: [
+      "Infla las mejillas con la boca cerrada y aguanta el aire.",
+      "Pásalo de una mejilla a la otra, despacio, sin dejarlo escapar.",
+      "Diez pases. Después suelta el aire de a poco.",
+    ],
+    repeticiones: "10 pases",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "labios"],
+    prioridad: 3,
+    fuente: "El buccinador es uno de los músculos que suben tono y rigidez con el trabajo facial (Myoton®PRO, 2025)",
+  },
+  {
+    id: "ej-labios-resistencia",
+    fase: "ejercicios",
+    nombre: "Cierre de labios",
+    zona: "Orbicular de los labios",
+    segundos: 35,
+    como: [
+      "Aprieta los labios uno contra otro, sin fruncirlos hacia adelante.",
+      "Pon un dedo horizontal delante y empuja suave hacia afuera: los labios tienen que resistir.",
+      "Sostén 5 segundos. Seis veces.",
+    ],
+    repeticiones: "6 veces",
+    grupo: "fortalecer",
+    necesidades: ["labios", "ovalo"],
+    prioridad: 3,
+    fuente: "Entrenamiento del orbicular de los labios y del cierre labial en terapia miofuncional orofacial",
+  },
+  {
+    id: "ej-masticar",
+    fase: "ejercicios",
+    nombre: "Masticar a conciencia",
+    zona: "Masticación",
+    segundos: 40,
+    como: [
+      "Mastica exagerando el movimiento, con la boca cerrada, veinte veces de un lado.",
+      "Veinte del otro. La mayoría de la gente mastica siempre del mismo lado sin darse cuenta.",
+      "Es el único ejercicio que puedes hacer comiendo.",
+    ],
+    repeticiones: "20 por lado",
+    grupo: "fortalecer",
+    necesidades: ["ovalo", "mandibula"],
+    prioridad: 4,
+    fuente: "Entrenamiento funcional de masticación alternada (terapia miofuncional orofacial, CoDAS 2024)",
   },
 
   // ── Cierre ───────────────────────────────────────────────────
@@ -649,6 +841,7 @@ export const CATALOGO: Paso[] = [
 export type Rutina = {
   pasos: Paso[];
   segundos: number;
+  enfoque: Enfoque;
   necesidades: Necesidad[];
   minutos: number;
   momento: Momento;
@@ -658,6 +851,8 @@ export type Rutina = {
 
 export type Opciones = {
   necesidades: Necesidad[];
+  /** Opcional: quien guardó su elección antes de que esto existiera sigue funcionando. */
+  enfoque?: Enfoque;
   minutos: number;
   momento: Momento;
   nivel: Nivel;
@@ -692,13 +887,15 @@ export function armarRutina(o: Opciones): Rutina {
   /* De mañana pesa más el drenaje (la cara amanece hinchada); de noche pesan
      más los ejercicios y la relajación. El reparto es del tiempo libre, no del
      total: la base ya está dentro. */
-  const repartoDrenaje = o.momento === "manana" ? 0.65 : 0.45;
+  const porLaHora = o.momento === "manana" ? 0.65 : 0.45;
+  const repartoDrenaje =
+    o.enfoque === "drenaje" ? 0.8 : o.enfoque === "ejercicios" ? 0.3 : porLaHora;
   let cupoDrenaje = Math.round(libre * repartoDrenaje);
   let cupoEjercicios = libre - cupoDrenaje;
 
   /* La primera vez conviene menos ejercicio y más drenaje: la técnica del
      drenaje es lo que hay que aprender, y los ejercicios mal hechos cansan. */
-  if (o.nivel === "primera") {
+  if (o.nivel === "primera" && o.enfoque !== "ejercicios") {
     const traspaso = Math.round(cupoEjercicios * 0.4);
     cupoEjercicios -= traspaso;
     cupoDrenaje += traspaso;
@@ -722,11 +919,20 @@ export function armarRutina(o: Opciones): Rutina {
   }
 
   /* Si sobró tiempo en un cupo y falta en el otro, se aprovecha: más vale una
-     rutina completa que dos cupos a medio llenar. */
+     rutina completa que dos cupos a medio llenar.
+
+     Pero solo hacia la fase que se pidió. Antes rellenaba con cualquier cosa y
+     eso anulaba la elección: «más drenaje» terminaba dando exactamente la misma
+     rutina que «equilibrado», porque el sobrante se iba igual en ejercicios.
+     Si se pidió un enfoque y ya no quedan pasos de esa fase, la rutina queda
+     más corta, y está bien: es lo que se pidió. */
   const sobra = cupoDrenaje + cupoEjercicios;
   if (sobra > 0) {
+    const favorita =
+      o.enfoque === "drenaje" ? "drenaje" : o.enfoque === "ejercicios" ? "ejercicios" : null;
     for (const p of candidatos) {
       if (usados.has(p.id)) continue;
+      if (favorita && p.fase !== favorita) continue;
       if (p.segundos > cupoDrenaje + cupoEjercicios) continue;
       usados.add(p.id);
       if (p.fase === "drenaje") cupoDrenaje -= p.segundos;
@@ -739,6 +945,7 @@ export function armarRutina(o: Opciones): Rutina {
   return {
     pasos,
     segundos: pasos.reduce((a, p) => a + p.segundos, 0),
+    enfoque: o.enfoque ?? "equilibrado",
     necesidades: o.necesidades,
     minutos: o.minutos,
     momento: o.momento,

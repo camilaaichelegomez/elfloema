@@ -110,6 +110,11 @@ export function usarVoz(activa: boolean, nombreElegido?: string) {
           frase.lang = vozRef.current?.lang ?? "es-ES";
           frase.rate = velocidad;
           frase.pitch = 1;
+          /* Avisa cuándo empieza y termina de hablar, para que la música de
+             fondo baje mientras tanto y la instrucción se entienda. */
+          frase.onstart = () => window.dispatchEvent(new Event("floema-voz-inicio"));
+          frase.onend = () => window.dispatchEvent(new Event("floema-voz-fin"));
+          frase.onerror = () => window.dispatchEvent(new Event("floema-voz-fin"));
           /* Chrome deja la sintesis en pausa cuando la pestaña pierde el foco y
              no la reanuda solo. Sin esto, la voz enmudece a mitad de práctica. */
           window.speechSynthesis.resume();

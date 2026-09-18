@@ -457,6 +457,14 @@ export type Preferencias = {
   /** Una voz va diciendo la postura y sus instrucciones. Con las manos
       ocupadas y los ojos cerrados, es la unica forma de seguir la practica. */
   voz: boolean;
+  /** Música de fondo generada en vivo. "auto" elige según la práctica: de
+      noche o para calmarse, relajar; para energía o fuerza, activar. */
+  musica: "auto" | "relajar" | "activar" | "no";
+  /** Pulsos binaurales debajo de la música. Solo existen con audífonos y su
+      evidencia es mixta: van apagados por defecto. */
+  binaural: boolean;
+  /** Volumen de la música, de 0 a 1. */
+  volumenMusica: number;
   /** Nombre de la voz del dispositivo. Vacío = la que mejor suene de las que
       haya. Las voces varían mucho entre teléfonos, así que se puede elegir. */
   vozNombre?: string;
@@ -478,6 +486,9 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   meditacion: false,
   sonido: true,
   voz: true,
+  musica: "auto",
+  binaural: false,
+  volumenMusica: 0.45,
   ritmo: "normal",
 };
 

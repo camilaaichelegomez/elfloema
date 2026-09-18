@@ -180,6 +180,11 @@ export const EVIDENCIA: Record<Objetivo, Evidencia> = {
 /* Lo que se dice del yoga y no es cierto. Va aparte y con nombre propio. */
 export const MITOS: { dice: string; realidad: string }[] = [
   {
+    dice: "La música a 432 Hz o a 528 Hz sana y repara el cuerpo",
+    realidad:
+      "No hay estudios serios que lo respalden. Lo que sí tiene respaldo es algo más simple: la música lenta que te gusta baja la ansiedad, sea en la afinación que sea.",
+  },
+  {
     dice: "Las torsiones «desintoxican» los órganos",
     realidad:
       "Ninguna postura exprime el hígado ni limpia nada. Los órganos que depuran son el hígado y los riñones, y funcionan igual estés torcida o no. La torsión mueve la columna, y eso ya es bastante.",
@@ -203,6 +208,30 @@ export const MITOS: { dice: string; realidad: string }[] = [
     dice: "El yoga sirve para bajar de peso",
     realidad:
       "Una clase suave gasta poco. Un vinyasa sostenido gasta más, pero menos que correr. El yoga ayuda por otro lado: duermes mejor, comes con más conciencia y te mueves más seguido.",
+  },
+];
+
+/* La música de fondo. Tres cosas distintas que suelen venderse juntas, y que
+   tienen evidencia muy distinta. Los artículos están en
+   biblioteca-cientifica/yoga/musica_frecuencias. */
+export const SOBRE_MUSICA: { tema: string; grado: Grado; dice: string; fuente: string }[] = [
+  {
+    tema: "Música lenta y relajante",
+    grado: "probado",
+    dice: "Baja la ansiedad. Es de lo más estudiado en música y salud, en contextos que van de una sala de espera a un parto.",
+    fuente: "«Music for anxiety? Meta-analysis of anxiety reduction in non-clinical samples», Psychology of Music, 2017",
+  },
+  {
+    tema: "Pulsos binaurales",
+    grado: "prometedor",
+    dice: "Hay revisiones que encuentran menos ansiedad y dolor, sobre todo antes de una cirugía. Pero la idea de que «sincronizan las ondas cerebrales» no está demostrada, y muchos estudios no encuentran efecto.",
+    fuente: "«Binaural beats for perioperative anxiety and pain: a systematic review and meta-analysis», Complementary Therapies in Medicine, 2025",
+  },
+  {
+    tema: "432 Hz y frecuencias solfeggio (528 Hz)",
+    grado: "tradicion",
+    dice: "No hay evidencia de que una afinación o una frecuencia concreta sane nada. Lo que existe son estudios piloto muy chicos y textos exploratorios. La música de la práctica de yoga no se afina en ellas ni las promete.",
+    fuente: "Estudios piloto sobre 432 Hz y textos exploratorios sobre solfeggio en la carpeta",
   },
 ];
 
@@ -263,7 +292,7 @@ export const AVISOS_CUIDADO: Record<Cuidado, Aviso[]> = {
     {
       tono: "cuidado",
       texto:
-        "Toda postura con la cabeza bajo el corazón sube la presión dentro del ojo mientras la sostienes. No es una recomendación de trámite: está medido. Nada de vela, pinzas colgadas ni perro boca abajo.",
+        "Toda postura con la cabeza bajo el corazón sube la presión dentro del ojo mientras la sostienes. No es una recomendación de trámite: está medido. Nada de vela, pinzas colgadas ni perro mirando hacia abajo.",
     },
   ],
   embarazo: [

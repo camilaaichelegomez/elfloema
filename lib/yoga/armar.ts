@@ -65,6 +65,16 @@ export type PasoRutina = Paso & {
       máximo de la postura suelta: dentro de un saludo al sol, la pinza son
       doce segundos, no cuarenta. */
   disenada?: number;
+  /** Lo que dice la voz en este paso de una serie, con la respiración. */
+  guion?: string;
+  /** Aviso que se dice antes del paso: que empiezan los saludos al sol, que
+      desde ahora se respira por la nariz, que se cambia de lado. Sus segundos
+      ya están sumados a la duración, para no comerse el tiempo de la postura. */
+  aviso?: string;
+  avisoSegundos?: number;
+  /** En una postura suelta que va por lado: segundos para cambiar de lado.
+      También sumados, así el segundo lado recibe su tiempo completo. */
+  transicion?: number;
 };
 
 export type Quitada = { nombre: string; motivo: string };
@@ -455,14 +465,18 @@ export function armarRutina(prefs: Preferencias): Rutina {
     if (!agrego) break;
   }
 
-  ajustarDuraciones(pasos, objetivoSegundos);
+  /* Los avisos y los cambios de lado se suman al final y no le quitan tiempo a
+     ninguna postura. Para que el total igual calce con lo pedido, su tiempo se
+     descuenta antes de ajustar. */
+  const paraPosturas = () => objetivoSegundos - reservaDeAvisos(pasos);
+  ajustarDuraciones(pasos, paraPosturas());
 
   /* Recorte: si aun con todo en su mínimo la práctica se pasa del rato pedido,
      se saca la postura suelta que menos aporta y se vuelve a ajustar. Es
      preferible una práctica más corta que una que miente con el tiempo. */
   for (let intento = 0; intento < 10; intento++) {
     const total = pasos.reduce((a, p) => a + p.duracion, 0);
-    if (total <= objetivoSegundos * 1.02) break;
+    if (total <= paraPosturas() * 1.02) break;
     let peorFase: Fase | null = null;
     let peorId: string | null = null;
     let peorPuntaje = Infinity;
@@ -484,8 +498,10 @@ export function armarRutina(prefs: Preferencias): Rutina {
     );
     usados.delete(peorId);
     pasos = aplanar(porFaseElegido, prefs);
-    ajustarDuraciones(pasos, objetivoSegundos);
+    ajustarDuraciones(pasos, paraPosturas());
   }
+
+  agregarAvisos(pasos);
 
   const propsUsados = [
     ...new Set(pasos.flatMap((p) => [...(p.necesita ?? []), ...(p.mejoraCon ?? [])])),
@@ -514,6 +530,66 @@ export function armarRutina(prefs: Preferencias): Rutina {
   };
 }
 
+/* Lo que una profesora diría en voz alta en los momentos de transición. Se
+   agrega al final, cuando las duraciones ya están ajustadas: así sus segundos
+   se suman y no le quitan tiempo a ninguna postura. */
+/** Lo que va a sumar agregarAvisos, calculado con las mismas reglas. */
+function reservaDeAvisos(pasos: PasoRutina[]) {
+  let total = 0;
+  if (pasos.some((p) => !["centrado", "respiracion"].includes(p.faseVisible))) total += 4;
+  if (pasos.some((p) => p.secuencia && p.faseVisible === "saludos")) total += 7;
+  for (let i = 1; i < pasos.length; i++) {
+    const a = pasos[i - 1].secuencia;
+    const b = pasos[i].secuencia;
+    if (a && b && a.id === b.id && a.lado === "derecho" && b.lado === "izquierdo") total += 4;
+  }
+  total += pasos.filter((p) => p.porLado && !p.secuencia).length * 5;
+  return total;
+}
+
+function agregarAvisos(pasos: PasoRutina[]) {
+  const avisar = (p: PasoRutina, texto: string, segundos: number) => {
+    p.aviso = p.aviso ? `${p.aviso} ${texto}` : texto;
+    p.avisoSegundos = (p.avisoSegundos ?? 0) + segundos;
+    p.duracion += segundos;
+  };
+
+  // Terminadas las respiraciones del principio: de aquí en adelante, nariz.
+  const primerMovimiento = pasos.find((p) => !["centrado", "respiracion"].includes(p.faseVisible));
+  if (primerMovimiento) {
+    avisar(primerMovimiento, "Desde ahora, durante toda la práctica, respira por la nariz.", 4);
+  }
+
+  // Los saludos al sol van rápido: hay que avisar antes de que empiecen.
+  const primerSaludo = pasos.find((p) => p.secuencia && p.faseVisible === "saludos");
+  if (primerSaludo) {
+    avisar(
+      primerSaludo,
+      "Empezamos con los saludos al sol. Son rápidos: un movimiento por cada respiración. Sigue mi voz.",
+      7
+    );
+  }
+
+  // Dentro de una serie que va por lado, nombrar el cambio.
+  for (let i = 1; i < pasos.length; i++) {
+    const antes = pasos[i - 1].secuencia;
+    const ahora = pasos[i].secuencia;
+    if (antes && ahora && antes.id === ahora.id && antes.lado === "derecho" && ahora.lado === "izquierdo") {
+      avisar(pasos[i], "Cambia de lado.", 4);
+    }
+  }
+
+  // Posturas sueltas por lado: cinco segundos para cambiar, aparte.
+  for (const p of pasos) {
+    if (p.porLado && !p.secuencia) {
+      // Duración par: los dos lados iguales y en segundos enteros.
+      p.duracion = Math.round(p.duracion / 2) * 2;
+      p.transicion = 5;
+      p.duracion += 5;
+    }
+  }
+}
+
 /* Ajuste fino: lo elegido casi nunca suma justo el tiempo pedido. Se estira o
    se encoge todo en proporción, respetando los límites de cada postura. */
 function ajustarDuraciones(pasos: PasoRutina[], objetivoSegundos: number) {
@@ -527,14 +603,19 @@ function ajustarDuraciones(pasos: PasoRutina[], objetivoSegundos: number) {
     const techo = Math.round(objetivoSegundos * 0.15);
     for (const p of pasos) {
       const dobla = p.porLado && !p.secuencia ? 2 : 1;
-      const min = p.disenada ? Math.max(6, Math.round(p.disenada * 0.85)) : minimoDe(p) * dobla;
+      // Una respiración dura cuatro o cinco segundos: el piso de un paso de
+      // serie tiene que dejar respirar, no más.
+      const min = p.disenada ? Math.max(3, Math.round(p.disenada * 0.85)) : minimoDe(p) * dobla;
       const max = p.disenada
         ? Math.round(p.disenada * 1.6)
         : Math.min(maximoDe(p) * dobla, Math.max(min, techo));
       const ajustada = Math.min(max, Math.max(min, p.duracion * factor));
       // Los pasos cortos de una serie se redondean al segundo; lo demás, a
       // cinco, que se lee mejor en pantalla.
-      p.duracion = ajustada > 25 ? Math.round(ajustada / 5) * 5 : Math.max(5, Math.round(ajustada));
+      p.duracion =
+        ajustada > 25
+          ? Math.round(ajustada / 5) * 5
+          : Math.max(p.disenada ? 3 : 5, Math.round(ajustada));
     }
   }
 }
@@ -571,11 +652,23 @@ function aplanar(porFaseElegido: Map<Fase, Elegido[]>, prefs: Preferencias): Pas
           e.sec.pasos.forEach((id, i) => {
             const paso = POR_ID.get(id);
             if (!paso) return;
+            // Cada vuelta trabaja un lado: la impar la derecha, la par la izquierda.
+            const pierna = v % 2 === 1 ? "derecha" : "izquierda";
+            const otra = pierna === "derecha" ? "izquierda" : "derecha";
+            const guion = e.sec.guion?.[i]
+              ?.replaceAll("{pierna}", pierna)
+              .replaceAll("{otra}", otra);
+            /* Un paso no puede durar menos de lo que la voz tarda en decirlo:
+               si no, el paso siguiente la corta a media frase. La voz de la
+               app lee unas 2,6 palabras por segundo. */
+            const hablar = guion ? Math.ceil(guion.split(/\s+/).length / 2.6 + 0.5) : 0;
+            const segundos = Math.max(e.sec.segundos[i] ?? minimoDe(paso), hablar);
             salida.push({
               ...paso,
               faseVisible: fase,
-              duracion: e.sec.segundos[i] ?? minimoDe(paso),
-              disenada: e.sec.segundos[i] ?? minimoDe(paso),
+              duracion: segundos,
+              disenada: segundos,
+              guion,
               clave: `${id}-${n++}`,
               secuencia: {
                 id: e.sec.id,

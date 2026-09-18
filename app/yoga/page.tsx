@@ -5,7 +5,7 @@ import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker"
 import { Yoga } from "@/components/yoga/Yoga";
 import { CATALOGO } from "@/lib/yoga/armar";
 import { SECUENCIAS } from "@/lib/yoga/secuencias";
-import { AVISOS_CUIDADO, CADA_CUANTO, ETIQUETA_GRADO, EVIDENCIA, MITOS } from "@/lib/yoga/evidencia";
+import { AVISOS_CUIDADO, CADA_CUANTO, ETIQUETA_GRADO, EVIDENCIA, MITOS, SOBRE_MUSICA } from "@/lib/yoga/evidencia";
 import { ESTILOS, OBJETIVOS, type Objetivo } from "@/lib/yoga/tipos";
 
 /* Ritual de yoga: arma la práctica según lo que cada persona necesita, la guía
@@ -120,6 +120,28 @@ export default function YogaPage() {
                   «{m.dice}»
                 </p>
                 <p style={{ ...texto, margin: 0 }}>{m.realidad}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Música ── */}
+        <section style={{ marginTop: "2.6rem" }}>
+          <h2 style={titulo2}>La música de fondo, sin cuentos</h2>
+          <p style={{ ...texto, maxWidth: "62ch" }}>
+            La app genera la música en vivo: para relajar, un acorde grave que sube y baja seis veces
+            por minuto, al mismo ritmo de la respiración lenta; para activar, un pulso suave a 96 por
+            minuto. Lo que se vende junto con la música «sanadora» tiene evidencia muy distinta:
+          </p>
+          <div style={{ display: "grid", gap: "0.8rem" }}>
+            {SOBRE_MUSICA.map((m) => (
+              <article key={m.tema} style={tarjeta}>
+                <div style={{ display: "flex", gap: "0.7rem", alignItems: "baseline", flexWrap: "wrap" }}>
+                  <p style={{ ...texto, color: "#e8c878", margin: 0, fontSize: "1.02rem" }}>{m.tema}</p>
+                  <span style={insignia(m.grado)}>{ETIQUETA_GRADO[m.grado]}</span>
+                </div>
+                <p style={{ ...texto, margin: "0.5rem 0 0.4rem" }}>{m.dice}</p>
+                <p style={fuente}>{m.fuente} · biblioteca-cientifica/yoga/musica_frecuencias</p>
               </article>
             ))}
           </div>

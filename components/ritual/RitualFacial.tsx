@@ -12,7 +12,10 @@ import {
   ETIQUETA_FASE,
   MINUTOS,
   NECESIDADES,
+  LECTURA,
   armarRutina,
+  minutosValidos,
+  duracion,
   mmss,
   type Enfoque,
   type EstadoPiel,
@@ -160,7 +163,7 @@ export function RitualFacial() {
     const g = leerGuardado();
     if (!g) return;
     setNecesidades(g.necesidades ?? []);
-    setMinutos(g.minutos ?? 10);
+    setMinutos(minutosValidos(g.minutos));
     setMomento(g.momento ?? "manana");
     setEnfoque(g.enfoque ?? "equilibrado");
     setNivel(g.nivel === "primera" ? "practico" : g.nivel ?? "practico");
@@ -175,14 +178,14 @@ export function RitualFacial() {
     if ((g.necesidades ?? []).length > 0) {
       const r = armarRutina({
         necesidades: g.necesidades,
-        minutos: g.minutos ?? 10,
+        minutos: minutosValidos(g.minutos),
         momento: g.momento ?? "manana",
         enfoque: g.enfoque ?? "equilibrado",
         nivel: g.nivel === "primera" ? "practico" : g.nivel ?? "practico",
         estadoPiel: g.estadoPiel ?? "normal",
       });
       setRutina(r);
-      setRestante(r.pasos[0]?.segundos ?? 0);
+      setRestante(r.pasos[0] ? duracion(r.pasos[0]) : 0);
       setEtapa("rutina");
     }
   }, []);
@@ -194,7 +197,11 @@ export function RitualFacial() {
     if (!corriendo || !rutina) return;
     const id = setInterval(() => {
       setRestante((r) => {
-        if (r > 1) return r - 1;
+        if (r > 1) {
+          // Se acaba la lectura: un pitido para empezar a hacerlo.
+          if (r - 1 === rutina.pasos[indice].segundos) pitar();
+          return r - 1;
+        }
         const siguiente = indice + 1;
         if (siguiente >= rutina.pasos.length) {
           setCorriendo(false);
@@ -204,7 +211,7 @@ export function RitualFacial() {
         }
         setIndice(siguiente);
         pitar();
-        return rutina.pasos[siguiente].segundos;
+        return duracion(rutina.pasos[siguiente]);
       });
     }, 1000);
     return () => clearInterval(id);
@@ -275,7 +282,7 @@ export function RitualFacial() {
     const r = armarRutina({ necesidades, minutos, momento, enfoque, nivel, estadoPiel });
     setRutina(r);
     setIndice(0);
-    setRestante(r.pasos[0]?.segundos ?? 0);
+    setRestante(r.pasos[0] ? duracion(r.pasos[0]) : 0);
     setEtapa("rutina");
   }
 
@@ -283,7 +290,7 @@ export function RitualFacial() {
     if (!rutina) return;
     desbloquear();
     setIndice(0);
-    setRestante(rutina.pasos[0]?.segundos ?? 0);
+    setRestante(rutina.pasos[0] ? duracion(rutina.pasos[0]) : 0);
     setEtapa("guiado");
     setCorriendo(true);
     pitar();
@@ -293,13 +300,13 @@ export function RitualFacial() {
     if (!rutina) return;
     const i = Math.max(0, Math.min(rutina.pasos.length - 1, n));
     setIndice(i);
-    setRestante(rutina.pasos[i].segundos);
+    setRestante(duracion(rutina.pasos[i]));
   }
 
   const transcurrido = useMemo(() => {
     if (!rutina) return 0;
-    const previos = rutina.pasos.slice(0, indice).reduce((a, p) => a + p.segundos, 0);
-    return previos + ((pasoActual?.segundos ?? 0) - restante);
+    const previos = rutina.pasos.slice(0, indice).reduce((a, p) => a + duracion(p), 0);
+    return previos + ((pasoActual ? duracion(pasoActual) : 0) - restante);
   }, [rutina, indice, restante, pasoActual]);
 
   // ── Elección ───────────────────────────────────────────────
@@ -525,7 +532,7 @@ export function RitualFacial() {
             <div key={fase}>
               <p style={rotulo}>
                 {ETIQUETA_FASE[fase]} ·{" "}
-                {mmss(pasos.reduce((a, p) => a + p.segundos, 0))}
+                {mmss(pasos.reduce((a, p) => a + duracion(p), 0))}
               </p>
               <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.4rem" }}>
                 {pasos.map((p) => (
@@ -541,7 +548,7 @@ export function RitualFacial() {
                       </span>
                     </div>
                     <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.8rem", color: "rgba(200,160,80,0.75)", flexShrink: 0 }}>
-                      {p.segundos}s
+                      {duracion(p)}s
                     </span>
                   </li>
                 ))}
@@ -600,8 +607,12 @@ export function RitualFacial() {
 
   // ── Modo guiado ────────────────────────────────────────────
   if (etapa === "guiado" && rutina && pasoActual) {
-    const total = pasoActual.segundos;
-    const vuelta = total > 0 ? 1 - restante / total : 0;
+    /* Los primeros segundos del paso son para leerlo. Mientras dura la
+       lectura el anillo cuenta la lectura; después, el ejercicio. */
+    const enLectura = restante > pasoActual.segundos;
+    const total = enLectura ? LECTURA : pasoActual.segundos;
+    const queda = enLectura ? restante - pasoActual.segundos : restante;
+    const vuelta = total > 0 ? 1 - queda / total : 0;
     const perimetro = 2 * Math.PI * 52;
 
     return (
@@ -670,6 +681,7 @@ export function RitualFacial() {
                 strokeLinecap="round"
                 strokeDasharray={perimetro}
                 strokeDashoffset={perimetro * (1 - vuelta)}
+                opacity={enLectura ? 0.45 : 1}
                 transform="rotate(-90 60 60)"
                 style={{ transition: "stroke-dashoffset 0.9s linear" }}
               />
@@ -687,10 +699,21 @@ export function RitualFacial() {
                 fontVariantNumeric: "tabular-nums",
               }}
             >
-              {restante}
+              {queda}
             </span>
           </div>
         </div>
+
+        <p
+          aria-live="polite"
+          style={{
+            ...rotulo,
+            margin: "-0.4rem 0 1rem",
+            color: enLectura ? "rgba(232,216,176,0.75)" : "#e8c878",
+          }}
+        >
+          {enLectura ? "Prepárate · lee el paso" : "Ahora, hazlo"}
+        </p>
 
         {/* Instrucciones: grandes, para leerlas de lejos */}
         <ul style={{ listStyle: "none", margin: "0 auto 1.5rem", padding: 0, maxWidth: "46ch", textAlign: "left", display: "grid", gap: "0.55rem" }}>

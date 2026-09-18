@@ -68,7 +68,30 @@ export const ENFOQUES: { id: Enfoque; label: string; detalle: string }[] = [
   { id: "ejercicios", label: "Más ejercicios", detalle: "Trabajar el músculo" },
 ];
 
-export const MINUTOS = [5, 10, 15] as const;
+/* Las duraciones que se ofrecen. Antes había una de 5 minutos, pero con los
+   segundos de lectura de cada paso lo obligatorio (abrir el cuello, cerrar el
+   circuito, los roces) ya dura entre 6,3 y 8,7 minutos según el caso, y eso no
+   se puede recortar sin romper la técnica. Un botón de «5 minutos» que dura
+   ocho sería mentir. */
+export const MINUTOS = [10, 15, 20] as const;
+
+/** Quien había guardado una duración que ya no existe pasa a la más corta. */
+export function minutosValidos(m: number | undefined) {
+  return m !== undefined && (MINUTOS as readonly number[]).includes(m) ? m : MINUTOS[0];
+}
+
+/* Segundos al comienzo de cada paso para leerlo y entenderlo antes de
+   empezar. Hacer un ejercicio mientras todavía se está leyendo qué hay que
+   hacer es la forma más segura de hacerlo mal.
+
+   Cuentan DENTRO de los minutos elegidos: «10 minutos» tiene que seguir
+   siendo diez minutos. Por eso entra algún paso menos en cada rutina. */
+export const LECTURA = 10;
+
+/** Lo que dura un paso de verdad: leerlo y hacerlo. */
+export function duracion(p: Paso) {
+  return p.segundos + LECTURA;
+}
 
 export type Paso = {
   id: string;
@@ -879,7 +902,7 @@ export function armarRutina(o: Opciones): Rutina {
 
   const base = disponibles.filter((p) => p.base);
   const usados = new Set(base.map((p) => p.id));
-  const segundosBase = base.reduce((a, p) => a + p.segundos, 0);
+  const segundosBase = base.reduce((a, p) => a + duracion(p), 0);
 
   const objetivo = o.minutos * 60;
   let libre = Math.max(0, objetivo - segundosBase);
@@ -912,10 +935,10 @@ export function armarRutina(o: Opciones): Rutina {
 
   for (const p of candidatos) {
     const cupo = p.fase === "drenaje" ? cupoDrenaje : cupoEjercicios;
-    if (p.segundos > cupo) continue;
+    if (duracion(p) > cupo) continue;
     usados.add(p.id);
-    if (p.fase === "drenaje") cupoDrenaje -= p.segundos;
-    else cupoEjercicios -= p.segundos;
+    if (p.fase === "drenaje") cupoDrenaje -= duracion(p);
+    else cupoEjercicios -= duracion(p);
   }
 
   /* Si sobró tiempo en un cupo y falta en el otro, se aprovecha: más vale una
@@ -933,10 +956,10 @@ export function armarRutina(o: Opciones): Rutina {
     for (const p of candidatos) {
       if (usados.has(p.id)) continue;
       if (favorita && p.fase !== favorita) continue;
-      if (p.segundos > cupoDrenaje + cupoEjercicios) continue;
+      if (duracion(p) > cupoDrenaje + cupoEjercicios) continue;
       usados.add(p.id);
-      if (p.fase === "drenaje") cupoDrenaje -= p.segundos;
-      else cupoEjercicios -= p.segundos;
+      if (p.fase === "drenaje") cupoDrenaje -= duracion(p);
+      else cupoEjercicios -= duracion(p);
     }
   }
 
@@ -944,7 +967,7 @@ export function armarRutina(o: Opciones): Rutina {
 
   return {
     pasos,
-    segundos: pasos.reduce((a, p) => a + p.segundos, 0),
+    segundos: pasos.reduce((a, p) => a + duracion(p), 0),
     enfoque: o.enfoque ?? "equilibrado",
     necesidades: o.necesidades,
     minutos: o.minutos,

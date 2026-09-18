@@ -5,7 +5,7 @@ import { armarRutina, enBloques, porFase, type PasoRutina, type Rutina } from "@
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
-import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type ModoMusica } from "@/lib/musica";
+import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type ModoMusica } from "@/lib/musica-yoga";
 import {
   CUIDADOS,
   ESTILOS,

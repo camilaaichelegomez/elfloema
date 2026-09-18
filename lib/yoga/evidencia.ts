@@ -230,7 +230,7 @@ export const SOBRE_MUSICA: { tema: string; grado: Grado; dice: string; fuente: s
   {
     tema: "432 Hz y frecuencias solfeggio (528 Hz)",
     grado: "tradicion",
-    dice: "No hay evidencia de que una afinación o una frecuencia concreta sane nada. Lo que existe son estudios piloto muy chicos y textos exploratorios. La app no usa ni promete estas frecuencias.",
+    dice: "No hay evidencia de que una afinación o una frecuencia concreta sane nada. Lo que existe son estudios piloto muy chicos y textos exploratorios. La música de la práctica de yoga no se afina en ellas ni las promete.",
     fuente: "Estudios piloto sobre 432 Hz y textos exploratorios sobre solfeggio en la carpeta",
   },
 ];

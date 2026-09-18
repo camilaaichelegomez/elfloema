@@ -72,15 +72,37 @@ export function usarVoz(activa: boolean, nombreElegido?: string) {
     return () => window.speechSynthesis.removeEventListener("voiceschanged", elegir);
   }, [nombreElegido]);
 
+  /* Cada frase nueva, y cada vez que se manda a callar, sube el turno. Una
+     frase que estaba esperando su respiro de 140 ms solo sale si sigue siendo
+     la de este turno: si entremedio se tocó pausa, se descarta. Antes esa
+     frase pendiente salía igual, y la voz seguía hablando con la práctica en
+     pausa. */
+  const turnoRef = useRef(0);
+  const pendienteRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const callar = useCallback(() => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
+    const turno = ++turnoRef.current;
+    if (pendienteRef.current) {
+      clearTimeout(pendienteRef.current);
+      pendienteRef.current = null;
+    }
+    const s = window.speechSynthesis;
+    /* Safari (y el iPhone entero) a veces ignora cancel() si la frase recién
+       empezó y sigue leyendo hasta el final. Pausar primero la corta en seco,
+       y un segundo cancel al tic siguiente atrapa la que se haya escapado. */
+    s.pause();
+    s.cancel();
+    setTimeout(() => {
+      if (turnoRef.current === turno) s.cancel();
+    }, 60);
   }, []);
 
   const decir = useCallback(
     (texto: string, { velocidad = 0.92, enCola = false }: Opciones = {}) => {
       if (!activa || !texto) return;
       if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+      const turno = ++turnoRef.current;
       try {
         const hablar = () => {
           const frase = new SpeechSynthesisUtterance(texto);
@@ -101,7 +123,11 @@ export function usarVoz(activa: boolean, nombreElegido?: string) {
         /* Cancelar y hablar en el mismo tic hace que Chrome se trague la frase
            (es un error conocido suyo). Hay que darle un respiro. */
         window.speechSynthesis.cancel();
-        setTimeout(hablar, 140);
+        if (pendienteRef.current) clearTimeout(pendienteRef.current);
+        pendienteRef.current = setTimeout(() => {
+          pendienteRef.current = null;
+          if (turnoRef.current === turno) hablar();
+        }, 140);
       } catch {
         /* Si el navegador no quiere hablar, la práctica sigue igual. */
       }

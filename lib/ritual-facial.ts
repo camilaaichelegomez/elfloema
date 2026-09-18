@@ -375,7 +375,7 @@ export const CATALOGO: Paso[] = [
     como: [
       "Solo el dedo anular, porque es el que menos fuerza tiene.",
       "Empieza en el lagrimal, junto a la nariz, siempre apoyado en el borde del hueso.",
-      "Cinco círculos fijos y avanza por debajo de la ceja hasta la sien. Nunca sobre el ojo.",
+      "Cinco círculos fijos y avanza por el borde del hueso de abajo del ojo, hasta la sien. Nunca sobre el ojo.",
       "Aquí la presión es la mitad que en el resto de la cara: si el párpado se estira, es demasiado.",
     ],
     repeticiones: "5 círculos en cada punto",

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 
 /* Dibujo de la cara con las marcas de cada maniobra.
 
@@ -50,8 +50,8 @@ type Vista = "frente" | "perfil" | "antebrazo";
 type Gesto = {
   cejas?: "neutras" | "arriba" | "fruncidas";
   ojos?: "neutros" | "entrecerrados" | "cerrados";
-  boca?: "neutra" | "o" | "sonrisa" | "dentro" | "abierta" | "beso" | "labio-abajo";
-  mejillas?: "neutras" | "hundidas" | "elevadas";
+  boca?: "neutra" | "o" | "sonrisa" | "dentro" | "abierta" | "beso" | "labio-abajo" | "lengua";
+  mejillas?: "neutras" | "hundidas" | "elevadas" | "infladas";
 };
 
 type Guia = { marcas: Marca[]; simetrico?: boolean; vista?: Vista; gesto?: Gesto };
@@ -137,6 +137,15 @@ function Boca({ tipo = "neutra" }: { tipo?: Gesto["boca"] }) {
           <path d="M 126 196 C 128 214 128 228 126 240" opacity="0.65" />
         </>
       );
+    case "lengua":
+      // Boca abierta con la lengua recta hacia afuera, sin torcerla.
+      return (
+        <>
+          <path d="M 94 148 Q 110 142 126 148 Q 124 158 110 160 Q 96 158 94 148 Z" />
+          <path d="M 101 152 Q 101 174 110 178 Q 119 174 119 152" fill="rgba(232,200,120,0.14)" />
+          <path d="M 110 156 L 110 170" opacity="0.5" />
+        </>
+      );
     default:
       return <path d="M 92 150 Q 110 143 128 150 Q 110 162 92 150 Z" />;
   }
@@ -148,6 +157,15 @@ function Mejillas({ tipo = "neutras" }: { tipo?: Gesto["mejillas"] }) {
       <>
         <path d="M 74 124 Q 88 140 78 156" opacity="0.8" />
         <path d="M 146 124 Q 132 140 142 156" opacity="0.8" />
+      </>
+    );
+  }
+  if (tipo === "infladas") {
+    // Mejillas llenas de aire: el contorno se abre hacia afuera.
+    return (
+      <>
+        <path d="M 60 116 Q 44 142 62 168" opacity="0.8" />
+        <path d="M 160 116 Q 176 142 158 168" opacity="0.8" />
       </>
     );
   }
@@ -438,14 +456,15 @@ const MARCAS: Record<string, Guia> = {
       { t: "nota", xy: [110, 196], texto: "sostén 10 s" },
     ],
   },
+  /* Antes mostraba las cejas levantándose contra los dedos: entrenaba el
+     músculo que marca la línea. Ahora la frente queda quieta y los dedos
+     empujan la piel, no el músculo. */
   "ej-frente": {
     simetrico: true,
-    gesto: { cejas: "arriba" },
     marcas: [
-      { t: "zona", d: "M 62 46 Q 90 36 110 42 L 110 70 Q 86 64 64 72 Z" },
-      { t: "mano", p: [87, 76], ang: 6, n: 3 },
-      { t: "flecha", d: "M 87 70 L 87 54" },
-      { t: "nota", xy: [110, 214], texto: "los dedos no dejan subir" },
+      { t: "mano", p: [88, 70], ang: 4, n: 3 },
+      { t: "flecha", d: "M 88 60 L 88 42" },
+      { t: "nota", xy: [110, 214], texto: "la frente quieta, sin arrugar" },
     ],
   },
   "ej-entrecejo": {
@@ -504,13 +523,13 @@ const MARCAS: Record<string, Guia> = {
       { t: "nota", xy: [110, 272], texto: "estira el frente del cuello" },
     ],
   },
+  /* Antes mostraba el cuello tenso, que es justo lo contrario: el platisma
+     tira hacia abajo y se estira, no se fortalece. */
   "ej-platisma": {
-    simetrico: true,
-    gesto: { boca: "labio-abajo" },
     marcas: [
-      { t: "zona", d: "M 84 194 Q 98 188 108 194 L 108 240 Q 94 246 86 240 Z" },
-      { t: "flecha", d: "M 92 160 L 88 178" },
-      { t: "nota", xy: [110, 272], texto: "se marcan las cuerdas del cuello" },
+      { t: "zona", d: "M 128 194 Q 142 198 144 214 L 142 240 Q 130 244 124 238 Z" },
+      { t: "flecha", d: "M 76 176 Q 110 214 146 176" },
+      { t: "nota", xy: [110, 272], texto: "gira despacio, sin forzar" },
     ],
   },
   "ej-masetero": {
@@ -529,6 +548,69 @@ const MARCAS: Record<string, Guia> = {
       { t: "aro", c: [170, 118], r: 10 },
       { t: "flecha", d: "M 110 186 Q 112 200 110 212" },
       { t: "nota", xy: [110, 240], texto: "sin que los dientes se toquen" },
+    ],
+  },
+
+  // ── Fuerza de verdad ──
+  "ej-lengua-mejilla": {
+    marcas: [
+      { t: "zona", d: "M 70 128 Q 58 142 70 156 Q 82 150 82 142 Q 82 132 70 128 Z" },
+      { t: "flecha", d: "M 96 142 L 76 142" },
+      { t: "mano", p: [60, 142], ang: 90, n: 1 },
+      { t: "nota", xy: [110, 214], texto: "la lengua empuja, el dedo resiste" },
+    ],
+  },
+  "ej-lengua-fuera": {
+    gesto: { boca: "lengua" },
+    marcas: [
+      { t: "flecha", d: "M 110 184 L 110 200" },
+      { t: "nota", xy: [110, 222], texto: "recta, sostén 8 segundos" },
+    ],
+  },
+  "ej-deglucion": {
+    vista: "perfil",
+    marcas: [
+      { t: "zona", d: "M 72 172 Q 96 184 124 180 L 128 204 Q 98 206 80 196 Z" },
+      { t: "flecha", d: "M 84 150 L 84 134" },
+      { t: "nota", xy: [110, 60], texto: "lengua al paladar y traga fuerte" },
+    ],
+  },
+  "ej-abrir-resistencia": {
+    gesto: { boca: "abierta" },
+    marcas: [
+      { t: "mano", p: [110, 204], ang: 0, n: 4 },
+      { t: "flecha", d: "M 110 176 L 110 190" },
+      { t: "nota", xy: [110, 266], texto: "el puño no deja abrir" },
+    ],
+  },
+  "ej-pomulo-elevador": {
+    simetrico: true,
+    gesto: { boca: "o", mejillas: "elevadas" },
+    marcas: [
+      { t: "mano", p: [80, 112], ang: 14, n: 2 },
+      { t: "flecha", d: "M 72 140 L 72 124" },
+    ],
+  },
+  "ej-aire-mejillas": {
+    gesto: { mejillas: "infladas" },
+    marcas: [
+      { t: "flecha", d: "M 66 150 Q 110 176 154 150" },
+      { t: "nota", xy: [110, 214], texto: "de una mejilla a la otra" },
+    ],
+  },
+  "ej-labios-resistencia": {
+    marcas: [
+      { t: "mano", p: [88, 153], ang: 90, n: 1 },
+      { t: "flecha", d: "M 118 158 L 118 168" },
+      { t: "nota", xy: [110, 214], texto: "los labios resisten el dedo" },
+    ],
+  },
+  "ej-masticar": {
+    simetrico: true,
+    marcas: [
+      { t: "zona", d: "M 52 116 Q 68 112 74 130 Q 70 158 54 150 Z" },
+      { t: "flecha", d: "M 62 126 L 62 146" },
+      { t: "nota", xy: [110, 214], texto: "20 de un lado, 20 del otro" },
     ],
   },
 
@@ -556,6 +638,81 @@ const MARCAS: Record<string, Guia> = {
 };
 
 // ── Dibujo de las marcas ──────────────────────────────────────────────────────
+
+/* ── Secuencias ──────────────────────────────────────────────────────────────
+   Un solo dibujo no alcanza para una maniobra que tiene recorrido: si se
+   pinta todo el camino a la vez, no se sabe por dónde empezar ni hacia dónde
+   seguir. Estas maniobras se muestran por partes, y el modo guiado las va
+   pasando solas cada pocos segundos — las manos están en la cara, nadie va a
+   tocar la pantalla. Cada cuadro muestra la mano donde está AHORA y una
+   flecha corta hacia donde va después. */
+
+type Cuadro = { texto: string; guia: Guia };
+
+const SECUENCIAS: Record<string, Cuadro[]> = {
+  "prep-circulo": [
+    { texto: "Apoya dos dedos", guia: { marcas: [{ t: "mano", p: [84, 128], ang: 20, n: 2 }] } },
+    {
+      texto: "Aprieta mientras giras hacia el meñique",
+      guia: { marcas: [{ t: "mano", p: [84, 128], ang: 20, n: 2 }, { t: "flecha", d: "M 98 124 A 16 16 0 0 1 80 146" }, { t: "nota", xy: [110, 214], texto: "aprieta" }] },
+    },
+    {
+      texto: "Suelta en la otra mitad del círculo",
+      guia: { marcas: [{ t: "mano", p: [84, 128], ang: 20, n: 2 }, { t: "flecha", d: "M 78 146 A 16 16 0 0 1 96 116" }, { t: "nota", xy: [110, 214], texto: "suelta" }] },
+    },
+  ],
+  "dre-apertura": [
+    { texto: "Pulgares en el centro del pecho", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[110, 254]] }, { t: "mano", p: [104, 250], ang: -18, n: 1 }] } },
+    { texto: "Abanico hacia los hombros", guia: { simetrico: true, marcas: [{ t: "mano", p: [82, 250], ang: -36, n: 1 }, { t: "flecha", d: "M 106 252 Q 90 248 72 250" }] } },
+    { texto: "El último roce, sobre la clavícula", guia: { simetrico: true, marcas: [{ t: "mano", p: [64, 256], ang: -60, n: 1 }, { t: "flecha", d: "M 104 254 Q 84 250 60 256" }] } },
+  ],
+  "dre-cadena-cuello": [
+    { texto: "Justo debajo de la oreja", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[82, 192]] }, { t: "mano", p: [82, 196], ang: 12, n: 2 }] } },
+    { texto: "Baja dos dedos y otros cinco círculos", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[82, 192], [79, 212]] }, { t: "mano", p: [79, 216], ang: 12, n: 2 }, { t: "flecha", d: "M 82 196 L 79 210" }] } },
+    { texto: "Así hasta encima de la clavícula", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[82, 192], [79, 212], [76, 230], [73, 248]] }, { t: "mano", p: [73, 250], ang: 12, n: 2 }, { t: "flecha", d: "M 78 216 L 74 246" }] } },
+  ],
+  "dre-menton": [
+    { texto: "En el hueco bajo el mentón", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[104, 190]] }, { t: "mano", p: [104, 194], ang: 10, n: 2 }] } },
+    { texto: "Avanza por el borde de la mandíbula", guia: { simetrico: true, marcas: [{ t: "mano", p: [82, 180], ang: 30, n: 2 }, { t: "flecha", d: "M 104 190 Q 92 188 80 180" }] } },
+    { texto: "Hasta llegar a la oreja", guia: { simetrico: true, marcas: [{ t: "mano", p: [58, 148], ang: 40, n: 2 }, { t: "flecha", d: "M 80 178 Q 64 168 56 146" }] } },
+    { texto: "Y baja por el cuello a la clavícula", guia: { simetrico: true, marcas: [{ t: "mano", p: [70, 238], ang: 12, n: 2 }, { t: "flecha", d: "M 56 150 Q 62 198 72 244" }] } },
+  ],
+  "dre-viaje-largo": [
+    { texto: "Bajo el ojo, apoyada en el hueso", guia: { simetrico: true, marcas: [{ t: "mano", p: [82, 118], ang: 12, n: 2 }] } },
+    { texto: "En espiral hasta la comisura", guia: { simetrico: true, marcas: [{ t: "mano", p: [98, 162], ang: 12, n: 2 }, { t: "flecha", d: "M 82 118 Q 92 142 98 158" }] } },
+    { texto: "Sigue al mentón", guia: { simetrico: true, marcas: [{ t: "mano", p: [106, 194], ang: 10, n: 2 }, { t: "flecha", d: "M 100 162 Q 105 178 106 190" }] } },
+    { texto: "Por la mandíbula hasta la oreja", guia: { simetrico: true, marcas: [{ t: "mano", p: [58, 148], ang: 40, n: 2 }, { t: "flecha", d: "M 106 192 Q 78 184 56 146" }] } },
+    { texto: "Y abajo, a la clavícula", guia: { simetrico: true, marcas: [{ t: "mano", p: [70, 238], ang: 12, n: 2 }, { t: "flecha", d: "M 56 150 Q 62 198 72 244" }] } },
+  ],
+  "dre-labios": [
+    { texto: "Centro del labio de abajo", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[104, 162]] }, { t: "mano", p: [99, 174], ang: 44, n: 2 }] } },
+    { texto: "Avanza hacia la mandíbula", guia: { simetrico: true, marcas: [{ t: "mano", p: [78, 172], ang: 44, n: 2 }, { t: "flecha", d: "M 104 162 Q 88 166 70 158" }] } },
+    { texto: "Lo mismo desde el labio de arriba", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[104, 144]] }, { t: "mano", p: [88, 140], ang: 60, n: 2 }, { t: "flecha", d: "M 104 144 Q 88 146 70 152" }] } },
+    { texto: "Una espiral hasta la clavícula", guia: { simetrico: true, marcas: [{ t: "mano", p: [70, 238], ang: 12, n: 2 }, { t: "flecha", d: "M 68 158 Q 66 204 72 244" }] } },
+  ],
+  "dre-cierre": [
+    { texto: "Dos dedos delante de la oreja", guia: { simetrico: true, marcas: [{ t: "puntos", p: [[54, 116]] }, { t: "mano", p: [54, 120], ang: 14, n: 2 }] } },
+    { texto: "Baja al ganglio de la mandíbula", guia: { simetrico: true, marcas: [{ t: "mano", p: [82, 184], ang: 20, n: 2 }, { t: "flecha", d: "M 56 120 Q 68 154 84 180" }] } },
+    { texto: "Y por el cuello a la clavícula", guia: { simetrico: true, marcas: [{ t: "mano", p: [72, 242], ang: 12, n: 2 }, { t: "flecha", d: "M 84 186 Q 78 216 74 246" }] } },
+  ],
+  "dre-frente": [
+    { texto: "Cuatro dedos en el centro de la frente", guia: { simetrico: true, marcas: [{ t: "mano", p: [96, 64], ang: 4, n: 3 }] } },
+    { texto: "Avanza hacia la sien", guia: { simetrico: true, marcas: [{ t: "mano", p: [74, 74], ang: 20, n: 3 }, { t: "flecha", d: "M 104 62 Q 88 64 72 76" }] } },
+    { texto: "Termina delante de la oreja", guia: { simetrico: true, marcas: [{ t: "mano", p: [56, 100], ang: 30, n: 2 }, { t: "flecha", d: "M 72 78 Q 60 86 54 96" }] } },
+  ],
+  "dre-ojos": [
+    { texto: "El anular en el lagrimal, junto a la nariz", guia: { simetrico: true, gesto: { ojos: "cerrados" }, marcas: [{ t: "mano", p: [100, 108], ang: 16, n: 1 }, { t: "nota", xy: [110, 84], texto: "media presión" }] } },
+    { texto: "Por el borde del hueso, bajo el ojo", guia: { simetrico: true, gesto: { ojos: "cerrados" }, marcas: [{ t: "mano", p: [84, 116], ang: 10, n: 1 }, { t: "flecha", d: "M 100 108 Q 92 115 82 115" }] } },
+    { texto: "Hasta la sien", guia: { simetrico: true, gesto: { ojos: "cerrados" }, marcas: [{ t: "mano", p: [64, 104], ang: 30, n: 1 }, { t: "flecha", d: "M 82 116 Q 72 114 64 104" }] } },
+  ],
+};
+
+function prefiereQuieto() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  );
+}
 
 /* Un dedo: la yema en (x, y) y el resto del dedo saliendo hacia atrás. Se
    dibuja apuntando hacia arriba y después se gira, que es más fácil de ajustar
@@ -714,16 +871,8 @@ function Marcas({ marcas, animar }: { marcas: Marca[]; animar: boolean }) {
   );
 }
 
-export function CaraGuia({
-  pasoId,
-  animar = true,
-  tamano = 260,
-}: {
-  pasoId: string;
-  animar?: boolean;
-  tamano?: number;
-}) {
-  const guia = MARCAS[pasoId] ?? { marcas: [] };
+/** Un dibujo: el rostro y las marcas de una guía. */
+function Dibujo({ guia, animar, tamano }: { guia: Guia; animar: boolean; tamano: number }) {
   const vista = guia.vista ?? "frente";
 
   return (
@@ -767,7 +916,103 @@ export function CaraGuia({
   );
 }
 
+const CADA = 2800; // ms que se queda cada posición de una secuencia
+
+export function CaraGuia({
+  pasoId,
+  animar = true,
+  tamano = 260,
+}: {
+  pasoId: string;
+  animar?: boolean;
+  tamano?: number;
+}) {
+  const cuadros = SECUENCIAS[pasoId];
+  const [i, setI] = useState(0);
+  const [quieto, setQuieto] = useState(false);
+
+  useEffect(() => setQuieto(prefiereQuieto()), []);
+  useEffect(() => setI(0), [pasoId]);
+
+  useEffect(() => {
+    if (!cuadros || !animar || quieto) return;
+    const id = setInterval(() => setI((x) => (x + 1) % cuadros.length), CADA);
+    return () => clearInterval(id);
+  }, [cuadros, animar, quieto, pasoId]);
+
+  // Sin secuencia: un solo dibujo, como siempre.
+  if (!cuadros) {
+    return <Dibujo guia={MARCAS[pasoId] ?? { marcas: [] }} animar={animar} tamano={tamano} />;
+  }
+
+  // Miniatura en la lista de la rutina: basta la primera posición.
+  if (!animar) {
+    return <Dibujo guia={cuadros[0].guia} animar={false} tamano={tamano} />;
+  }
+
+  // Con «reducir movimiento» no se pasan solas: se ven todas a la vez, en fila.
+  if (quieto) {
+    const chico = Math.max(96, Math.round(tamano / 2.1));
+    return (
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+        {cuadros.map((c, n) => (
+          <figure key={n} style={{ margin: 0, width: chico, textAlign: "center" }}>
+            <Dibujo guia={c.guia} animar={false} tamano={chico} />
+            <figcaption style={leyendaChica}>
+              {n + 1}. {c.texto}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    );
+  }
+
+  const actual = cuadros[i % cuadros.length];
+  return (
+    <div>
+      <Dibujo guia={actual.guia} animar={animar} tamano={tamano} />
+      <p style={leyenda} aria-live="polite">
+        <span style={{ color: ORO }}>
+          {(i % cuadros.length) + 1}/{cuadros.length}
+        </span>{" "}
+        · {actual.texto}
+      </p>
+      <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 6 }} aria-hidden="true">
+        {cuadros.map((_, n) => (
+          <span
+            key={n}
+            style={{
+              width: 7,
+              height: 7,
+              borderRadius: "50%",
+              background: n === i % cuadros.length ? ORO_CLARO : "rgba(200,160,80,0.28)",
+              transition: "background 0.3s ease",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const leyenda: CSSProperties = {
+  margin: "0.6rem 0 0",
+  textAlign: "center",
+  fontFamily: "var(--font-crimson), Georgia, serif",
+  fontSize: "0.98rem",
+  color: "#e8d8b0",
+  minHeight: "2.6em",
+};
+
+const leyendaChica: CSSProperties = {
+  margin: "0.25rem 0 0",
+  fontFamily: "var(--font-crimson), Georgia, serif",
+  fontSize: "0.78rem",
+  lineHeight: 1.3,
+  color: "rgba(232,216,176,0.8)",
+};
+
 /** Si un paso todavía no tiene dibujo, el modo guiado no muestra el marco vacío. */
 export function tieneDibujo(pasoId: string) {
-  return (MARCAS[pasoId]?.marcas.length ?? 0) > 0;
+  return Boolean(SECUENCIAS[pasoId]) || (MARCAS[pasoId]?.marcas.length ?? 0) > 0;
 }

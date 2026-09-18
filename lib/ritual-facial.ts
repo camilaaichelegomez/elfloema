@@ -73,6 +73,28 @@ export const ENFOQUES: { id: Enfoque; label: string; detalle: string }[] = [
    circuito, los roces) ya dura entre 6,3 y 8,7 minutos según el caso, y eso no
    se puede recortar sin romper la técnica. Un botón de «5 minutos» que dura
    ocho sería mentir. */
+/* Lo que se dice mientras se trabajan los masajes y ejercicios, una por
+   paso, en orden. Las tres primeras son las frases con que Camila acompaña
+   sus propios masajes; las demás van en la misma línea.
+
+   Hay algo de evidencia de que afirmar los propios valores ayuda con el
+   estrés (la llamada «autoafirmación»), pero aquí no se usan por eso: se usan
+   porque este rato es de autocuidado y está bien llenarlo de palabras buenas. */
+export const AFIRMACIONES = [
+  "Todo lo que quiero, lo voy a lograr.",
+  "Soy fuerte.",
+  "Soy hermosa, tal como soy.",
+  "Merezco este tiempo para mí.",
+  "Confío en mí y en lo que estoy construyendo.",
+  "Suelto lo que no me pertenece.",
+  "Soy suficiente.",
+  "Cada día estoy más cerca de lo que quiero.",
+];
+
+/** Lo último que se escucha: para salir con eso puesto. */
+export const CIERRE =
+  "Sal de aquí sabiendo esto: eres fuerte, eres hermosa, y lo que te propusiste hoy ya empezó a pasar.";
+
 export const MINUTOS = [10, 15, 20] as const;
 
 /** Quien había guardado una duración que ya no existe pasa a la más corta. */
@@ -134,6 +156,11 @@ export type Paso = {
      comisura tiran hacia ABAJO. Por eso en medicina estética se relajan, no se
      entrenan. */
   grupo?: "fortalecer" | "soltar";
+  /* Lo que se dice mientras se HACE el paso (no mientras se lee). En el
+     drenaje es la imagen de soltar; en algunos pasos, una frase propia.
+     Es una práctica de la mente, no una promesa del cuerpo: se escribe como
+     «imagina que…», nunca como que el masaje elimine algo. */
+  intencion?: string;
   fuente?: string;
 };
 
@@ -160,12 +187,17 @@ export const CATALOGO: Paso[] = [
   {
     id: "dre-respirar",
     fase: "preparacion",
-    nombre: "Baja el ritmo",
-    zona: "Respiración",
-    segundos: 30,
+    /* Antes era solo bajar el ritmo. Ahora es también el momento de decidir
+       para qué es este rato: pensar en lo valiosa que eres y en lo que
+       quieres lograr, y entrar a la rutina con eso. */
+    nombre: "Respira y ponte una intención",
+    zona: "Al comenzar",
+    segundos: 45,
     como: [
-      "Cinco respiraciones lentas, soltando los hombros.",
-      "No mueve linfa por sí sola: sirve para que no apures las maniobras ni aprietes de más.",
+      "Cierra los ojos y haz cinco respiraciones lentas, soltando los hombros.",
+      "Piensa en lo valiosa que eres. No en lo que te falta: en lo que ya eres.",
+      "Trae a tu mente lo que quieres lograr, y míralo como si ya estuviera hecho.",
+      "Este rato es tuyo. No es un trámite: es tu momento de cuidarte.",
     ],
     base: true,
     necesidades: [],
@@ -211,6 +243,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "dre-apertura",
+    intencion: "Imagina que abres la puerta por donde se va a ir todo lo que ya no te sirve.",
     fase: "drenaje",
     nombre: "Abrir el cuello",
     zona: "Esternón y clavícula",
@@ -362,6 +395,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "dre-viaje-largo",
+    intencion: "Mientras bajas, imagina que arrastras contigo todo lo que cargaste de más.",
     fase: "drenaje",
     nombre: "El viaje largo",
     zona: "Bajo los ojos → clavícula",
@@ -428,6 +462,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "dre-cierre",
+    intencion: "Por aquí sale todo. Imagina que lo que ya no te pertenece se va, y no vuelve.",
     fase: "drenaje",
     nombre: "Cerrar el circuito",
     zona: "Oreja → mandíbula → clavícula",
@@ -445,6 +480,7 @@ export const CATALOGO: Paso[] = [
   },
   {
     id: "dre-roce-final",
+    intencion: "Suéltalo. Ya no es tuyo. Lo que queda eres tú, más liviana.",
     fase: "drenaje",
     nombre: "Roce final",
     zona: "Cara y cuello",

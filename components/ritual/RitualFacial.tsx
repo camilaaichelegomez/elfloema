@@ -4,7 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties }
 import { llevarLaVista } from "@/lib/llevar-la-vista";
 import Link from "next/link";
 import {
+  AFIRMACIONES,
   AVISOS_PIEL,
+  CIERRE,
   CATALOGO,
   CONSEJOS,
   ENFOQUES,
@@ -27,6 +29,7 @@ import {
 } from "@/lib/ritual-facial";
 import { CaraGuia } from "./CaraGuia";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
+import { usarMusica } from "@/lib/musica";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
 
 /* La aplicación del ritual facial: se elige qué trabajar, se arma la rutina y
@@ -55,6 +58,8 @@ type Guardado = {
   voz?: boolean;
   /** Nombre de la voz elegida; vacío = la que mejor suene del dispositivo. */
   vozNombre?: string;
+  /** Opcional: quien guardó antes de que existiera la música la tiene activada. */
+  musica?: boolean;
 };
 
 function hoy() {
@@ -137,11 +142,13 @@ export function RitualFacial() {
   const [corriendo, setCorriendo] = useState(false);
   const [sonido, setSonido] = useState(true);
   const [voz, setVoz] = useState(true);
+  const [musica, setMusica] = useState(true);
   const [vozNombre, setVozNombre] = useState<string | undefined>();
   const [racha, setRacha] = useState(0);
 
   const pitar = usarPitido(sonido);
   const { decir, callar, desbloquear } = usarVoz(voz, vozNombre);
+  const { iniciar: sonarMusica, pausar: pausarMusica, detener: callarMusica } = usarMusica();
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   /* Al cambiar de etapa el contenido se reemplaza entero, pero el navegador
      deja el scroll donde estaba: el botón «Armar mi rutina» está abajo del
@@ -170,6 +177,7 @@ export function RitualFacial() {
     setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
     setVoz(g.voz ?? true);
+    setMusica(g.musica ?? true);
     setVozNombre(g.vozNombre);
 
     /* Si ya eligió alguna vez, la rutina se arma sola y se entra directo a
@@ -191,6 +199,22 @@ export function RitualFacial() {
   }, []);
 
   const pasoActual = rutina?.pasos[indice];
+
+  /* La frase del paso: en el drenaje, la imagen de soltar; en los masajes y
+     ejercicios, una afirmación, en orden, una por paso. El aceite no lleva:
+     es un paso práctico. */
+  const fraseDelPaso = useMemo(() => {
+    if (!rutina || !pasoActual) return null;
+    if (pasoActual.intencion) return pasoActual.intencion;
+    const esMasaje = (id: string, fase: string) => fase === "ejercicios" && id !== "prep-deslizante";
+    if (!esMasaje(pasoActual.id, pasoActual.fase)) return null;
+    const antes = rutina.pasos
+      .slice(0, indice)
+      .filter((p) => esMasaje(p.id, p.fase) && !p.intencion).length;
+    return AFIRMACIONES[antes % AFIRMACIONES.length];
+  }, [rutina, pasoActual, indice]);
+
+  const enLectura = !!pasoActual && restante > pasoActual.segundos;
 
   // Temporizador: descuenta y pasa al siguiente solo.
   useEffect(() => {
@@ -245,8 +269,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre });
-  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre]);
+    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre, musica });
+  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre, musica]);
 
   /* La voz lee la maniobra al entrar en ella. En el drenaje esto pesa más que
      en yoga: tienes las dos manos en la cara y los ojos cerrados, así que la
@@ -265,6 +289,40 @@ export function RitualFacial() {
   useEffect(() => {
     if (!corriendo) callar();
   }, [corriendo, callar]);
+
+  const leyendoRef = useRef(true);
+  useEffect(() => {
+    if (etapa !== "guiado" || !corriendo) return;
+    if (leyendoRef.current && !enLectura && fraseDelPaso) {
+      decir(fraseDelPaso, { velocidad: 0.85, enCola: true });
+    }
+    leyendoRef.current = enLectura;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enLectura, etapa, corriendo]);
+
+  // El cierre: lo último que se escucha antes de salir.
+  useEffect(() => {
+    if (etapa === "final") decir(CIERRE, { velocidad: 0.85, enCola: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [etapa]);
+
+  /* La música sigue a la rutina: suena mientras corre, baja en pausa, y al
+     terminar acompaña el cierre unos segundos antes de apagarse. */
+  useEffect(() => {
+    if (etapa === "guiado" && corriendo && musica) {
+      sonarMusica();
+      return;
+    }
+    if (etapa === "guiado") {
+      pausarMusica();
+      return;
+    }
+    if (etapa === "final") {
+      const id = window.setTimeout(callarMusica, 9000);
+      return () => window.clearTimeout(id);
+    }
+    callarMusica();
+  }, [etapa, corriendo, musica, sonarMusica, pausarMusica, callarMusica]);
 
   const porFase = useMemo(() => {
     if (!rutina) return [];
@@ -289,6 +347,7 @@ export function RitualFacial() {
   function empezar() {
     if (!rutina) return;
     desbloquear();
+    if (musica) sonarMusica();
     setIndice(0);
     setRestante(rutina.pasos[0] ? duracion(rutina.pasos[0]) : 0);
     setEtapa("guiado");
@@ -569,6 +628,14 @@ export function RitualFacial() {
           >
             {sonido ? "Sonido activado" : "Sonido apagado"}
           </button>
+          <button
+            type="button"
+            onClick={() => setMusica((m) => !m)}
+            style={botonSec}
+            aria-pressed={musica}
+          >
+            {musica ? "Con música" : "Sin música"}
+          </button>
           {hayVoz() && (
             <button type="button" onClick={() => setVoz((v) => !v)} style={botonSec} aria-pressed={voz}>
               {voz ? "Con voz que guía" : "Sin voz"}
@@ -587,6 +654,13 @@ export function RitualFacial() {
             </button>
           )}
         </div>
+        {musica && (
+          <p style={{ ...ayuda, marginTop: "0.9rem", fontSize: "0.86rem" }}>
+            La música está afinada en 528 Hz, la frecuencia que la tradición solfeggio asocia a
+            la transformación. Eso es tradición: no hay estudios de un efecto propio de esa
+            frecuencia. Lo que sí está estudiado es que la música lenta y suave baja el estrés.
+          </p>
+        )}
         {hayVoz() && voz && (
           <SelectorDeVoz
             valor={vozNombre}
@@ -739,6 +813,24 @@ export function RitualFacial() {
           <p style={aviso}>Aquí la presión es la mitad. Si estiras el párpado, es demasiado.</p>
         )}
 
+        {fraseDelPaso && !enLectura && (
+          <p
+            style={{
+              fontFamily: "var(--font-grimoire)",
+              fontStyle: "italic",
+              fontSize: "clamp(1.05rem, 3.6vw, 1.3rem)",
+              color: "#e8c878",
+              letterSpacing: "0.03em",
+              lineHeight: 1.45,
+              maxWidth: "36ch",
+              margin: "0 auto 1.4rem",
+              textWrap: "balance",
+            }}
+          >
+            {fraseDelPaso}
+          </p>
+        )}
+
         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
           <button type="button" onClick={() => irA(indice - 1)} disabled={indice === 0} style={botonSec}>
             Anterior
@@ -793,6 +885,21 @@ export function RitualFacial() {
       >
         {racha > 1 ? `${racha} días seguidos` : "Primera vez hecha"}
       </h2>
+      <p
+        style={{
+          fontFamily: "var(--font-grimoire)",
+          fontStyle: "italic",
+          fontSize: "clamp(1.05rem, 3.8vw, 1.3rem)",
+          color: "#e8c878",
+          lineHeight: 1.5,
+          maxWidth: "34ch",
+          margin: "0 auto 1.4rem",
+          textWrap: "balance",
+        }}
+      >
+        {CIERRE}
+      </p>
+
       <p style={{ ...ayuda, maxWidth: "44ch", margin: "0 auto 1.6rem" }}>
         La hinchazón baja hoy; el tono muscular es cosa de meses. En el único estudio que midió esto,
         el cambio se vio recién después de 20 semanas de práctica casi diaria.

@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { armarRutina, enBloques, porFase, type Rutina } from "@/lib/yoga/armar";
+import { armarRutina, enBloques, porFase, type PasoRutina, type Rutina } from "@/lib/yoga/armar";
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
+import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type ModoMusica } from "@/lib/musica";
 import {
   CUIDADOS,
   ESTILOS,
@@ -44,6 +45,23 @@ import { AsesorYoga } from "./AsesorYoga";
    No se sube a ningún lado. */
 
 type Etapa = "preferencias" | "resumen" | "rutina" | "guiado" | "final";
+
+/* En qué tramo va el paso. Una postura por lado tiene tres: el primer lado,
+   unos segundos para cambiar, y el segundo lado con su tiempo completo. Y
+   cualquier paso puede empezar con un aviso («empezamos con los saludos al
+   sol»), que no se come el tiempo de la postura. */
+type Tramo = "aviso" | "unico" | "primero" | "cambio" | "segundo";
+
+function tramoDe(p: PasoRutina, restante: number): Tramo {
+  const hecho = p.duracion - restante;
+  const aviso = p.avisoSegundos ?? 0;
+  if (hecho < aviso) return "aviso";
+  if (!p.transicion) return "unico";
+  const lado = (p.duracion - aviso - p.transicion) / 2;
+  if (hecho < aviso + lado) return "primero";
+  if (hecho < aviso + lado + p.transicion) return "cambio";
+  return "segundo";
+}
 
 const CLAVE = "floema-yoga";
 
@@ -132,11 +150,25 @@ export function Yoga() {
   const [indice, setIndice] = useState(0);
   const [restante, setRestante] = useState(0);
   const [corriendo, setCorriendo] = useState(false);
-  const [segundoLado, setSegundoLado] = useState(false);
 
   const pitar = usarPitido(prefs.sonido);
   const { decir, callar, desbloquear } = usarVoz(prefs.voz, prefs.vozNombre);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
+  const musicaRef = useRef<MotorMusica | null>(null);
+  const muestraRef = useRef<MotorMusica | null>(null);
+  const [musicaCallada, setMusicaCallada] = useState(false);
+
+  /** El paisaje que toca, o null si la persona no quiere música. */
+  const modoMusica = useCallback(
+    (p: Preferencias): ModoMusica | null =>
+      p.musica === "no" ? null : p.musica === "auto" ? modoAutomatico(p) : p.musica,
+    []
+  );
+
+  const apagarMusica = useCallback(() => {
+    musicaRef.current?.detener();
+    musicaRef.current = null;
+  }, []);
   const cajaRef = useRef<HTMLDivElement | null>(null);
   const primeraVista = useRef(true);
 
@@ -170,18 +202,14 @@ export function Yoga() {
   }, []);
 
   const pasoActual = rutina?.pasos[indice];
+  const tramo: Tramo = pasoActual ? tramoDe(pasoActual, restante) : "unico";
 
-  /* El temporizador. Cuando la postura es por lado, a la mitad suena doble y
-     cambia el rótulo: el cuerpo tiene que saber cuándo cambiar sin mirar. */
+  /* El temporizador. El tramo de cada paso (aviso, primer lado, cambio,
+     segundo lado) sale de cuánto tiempo va, no de un estado aparte. */
   useEffect(() => {
     if (!corriendo || !rutina || !pasoActual) return;
     const id = setInterval(() => {
       setRestante((r) => {
-        const mitad = Math.round(pasoActual.duracion / 2);
-        if (pasoActual.porLado && !pasoActual.secuencia && r === mitad + 1) {
-          setSegundoLado(true);
-          pitar(true);
-        }
         if (r > 1) return r - 1;
         const siguiente = indice + 1;
         if (siguiente >= rutina.pasos.length) {
@@ -191,7 +219,6 @@ export function Yoga() {
           return 0;
         }
         setIndice(siguiente);
-        setSegundoLado(false);
         pitar();
         return rutina.pasos[siguiente].duracion;
       });
@@ -205,25 +232,38 @@ export function Yoga() {
   useEffect(() => {
     if (etapa !== "guiado" || !pasoActual || !corriendo) return;
     const enVuelta = pasoActual.secuencia?.vuelta ?? 1;
-    const partes: string[] = [pasoActual.nombre];
-    if (pasoActual.secuencia?.lado) partes.push(`lado ${pasoActual.secuencia.lado}`);
-    else if (pasoActual.porLado) partes.push("Empieza por un lado");
+    const partes: string[] = [];
+    if (pasoActual.aviso) partes.push(pasoActual.aviso);
 
-    if (enVuelta === 1) {
-      const lineas = pasoActual.duracion < 20 ? pasoActual.como.slice(0, 1) : pasoActual.como;
-      partes.push(...lineas);
-      if (pasoActual.cuidado) partes.push(pasoActual.cuidado);
+    if (pasoActual.guion) {
+      // En una serie rápida la guía es la respiración, en todas las vueltas.
+      partes.push(pasoActual.guion);
+    } else {
+      partes.push(pasoActual.nombre);
+      if (pasoActual.secuencia?.lado) partes.push(`lado ${pasoActual.secuencia.lado}`);
+      else if (pasoActual.porLado) partes.push("Empieza por el lado derecho");
+
+      if (enVuelta === 1) {
+        const lineas = pasoActual.duracion < 20 ? pasoActual.como.slice(0, 1) : pasoActual.como;
+        partes.push(...lineas);
+        if (pasoActual.cuidado) partes.push(pasoActual.cuidado);
+      }
     }
     decir(unirFrases(partes));
     // Solo cuando cambia el paso: no hay que releer al pausar y seguir.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indice, etapa]);
 
-  // Avisa el cambio de lado sin que haya que mirar la pantalla.
+  /* Al llegar el tramo de cambio, la voz lo nombra y suena doble. Hay cinco
+     segundos para cambiar antes de que corra el tiempo del segundo lado. */
   useEffect(() => {
-    if (etapa !== "guiado" || !segundoLado) return;
-    decir("Cambia de lado");
-  }, [segundoLado, etapa, decir]);
+    if (etapa !== "guiado" || !corriendo) return;
+    if (tramo === "cambio") {
+      decir("Cambia de lado.");
+      pitar(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tramo]);
 
   // Al pausar o salir, se calla.
   useEffect(() => {
@@ -247,6 +287,60 @@ export function Yoga() {
       wakeRef.current = null;
     };
   }, [etapa, corriendo]);
+
+  // La música acompaña la pausa: se calla al pausar y vuelve al seguir.
+  useEffect(() => {
+    const motor = musicaRef.current;
+    if (!motor || etapa !== "guiado" || musicaCallada) return;
+    if (corriendo) void motor.seguir();
+    else motor.pausar();
+  }, [corriendo, etapa, musicaCallada]);
+
+  /* Al llegar al final de la clase la música se funde hacia relajar, aunque
+     haya empezado activa: sigue el arco de la práctica. */
+  useEffect(() => {
+    if (etapa !== "guiado" || !pasoActual) return;
+    if (FASES_DE_CIERRE.includes(pasoActual.faseVisible)) musicaRef.current?.cambiarModo("relajar");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indice, etapa]);
+
+  // Fuera del modo guiado no hay música. Y al irse de la página, tampoco.
+  useEffect(() => {
+    if (etapa !== "guiado") apagarMusica();
+  }, [etapa, apagarMusica]);
+  useEffect(
+    () => () => {
+      musicaRef.current?.detener();
+      muestraRef.current?.detener();
+    },
+    []
+  );
+  useEffect(() => {
+    musicaRef.current?.ajustarVolumen(prefs.volumenMusica);
+  }, [prefs.volumenMusica]);
+  useEffect(() => {
+    musicaRef.current?.ajustarBinaural(prefs.binaural);
+  }, [prefs.binaural]);
+
+  /** Escuchar el paisaje unos segundos, para decidir sin empezar una práctica. */
+  function escucharMuestra() {
+    muestraRef.current?.detener();
+    const modo = modoMusica(prefs);
+    if (!modo || !hayAudio()) return;
+    try {
+      const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural });
+      muestraRef.current = motor;
+      void motor.empezar();
+      setTimeout(() => {
+        if (muestraRef.current === motor) {
+          motor.detener();
+          muestraRef.current = null;
+        }
+      }, 9000);
+    } catch {
+      /* sin audio */
+    }
+  }
 
   // Al terminar: racha, historial y preferencias quedan guardadas.
   useEffect(() => {
@@ -281,7 +375,6 @@ export function Yoga() {
     const r = armarRutina(p);
     setRutina(r);
     setIndice(0);
-    setSegundoLado(false);
     setRestante(r.pasos[0]?.duracion ?? 0);
     setEtapa("rutina");
   }
@@ -289,8 +382,20 @@ export function Yoga() {
   function empezar() {
     if (!rutina) return;
     desbloquear();
+    // La música arranca con este toque: sin un toque, el navegador no deja sonar nada.
+    apagarMusica();
+    const modo = modoMusica(prefs);
+    if (modo && hayAudio()) {
+      try {
+        const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural });
+        musicaRef.current = motor;
+        setMusicaCallada(false);
+        void motor.empezar();
+      } catch {
+        /* Sin audio disponible: la práctica sigue sin música. */
+      }
+    }
     setIndice(0);
-    setSegundoLado(false);
     setRestante(rutina.pasos[0]?.duracion ?? 0);
     setEtapa("guiado");
     setCorriendo(true);
@@ -301,7 +406,6 @@ export function Yoga() {
     if (!rutina) return;
     const i = Math.max(0, Math.min(rutina.pasos.length - 1, n));
     setIndice(i);
-    setSegundoLado(false);
     setRestante(rutina.pasos[i].duracion);
   }
 
@@ -565,8 +669,81 @@ export function Yoga() {
           )}
         </Pregunta>
 
+        {hayAudio() && (
+          <Pregunta
+            n={11}
+            titulo="¿Música de fondo?"
+            nota="Se genera en vivo en tu teléfono: no gasta internet y nunca suena igual. Baja sola cuando habla la voz, y al final de la práctica se va sola a relajar."
+          >
+            <div style={fila}>
+              {(
+                [
+                  ["auto", "Automática", "Según tu práctica"],
+                  ["relajar", "Para relajar", "Grave y lenta, respira contigo"],
+                  ["activar", "Para activar", "Brillante, con pulso"],
+                  ["no", "Sin música", "Solo la voz"],
+                ] as [Preferencias["musica"], string, string][]
+              ).map(([id, label, detalle]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setPrefs({ ...prefs, musica: id })}
+                  aria-pressed={prefs.musica === id}
+                  style={{ ...chip, ...(prefs.musica === id ? chipActivo : null) }}
+                >
+                  <span style={{ fontSize: "0.94rem", display: "block" }}>{label}</span>
+                  <span style={{ fontSize: "0.79rem", opacity: 0.62, display: "block" }}>{detalle}</span>
+                </button>
+              ))}
+            </div>
+
+            {prefs.musica !== "no" && (
+              <div style={{ marginTop: "0.9rem", display: "grid", gap: "0.7rem" }}>
+                <label style={{ ...ayuda, margin: 0, display: "flex", alignItems: "center", gap: "0.7rem" }}>
+                  Volumen
+                  <input
+                    type="range"
+                    min={0.1}
+                    max={1}
+                    step={0.05}
+                    value={prefs.volumenMusica}
+                    onChange={(e) => setPrefs({ ...prefs, volumenMusica: Number(e.target.value) })}
+                    style={{ flex: 1, accentColor: "#c8a050" }}
+                  />
+                </label>
+                <div style={fila}>
+                  <button
+                    type="button"
+                    onClick={() => setPrefs({ ...prefs, binaural: !prefs.binaural })}
+                    aria-pressed={prefs.binaural}
+                    style={{ ...chip, ...(prefs.binaural ? chipActivo : null) }}
+                  >
+                    <span style={{ fontSize: "0.94rem", display: "block" }}>
+                      {prefs.binaural ? "Con pulsos binaurales" : "Sin pulsos binaurales"}
+                    </span>
+                    <span style={{ fontSize: "0.79rem", opacity: 0.62, display: "block" }}>
+                      Solo funcionan con audífonos
+                    </span>
+                  </button>
+                  <button type="button" onClick={escucharMuestra} style={chip}>
+                    Escuchar unos segundos
+                  </button>
+                </div>
+                {prefs.binaural && (
+                  <p style={{ ...ayuda, margin: 0, fontSize: "0.86rem" }}>
+                    Un tono distinto en cada oído; el cerebro percibe la diferencia como un pulso lento
+                    (6 por segundo para relajar, 14 para activar). La evidencia es mixta: algunas
+                    revisiones ven menos ansiedad y otras no ven nada. Pruébalo y quédate con lo que te
+                    sirva.
+                  </p>
+                )}
+              </div>
+            )}
+          </Pregunta>
+        )}
+
         <Pregunta
-          n={11}
+          n={12}
           titulo="¿Cómo prefieres el ritmo?"
           nota="Pausado: menos posturas, sostenidas más rato. Ligero: más posturas, más movimiento."
         >
@@ -885,13 +1062,18 @@ export function Yoga() {
         </h2>
         <p style={{ ...ayuda, margin: "0 0 1rem" }}>
           {pasoActual.sanscrito ?? ""}
-          {pasoActual.porLado && !pasoActual.secuencia && (
+          {pasoActual.transicion && tramo !== "aviso" && (
             <span style={{ color: "#a8c88a" }}>
               {pasoActual.sanscrito ? " · " : ""}
-              {segundoLado ? "ahora el otro lado" : "primer lado"}
+              {tramo === "primero" ? "lado derecho" : tramo === "cambio" ? "cambia de lado" : "lado izquierdo"}
             </span>
           )}
         </p>
+
+        {/* El aviso y el cambio de lado se leen grandes: se miran de lejos. */}
+        {tramo === "aviso" && pasoActual.aviso && <p style={avisoGrande}>{pasoActual.aviso}</p>}
+        {tramo === "cambio" && <p style={avisoGrande}>Cambia de lado</p>}
+        {pasoActual.guion && tramo !== "aviso" && <p style={guionGrande}>{pasoActual.guion}</p>}
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1.2rem", alignItems: "center", justifyContent: "center", marginBottom: "1.2rem" }}>
           <div style={{ border: "1px solid rgba(200,160,80,0.22)", background: "rgba(10,18,10,0.55)", borderRadius: 6, padding: "0.4rem" }}>
@@ -906,7 +1088,7 @@ export function Yoga() {
                 cy="60"
                 r="52"
                 fill="none"
-                stroke={segundoLado ? "#a8c88a" : "#c8a050"}
+                stroke={tramo === "segundo" ? "#a8c88a" : tramo === "cambio" || tramo === "aviso" ? "rgba(200,160,80,0.4)" : "#c8a050"}
                 strokeWidth="5"
                 strokeLinecap="round"
                 strokeDasharray={perimetro}
@@ -933,7 +1115,7 @@ export function Yoga() {
           </div>
         </div>
 
-        <ul style={{ listStyle: "none", margin: "0 auto 1.1rem", padding: 0, maxWidth: "46ch", textAlign: "left", display: "grid", gap: "0.5rem" }}>
+        <ul style={{ listStyle: "none", margin: "0 auto 1.1rem", padding: 0, maxWidth: "46ch", textAlign: "left", display: pasoActual.guion ? "none" : "grid", gap: "0.5rem" }}>
           {pasoActual.como.map((linea, i) => (
             <li
               key={i}
@@ -971,6 +1153,26 @@ export function Yoga() {
           <button type="button" onClick={() => setCorriendo((c) => !c)} style={{ ...botonPri, minWidth: 130 }}>
             {corriendo ? "Pausa" : "Seguir"}
           </button>
+          {musicaRef.current && (
+            <button
+              type="button"
+              onClick={() => {
+                const motor = musicaRef.current;
+                if (!motor) return;
+                if (musicaCallada) {
+                  void motor.seguir();
+                  setMusicaCallada(false);
+                } else {
+                  motor.pausar();
+                  setMusicaCallada(true);
+                }
+              }}
+              aria-pressed={!musicaCallada}
+              style={botonSec}
+            >
+              {musicaCallada ? "Con música" : "Sin música"}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => {
@@ -1161,6 +1363,27 @@ const cajaSerie: CSSProperties = {
   background: "rgba(13,26,13,0.55)",
   borderRadius: 6,
   padding: "0.7rem 0.85rem",
+};
+const avisoGrande: CSSProperties = {
+  fontFamily: "var(--font-grimoire)",
+  fontSize: "clamp(1rem, 3.6vw, 1.3rem)",
+  letterSpacing: "0.04em",
+  lineHeight: 1.45,
+  color: "#a8c88a",
+  border: "1px solid rgba(168,200,138,0.35)",
+  background: "rgba(168,200,138,0.08)",
+  borderRadius: 6,
+  padding: "0.7rem 1rem",
+  margin: "0 auto 1.1rem",
+  maxWidth: "40ch",
+};
+const guionGrande: CSSProperties = {
+  fontFamily: "var(--font-crimson), serif",
+  fontSize: "clamp(1.15rem, 4vw, 1.45rem)",
+  lineHeight: 1.45,
+  color: "#e8c878",
+  margin: "0 auto 1.2rem",
+  maxWidth: "36ch",
 };
 const botonPri: CSSProperties = {
   fontFamily: "var(--font-grimoire)",

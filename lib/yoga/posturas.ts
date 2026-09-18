@@ -308,7 +308,7 @@ export const POSTURAS: Paso[] = [
   {
     id: "sal-perro-arriba",
     fase: "saludos",
-    nombre: "Perro boca arriba",
+    nombre: "Perro mirando hacia arriba",
     sanscrito: "Urdhva Mukha Svanasana",
     familia: "boca_abajo",
     segundos: 12,
@@ -362,7 +362,7 @@ export const POSTURAS: Paso[] = [
   {
     id: "pie-perro",
     fase: "de_pie",
-    nombre: "Perro boca abajo",
+    nombre: "Perro mirando hacia abajo",
     sanscrito: "Adho Mukha Svanasana",
     familia: "cuadrupedia",
     segundos: 50,
@@ -665,7 +665,7 @@ export const POSTURAS: Paso[] = [
     estilos: ["iyengar", "silla"],
     objetivos: ["cuello_hombros", "postura", "espalda", "pecho"],
     trabaja:
-      "La apertura de hombros del perro boca abajo, sin poner peso en las muñecas ni la cabeza bajo el corazón.",
+      "La apertura de hombros del perro mirando hacia abajo, sin poner peso en las muñecas ni la cabeza bajo el corazón.",
     como: [
       "Manos en la pared a la altura de las caderas.",
       "Camina los pies atrás hasta formar una L con el cuerpo.",

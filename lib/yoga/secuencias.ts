@@ -24,6 +24,11 @@ export type Secuencia = {
   pasos: string[];
   /** Segundos de cada paso dentro de la serie, en el mismo orden. */
   segundos: number[];
+  /** Lo que dice la voz en cada paso, con la respiración. En una serie rápida
+      como el saludo al sol, la guía ES la respiración: «inhala, manos arriba;
+      exhala, manos a los pies». {pierna} y {otra} se cambian por derecha e
+      izquierda según la vuelta, así cada vuelta trabaja un lado. */
+  guion?: string[];
   /** Vueltas por defecto y el rango que admite. */
   vueltas: number;
   vueltasMin: number;
@@ -59,7 +64,18 @@ export const SECUENCIAS: Secuencia[] = [
       "pie-pinza",
       "sal-brazos-arriba",
     ],
-    segundos: [10, 12, 10, 25, 30, 10, 12, 10],
+    // Un movimiento por respiración: cuatro a cinco segundos cada una.
+    segundos: [5, 5, 4, 9, 18, 5, 4, 8],
+    guion: [
+      "Inhala: sube los brazos y estírate todo lo que puedas.",
+      "Exhala: baja las manos a los pies.",
+      "Inhala: estira la espalda, mirada adelante.",
+      "Exhala: lleva la pierna {pierna} atrás, en estocada. Inhala y abre el pecho.",
+      "Exhala: la pierna {otra} atrás, perro mirando hacia abajo. Quédate tres respiraciones.",
+      "Inhala: camina los pies hacia las manos y estira la espalda.",
+      "Exhala: suelta el tronco sobre las piernas.",
+      "Inhala: sube con la espalda larga, brazos arriba. Exhala: manos al pecho.",
+    ],
     vueltas: 3,
     vueltasMin: 2,
     vueltasMax: 6,
@@ -80,7 +96,6 @@ export const SECUENCIAS: Secuencia[] = [
     pasos: [
       "sal-brazos-arriba",
       "pie-pinza",
-      "sal-media-pinza",
       "pie-plancha",
       "sal-chaturanga",
       "sal-perro-arriba",
@@ -89,7 +104,18 @@ export const SECUENCIAS: Secuencia[] = [
       "pie-pinza",
       "sal-brazos-arriba",
     ],
-    segundos: [8, 10, 8, 12, 8, 10, 30, 8, 10, 8],
+    segundos: [4, 5, 5, 4, 4, 25, 5, 4, 7],
+    guion: [
+      "Inhala: manos arriba, estírate lo más que puedas.",
+      "Exhala: lleva las manos a los pies y estira la espalda.",
+      "Inhala: pierna {pierna} atrás y, en la misma respiración, la {otra}. Plancha.",
+      "Exhala: chaturanga. Baja con los codos pegados al cuerpo.",
+      "Inhala: perro mirando hacia arriba, abre el pecho.",
+      "Exhala: perro mirando hacia abajo. Quédate aquí cinco respiraciones.",
+      "Inhala: camina los pies hacia las manos y estira la espalda.",
+      "Exhala: suelta el tronco sobre las piernas.",
+      "Inhala: sube con la espalda larga, manos arriba. Exhala: manos al pecho.",
+    ],
     vueltas: 3,
     vueltasMin: 2,
     vueltasMax: 5,

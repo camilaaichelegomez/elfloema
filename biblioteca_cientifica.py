@@ -627,6 +627,26 @@ PLANTS: dict[str, dict] = {
             "yoga carpal tunnel wrist",
         ],
     },
+    # La musica de fondo de las practicas. Se separa lo que tiene respaldo
+    # (musica lenta y ansiedad) de lo que circula como verdad sin tenerlo
+    # (432 Hz, frecuencias solfeggio) y de lo que esta en discusion (pulsos
+    # binaurales).
+    "musica_frecuencias": {
+        "common_name": "Musica, frecuencias y relajacion",
+        "scientific_name": "Tematica",
+        "folder": "yoga/musica_frecuencias",
+        "search_terms": [
+            "music anxiety meta-analysis",
+            "music intervention sleep quality",
+            "binaural beats meta-analysis",
+            "binaural beats anxiety",
+            "binaural beats brainwave entrainment",
+            "432 Hz music",
+            "solfeggio frequency",
+            "music tempo heart rate relaxation",
+            "pink noise sleep",
+        ],
+    },
     "yoga_postura_escritorio": {
         "common_name": "Yoga, postura y trabajo sentado",
         "scientific_name": "Tematica",

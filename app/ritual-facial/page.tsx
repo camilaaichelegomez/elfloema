@@ -221,7 +221,7 @@ export default function RitualFacialPage() {
           <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: "0.5rem" }}>
             {[
               ["Limpieza", "Primero la cara limpia. El drenaje sobre maquillaje no tiene sentido."],
-              ["El ritual", "Con unas gotas de aceite para que los dedos resbalen sin tironear."],
+              ["El ritual", "El drenaje en seco, y después unas gotas de aceite para los masajes."],
               ["Los activos", "Del más acuoso al más pesado. El aceite del ritual ya es una capa: tenlo en cuenta."],
               ["La mascarilla", "Si toca ese día, de 10 a 20 minutos. Sella lo que pusiste antes."],
               ["Protector solar", "De día, siempre, y es lo último."],

@@ -808,7 +808,7 @@ export function RitualFacial() {
       </div>
 
       <p style={{ ...ayuda, marginTop: "1.6rem" }}>
-        Si te faltó deslizante, un aceite vegetal sirve mejor que una crema:{" "}
+        Para el aceite de los masajes, uno vegetal sirve mejor que una crema:{" "}
         <Link href="/tienda" style={{ color: "#e8c878" }}>
           mira los de la tienda
         </Link>

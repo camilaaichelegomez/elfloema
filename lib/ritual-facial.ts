@@ -150,6 +150,7 @@ export const CATALOGO: Paso[] = [
     segundos: 25,
     como: [
       "Lávate las manos y retira el maquillaje.",
+      "Sécate bien la cara y las manos: el drenaje se hace con la piel seca, sin aceite ni crema.",
       "Recógete el pelo y suéltate la ropa del cuello.",
     ],
     base: true,
@@ -207,22 +208,6 @@ export const CATALOGO: Paso[] = [
     necesidades: [],
     prioridad: 0,
     fuente: "Bases fundamentales: los círculos van dirigidos hacia el meñique; la fase de presión dura más que la de relajación",
-  },
-  {
-    id: "prep-deslizante",
-    fase: "preparacion",
-    /* Va justo antes de la primera maniobra, no al principio: si se pone
-       antes de respirar, cuando empieza el drenaje ya se absorbió. */
-    nombre: "Unas gotas de aceite",
-    zona: "Antes de empezar",
-    segundos: 20,
-    como: [
-      "Reparte unas gotas de aceite o sérum por cara y cuello.",
-      "Los dedos tienen que resbalar. Si tironean la piel, falta deslizante.",
-    ],
-    base: true,
-    necesidades: [],
-    prioridad: 0,
   },
   {
     id: "dre-apertura",
@@ -473,6 +458,33 @@ export const CATALOGO: Paso[] = [
     necesidades: [],
     prioridad: 0,
     fuente: "DLM del rostro, maniobra 10 (effleurage final)",
+  },
+  {
+    id: "prep-deslizante",
+    /* El drenaje se hace sobre la piel SECA: el dedo tiene que arrastrar la
+       piel, no resbalar sobre ella, y con aceite patina y la piel no se mueve.
+       Así se hace en el método Vodder, que es de donde viene la técnica.
+
+       Por eso el aceite va recién ahora, después del drenaje: para los masajes
+       y ejercicios que siguen, donde sí conviene que los dedos resbalen. Y lo
+       que no alcance a usarse se absorbe, que es justamente el tratamiento.
+
+       Antes iba al principio y decía «los dedos tienen que resbalar», que
+       contradecía al propio paso del círculo fijo. */
+    fase: "ejercicios",
+    nombre: "Ahora sí, el aceite",
+    zona: "Antes de los masajes",
+    segundos: 25,
+    como: [
+      "El drenaje se hizo en seco a propósito: con aceite el dedo patina y la piel no se mueve.",
+      "Ahora reparte unas gotas de aceite por cara y cuello.",
+      "Para los masajes que siguen, aquí sí conviene que los dedos resbalen.",
+      "Lo que no alcances a usar se absorbe: ese es el tratamiento.",
+    ],
+    base: true,
+    necesidades: [],
+    prioridad: 0,
+    fuente: "Método Vodder: el drenaje manual se hace sobre la piel seca, para poder desplazarla",
   },
 
   // ── Ejercicios faciales ──────────────────────────────────────

@@ -182,9 +182,9 @@ export default function PrivacidadPage() {
                 <strong style={{ color: "#c8a050" }}>Vercel</strong> — aloja el sitio y la aplicación.
               </>,
               <>
-                <strong style={{ color: "#c8a050" }}>MercadoPago</strong> — procesa los pagos.{" "}
-                <em>No recibimos ni guardamos los datos de tu tarjeta</em>: los maneja directamente
-                MercadoPago.
+                <strong style={{ color: "#c8a050" }}>Flow</strong> — procesa los pagos.{" "}
+                <em>No recibimos ni guardamos los datos de tu tarjeta ni de tu banco</em>: los maneja
+                directamente Flow. Para cobrar le enviamos tu correo y el monto del pedido.
               </>,
               <>
                 <strong style={{ color: "#c8a050" }}>Groq</strong> — hace funcionar el asistente de

@@ -3,8 +3,8 @@
 // Carrito de la Tienda El Floema.
 // Estado global (solo bajo /tienda, via app/tienda/layout.tsx), persistido en
 // localStorage. Incluye el boton flotante y el panel lateral. El pago se hace
-// con MercadoPago via /api/checkout (se activa cuando exista MP_ACCESS_TOKEN y
-// los productos tengan precio).
+// con Flow via /api/checkout (se activa cuando esten las claves de Flow y
+// Supabase en Vercel y los productos tengan precio).
 
 import {
   createContext,

@@ -255,7 +255,7 @@ export default function TerminosPage() {
             dermatológica, consulta a tu médico.
           </P>
           <P>
-            Los pagos se procesan a través de MercadoPago; no recibimos los datos de tu tarjeta. Se
+            Los pagos se procesan a través de Flow (flow.cl); no recibimos los datos de tu tarjeta. Se
             aplican los derechos que la Ley 19.496 sobre Protección de los Derechos de los
             Consumidores reconoce a las compras a distancia. Ante cualquier problema con un pedido,
             escríbenos primero: preferimos resolverlo directamente.

@@ -58,8 +58,8 @@ export default function CheckoutPage() {
         }),
       });
       const data = await res.json();
-      if (data?.init_point) {
-        window.location.href = data.init_point;
+      if (data?.url) {
+        window.location.href = data.url;
         return;
       }
       if (data?.configured === false) {
@@ -244,8 +244,15 @@ export default function CheckoutPage() {
                     cursor: allPriced && !enviando ? "pointer" : "not-allowed",
                   }}
                 >
-                  {enviando ? "Redirigiendo…" : allPriced ? "Pagar con MercadoPago" : "Precios próximamente"}
+                  {enviando ? "Redirigiendo…" : allPriced ? "Ir a pagar" : "Precios próximamente"}
                 </button>
+
+                {allPriced && (
+                  <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "0.9rem", color: "rgba(212,196,160,0.6)", textAlign: "center", marginTop: "0.8rem", lineHeight: 1.5 }}>
+                    Pago seguro con Flow: tarjeta de crédito o débito (Webpay), transferencia bancaria o MACH.
+                    Nosotras nunca vemos los datos de tu tarjeta.
+                  </p>
+                )}
 
                 {!allPriced && (
                   <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(212,196,160,0.45)", textAlign: "center", marginTop: "0.8rem" }}>

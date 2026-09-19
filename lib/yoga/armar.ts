@@ -287,6 +287,16 @@ function secuenciaDisponible(sec: Secuencia, p: Preferencias) {
   });
 }
 
+/* Una serie ocupa casi toda su fase, así que tiene que responder a algo que
+   se pidió: un objetivo, un estilo o un chakra. Sin esto, una práctica
+   restaurativa para dormir se llevaba la serie de estocada y paloma solo
+   porque cabía en el tiempo. */
+function respondeALoPedido(sec: Secuencia, p: Preferencias, deChakras: Set<string>) {
+  if (sec.objetivos.some((o) => p.objetivos.includes(o))) return true;
+  if (sec.estilos.some((e) => p.estilos.includes(e))) return true;
+  return sec.pasos.some((id) => deChakras.has(id));
+}
+
 /** Cuánto responde algo a lo que se pidió. Más alto, entra antes. */
 function puntaje(
   cosa: { objetivos: Objetivo[]; estilos: Estilo[]; carga: 1 | 2 | 3; prioridad: number; id: string },
@@ -361,6 +371,7 @@ export function armarRutina(prefs: Preferencias): Rutina {
       (s) =>
         s.fase === fase &&
         secuenciaDisponible(s, prefs) &&
+        respondeALoPedido(s, prefs, deChakras) &&
         !s.pasos.some((id) => usados.has(id) && !POR_ID.get(id)?.base)
     ).sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras));
 

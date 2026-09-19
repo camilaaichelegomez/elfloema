@@ -99,6 +99,16 @@ const FIGURAS: Record<string, Esqueleto> = {
     pi: [[100, 84], [78, 108], [62, SUELO]],
     pi2: [[100, 84], [124, 108], [140, SUELO]],
   },
+  /* Como el triángulo, pero la mano de abajo es la contraria y llega al
+     suelo por fuera del pie de adelante; el pecho gira y la mirada sube. */
+  triangulo_torsion: {
+    cab: [80, 58], cue: [85, 65], pec: [92, 73], pel: [102, 84],
+    mira: "arriba",
+    br: [[88, 67], [90, 45], [92, 24]],
+    br2: [[89, 70], [76, 98], [66, 126]],
+    pi: [[102, 86], [82, 108], [66, SUELO]],
+    pi2: [[102, 86], [120, 108], [134, SUELO]],
+  },
   angulo_lateral: {
     cab: [74, 60], cue: [80, 67], pec: [88, 75], pel: [100, 86],
     mira: "izq",

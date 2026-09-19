@@ -5,8 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
-import { plantas, Planta } from "@/lib/plantas-data";
+import { plantas, Planta, promptIlustracion } from "@/lib/plantas-data";
 import { plantaIcons } from "@/components/PlantIcons";
+import { PlantaIlustracion } from "@/components/plantas/PlantaIlustracion";
+import creditosFotos from "@/public/plantas/creditos.json";
+
+type CredImg = { autor?: string; licencia?: string; licencia_url?: string; fuente?: string };
+const creditos = creditosFotos as unknown as Record<
+  string,
+  CredImg & { planta?: string; foto?: CredImg; dibujo?: CredImg }
+>;
 
 /* ── Subcomponents ────────────────────────────────────────── */
 
@@ -148,6 +156,14 @@ function FichaPlanta({ planta, onClose }: { planta: Planta; onClose: () => void 
       </div>
 
       <GoldLine />
+
+      {/* Foto + lámina botánica */}
+      <PlantaIlustracion
+        slug={planta.slug}
+        nombre={planta.nombre.split("·")[0].trim()}
+        prompt={promptIlustracion(planta)}
+        credito={creditos[planta.slug]}
+      />
 
       {/* Descripción */}
       <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "clamp(0.95rem,1.5vw,1.08rem)", color: "#d4c4a0", lineHeight: 1.82, marginBottom: "clamp(1.2rem,2.5vh,2rem)", opacity: 0.8 }}>

@@ -788,7 +788,7 @@ export const POSTURAS: Paso[] = [
     ],
     necesita: ["silla"],
     prioridad: 2,
-    figura: "silla_sentada",
+    figura: "equilibrio_silla",
     fuente: "Formato de los programas de equilibrio para prevención de caídas",
   },
 

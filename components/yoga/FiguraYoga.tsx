@@ -506,6 +506,16 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
 
   // ── Con silla ──
+  /* De pie detrás de la silla, una mano en el respaldo, un pie apenas
+     despegado del suelo. */
+  equilibrio_silla: {
+    cab: [56, 30], cue: [56, 42], pec: [56, 52], pel: [56, 76],
+    br: [[57, 44], [68, 55], [78, 63]],
+    br2: [[55, 44], [54, 60], [53, 77]],
+    pi: [[57, 78], [58, 105], [58, SUELO]],
+    pi2: [[55, 78], [51, 102], [46, 120]],
+    silla: true,
+  },
   silla_sentada: {
     cab: [92, 58], cue: [92, 70], pec: [92, 80], pel: [92, 105],
     br: [[92, 72], [98, 89], [104, 103]],
@@ -637,6 +647,12 @@ function Tronco({ f, color, extra }: { f: Esqueleto; color: string; extra?: numb
   );
 }
 
+/* Las posturas que ya tienen ilustración propia, en public/yoga/posturas/
+   con el nombre de la figura (por ejemplo, cobra.webp). Mientras una postura
+   no tenga imagen, se sigue viendo su dibujo. Al agregar una imagen nueva,
+   se suma su nombre aquí. */
+const CON_IMAGEN = new Set<string>([]);
+
 export function FiguraYoga({
   figura,
   tamano = 200,
@@ -648,6 +664,20 @@ export function FiguraYoga({
 }) {
   const f = FIGURAS[figura];
   const alto = Math.round((tamano * 150) / 200);
+
+  if (CON_IMAGEN.has(figura)) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={`/yoga/posturas/${figura}.webp`}
+        width={tamano}
+        height={alto}
+        alt=""
+        loading="lazy"
+        style={{ objectFit: "contain", borderRadius: 4, ...estilo }}
+      />
+    );
+  }
 
   if (!f) {
     // Sin dibujo definido: un mat vacío antes que un hueco roto.

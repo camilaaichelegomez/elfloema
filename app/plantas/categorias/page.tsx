@@ -22,7 +22,7 @@ function PlantaPill({ planta }: { planta: Planta }) {
   const Icon = plantaIcons[planta.slug];
   return (
     <Link
-      href="/plantas"
+      href={`/plantas/${planta.slug}`}
       style={{
         display: "flex",
         alignItems: "center",

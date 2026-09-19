@@ -6,6 +6,13 @@ import { BackButton } from "@/components/BackButton";
 import { plantas, getPlanta, promptIlustracion, MetodoPreparacion } from "@/lib/plantas-data";
 import { PlantaIlustracion } from "@/components/plantas/PlantaIlustracion";
 import { plantaIcons } from "@/components/PlantIcons";
+import creditosFotos from "@/public/plantas/creditos.json";
+
+type CredImg = { autor?: string; licencia?: string; licencia_url?: string; fuente?: string };
+const creditos = creditosFotos as unknown as Record<
+  string,
+  CredImg & { planta?: string; foto?: CredImg; dibujo?: CredImg }
+>;
 
 const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
@@ -148,7 +155,7 @@ export default async function PlantaPage({
           <GoldLine />
 
           {/* Ilustración de identificación */}
-          <PlantaIlustracion slug={planta.slug} nombre={planta.nombre.split("·")[0].trim()} prompt={promptIlustracion(planta)} />
+          <PlantaIlustracion slug={planta.slug} nombre={planta.nombre.split("·")[0].trim()} prompt={promptIlustracion(planta)} credito={creditos[planta.slug]} />
 
           {/* Descripción */}
           <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "clamp(0.95rem,1.5vw,1.08rem)", color: CREAM, lineHeight: 1.82, marginBottom: "clamp(1.2rem,2.5vh,2rem)", opacity: 0.8 }}>

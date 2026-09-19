@@ -1,0 +1,1147 @@
+{
+  "arrayan": {
+    "planta": "Arrayán",
+    "autor": "Aeveraal",
+    "licencia": "CC BY-SA 4.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Luma_apiculata_2019.jpg"
+  },
+  "maqui": {
+    "foto": {
+      "planta": "Maqui",
+      "autor": "Morrana",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Maqui_chileno.jpg"
+    }
+  },
+  "triwe": {
+    "planta": "Triwe",
+    "autor": "Inao Vásquez",
+    "licencia": "CC BY-SA 2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Tepa_(Laurelia_phillipiana)_-_leaf_%26_fruit.jpg"
+  },
+  "rosa-mosqueta": {
+    "foto": {
+      "planta": "Rosa Mosqueta",
+      "autor": "AmonDhan",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Rosa_Mosqueta.jpg"
+    }
+  },
+  "matico": {
+    "foto": {
+      "planta": "Matico",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Piper_angustifolium_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-243.jpg"
+    }
+  },
+  "pitra": {
+    "planta": "Pitra",
+    "autor": "Hv40",
+    "licencia": "CC BY-SA 4.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Pitra_Myrceugenia_Exsucca.jpg"
+  },
+  "chilco": {
+    "foto": {
+      "planta": "Chilco",
+      "autor": "",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Fuchsia_magellanica.jpg"
+    },
+    "dibujo": {
+      "planta": "Chilco",
+      "autor": "David William Moody",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:The_American_Flora._Vol._4,_1855_-_pl._04_Crocus_sativus,_Fuchsia_magellanica_(14783453205).jpg"
+    }
+  },
+  "milenrama": {
+    "foto": {
+      "planta": "Milenrama",
+      "autor": "",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Achillea_millefolium_habito.jpg"
+    },
+    "dibujo": {
+      "planta": "Milenrama",
+      "autor": "User:Kilom691",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Achillea_millefolium0_clean.jpg"
+    }
+  },
+  "boldo": {
+    "foto": {
+      "planta": "Boldo",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Peumus_boldus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-104.jpg"
+    },
+    "dibujo": {
+      "planta": "Boldo",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Peumus_boldus_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-104.jpg"
+    }
+  },
+  "bailahuen": {
+    "planta": "Bailahuén",
+    "autor": "Mauricio Tapia Caballero",
+    "licencia": "Public domain",
+    "licencia_url": "",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Baylahuen_brote_seco.jpg"
+  },
+  "canelo": {
+    "foto": {
+      "planta": "Canelo · Foye",
+      "autor": "Constanza Andrade",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Drimys_winteri-canelo_joven.JPG"
+    }
+  },
+  "llanten": {
+    "foto": {
+      "planta": "Llantén",
+      "autor": "Iorsh at English Wikipedia",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Plantago_major.jpg"
+    },
+    "dibujo": {
+      "planta": "Llantén",
+      "autor": "Original book source: Prof. Dr. Otto Wilhelm Thomé Flora von Deutschland, Österreich und der Schweiz 1885, Gera, Germany",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Plantago_major0_clean.jpg"
+    }
+  },
+  "paico": {
+    "foto": {
+      "planta": "Paico",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Dysphania_ambrosioides_NRCS-1.jpg"
+    }
+  },
+  "manzanilla": {
+    "foto": {
+      "planta": "Manzanilla",
+      "autor": "Franz Eugen Köhler, in Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Matricaria_recutita_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-091.jpg"
+    },
+    "dibujo": {
+      "planta": "Manzanilla",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Matricaria_Chamomilla_-_Pl0290_-_FloraBatava-KB-v04.jpg"
+    }
+  },
+  "cola-de-caballo": {
+    "foto": {
+      "planta": "Cola de Caballo",
+      "autor": "MPF",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Equisetum_arvense_foliage.jpg"
+    },
+    "dibujo": {
+      "planta": "Cola de Caballo",
+      "autor": "Carl Axel Magnus Lindman",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Equisetum_arvense_Lindman_DESC.jpeg"
+    }
+  },
+  "melisa": {
+    "foto": {
+      "planta": "Toronjil · Melisa",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Melissa_officinalis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-094.jpg"
+    },
+    "dibujo": {
+      "planta": "Toronjil · Melisa",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé Flora von Deutschland, Österreich und der Schweiz 1885, Gera, Germany",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Melissa_officinalis0.jpg"
+    }
+  },
+  "menta": {
+    "foto": {
+      "planta": "Menta",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mentha_%C3%97_piperita_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-095.jpg"
+    },
+    "dibujo": {
+      "planta": "Menta",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mentha_%C3%97_piperita_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-095.jpg"
+    }
+  },
+  "romero": {
+    "dibujo": {
+      "planta": "Romero",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Rosmarinus_officinalis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-258.jpg"
+    },
+    "foto": {
+      "planta": "Romero",
+      "autor": "Sir Shurf",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Rosmarinus_officinalis_-_flowers.jpg"
+    }
+  },
+  "tomillo": {
+    "foto": {
+      "planta": "Tomillo",
+      "autor": "Forest and Kim Starr",
+      "licencia": "CC BY 3.0 us",
+      "licencia_url": "https://creativecommons.org/licenses/by/3.0/us/deed.en",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Starr-080812-9700-Thymus_vulgaris-leaves-Makawao-Maui_(24807095872).jpg"
+    },
+    "dibujo": {
+      "planta": "Tomillo",
+      "autor": "Walther Otto Müller",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Thymus_vulgaris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-271.jpg"
+    }
+  },
+  "oregano": {
+    "foto": {
+      "planta": "Orégano",
+      "autor": "Henna",
+      "licencia": "CC BY-SA 1.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/1.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Oregano-spice.jpg"
+    },
+    "dibujo": {
+      "planta": "Orégano",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Origanum_vulgare0.jpg"
+    }
+  },
+  "ortiga": {
+    "foto": {
+      "planta": "Ortiga",
+      "autor": "",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Brennnessel_1.JPG"
+    },
+    "dibujo": {
+      "planta": "Ortiga",
+      "autor": "User:Kilom691",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Urtica_dioica0_clean.jpg"
+    }
+  },
+  "diente-de-leon": {
+    "foto": {
+      "planta": "Diente de León",
+      "autor": "Walther Otto Müller",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Taraxacum_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-135.jpg"
+    },
+    "dibujo": {
+      "planta": "Diente de León",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Taraxacum_officinale0.jpg"
+    }
+  },
+  "calendula": {
+    "foto": {
+      "planta": "Caléndula",
+      "autor": "Betty Cai",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Calendula_officinalis,_pot_marigold.JPG"
+    },
+    "dibujo": {
+      "planta": "Caléndula",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Calendula_officinalis0.jpg"
+    }
+  },
+  "hiperico": {
+    "foto": {
+      "planta": "Hipérico · Hierba de San Juan",
+      "autor": "Didier Descouens",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:(MHNT)_Hypericum_perforatum_flower_and_buttons.jpg"
+    },
+    "dibujo": {
+      "planta": "Hipérico · Hierba de San Juan",
+      "autor": "Bartosz Cuber",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Hypericum_perforatum_-_cross_section_of_a_leaf.svg"
+    }
+  },
+  "sauce-blanco": {
+    "foto": {
+      "planta": "Sauce Blanco",
+      "autor": "Burkhard Mücke",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Salix_alba_an_der_Isar.jpg"
+    },
+    "dibujo": {
+      "planta": "Sauce Blanco",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Salix_alba0.jpg"
+    }
+  },
+  "sauco": {
+    "foto": {
+      "planta": "Saúco",
+      "autor": "Willow",
+      "licencia": "CC BY 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Sambucus_nigra_004.jpg"
+    },
+    "dibujo": {
+      "planta": "Saúco",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Sambucus_nigra0.jpg"
+    }
+  },
+  "valeriana": {
+    "foto": {
+      "planta": "Valeriana",
+      "autor": "Ivar Leidus",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Valeriana_officinalis_-_Niitv%C3%A4lja.jpg"
+    },
+    "dibujo": {
+      "planta": "Valeriana",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Valeriana_officinalis0.jpg"
+    }
+  },
+  "lavanda": {
+    "foto": {
+      "planta": "Lavanda",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Lavandula_angustifolia_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-087.jpg"
+    },
+    "dibujo": {
+      "planta": "Lavanda",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Lavandula_angustifolia0.jpg"
+    }
+  },
+  "aloe-vera": {
+    "foto": {
+      "planta": "Aloe Vera",
+      "autor": "Cephas",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Aloe_vera_JRVdH_10.jpg"
+    },
+    "dibujo": {
+      "planta": "Aloe Vera",
+      "autor": "",
+      "licencia": "CC BY 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Barbados_aloe_plant_(Aloe_vera);_flowering_plant_and_floral_Wellcome_V0044409.jpg"
+    }
+  },
+  "hamamelis": {
+    "foto": {
+      "planta": "Hamamelis",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Hamamelis_virginiana_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-070.jpg"
+    },
+    "dibujo": {
+      "planta": "Hamamelis",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Hamamelis_virginiana_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-070.jpg"
+    }
+  },
+  "arnica": {
+    "foto": {
+      "planta": "Árnica",
+      "autor": "Hans Hillewaert",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Arnica_montana_(flower).jpg"
+    },
+    "dibujo": {
+      "planta": "Árnica",
+      "autor": "clean up by Iainf 08:40, 13 June 2006 (UTC)",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Arnica_montana-clean.jpg"
+    }
+  },
+  "hinojo": {
+    "foto": {
+      "planta": "Hinojo",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Foeniculum_vulgare_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-148.jpg"
+    },
+    "dibujo": {
+      "planta": "Hinojo",
+      "autor": "Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Foeniculum_vulgare1.jpg"
+    }
+  },
+  "anis": {
+    "foto": {
+      "planta": "Anís",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Koehler1887-PimpinellaAnisum.jpg"
+    },
+    "dibujo": {
+      "planta": "Anís",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Pimpinella_anisum0.jpg"
+    }
+  },
+  "cardo-mariano": {
+    "dibujo": {
+      "planta": "Cardo Mariano",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Silybum_marianum0.jpg"
+    },
+    "foto": {
+      "planta": "Cardo Mariano",
+      "autor": "Chmee2",
+      "licencia": "CC BY 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Silybum_marianum_(1).JPG"
+    }
+  },
+  "equinacea": {
+    "foto": {
+      "planta": "Equinácea",
+      "autor": "Diego Delso",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Echinacea_purpurea,_Jard%C3%ADn_Bot%C3%A1nico,_M%C3%BAnich,_Alemania,_2013-09-08,_DD_01.jpg"
+    },
+    "dibujo": {
+      "planta": "Equinácea",
+      "autor": "Abraham Jacobus Wendel",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:WitteHeinrichFlora1868-012-Echinacea_purpurea.png"
+    }
+  },
+  "jengibre": {
+    "foto": {
+      "planta": "Jengibre",
+      "autor": "Schlaghecken Josef",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ingwer_(Zingiber_officinale)_Freiland_Anbau_Pflanze-2-Josef_Schlaghecken.jpg"
+    }
+  },
+  "curcuma": {
+    "foto": {
+      "planta": "Cúrcuma",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Curcuma_longa_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-199.jpg"
+    },
+    "dibujo": {
+      "planta": "Cúrcuma",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Curcuma_longa_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-199.jpg"
+    }
+  },
+  "quillay": {
+    "foto": {
+      "planta": "Quillay",
+      "autor": "Penarc",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Quillaja_Mol.JPG"
+    },
+    "dibujo": {
+      "planta": "Quillay",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Quillaja_saponaria_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-119.jpg"
+    }
+  },
+  "pichi-romero": {
+    "foto": {
+      "planta": "Pichi-romero",
+      "autor": "You may select the license of your choice.",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Fabiana_imbricata_HRM2.jpg"
+    }
+  },
+  "quinchamali": {
+    "planta": "Quinchamalí",
+    "autor": "pabloendemico",
+    "licencia": "CC BY 2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Quinchamalium_chilense_Molina.(pabloendemico).jpg"
+  },
+  "radal": {
+    "planta": "Radal",
+    "autor": "Jorge Vallmitjana",
+    "licencia": "Public domain",
+    "licencia_url": "",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Lomatia_hirsuta.jpg"
+  },
+  "ulmo": {
+    "planta": "Ulmo",
+    "autor": "Franz Xaver",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Eucryphia_cordifolia.jpg"
+  },
+  "maiten": {
+    "foto": {
+      "planta": "Maitén",
+      "autor": "No machine-readable author provided. Roblespepe assumed (based on copyright claims).",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mait%C3%A9n.JPG"
+    }
+  },
+  "peumo": {
+    "planta": "Peumo",
+    "autor": "Penarc",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Cryptocarya.PNG"
+  },
+  "culen": {
+    "planta": "Culén",
+    "autor": "Penarc",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Otholobium5.jpg"
+  },
+  "nalca": {
+    "foto": {
+      "planta": "Nalca · Pangue",
+      "autor": "Stan Shebs",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Gunnera_tinctoria_6.jpg"
+    },
+    "dibujo": {
+      "planta": "Nalca · Pangue",
+      "autor": "Abraham Jacobus Wendel",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:WitteHeinrichFlora1868-019-Gunnera_tinctoria.png"
+    }
+  },
+  "ajo": {
+    "foto": {
+      "planta": "Ajo",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Allium_sativum_Woodwill_1793.jpg"
+    }
+  },
+  "cebolla": {
+    "foto": {
+      "planta": "Cebolla",
+      "autor": "Stephen Ausmus, USDA ARS",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:ARS_red_onion.jpg"
+    },
+    "dibujo": {
+      "planta": "Cebolla",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Allium_schoenoprasum_and_Allium_cepa0_clean.jpg"
+    }
+  },
+  "cilantro": {
+    "foto": {
+      "planta": "Cilantro",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Coriandrum_sativum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-193.jpg"
+    },
+    "dibujo": {
+      "planta": "Cilantro",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Coriandrum_sativum0.jpg"
+    }
+  },
+  "canela": {
+    "foto": {
+      "planta": "Canela",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Cinnamomum_verum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-182.jpg"
+    },
+    "dibujo": {
+      "planta": "Canela",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Cinnamomum_verum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-182.jpg"
+    }
+  },
+  "pimienta-negra": {
+    "foto": {
+      "planta": "Pimienta Negra",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Piper_nigrum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-107.jpg"
+    },
+    "dibujo": {
+      "planta": "Pimienta Negra",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Piper_nigrum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-107.png"
+    }
+  },
+  "te-verde": {
+    "foto": {
+      "planta": "Té Verde",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Camellia_sinensis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-025.jpg"
+    },
+    "dibujo": {
+      "planta": "Té Verde",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Camellia_sinensis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-025.jpg"
+    }
+  },
+  "ginkgo": {
+    "foto": {
+      "planta": "Ginkgo",
+      "autor": "James Field (Jame)",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ginkgo_Biloba_Leaves_-_Black_Background.jpg"
+    },
+    "dibujo": {
+      "planta": "Ginkgo",
+      "autor": "User:RoRo",
+      "licencia": "CC0",
+      "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ginkgo_vector.svg"
+    }
+  },
+  "ginseng": {
+    "foto": {
+      "planta": "Ginseng",
+      "autor": "FloraFarm GmbH / Katharina Lohrie",
+      "licencia": "CC BY 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ginsengpflanze.jpg"
+    },
+    "dibujo": {
+      "planta": "Ginseng",
+      "autor": "",
+      "licencia": "CC BY 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_of_ginseng_from_Bigelow_%22American_Botany%22_Wellcome_L0017447.jpg"
+    }
+  },
+  "ashwagandha": {
+    "foto": {
+      "planta": "Ashwagandha",
+      "autor": "Cliff from I now live in Arlington, VA (Outside Washington DC), USA",
+      "licencia": "CC BY 2.0",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ashwagandha_(Withania_somnifera).jpg"
+    },
+    "dibujo": {
+      "planta": "Ashwagandha",
+      "autor": "J. Sibthrop, J.E. Smith",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Withania_somnifera_illustration.jpg"
+    }
+  },
+  "regaliz": {
+    "dibujo": {
+      "planta": "Regaliz",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Glycyrrhiza_glabra0.jpg"
+    },
+    "foto": {
+      "planta": "Regaliz",
+      "autor": "Krzysztof Ziarnek, Kenraiz",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Glycyrrhiza_glabra_kz01.jpg"
+    }
+  },
+  "albahaca": {
+    "foto": {
+      "planta": "Albahaca",
+      "autor": "Francisco Manuel Blanco (O.S.A.)",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ocimum_basilicum_Blanco2.407-cropped.jpg"
+    }
+  },
+  "salvia": {
+    "foto": {
+      "planta": "Salvia",
+      "autor": "Walther Otto Müller",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Salvia_officinalis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-126.jpg"
+    },
+    "dibujo": {
+      "planta": "Salvia",
+      "autor": "Walther Otto Müller",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Salvia_officinalis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-126.jpg"
+    }
+  },
+  "ruda": {
+    "foto": {
+      "planta": "Ruda",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ruta_graveolens_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-259.jpg"
+    },
+    "dibujo": {
+      "planta": "Ruda",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Ruta_graveolens0.jpg"
+    }
+  },
+  "malva": {
+    "foto": {
+      "planta": "Malva",
+      "autor": "Köhler, F. E. (Franz Eugen)",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Malva_sylvestris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-222.jpg"
+    },
+    "dibujo": {
+      "planta": "Malva",
+      "autor": "Elly Waterman",
+      "licencia": "CC BY-SA 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Malva_sylvestris_ellywa.svg"
+    }
+  },
+  "borraja": {
+    "dibujo": {
+      "planta": "Borraja",
+      "autor": "Amédée Masclef",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:224_Borrago_officinalis_L.jpg"
+    },
+    "foto": {
+      "planta": "Borraja",
+      "autor": "Hans Hillewaert",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Borago_officinalis_(flower).jpg"
+    }
+  },
+  "cedron": {
+    "foto": {
+      "planta": "Cedrón · Hierba Luisa",
+      "autor": "RickP",
+      "licencia": "CC BY 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Aloysia_triphylla_flowers_01.JPG"
+    }
+  },
+  "poleo": {
+    "foto": {
+      "planta": "Poleo",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mentha_pulegium.jpg"
+    },
+    "dibujo": {
+      "planta": "Poleo",
+      "autor": "Jan Kops",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mentha_pulegium_%E2%80%94_Flora_Batava_%E2%80%94_Volume_v9.jpg"
+    }
+  },
+  "hierba-buena": {
+    "foto": {
+      "planta": "Hierba Buena",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Mentha_viridis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-096.jpg"
+    },
+    "dibujo": {
+      "planta": "Hierba Buena",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Mentha_spicata0.jpg"
+    }
+  },
+  "tilo": {
+    "foto": {
+      "planta": "Tilo",
+      "autor": "",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Tilia_platyphyllos(01).jpg"
+    },
+    "dibujo": {
+      "planta": "Tilo",
+      "autor": "Friedrich Georg Kohl",
+      "licencia": "CC0",
+      "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Tilia_platyphyllos_Scop._(as_Tilia_grandifolia_Ehrh._ex_Koch)_in_Kohl_1895,_plate_52.png"
+    }
+  },
+  "rosa": {
+    "foto": {
+      "planta": "Rosa · Rosa de Damasco",
+      "autor": "جواد",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Gole_mohamadi.JPG"
+    }
+  },
+  "marcela": {
+    "planta": "Marcela",
+    "autor": "Ismar Schein at Portuguese Wikipedia",
+    "licencia": "Public domain",
+    "licencia_url": "",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Macela.JPG"
+  },
+  "molle": {
+    "foto": {
+      "planta": "Molle · Pimiento",
+      "autor": "Georges Jansoone",
+      "licencia": "CC BY 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Schinus_molle01.jpg"
+    }
+  },
+  "palqui": {
+    "foto": {
+      "planta": "Palqui",
+      "autor": "You may select the license of your choice.",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Cestrum_parqui.jpg"
+    }
+  },
+  "perejil": {
+    "foto": {
+      "planta": "Perejil",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Petroselinum_crispum_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-103.jpg"
+    },
+    "dibujo": {
+      "planta": "Perejil",
+      "autor": "Prof. Dr. Otto Wilhelm Thomé",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Petroselinum_crispum0.jpg"
+    }
+  },
+  "apio": {
+    "dibujo": {
+      "planta": "Apio",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Apium_graveolens0.jpg"
+    },
+    "foto": {
+      "planta": "Apio",
+      "autor": "MPF",
+      "licencia": "CC BY-SA 4.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:2023-06-22_Apium_graveolens_(Wild_Celery),_Elswick,_Northumberland_4.jpg"
+    }
+  },
+  "lino": {
+    "foto": {
+      "planta": "Lino · Linaza",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Flax_large.jpg"
+    },
+    "dibujo": {
+      "planta": "Lino · Linaza",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Linum_usitatissimum0.jpg"
+    }
+  },
+  "hibisco": {
+    "foto": {
+      "planta": "Hibisco · Flor de Jamaica",
+      "autor": "Mokkie",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Roselle_(Hibiscus_sabdariffa)_2.jpg"
+    }
+  },
+  "moringa": {
+    "planta": "Moringa",
+    "autor": "Venkatx5",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:DrumstickFlower.jpg"
+  },
+  "espirulina": {
+    "foto": {
+      "planta": "Espirulina",
+      "autor": "FarmerOnMars",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:SingleSpirulinaInMicroscope4WEB.jpg"
+    }
+  },
+  "bardana": {
+    "foto": {
+      "planta": "Bardana · Lampazo",
+      "autor": "",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Arctium_lappa02.jpg"
+    },
+    "dibujo": {
+      "planta": "Bardana · Lampazo",
+      "autor": "N. Criddle",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Arctium_lappa_botanilac_illustration.jpg"
+    }
+  },
+  "murta": {
+    "foto": {
+      "planta": "Murta · Murtilla",
+      "autor": "No machine-readable author provided. MPF assumed (based on copyright claims).",
+      "licencia": "CC BY 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ugni_molinae.jpg"
+    }
+  },
+  "calafate": {
+    "foto": {
+      "planta": "Calafate",
+      "autor": "No machine-readable author provided. Heretiq assumed (based on copyright claims).",
+      "licencia": "CC BY-SA 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Calafate-Berberis_buxifolia.jpg"
+    }
+  },
+  "michay": {
+    "planta": "Michay",
+    "autor": "Stan Shebs",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Berberis_darwinii_2.jpg"
+  },
+  "avellano-chileno": {
+    "planta": "Avellano Chileno · Gevuina",
+    "autor": "Franz Xaver",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Gevuina_avellana_2.jpg"
+  },
+  "natre": {
+    "planta": "Natre",
+    "autor": "The original uploader was Ramin Nakisa at English Wikipedia.",
+    "licencia": "CC BY-SA 3.0",
+    "licencia_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "fuente": "https://commons.wikimedia.org/wiki/File:SolanumCrispum.jpg"
+  },
+  "vira-vira": {
+    "planta": "Vira Vira",
+    "autor": "Ismar Schein at Portuguese Wikipedia",
+    "licencia": "Public domain",
+    "licencia_url": "",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Macela.JPG"
+  },
+  "centella-asiatica": {
+    "planta": "Centella Asiática · Gotu Kola",
+    "autor": "Forest &amp; Kim Starr",
+    "licencia": "CC BY 3.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/3.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Starr_020803-0094_Centella_asiatica.jpg"
+  },
+  "avena": {
+    "dibujo": {
+      "planta": "Avena",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Avena_sativa0.jpg"
+    },
+    "foto": {
+      "planta": "Avena",
+      "autor": "Rasbak",
+      "licencia": "CC BY-SA 3.0",
+      "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Triticum_dicoccum_(2_rows_front),_Avena_sativa_Aaltertroshaver_(2_rows_middle),_Avena_sativa_black_oat_(2_rows),_Triticale_flowering_(2_rows_background).jpg"
+    }
+  },
+  "ajenjo": {
+    "foto": {
+      "planta": "Ajenjo",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Artemisia_absinthium_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-164.jpg"
+    },
+    "dibujo": {
+      "planta": "Ajenjo",
+      "autor": "Original book source: Prof. Dr. Otto Wilhelm Thomé Flora von Deutschland, Österreich und der Schweiz 1885, Gera, Germany",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Artemisia_absinthium0_clean.jpg"
+    }
+  },
+  "verbena": {
+    "foto": {
+      "planta": "Verbena",
+      "autor": "AnRo0002",
+      "licencia": "CC0",
+      "licencia_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "fuente": "https://commons.wikimedia.org/wiki/File:20150606Verbena_officinalis1.jpg"
+    },
+    "dibujo": {
+      "planta": "Verbena",
+      "autor": "File:Illustration Verbena officinalis0.jpg: PLEASE COMPLETE AUTHOR INFORMATION\nderivative work: Kenraiz",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Verbena_officinalis_clean.JPG"
+    }
+  },
+  "consuelda": {
+    "foto": {
+      "planta": "Consuelda",
+      "autor": "Agnieszka Kwiecień (Nova)",
+      "licencia": "CC BY 2.5",
+      "licencia_url": "https://creativecommons.org/licenses/by/2.5",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Symphytum_officinale_01.jpg"
+    },
+    "dibujo": {
+      "planta": "Consuelda",
+      "autor": "",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Illustration_Symphytum_officinale0.jpg"
+    }
+  },
+  "yerba-mate": {
+    "foto": {
+      "planta": "Yerba Mate",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ilex_paraguariensis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-074.jpg"
+    },
+    "dibujo": {
+      "planta": "Yerba Mate",
+      "autor": "Franz Eugen Köhler, Köhler's Medizinal-Pflanzen",
+      "licencia": "Public domain",
+      "licencia_url": "",
+      "fuente": "https://commons.wikimedia.org/wiki/File:Ilex_paraguariensis_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-074.jpg"
+    }
+  },
+  "canchalagua": {
+    "planta": "Canchalagua · Cachanlagua",
+    "autor": "Patricio Novoa Quezada from Valparaíso, Chile",
+    "licencia": "CC BY 2.0",
+    "licencia_url": "https://creativecommons.org/licenses/by/2.0",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Centaurium_cachanlahuen_(29552045723).jpg"
+  }
+}

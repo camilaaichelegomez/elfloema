@@ -7,17 +7,44 @@ import { useState, type CSSProperties } from "react";
  * en public/plantas/<slug>.jpg; mientras no exista, muestra el prompt para
  * generarla con IA + botón para copiarlo y la ruta donde guardarla.
  */
+type CreditoImg = { autor?: string; licencia?: string; licencia_url?: string; fuente?: string };
+type Credito = CreditoImg & { foto?: CreditoImg; dibujo?: CreditoImg };
+
+function LineaCredito({ etiqueta, c }: { etiqueta: string; c?: CreditoImg }) {
+  if (!c?.autor) return null;
+  return (
+    <p style={creditoStyle}>
+      {etiqueta}:{" "}
+      {c.fuente ? (
+        <a href={c.fuente} target="_blank" rel="noreferrer" style={creditoLinkStyle}>
+          {c.autor}
+        </a>
+      ) : (
+        c.autor
+      )}
+      {c.licencia ? ` · ${c.licencia}` : null}
+    </p>
+  );
+}
+
 export function PlantaIlustracion({
   slug,
   nombre,
   prompt,
+  credito,
 }: {
   slug: string;
   nombre: string;
   prompt: string;
+  credito?: Credito;
 }) {
   const [imgOk, setImgOk] = useState(true);
+  const [dibujoOk, setDibujoOk] = useState(true);
   const [copiado, setCopiado] = useState(false);
+
+  // credito puede venir anidado {foto, dibujo} o plano (formato viejo = foto)
+  const fotoCred = credito?.foto ?? (credito?.autor ? credito : undefined);
+  const dibujoCred = credito?.dibujo;
 
   async function copiar() {
     try {
@@ -31,39 +58,67 @@ export function PlantaIlustracion({
 
   return (
     <figure style={figureStyle}>
-      <div style={marcoStyle}>
-        <span style={{ ...gemStyle, top: -3, left: -3 }} />
-        <span style={{ ...gemStyle, top: -3, right: -3 }} />
-        <span style={{ ...gemStyle, bottom: -3, left: -3 }} />
-        <span style={{ ...gemStyle, bottom: -3, right: -3 }} />
+      <div style={dobleStyle}>
+        {/* FOTO REAL */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={marcoStyle}>
+            <span style={{ ...gemStyle, top: -3, left: -3 }} />
+            <span style={{ ...gemStyle, top: -3, right: -3 }} />
+            <span style={{ ...gemStyle, bottom: -3, left: -3 }} />
+            <span style={{ ...gemStyle, bottom: -3, right: -3 }} />
 
-        {imgOk ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={`/plantas/${slug}.jpg`}
-            alt={`Ilustración de ${nombre}`}
-            onError={() => setImgOk(false)}
-            style={{ display: "block", width: "100%", height: "auto", borderRadius: 2 }}
-          />
-        ) : (
-          <div style={placeholderStyle}>
-            <svg width="34" height="34" viewBox="0 0 40 46" fill="none" aria-hidden="true" style={{ opacity: 0.5, marginBottom: 12 }}>
-              <path d="M20,42 C20,42 6,30 6,18 C6,9 12,3 20,3 C28,3 34,9 34,18 C34,30 20,42 20,42 Z" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.7" />
-              <path d="M20,5 C20,5 11,13 11,21 C11,29 16,35 20,40" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.7" />
-            </svg>
-            <p style={labelStyle}>Ilustración de {nombre} — espacio para la imagen</p>
-            <p style={promptStyle}>
-              <span style={{ color: "rgba(170,120,190,0.9)" }}>Prompt de la ilustración: </span>
-              {prompt}
-            </p>
-            <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 12, flexWrap: "wrap", justifyContent: "center" }}>
-              <button type="button" onClick={copiar} style={botonStyle}>
-                {copiado ? "✓ Prompt copiado" : "Copiar prompt"}
-              </button>
-              <code style={rutaStyle}>guardar en&nbsp;·&nbsp;public/plantas/{slug}.jpg</code>
-            </div>
+            {imgOk ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`/plantas/${slug}.jpg`}
+                alt={`Foto de ${nombre}`}
+                onError={() => setImgOk(false)}
+                style={{ display: "block", width: "100%", height: "auto", borderRadius: 2 }}
+              />
+            ) : (
+              <div style={placeholderStyle}>
+                <svg width="34" height="34" viewBox="0 0 40 46" fill="none" aria-hidden="true" style={{ opacity: 0.5, marginBottom: 12 }}>
+                  <path d="M20,42 C20,42 6,30 6,18 C6,9 12,3 20,3 C28,3 34,9 34,18 C34,30 20,42 20,42 Z" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.7" />
+                  <path d="M20,5 C20,5 11,13 11,21 C11,29 16,35 20,40" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.7" />
+                </svg>
+                <p style={labelStyle}>Foto de {nombre} — espacio para la imagen</p>
+                <p style={promptStyle}>
+                  <span style={{ color: "rgba(170,120,190,0.9)" }}>Prompt de la ilustración: </span>
+                  {prompt}
+                </p>
+                <div style={{ display: "flex", gap: 10, alignItems: "center", marginTop: 12, flexWrap: "wrap", justifyContent: "center" }}>
+                  <button type="button" onClick={copiar} style={botonStyle}>
+                    {copiado ? "✓ Prompt copiado" : "Copiar prompt"}
+                  </button>
+                  <code style={rutaStyle}>guardar en&nbsp;·&nbsp;public/plantas/{slug}.jpg</code>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+          {imgOk ? <p style={subCaptionStyle}>Foto real</p> : null}
+          {imgOk ? <LineaCredito etiqueta="Foto" c={fotoCred} /> : null}
+        </div>
+
+        {/* DIBUJO BOTÁNICO (solo si existe el archivo) */}
+        {dibujoOk ? (
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={marcoStyle}>
+              <span style={{ ...gemStyle, top: -3, left: -3 }} />
+              <span style={{ ...gemStyle, top: -3, right: -3 }} />
+              <span style={{ ...gemStyle, bottom: -3, left: -3 }} />
+              <span style={{ ...gemStyle, bottom: -3, right: -3 }} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/plantas/${slug}-dibujo.jpg`}
+                alt={`Lámina botánica de ${nombre}`}
+                onError={() => setDibujoOk(false)}
+                style={{ display: "block", width: "100%", height: "auto", borderRadius: 2 }}
+              />
+            </div>
+            <p style={subCaptionStyle}>Lámina botánica</p>
+            <LineaCredito etiqueta="Lámina" c={dibujoCred} />
+          </div>
+        ) : null}
       </div>
       <figcaption style={captionStyle}>
         Cómo reconocer <span style={{ color: "rgba(200,160,80,0.85)" }}>{nombre}</span>
@@ -73,6 +128,23 @@ export function PlantaIlustracion({
 }
 
 const figureStyle: CSSProperties = { margin: "6px 0 22px" };
+
+const dobleStyle: CSSProperties = {
+  display: "flex",
+  gap: 14,
+  flexWrap: "wrap",
+  alignItems: "flex-start",
+};
+
+const subCaptionStyle: CSSProperties = {
+  fontFamily: "var(--font-cinzel), serif",
+  fontSize: "0.58rem",
+  letterSpacing: "0.16em",
+  textTransform: "uppercase",
+  color: "rgba(200,160,80,0.6)",
+  textAlign: "center",
+  margin: "8px 0 0",
+};
 
 const marcoStyle: CSSProperties = {
   position: "relative",
@@ -154,4 +226,18 @@ const captionStyle: CSSProperties = {
   color: "rgba(212,196,160,0.55)",
   textAlign: "center",
   marginTop: 10,
+};
+
+const creditoStyle: CSSProperties = {
+  fontFamily: "var(--font-crimson), serif",
+  fontSize: "0.62rem",
+  fontStyle: "italic",
+  color: "rgba(200,160,80,0.4)",
+  textAlign: "center",
+  marginTop: 4,
+};
+
+const creditoLinkStyle: CSSProperties = {
+  color: "rgba(200,160,80,0.6)",
+  textDecoration: "none",
 };

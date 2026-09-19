@@ -34,8 +34,10 @@ type Config = {
 };
 
 // Acordes abiertos: sin terceras en el grave, que es lo que los hace calmos.
-const ACORDE_RELAJAR = [110, 164.81, 220, 246.94]; // la, mi, la, si — suspendido
-const ACORDE_ACTIVAR = [146.83, 220, 293.66, 369.99]; // re, la, re, fa# — mayor abierto
+// La octava de arriba (330–494 Hz) no es adorno: el parlante de un teléfono
+// casi no reproduce 110 Hz, y sin ella el acorde de relajar apenas se oía.
+const ACORDE_RELAJAR = [110, 164.81, 220, 246.94, 329.63, 440, 493.88]; // la, mi, la, si, mi, la, si — suspendido
+const ACORDE_ACTIVAR = [146.83, 220, 293.66, 369.99, 440, 587.33]; // re, la, re, fa#, la, re — mayor abierto
 const ARPEGIO_ACTIVAR = [293.66, 369.99, 440, 587.33, 440, 369.99]; // re fa# la re la fa#
 
 // Diferencia entre oído izquierdo y derecho: 6 Hz (theta) para relajar,
@@ -51,6 +53,7 @@ export class MotorMusica {
   private ctx: AudioContext;
   private maestro: GainNode;
   private duck: GainNode;
+  private limitador: DynamicsCompressorNode;
   private capa: Record<ModoMusica, GainNode>;
   private binauralGanancia: GainNode;
   private binauralIzq: OscillatorNode;
@@ -75,7 +78,15 @@ export class MotorMusica {
     // Una capa extra solo para bajar la música mientras habla la voz.
     this.duck = this.ctx.createGain();
     this.duck.gain.value = 1;
-    this.maestro.connect(this.duck).connect(this.ctx.destination);
+    /* Un compresor al final: sube lo que suena bajo y frena los picos, así
+       el volumen puede ir alto sin que el sonido se rompa en el parlante. */
+    this.limitador = this.ctx.createDynamicsCompressor();
+    this.limitador.threshold.value = -18;
+    this.limitador.knee.value = 12;
+    this.limitador.ratio.value = 4;
+    this.limitador.attack.value = 0.01;
+    this.limitador.release.value = 0.4;
+    this.maestro.connect(this.duck).connect(this.limitador).connect(this.ctx.destination);
 
     this.capa = {
       relajar: this.ctx.createGain(),
@@ -101,7 +112,7 @@ export class MotorMusica {
       const hablando = e.type === "floema-voz-inicio";
       const t = this.ctx.currentTime;
       this.duck.gain.cancelScheduledValues(t);
-      this.duck.gain.setTargetAtTime(hablando ? 0.35 : 1, t, hablando ? 0.15 : 0.6);
+      this.duck.gain.setTargetAtTime(hablando ? 0.5 : 1, t, hablando ? 0.15 : 0.6);
     };
     window.addEventListener("floema-voz-inicio", this.escucharVoz);
     window.addEventListener("floema-voz-fin", this.escucharVoz);
@@ -255,7 +266,7 @@ export class MotorMusica {
     this.maestro.gain.cancelScheduledValues(t);
     this.maestro.gain.setValueAtTime(this.maestro.gain.value, t);
     // Entra de a poco: tres segundos, no de golpe.
-    this.maestro.gain.linearRampToValueAtTime(this.config.volumen * 0.5, t + 3);
+    this.maestro.gain.linearRampToValueAtTime(this.ganancia(), t + 3);
   }
 
   /** Cambia de paisaje fundiendo uno en el otro, sin cortes. */
@@ -274,11 +285,18 @@ export class MotorMusica {
     this.binauralDer.frequency.linearRampToValueAtTime(base + pulso, t + 8);
   }
 
+  /* De la barra de volumen (0 a 1) a la ganancia real. Antes era la mitad
+     de la barra y en el teléfono no se escuchaba: ahora la barra al máximo
+     es tres veces más fuerte, y el compresor cuida que no se rompa. */
+  private ganancia() {
+    return this.config.volumen * 1.6;
+  }
+
   ajustarVolumen(volumen: number) {
     this.config.volumen = volumen;
     const t = this.ctx.currentTime;
     this.maestro.gain.cancelScheduledValues(t);
-    this.maestro.gain.setTargetAtTime(volumen * 0.5, t, 0.2);
+    this.maestro.gain.setTargetAtTime(this.ganancia(), t, 0.2);
   }
 
   ajustarBinaural(activo: boolean) {

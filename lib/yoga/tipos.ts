@@ -432,6 +432,9 @@ export type Paso = {
   prioridad: number;
   /** Clave del dibujo en FiguraYoga. */
   figura: string;
+  /** Posturas que son un movimiento entre dos formas, como gato y vaca: se
+      dibujan las dos, lado a lado, cada una con lo que se hace en ella. */
+  formas?: { figura: string; texto: string }[];
   /** De dónde sale lo que dice `trabaja` o el cuidado. */
   fuente?: string;
 };
@@ -488,7 +491,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   voz: true,
   musica: "auto",
   binaural: false,
-  volumenMusica: 0.45,
+  volumenMusica: 0.7,
   ritmo: "normal",
 };
 

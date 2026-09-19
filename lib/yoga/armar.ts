@@ -67,6 +67,9 @@ export type PasoRutina = Paso & {
   disenada?: number;
   /** Lo que dice la voz en este paso de una serie, con la respiración. */
   guion?: string;
+  /** Segundos que tarda la voz en decir el guion y el aviso, más un respiro
+      para hacer el movimiento. Ningún ajuste baja el paso de aquí. */
+  hablar?: number;
   /** Aviso que se dice antes del paso: que empiezan los saludos al sol, que
       desde ahora se respira por la nariz, que se cambia de lado. Sus segundos
       ya están sumados a la duración, para no comerse el tiempo de la postura. */
@@ -533,41 +536,60 @@ export function armarRutina(prefs: Preferencias): Rutina {
 /* Lo que una profesora diría en voz alta en los momentos de transición. Se
    agrega al final, cuando las duraciones ya están ajustadas: así sus segundos
    se suman y no le quitan tiempo a ninguna postura. */
+/* Cuánto tarda la voz en decir un texto. Medido con la voz de Google en
+   español a la velocidad de la app: unas 2 palabras por segundo, y cada signo
+   de puntuación es una pausa corta. Antes se calculaba a 2,6 palabras por
+   segundo y la voz no alcanzaba a terminar la frase en el saludo al sol. */
+export function segundosDeVoz(texto: string) {
+  const palabras = texto.trim().split(/\s+/).length;
+  const pausas = (texto.match(/[.:,;]/g) ?? []).length;
+  return palabras / 2 + pausas * 0.3;
+}
+
+/* Un paso de serie dura lo que tarda la voz más un respiro para moverse.
+   Sin ese respiro, la instrucción siguiente llega apenas termina la anterior
+   y no hay tiempo de hacer lo que se dijo. */
+const RESPIRO_TRAS_LA_VOZ = 1.5;
+
+const AVISO_NARIZ = "Desde ahora, durante toda la práctica, respira por la nariz.";
+const AVISO_SALUDOS =
+  "Empezamos con los saludos al sol. Van al ritmo de la respiración: un movimiento por cada una. Sigue mi voz.";
+const AVISO_LADO = "Cambia de lado.";
+const segundosDeAviso = (texto: string) => Math.ceil(segundosDeVoz(texto) + 0.5);
+
 /** Lo que va a sumar agregarAvisos, calculado con las mismas reglas. */
 function reservaDeAvisos(pasos: PasoRutina[]) {
   let total = 0;
-  if (pasos.some((p) => !["centrado", "respiracion"].includes(p.faseVisible))) total += 4;
-  if (pasos.some((p) => p.secuencia && p.faseVisible === "saludos")) total += 7;
+  if (pasos.some((p) => !["centrado", "respiracion"].includes(p.faseVisible))) total += segundosDeAviso(AVISO_NARIZ);
+  if (pasos.some((p) => p.secuencia && p.faseVisible === "saludos")) total += segundosDeAviso(AVISO_SALUDOS);
   for (let i = 1; i < pasos.length; i++) {
     const a = pasos[i - 1].secuencia;
     const b = pasos[i].secuencia;
-    if (a && b && a.id === b.id && a.lado === "derecho" && b.lado === "izquierdo") total += 4;
+    if (a && b && a.id === b.id && a.lado === "derecho" && b.lado === "izquierdo") total += segundosDeAviso(AVISO_LADO);
   }
   total += pasos.filter((p) => p.porLado && !p.secuencia).length * 5;
   return total;
 }
 
 function agregarAvisos(pasos: PasoRutina[]) {
-  const avisar = (p: PasoRutina, texto: string, segundos: number) => {
+  const avisar = (p: PasoRutina, texto: string) => {
+    const segundos = segundosDeAviso(texto);
     p.aviso = p.aviso ? `${p.aviso} ${texto}` : texto;
     p.avisoSegundos = (p.avisoSegundos ?? 0) + segundos;
     p.duracion += segundos;
+    if (p.hablar) p.hablar += segundos;
   };
 
   // Terminadas las respiraciones del principio: de aquí en adelante, nariz.
   const primerMovimiento = pasos.find((p) => !["centrado", "respiracion"].includes(p.faseVisible));
   if (primerMovimiento) {
-    avisar(primerMovimiento, "Desde ahora, durante toda la práctica, respira por la nariz.", 4);
+    avisar(primerMovimiento, AVISO_NARIZ);
   }
 
   // Los saludos al sol van rápido: hay que avisar antes de que empiecen.
   const primerSaludo = pasos.find((p) => p.secuencia && p.faseVisible === "saludos");
   if (primerSaludo) {
-    avisar(
-      primerSaludo,
-      "Empezamos con los saludos al sol. Son rápidos: un movimiento por cada respiración. Sigue mi voz.",
-      7
-    );
+    avisar(primerSaludo, AVISO_SALUDOS);
   }
 
   // Dentro de una serie que va por lado, nombrar el cambio.
@@ -575,7 +597,7 @@ function agregarAvisos(pasos: PasoRutina[]) {
     const antes = pasos[i - 1].secuencia;
     const ahora = pasos[i].secuencia;
     if (antes && ahora && antes.id === ahora.id && antes.lado === "derecho" && ahora.lado === "izquierdo") {
-      avisar(pasos[i], "Cambia de lado.", 4);
+      avisar(pasos[i], AVISO_LADO);
     }
   }
 
@@ -605,7 +627,9 @@ function ajustarDuraciones(pasos: PasoRutina[], objetivoSegundos: number) {
       const dobla = p.porLado && !p.secuencia ? 2 : 1;
       // Una respiración dura cuatro o cinco segundos: el piso de un paso de
       // serie tiene que dejar respirar, no más.
-      const min = p.disenada ? Math.max(3, Math.round(p.disenada * 0.85)) : minimoDe(p) * dobla;
+      const min = p.disenada
+        ? Math.max(3, p.hablar ?? 0, Math.round(p.disenada * 0.85))
+        : minimoDe(p) * dobla;
       const max = p.disenada
         ? Math.round(p.disenada * 1.6)
         : Math.min(maximoDe(p) * dobla, Math.max(min, techo));
@@ -658,10 +682,10 @@ function aplanar(porFaseElegido: Map<Fase, Elegido[]>, prefs: Preferencias): Pas
             const guion = e.sec.guion?.[i]
               ?.replaceAll("{pierna}", pierna)
               .replaceAll("{otra}", otra);
-            /* Un paso no puede durar menos de lo que la voz tarda en decirlo:
-               si no, el paso siguiente la corta a media frase. La voz de la
-               app lee unas 2,6 palabras por segundo. */
-            const hablar = guion ? Math.ceil(guion.split(/\s+/).length / 2.6 + 0.5) : 0;
+            /* Un paso no puede durar menos de lo que la voz tarda en decirlo
+               más un respiro para hacerlo: si no, el paso siguiente la corta
+               a media frase. */
+            const hablar = guion ? Math.ceil(segundosDeVoz(guion) + RESPIRO_TRAS_LA_VOZ) : 0;
             const segundos = Math.max(e.sec.segundos[i] ?? minimoDe(paso), hablar);
             salida.push({
               ...paso,
@@ -669,6 +693,7 @@ function aplanar(porFaseElegido: Map<Fase, Elegido[]>, prefs: Preferencias): Pas
               duracion: segundos,
               disenada: segundos,
               guion,
+              hablar: hablar || undefined,
               clave: `${id}-${n++}`,
               secuencia: {
                 id: e.sec.id,

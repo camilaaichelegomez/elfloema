@@ -1077,7 +1077,21 @@ export function Yoga() {
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "1.2rem", alignItems: "center", justifyContent: "center", marginBottom: "1.2rem" }}>
           <div style={{ border: "1px solid rgba(200,160,80,0.22)", background: "rgba(10,18,10,0.55)", borderRadius: 6, padding: "0.4rem" }}>
-            <FiguraYoga figura={pasoActual.figura} tamano={220} />
+            {pasoActual.formas ? (
+              /* Un movimiento entre dos formas: se ven las dos, no solo una. */
+              <div style={{ display: "flex", gap: "0.3rem", justifyContent: "center", flexWrap: "wrap" }}>
+                {pasoActual.formas.map((f) => (
+                  <figure key={f.figura} style={{ margin: 0, maxWidth: 170 }}>
+                    <FiguraYoga figura={f.figura} tamano={165} />
+                    <figcaption style={{ ...ayuda, margin: 0, fontSize: "0.8rem", textAlign: "center" }}>
+                      {f.texto}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            ) : (
+              <FiguraYoga figura={pasoActual.figura} tamano={220} />
+            )}
           </div>
 
           <div style={{ position: "relative", width: 120, height: 120, flexShrink: 0 }}>
@@ -1184,6 +1198,34 @@ export function Yoga() {
             Siguiente
           </button>
         </div>
+
+        {/* El volumen se ajusta en plena práctica: recién con el cuerpo en el
+            mat se sabe si la música tapa la voz o no se oye. */}
+        {musicaRef.current && !musicaCallada && (
+          <label
+            style={{
+              ...ayuda,
+              margin: "0.9rem auto 0",
+              maxWidth: 280,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              fontSize: "0.85rem",
+            }}
+          >
+            Música
+            <input
+              type="range"
+              min={0.1}
+              max={1}
+              step={0.05}
+              value={prefs.volumenMusica}
+              onChange={(e) => setPrefs({ ...prefs, volumenMusica: Number(e.target.value) })}
+              aria-label="Volumen de la música"
+              style={{ flex: 1, accentColor: "#c8a050" }}
+            />
+          </label>
+        )}
 
         <button
           type="button"

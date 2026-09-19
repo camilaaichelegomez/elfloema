@@ -50,6 +50,10 @@ export const POSTURAS: Paso[] = [
     base: true,
     prioridad: 1,
     figura: "gato",
+    formas: [
+      { figura: "vaca", texto: "Inhala: la panza baja, el pecho se abre" },
+      { figura: "gato", texto: "Exhala: la espalda se redondea" },
+    ],
     fuente: "Movilidad segmentaria de columna — instrucción clásica de hatha",
   },
   {
@@ -124,6 +128,10 @@ export const POSTURAS: Paso[] = [
     evita: ["munecas", "rodillas"],
     prioridad: 3,
     figura: "cuadrupedia",
+    formas: [
+      { figura: "cuadrupedia", texto: "Adelante: hombros sobre las manos" },
+      { figura: "cadera_atras", texto: "Atrás: la cadera hacia los talones" },
+    ],
   },
   {
     id: "cal-aguja",
@@ -1165,6 +1173,10 @@ export const POSTURAS: Paso[] = [
     prepararCon: ["ext-esfinge"],
     prioridad: 4,
     figura: "langosta",
+    formas: [
+      { figura: "boca_abajo", texto: "Empieza boca abajo, brazos a los lados" },
+      { figura: "langosta", texto: "Levanta pecho, brazos y piernas" },
+    ],
   },
   {
     id: "ext-puente",
@@ -1191,6 +1203,10 @@ export const POSTURAS: Paso[] = [
     masExigente: "Entrelaza las manos bajo la espalda y rueda sobre los hombros.",
     prioridad: 2,
     figura: "puente",
+    formas: [
+      { figura: "supina_rodillas", texto: "Empieza así: pies cerca de las nalgas" },
+      { figura: "puente", texto: "Empuja los pies y sube la cadera" },
+    ],
   },
   {
     id: "ext-puente-apoyado",
@@ -1474,6 +1490,6 @@ export const POSTURAS: Paso[] = [
     mejoraCon: ["manta"],
     evita: ["embarazo"],
     prioridad: 3,
-    figura: "piernas_pared",
+    figura: "pantorrillas_silla",
   },
 ];

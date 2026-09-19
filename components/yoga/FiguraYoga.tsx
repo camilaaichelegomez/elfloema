@@ -9,9 +9,11 @@ import type { CSSProperties } from "react";
    mejor en una figura limpia que en una foto de alguien con calzas.
 
    Cada postura se guarda como un esqueleto de puntos en un lienzo de 200 × 150,
-   con el suelo en y = 132. El componente une los puntos: columna (cabeza,
-   cuello, pecho, pelvis), brazos y piernas. El brazo y la pierna del fondo se
-   dibujan más tenues, así se entiende que hay dos.
+   con el suelo en y = 132. El componente le pone cuerpo a esos puntos: un
+   tronco ancho, muslos más gruesos que las pantorrillas, pies y manos, como
+   los pictogramas de yoga. El brazo y la pierna del fondo van en un dorado
+   más oscuro, así se entiende que hay dos. Las posturas acostadas que de
+   costado no se entienden (la torsión, la media luna) van vistas desde arriba.
 
    Cuando la postura necesita un apoyo — pared, silla, bloque, cojín — el apoyo
    se dibuja también. Media postura restaurativa es el apoyo. */
@@ -40,9 +42,12 @@ type Esqueleto = {
   manta?: P;
   /** Sin línea de suelo (nadie está en el suelo). */
   sinSuelo?: boolean;
+  /** Dibujada vista desde arriba, con el mat entero. Para las posturas
+      acostadas que de costado no se entienden, como la torsión. */
+  desdeArriba?: boolean;
   /** Hacia dónde mira la cara. Sin esto la cabeza es un círculo y no se sabe
       si la postura va hacia adelante o hacia atrás. Por defecto, a la derecha. */
-  mira?: "der" | "izq" | "arriba" | "abajo";
+  mira?: Mira;
 };
 
 const SUELO = 132;
@@ -51,6 +56,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   // ── De pie ──
   montana: {
     cab: [100, 30], cue: [100, 42], pec: [100, 52], pel: [100, 76],
+    mira: "frente",
     br: [[100, 44], [102, 60], [104, 77]],
     br2: [[100, 44], [98, 60], [96, 77]],
     pi: [[102, 78], [103, 105], [103, SUELO]],
@@ -132,12 +138,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   guirnalda: {
     cab: [100, 70], cue: [100, 80], pec: [100, 89], pel: [100, 109],
+    mira: "frente",
     br: [[100, 82], [90, 93], [100, 97]],
     pi: [[104, 111], [126, 116], [112, SUELO]],
     pi2: [[96, 111], [74, 116], [88, SUELO]],
   },
   arbol: {
     cab: [100, 30], cue: [100, 42], pec: [100, 52], pel: [100, 77],
+    mira: "frente",
     br: [[100, 44], [90, 56], [100, 61]],
     pi: [[100, 78], [128, 98], [104, 92]],
     pi2: [[100, 79], [99, 105], [99, SUELO]],
@@ -153,6 +161,7 @@ const FIGURAS: Record<string, Esqueleto> = {
 
   brazos_arriba_pie: {
     cab: [100, 30], cue: [100, 42], pec: [100, 52], pel: [100, 76],
+    mira: "frente",
     br: [[100, 44], [113, 31], [120, 15]],
     br2: [[100, 44], [87, 31], [80, 15]],
     pi: [[102, 78], [103, 105], [103, SUELO]],
@@ -192,6 +201,21 @@ const FIGURAS: Record<string, Esqueleto> = {
     br: [[86, 90], [86, 111], [86, 131]],
     pi: [[122, 92], [124, 112], [126, 131]],
   },
+  /* La otra mitad del gato: al inhalar, la panza baja y el pecho y la
+     mirada se abren hacia adelante. */
+  vaca: {
+    cab: [73, 80], cue: [84, 87], pec: [99, 97], pel: [122, 89],
+    mira: "izq",
+    br: [[86, 90], [86, 111], [86, 131]],
+    pi: [[122, 91], [124, 112], [126, 131]],
+  },
+  /* Círculos de cadera, el punto más atrás: la pelvis viaja hacia los talones. */
+  cadera_atras: {
+    cab: [74, 90], cue: [84, 92], pec: [100, 96], pel: [130, 104],
+    mira: "izq",
+    br: [[86, 93], [82, 112], [78, 131]],
+    pi: [[130, 106], [127, 118], [124, 131]],
+  },
   gato: {
     cab: [78, 100], cue: [84, 90], pec: [96, 83], pel: [122, 92],
     mira: "abajo",
@@ -226,36 +250,36 @@ const FIGURAS: Record<string, Esqueleto> = {
     pi: [[112, 110], [126, 119], [140, 129]],
   },
   camello: {
-    cab: [111, 67], cue: [103, 74], pec: [99, 85], pel: [104, 105],
+    cab: [133, 71], cue: [122, 72], pec: [111, 84], pel: [108, 101],
     mira: "arriba",
-    br: [[100, 77], [108, 92], [113, 106]],
-    pi: [[104, 107], [102, 128], [117, 131]],
+    br: [[121, 74], [131, 98], [137, 124]],
+    pi: [[108, 103], [106, 129], [138, 130]],
   },
   nino: {
-    cab: [76, 124], cue: [87, 121], pec: [100, 117], pel: [121, 112],
-    mira: "izq",
-    br: [[98, 119], [84, 124], [68, 128]],
-    pi: [[121, 114], [132, 126], [122, 131]],
+    cab: [80, 125], cue: [91, 119], pec: [106, 114], pel: [125, 113],
+    mira: "abajo",
+    br: [[92, 118], [73, 126], [54, 129]],
+    pi: [[125, 115], [103, 127], [134, 130]],
   },
 
   // ── Boca abajo ──
   cobra: {
-    cab: [85, 91], cue: [90, 101], pec: [97, 112], pel: [113, 126],
+    cab: [79, 93], cue: [88, 104], pec: [104, 119], pel: [124, 128],
     mira: "izq",
-    br: [[93, 104], [93, 118], [93, 131]],
-    pi: [[113, 128], [129, 130], [144, 131]],
+    br: [[90, 106], [94, 119], [89, 131]],
+    pi: [[124, 129], [144, 130], [164, 130]],
   },
   esfinge: {
-    cab: [85, 96], cue: [90, 105], pec: [97, 114], pel: [113, 126],
+    cab: [79, 101], cue: [89, 111], pec: [105, 122], pel: [124, 128],
     mira: "izq",
-    br: [[93, 108], [85, 124], [68, 130]],
-    pi: [[113, 128], [129, 130], [144, 131]],
+    br: [[91, 113], [93, 129], [72, 130]],
+    pi: [[124, 129], [144, 130], [164, 130]],
   },
   langosta: {
-    cab: [85, 101], cue: [90, 109], pec: [97, 116], pel: [113, 122],
+    cab: [74, 111], cue: [85, 116], pec: [101, 122], pel: [120, 127],
     mira: "izq",
-    br: [[93, 112], [101, 120], [110, 125]],
-    pi: [[113, 124], [127, 120], [142, 113]],
+    br: [[87, 117], [103, 116], [119, 113]],
+    pi: [[120, 128], [138, 124], [156, 119]],
   },
 
   // ── De espaldas ──
@@ -293,18 +317,46 @@ const FIGURAS: Record<string, Esqueleto> = {
     pi: [[110, 111], [127, 117], [127, 131]],
     bloque: [110, 120],
   },
+  /* Vista desde arriba: de costado, la torsión era un bulto en el suelo.
+     Desde arriba se ve lo que importa: brazos en cruz, las dos rodillas
+     caen juntas hacia un lado y la cara mira hacia el otro. */
   torsion_supina: {
-    cab: [77, 120], cue: [86, 120], pec: [98, 121], pel: [110, 123],
-    mira: "izq",
-    br: [[86, 118], [73, 112], [60, 107]],
-    br2: [[86, 119], [98, 114], [110, 112]],
-    pi: [[110, 125], [122, 112], [131, 103]],
+    cab: [50, 76], cue: [60, 76], pec: [78, 76], pel: [106, 76],
+    mira: "arriba",
+    br: [[64, 76], [64, 96], [64, 116]],
+    br2: [[64, 76], [64, 56], [64, 36]],
+    pi: [[106, 78], [118, 102], [142, 106]],
+    pi2: [[104, 76], [114, 98], [138, 101]],
+    desdeArriba: true,
+  },
+  /* Punto de partida del puente: acostada, rodillas dobladas. */
+  supina_rodillas: {
+    cab: [72, 124], cue: [82, 126], pec: [98, 128], pel: [114, 130],
+    mira: "arriba",
+    br: [[82, 127], [96, 132], [110, 133]],
+    pi: [[114, 130], [128, 110], [132, SUELO]],
+  },
+  /* Punto de partida de la langosta: boca abajo, todo apoyado. */
+  boca_abajo: {
+    cab: [66, 124], cue: [76, 127], pec: [94, 129], pel: [114, 130],
+    mira: "abajo",
+    br: [[80, 128], [96, 131], [112, 131]],
+    pi: [[114, 130], [132, 130], [150, 130]],
+  },
+  /* Acostada con las pantorrillas sobre el asiento de la silla. */
+  pantorrillas_silla: {
+    cab: [170, 124], cue: [160, 126], pec: [146, 128], pel: [130, 130],
+    mira: "arriba",
+    br: [[160, 127], [146, 133], [134, 134]],
+    pi: [[130, 130], [124, 103], [92, 102]],
+    pi2: [[130, 130], [122, 101], [90, 100]],
+    silla: true,
   },
   rodillas_pecho: {
-    cab: [76, 122], cue: [86, 123], pec: [98, 124], pel: [111, 126],
+    cab: [70, 124], cue: [80, 126], pec: [96, 127], pel: [112, 128],
     mira: "arriba",
-    br: [[86, 123], [99, 116], [111, 113]],
-    pi: [[111, 126], [107, 107], [92, 113]],
+    br: [[82, 125], [93, 113], [104, 103]],
+    pi: [[112, 127], [101, 104], [119, 99]],
   },
   cuatro_supina: {
     cab: [68, 124], cue: [79, 126], pec: [94, 127], pel: [110, 127],
@@ -328,18 +380,22 @@ const FIGURAS: Record<string, Esqueleto> = {
     pi2: [[110, 128], [131, 110], [126, 99]],
   },
   banana: {
-    cab: [60, 116], cue: [71, 120], pec: [88, 126], pel: [108, 130],
-    mira: "arriba",
-    br: [[71, 118], [61, 109], [52, 102]],
-    pi: [[108, 130], [126, 126], [144, 117]],
+    cab: [60, 62], cue: [70, 68], pec: [88, 74], pel: [112, 76],
+    mira: "frente",
+    br: [[70, 70], [56, 58], [48, 44]],
+    br2: [[70, 66], [60, 52], [58, 38]],
+    pi: [[112, 78], [134, 86], [152, 100]],
+    pi2: [[112, 74], [135, 81], [155, 93]],
+    desdeArriba: true,
   },
   zapatero_apoyado: {
-    cab: [70, 102], cue: [81, 107], pec: [95, 114], pel: [112, 124],
-    mira: "arriba",
-    br: [[81, 108], [73, 120], [64, 130]],
-    pi: [[112, 126], [130, 121], [116, 131]],
-    pi2: [[112, 126], [98, 121], [113, 131]],
-    bolster: [92, 119],
+    cab: [52, 76], cue: [62, 76], pec: [80, 76], pel: [106, 76],
+    mira: "frente",
+    br: [[64, 79], [72, 98], [86, 108]],
+    br2: [[64, 73], [72, 54], [86, 44]],
+    pi: [[108, 80], [128, 106], [144, 80]],
+    pi2: [[108, 72], [128, 46], [144, 72]],
+    desdeArriba: true,
   },
   piernas_pared: {
     cab: [60, 124], cue: [71, 126], pec: [90, 128], pel: [112, 130],
@@ -361,12 +417,14 @@ const FIGURAS: Record<string, Esqueleto> = {
   // ── Sentada ──
   sentada: {
     cab: [100, 74], cue: [100, 86], pec: [100, 96], pel: [100, 120],
+    mira: "frente",
     br: [[100, 88], [107, 104], [113, 117]],
     pi: [[103, 121], [124, 127], [100, 131]],
     pi2: [[97, 121], [78, 127], [104, 131]],
   },
   respirar_sentada: {
     cab: [100, 74], cue: [100, 86], pec: [100, 96], pel: [100, 120],
+    mira: "frente",
     br: [[100, 88], [112, 97], [103, 97]],
     br2: [[100, 90], [113, 109], [103, 110]],
     pi: [[103, 121], [124, 127], [100, 131]],
@@ -374,6 +432,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   brazos_arriba_sentada: {
     cab: [100, 74], cue: [100, 86], pec: [100, 96], pel: [100, 120],
+    mira: "frente",
     br: [[100, 88], [118, 76], [128, 58]],
     br2: [[100, 88], [82, 76], [72, 58]],
     pi: [[103, 121], [124, 127], [100, 131]],
@@ -388,6 +447,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   cuello_lateral: {
     cab: [91, 76], cue: [99, 86], pec: [100, 96], pel: [100, 120],
+    mira: "frente",
     br: [[100, 88], [90, 82], [88, 73]],
     br2: [[100, 88], [111, 104], [119, 116]],
     pi: [[103, 121], [124, 127], [100, 131]],
@@ -395,6 +455,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   luna_sentada: {
     cab: [88, 76], cue: [93, 86], pec: [96, 96], pel: [100, 120],
+    mira: "frente",
     br: [[93, 88], [80, 78], [68, 66]],
     br2: [[96, 90], [106, 104], [114, 114]],
     pi: [[103, 121], [124, 127], [100, 131]],
@@ -402,6 +463,7 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
   mariposa: {
     cab: [100, 72], cue: [100, 84], pec: [100, 94], pel: [100, 118],
+    mira: "frente",
     br: [[100, 86], [111, 103], [121, 115]],
     br2: [[100, 86], [89, 103], [79, 115]],
     pi: [[104, 120], [127, 128], [112, 131]],
@@ -461,51 +523,117 @@ const FIGURAS: Record<string, Esqueleto> = {
   },
 };
 
-/* Hacia dónde apunta la nariz en cada caso. */
-const RUMBO: Record<"der" | "izq" | "arriba" | "abajo", [number, number]> = {
+/* Hacia dónde apunta la nariz en cada caso. "frente" es la figura dibujada
+   de cara a quien mira: dos ojos y sin nariz de perfil. */
+type Mira = "der" | "izq" | "arriba" | "abajo" | "frente";
+const RUMBO: Record<Mira, [number, number]> = {
   der: [1, 0],
   izq: [-1, 0],
   arriba: [0, -1],
   abajo: [0, 1],
+  frente: [0, 0],
 };
 
-const DORADO = "#c8a050";
+const DORADO = "#d9b264";
+/** El brazo y la pierna del fondo: el mismo cuerpo, en sombra. */
+const SOMBRA = "#86692f";
+/** Borde que separa lo de adelante de lo de atrás: el color de la tarjeta. */
+const BORDE = "#0f1b0f";
 const VERDE = "#8aa86a";
 
-function linea(puntos: P[]) {
-  return puntos.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0]} ${p[1]}`).join(" ");
+/* Anchos al principio y al final de cada tramo, en un lienzo donde la figura
+   mide unos cien de alto. El muslo es más grueso que la pantorrilla y el
+   brazo que el antebrazo: con eso deja de ser un palito y se lee como una
+   persona en el mat. */
+const ANCHO = {
+  muslo: [9.5, 7],
+  pantorrilla: [7, 5],
+  brazo: [6.5, 5.2],
+  antebrazo: [5.2, 4],
+  pecho: [16, 14],
+  vientre: [14, 13.5],
+  cuello: [6, 6],
+  pie: [5, 3.4],
+} satisfies Record<string, [number, number]>;
+const CABEZA = 9;
+const MANO = 3.4;
+/** Cuánto sobresale el borde oscuro alrededor de lo que va adelante. */
+const CONTORNO = 1.6;
+
+/* Un tramo del cuerpo que se afina de un extremo al otro: un trapecio con las
+   puntas redondeadas. `extra` lo engorda parejo, y así se dibuja el borde. */
+function Tramo({
+  a,
+  b,
+  ancho,
+  color,
+  extra = 0,
+}: {
+  a: P;
+  b: P;
+  ancho: [number, number];
+  color: string;
+  extra?: number;
+}) {
+  const [dx, dy] = [b[0] - a[0], b[1] - a[1]];
+  const l = Math.hypot(dx, dy) || 1;
+  const [nx, ny] = [-dy / l, dx / l];
+  const ra = ancho[0] / 2 + extra;
+  const rb = ancho[1] / 2 + extra;
+  const puntos = [
+    [a[0] + nx * ra, a[1] + ny * ra],
+    [b[0] + nx * rb, b[1] + ny * rb],
+    [b[0] - nx * rb, b[1] - ny * rb],
+    [a[0] - nx * ra, a[1] - ny * ra],
+  ]
+    .map((p) => p.map((v) => v.toFixed(1)).join(","))
+    .join(" ");
+  return (
+    <>
+      <polygon points={puntos} fill={color} />
+      <circle cx={a[0]} cy={a[1]} r={ra} fill={color} />
+      <circle cx={b[0]} cy={b[1]} r={rb} fill={color} />
+    </>
+  );
 }
 
-/* El pie se dibuja perpendicular a la pierna y apuntando hacia donde mira la
-   figura. Es la pista de si está de pie, de rodillas o acostada. */
-function Pie({
-  rodilla,
-  pie,
-  mira = "der",
-  tenue,
-}: {
-  rodilla: P;
-  pie: P;
-  mira?: "der" | "izq" | "arriba" | "abajo";
-  tenue?: boolean;
-}) {
-  const [vx, vy] = [pie[0] - rodilla[0], pie[1] - rodilla[1]];
-  const largo = Math.hypot(vx, vy) || 1;
-  // Perpendicular a la pierna, en el sentido que coincide con la mirada.
-  let [px, py] = [-vy / largo, vx / largo];
+/* El pie sale perpendicular a la pierna y apunta hacia donde mira la figura.
+   Es la pista de si está de pie, de rodillas o acostada. */
+function puntaDelPie(rodilla: P, tobillo: P, mira: Mira): P {
+  const [vx, vy] = [tobillo[0] - rodilla[0], tobillo[1] - rodilla[1]];
+  const l = Math.hypot(vx, vy) || 1;
+  let [px, py] = [-vy / l, vx / l];
   const [mx, my] = RUMBO[mira];
   if (px * mx + py * my < 0) [px, py] = [-px, -py];
-  const l = tenue ? 6 : 7.5;
+  return [tobillo[0] + px * 8.5 + (vx / l) * 1.5, tobillo[1] + py * 8.5 + (vy / l) * 1.5];
+}
+
+function Pierna({ p, mira, color, extra }: { p: [P, P, P]; mira: Mira; color: string; extra?: number }) {
   return (
-    <line
-      x1={pie[0]}
-      y1={pie[1]}
-      x2={pie[0] + px * l}
-      y2={pie[1] + py * l}
-      stroke={DORADO}
-      strokeWidth={tenue ? 2 : 2.4}
-      strokeLinecap="round"
-    />
+    <>
+      <Tramo a={p[0]} b={p[1]} ancho={ANCHO.muslo} color={color} extra={extra} />
+      <Tramo a={p[1]} b={p[2]} ancho={ANCHO.pantorrilla} color={color} extra={extra} />
+      <Tramo a={p[2]} b={puntaDelPie(p[1], p[2], mira)} ancho={ANCHO.pie} color={color} extra={extra} />
+    </>
+  );
+}
+
+function Brazo({ b, color, extra = 0 }: { b: [P, P, P]; color: string; extra?: number }) {
+  return (
+    <>
+      <Tramo a={b[0]} b={b[1]} ancho={ANCHO.brazo} color={color} extra={extra} />
+      <Tramo a={b[1]} b={b[2]} ancho={ANCHO.antebrazo} color={color} extra={extra} />
+      <circle cx={b[2][0]} cy={b[2][1]} r={MANO + extra} fill={color} />
+    </>
+  );
+}
+
+function Tronco({ f, color, extra }: { f: Esqueleto; color: string; extra?: number }) {
+  return (
+    <>
+      <Tramo a={f.cue} b={f.pec} ancho={ANCHO.pecho} color={color} extra={extra} />
+      <Tramo a={f.pec} b={f.pel} ancho={ANCHO.vientre} color={color} extra={extra} />
+    </>
   );
 }
 
@@ -525,113 +653,85 @@ export function FiguraYoga({
     // Sin dibujo definido: un mat vacío antes que un hueco roto.
     return (
       <svg viewBox="0 0 200 150" width={tamano} height={alto} style={estilo} aria-hidden="true">
-        <line x1="30" y1={SUELO} x2="170" y2={SUELO} stroke={DORADO} strokeWidth="1" opacity="0.3" />
+        <rect x="26" y={SUELO + 1} width="148" height="3.5" rx="1.7" fill={VERDE} opacity="0.45" />
       </svg>
     );
   }
 
+  const mira = f.mira ?? "der";
+  const [dx, dy] = RUMBO[mira];
+  const [cx, cy] = f.cab;
+
   return (
     <svg viewBox="0 0 200 150" width={tamano} height={alto} style={estilo} aria-hidden="true">
       {/* Apoyos, primero: van detrás del cuerpo */}
-      {f.pared && (
-        <line x1="163" y1="14" x2="163" y2={SUELO} stroke={DORADO} strokeWidth="2" opacity="0.35" />
-      )}
+      {f.pared && <rect x="162" y="14" width="4" height={SUELO - 14} fill={VERDE} opacity="0.35" />}
       {f.silla && (
-        <g stroke={DORADO} strokeWidth="1.4" opacity="0.4" fill="none" strokeLinecap="round">
+        <g stroke={VERDE} strokeWidth="2.4" opacity="0.55" fill="none" strokeLinecap="round">
           <line x1="76" y1="107" x2="126" y2="107" />
           <line x1="78" y1="107" x2="78" y2="62" />
           <line x1="80" y1="107" x2="80" y2={SUELO} />
           <line x1="124" y1="107" x2="124" y2={SUELO} />
         </g>
       )}
-      {f.bolster && (
-        <ellipse
-          cx={f.bolster[0]}
-          cy={f.bolster[1]}
-          rx="22"
-          ry="6"
-          fill={VERDE}
-          opacity="0.18"
-          stroke={VERDE}
-          strokeWidth="0.8"
-        />
-      )}
+      {f.bolster && <ellipse cx={f.bolster[0]} cy={f.bolster[1]} rx="22" ry="6.5" fill={VERDE} opacity="0.45" />}
       {f.manta && (
-        <rect
-          x={f.manta[0] - 16}
-          y={f.manta[1] - 3}
-          width="32"
-          height="6"
-          rx="2"
-          fill={VERDE}
-          opacity="0.16"
-          stroke={VERDE}
-          strokeWidth="0.7"
-        />
+        <rect x={f.manta[0] - 16} y={f.manta[1] - 3} width="32" height="6" rx="2" fill={VERDE} opacity="0.45" />
       )}
       {f.bloque && (
-        <rect
-          x={f.bloque[0] - 11}
-          y={f.bloque[1] - 6}
-          width="22"
-          height="12"
-          rx="2"
-          fill={DORADO}
-          opacity="0.16"
-          stroke={DORADO}
-          strokeWidth="0.8"
-        />
+        <rect x={f.bloque[0] - 11} y={f.bloque[1] - 6} width="22" height="12" rx="2" fill={VERDE} opacity="0.5" />
       )}
 
-      {/* Suelo */}
-      {!f.sinSuelo && (
-        <line x1="26" y1={SUELO} x2="174" y2={SUELO} stroke={DORADO} strokeWidth="1" opacity="0.32" />
+      {/* El mat. Visto desde arriba es el rectángulo entero. */}
+      {f.desdeArriba ? (
+        <>
+          <rect x="30" y="26" width="140" height="100" rx="4" fill={VERDE} opacity="0.12" stroke={VERDE} strokeOpacity="0.4" />
+          <text x="100" y="143" textAnchor="middle" fontSize="9" fill={VERDE}>
+            vista desde arriba
+          </text>
+        </>
+      ) : (
+        !f.sinSuelo && <rect x="26" y={SUELO + 1} width="148" height="3.5" rx="1.7" fill={VERDE} opacity="0.45" />
       )}
 
-      {/* Extremidades del fondo, más tenues */}
-      <g fill="none" stroke={DORADO} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.32">
-        {f.br2 && <path d={linea(f.br2)} />}
-        {f.pi2 && <path d={linea(f.pi2)} />}
-      </g>
+      {/* Brazo y pierna del fondo: en sombra y detrás de todo. Dos tonos se
+          leen mejor que dos transparencias, que al cruzarse se ensucian. */}
+      {f.pi2 && <Pierna p={f.pi2} mira={mira} color={SOMBRA} />}
+      {f.br2 && <Brazo b={f.br2} color={SOMBRA} />}
 
-      {/* Columna */}
-      <path
-        d={linea([f.cab, f.cue, f.pec, f.pel])}
-        fill="none"
-        stroke={DORADO}
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.9"
-      />
+      {/* Tronco. Primero un borde del color del fondo, así se despega de lo
+          que tiene detrás. */}
+      <Tronco f={f} color={BORDE} extra={CONTORNO} />
+      <Tramo a={f.cab} b={f.cue} ancho={ANCHO.cuello} color={DORADO} />
+      <Tronco f={f} color={DORADO} />
 
-      {/* Extremidades de adelante */}
-      <g fill="none" stroke={DORADO} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" opacity="0.85">
-        {f.br && <path d={linea(f.br)} />}
-        <path d={linea(f.pi)} />
-      </g>
+      {/* Pierna y brazo de adelante, con el mismo borde: donde cruzan el
+          tronco se ve cuál va por delante. */}
+      <Pierna p={f.pi} mira={mira} color={BORDE} extra={CONTORNO} />
+      <Pierna p={f.pi} mira={mira} color={DORADO} />
+      {f.br && (
+        <>
+          <Brazo b={f.br} color={BORDE} extra={CONTORNO} />
+          <Brazo b={f.br} color={DORADO} />
+        </>
+      )}
 
-      {/* Manos y pies. Sin ellos la figura se lee como un palo doblado: son
-          dos puntos y dos rayas, y cambian por completo si se entiende o no
-          dónde está apoyada la persona. */}
-      <g fill={DORADO} opacity="0.32">
-        {f.br2 && <circle cx={f.br2[2][0]} cy={f.br2[2][1]} r="2.6" />}
-        {f.pi2 && <Pie rodilla={f.pi2[1]} pie={f.pi2[2]} mira={f.mira} tenue />}
-      </g>
-      <g fill={DORADO} opacity="0.85">
-        {f.br && <circle cx={f.br[2][0]} cy={f.br[2][1]} r="2.8" />}
-        <Pie rodilla={f.pi[1]} pie={f.pi[2]} mira={f.mira} />
-      </g>
-
-      {/* La cabeza va al final y con relleno opaco: así tapa cualquier brazo
-          que pase por detrás en vez de cruzarla. */}
-      <circle cx={f.cab[0]} cy={f.cab[1]} r="8" fill="#0e1a0e" stroke={DORADO} strokeWidth="2" />
-      {/* La cara es un punto en el borde, no una raya: una raya que sale de la
-          cabeza parecía un pincho y se confundía con los brazos. */}
-      {(() => {
-        const [dx, dy] = RUMBO[f.mira ?? "der"];
-        return <circle cx={f.cab[0] + dx * 7.2} cy={f.cab[1] + dy * 7.2} r="2.6" fill={DORADO} />;
-      })()}
+      {/* La cabeza va al final: tapa lo que pase por detrás. De perfil, la
+          nariz es un bulto en el borde y el ojo un punto oscuro del mismo
+          lado; de frente, dos ojos. Así se sabe hacia dónde mira. */}
+      <circle cx={cx} cy={cy} r={CABEZA + CONTORNO} fill={BORDE} />
+      <circle cx={cx} cy={cy} r={CABEZA} fill={DORADO} />
+      {mira === "frente" ? (
+        <>
+          <circle cx={cx - 3.2} cy={cy - 0.5} r="1.5" fill={BORDE} />
+          <circle cx={cx + 3.2} cy={cy - 0.5} r="1.5" fill={BORDE} />
+        </>
+      ) : (
+        <>
+          <circle cx={cx + dx * CABEZA} cy={cy + dy * CABEZA} r="2.7" fill={DORADO} />
+          <circle cx={cx + dx * 4.4 - dy * 2.4} cy={cy + dy * 4.4 - dx * 2.4} r="1.6" fill={BORDE} />
+        </>
+      )}
     </svg>
   );
 }
@@ -640,3 +740,4 @@ export function FiguraYoga({
 export function tieneFigura(figura: string) {
   return figura in FIGURAS;
 }
+

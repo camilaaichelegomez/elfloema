@@ -22,8 +22,8 @@ export function GET() {
     background_color: "#0d1a0d",
     theme_color: "#0d1a0d",
     icons: [
-      { src: "/icon-yoga-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-      { src: "/icon-yoga-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icon-yoga-bailarin-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-yoga-bailarin-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
       { src: "/icon-yoga-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };

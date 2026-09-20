@@ -117,3 +117,7 @@ Procfile
 # Libros de yoga y su texto extraido: material con derechos, solo local
 libros-yoga/
 biblioteca-yoga/
+
+# Los originales de las ilustraciones de yoga: en la web van solo los .webp
+public/yoga/posturas/*.jpg
+public/yoga/posturas/*.png

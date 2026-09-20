@@ -24,7 +24,7 @@ export function GET() {
     icons: [
       { src: "/icon-yoga-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/icon-yoga-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-      { src: "/icon-yoga-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon-yoga-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 

@@ -468,6 +468,8 @@ export type Preferencias = {
   binaural: boolean;
   /** Volumen de la música, de 0 a 1. */
   volumenMusica: number;
+  /** Un paisaje de agua encima de la música: mar, río o nada. */
+  agua?: "ninguna" | "mar" | "rio";
   /** Nombre de la voz del dispositivo. Vacío = la que mejor suene de las que
       haya. Las voces varían mucho entre teléfonos, así que se puede elegir. */
   vozNombre?: string;
@@ -492,6 +494,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   musica: "auto",
   binaural: false,
   volumenMusica: 0.7,
+  agua: "ninguna",
   ritmo: "normal",
 };
 

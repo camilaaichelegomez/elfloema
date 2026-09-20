@@ -28,7 +28,8 @@ export function GET() {
     icons: [
       { src: "/icon-ritual-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/icon-ritual-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-      { src: "/icon-ritual-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      // El recortado en círculo va aparte, con margen: si no, se comería las raíces de los lados.
+      { src: "/icon-ritual-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 

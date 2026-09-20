@@ -5,7 +5,7 @@ import { armarRutina, enBloques, porFase, type PasoRutina, type Rutina } from "@
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
-import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type ModoMusica } from "@/lib/musica-yoga";
+import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type Agua, type ModoMusica } from "@/lib/musica-yoga";
 import {
   CUIDADOS,
   ESTILOS,
@@ -321,6 +321,9 @@ export function Yoga() {
   useEffect(() => {
     musicaRef.current?.ajustarBinaural(prefs.binaural);
   }, [prefs.binaural]);
+  useEffect(() => {
+    musicaRef.current?.ajustarAgua(agua(prefs));
+  }, [prefs]);
 
   /** Escuchar el paisaje unos segundos, para decidir sin empezar una práctica. */
   function escucharMuestra() {
@@ -328,7 +331,7 @@ export function Yoga() {
     const modo = modoMusica(prefs);
     if (!modo || !hayAudio()) return;
     try {
-      const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural });
+      const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural, agua: agua(prefs) });
       muestraRef.current = motor;
       void motor.empezar();
       setTimeout(() => {
@@ -367,6 +370,11 @@ export function Yoga() {
     });
   }, []);
 
+  /** Qué agua suena. Quien guardó antes de que existiera no tiene ninguna. */
+  function agua(p: Preferencias): Agua {
+    return p.agua ?? "ninguna";
+  }
+
   function alternar<T>(lista: T[], valor: T): T[] {
     return lista.includes(valor) ? lista.filter((x) => x !== valor) : [...lista, valor];
   }
@@ -387,7 +395,7 @@ export function Yoga() {
     const modo = modoMusica(prefs);
     if (modo && hayAudio()) {
       try {
-        const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural });
+        const motor = new MotorMusica({ modo, volumen: prefs.volumenMusica, binaural: prefs.binaural, agua: agua(prefs) });
         musicaRef.current = motor;
         setMusicaCallada(false);
         void motor.empezar();
@@ -711,6 +719,26 @@ export function Yoga() {
                     style={{ flex: 1, accentColor: "#c8a050" }}
                   />
                 </label>
+                <div style={fila}>
+                  {(
+                    [
+                      ["ninguna", "Sin agua", "Solo la música"],
+                      ["mar", "Mar", "Olas que van y vienen"],
+                      ["rio", "Río", "Agua corriendo, pareja"],
+                    ] as [Agua, string, string][]
+                  ).map(([id, label, detalle]) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setPrefs({ ...prefs, agua: id })}
+                      aria-pressed={agua(prefs) === id}
+                      style={{ ...chip, ...(agua(prefs) === id ? chipActivo : null) }}
+                    >
+                      <span style={{ fontSize: "0.94rem", display: "block" }}>{label}</span>
+                      <span style={{ fontSize: "0.79rem", opacity: 0.62, display: "block" }}>{detalle}</span>
+                    </button>
+                  ))}
+                </div>
                 <div style={fila}>
                   <button
                     type="button"

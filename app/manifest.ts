@@ -11,8 +11,12 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#0d1a0f",
     theme_color: "#0d1a0f",
     icons: [
-      { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      /* El «maskable» es el que Android recorta en círculo. Sin él, el
+         teléfono encoge el logo y lo pega sobre un círculo blanco: el fondo
+         oscuro tiene que llenar todo el ícono y el dibujo ir al centro. */
+      { src: "/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }

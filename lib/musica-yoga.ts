@@ -27,10 +27,16 @@
 
 export type ModoMusica = "relajar" | "activar";
 
+/* Un paisaje de agua encima de la música, el mismo del ritual facial: el mar
+   respira (una ola cada diez segundos) y el río corre parejo. Los dos son
+   ruido filtrado, que es de lo que está hecha el agua de verdad. */
+export type Agua = "ninguna" | "mar" | "rio";
+
 type Config = {
   modo: ModoMusica;
   volumen: number; // 0 a 1
   binaural: boolean;
+  agua: Agua;
 };
 
 // Acordes abiertos: sin terceras en el grave, que es lo que los hace calmos.
@@ -58,6 +64,7 @@ export class MotorMusica {
   private binauralGanancia: GainNode;
   private binauralIzq: OscillatorNode;
   private binauralDer: OscillatorNode;
+  private agua: Record<"mar" | "rio", GainNode>;
   private fuentes: (OscillatorNode | AudioBufferSourceNode)[] = [];
   private reloj: ReturnType<typeof setInterval> | null = null;
   private proximoPulso = 0;
@@ -99,6 +106,16 @@ export class MotorMusica {
 
     this.armarRelajar();
     this.armarActivar();
+
+    /* El agua cuelga del maestro, no de las capas: así sigue sonando igual
+       cuando la clase pasa de activar a relajar. */
+    this.agua = { mar: this.ctx.createGain(), rio: this.ctx.createGain() };
+    this.agua.mar.gain.value = config.agua === "mar" ? 1 : 0;
+    this.agua.rio.gain.value = config.agua === "rio" ? 1 : 0;
+    this.agua.mar.connect(this.maestro);
+    this.agua.rio.connect(this.maestro);
+    this.armarMar();
+    this.armarRio();
 
     // Binaurales: un tono a cada oído, separados unos pocos hertz.
     this.binauralGanancia = this.ctx.createGain();
@@ -210,6 +227,60 @@ export class MotorMusica {
     this.fuentes.push(fuente);
   }
 
+  /** El mar: ruido grave que crece y se retira, una ola cada diez segundos. */
+  private armarMar() {
+    const fuente = this.ctx.createBufferSource();
+    fuente.buffer = this.ruido("marron");
+    fuente.loop = true;
+
+    const filtro = this.ctx.createBiquadFilter();
+    filtro.type = "lowpass";
+    filtro.frequency.value = 520;
+    filtro.Q.value = 0.7;
+    // La espuma se abre cuando la ola rompe y se cierra al retirarse.
+    this.vaiven(filtro.frequency, 0.1, 280);
+
+    const nivel = this.ctx.createGain();
+    nivel.gain.value = 0.55;
+    this.vaiven(nivel.gain, 0.1, 0.4);
+
+    fuente.connect(filtro).connect(nivel).connect(this.agua.mar);
+    fuente.start();
+    this.fuentes.push(fuente);
+  }
+
+  /** El río: agua corriendo sobre piedras, pareja y más clara. */
+  private armarRio() {
+    const fuente = this.ctx.createBufferSource();
+    fuente.buffer = this.ruido("blanco");
+    fuente.loop = true;
+
+    const filtro = this.ctx.createBiquadFilter();
+    filtro.type = "bandpass";
+    filtro.frequency.value = 900;
+    filtro.Q.value = 0.8;
+    this.vaiven(filtro.frequency, 0.23, 160); // el agua cambia de piedra
+
+    const nivel = this.ctx.createGain();
+    nivel.gain.value = 0.3;
+    this.vaiven(nivel.gain, 0.17, 0.05);
+
+    fuente.connect(filtro).connect(nivel).connect(this.agua.rio);
+    fuente.start();
+    this.fuentes.push(fuente);
+  }
+
+  /** Un vaivén lentísimo sobre cualquier valor: las olas, el agua que cambia. */
+  private vaiven(destino: AudioParam, hz: number, profundidad: number) {
+    const lfo = this.ctx.createOscillator();
+    lfo.frequency.value = hz;
+    const cuanto = this.ctx.createGain();
+    cuanto.gain.value = profundidad;
+    lfo.connect(cuanto).connect(destino);
+    lfo.start();
+    this.fuentes.push(lfo);
+  }
+
   private armarActivar() {
     const acorde = this.acorde(ACORDE_ACTIVAR, this.capa.activar, 2200, 0.32);
     this.respiracion(acorde, 15, 0.1);
@@ -297,6 +368,18 @@ export class MotorMusica {
     const t = this.ctx.currentTime;
     this.maestro.gain.cancelScheduledValues(t);
     this.maestro.gain.setTargetAtTime(this.ganancia(), t, 0.2);
+  }
+
+  /** Cambia de agua fundiendo una en la otra, sin cortes. */
+  ajustarAgua(agua: Agua) {
+    this.config.agua = agua;
+    const t = this.ctx.currentTime;
+    for (const cual of ["mar", "rio"] as const) {
+      const g = this.agua[cual].gain;
+      g.cancelScheduledValues(t);
+      g.setValueAtTime(g.value, t);
+      g.linearRampToValueAtTime(agua === cual ? 1 : 0, t + 2);
+    }
   }
 
   ajustarBinaural(activo: boolean) {

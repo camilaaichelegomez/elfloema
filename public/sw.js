@@ -14,7 +14,7 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-v5";
+const VERSION = "floema-v6";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 
@@ -79,8 +79,30 @@ async function avisarClientes() {
 }
 
 /* ── Instalación / activación ────────────────────────────── */
+async function guardarIlustracionesDeYoga() {
+  /* Las 100 y tantas ilustraciones de las posturas pesan menos de un mega
+     entre todas. Guardarlas al instalar la app significa que la práctica se
+     ve completa en el parque, sin señal, y no solo las posturas que ya
+     aparecieron una vez en pantalla. */
+  try {
+    const res = await fetch("/yoga/posturas.json");
+    if (!res.ok) return;
+    const lista = await res.json();
+    const c = await caches.open(DATOS);
+    await Promise.all(lista.map((u) => c.add(u).catch(() => undefined)));
+  } catch {
+    /* Sin red al instalar: se irán guardando a medida que se usen. */
+  }
+}
+
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(SHELL).then((c) => c.addAll(RUTAS_BASE).catch(() => undefined)));
+  event.waitUntil(
+    (async () => {
+      const c = await caches.open(SHELL);
+      await c.addAll(RUTAS_BASE).catch(() => undefined);
+      await guardarIlustracionesDeYoga();
+    })()
+  );
   self.skipWaiting();
 });
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
+import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Yoga } from "@/components/yoga/Yoga";
 import { CATALOGO } from "@/lib/yoga/armar";
@@ -56,6 +57,8 @@ export default function YogaPage() {
             Ritual de yoga
           </h1>
         </header>
+
+        <BotonInstalar nombre="el Ritual de yoga" />
 
         <Yoga />
 

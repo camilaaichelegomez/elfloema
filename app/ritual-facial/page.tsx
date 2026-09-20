@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BackButton } from "@/components/BackButton";
+import { BotonInstalar } from "@/components/BotonInstalar";
 import { RitualFacial } from "@/components/ritual/RitualFacial";
 import { PAUTAS } from "@/lib/ritual-facial";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
@@ -49,6 +50,8 @@ export default function RitualFacialPage() {
             Ritual facial
           </h1>
         </header>
+
+        <BotonInstalar nombre="el Ritual facial" />
 
         <RitualFacial />
 

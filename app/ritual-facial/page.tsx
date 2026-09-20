@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     "Arma tu rutina de yoga facial y drenaje linfático según lo que quieras trabajar, y síguela paso a paso con dibujos.",
   // Su propio manifiesto: se instala como app aparte del Lab.
   manifest: "/ritual-facial/manifest.webmanifest",
+  /* El iPhone no mira los iconos del manifiesto: usa esta etiqueta.
+     Sin ella, la app instalada quedaba con el icono general del sitio. */
+  icons: { apple: "/icon-ritual-180.png" },
 };
 
 export default function RitualFacialPage() {

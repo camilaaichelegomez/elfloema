@@ -29,7 +29,7 @@ import {
 } from "@/lib/ritual-facial";
 import { CaraGuia } from "./CaraGuia";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
-import { usarMusica } from "@/lib/musica";
+import { AMBIENTES, usarMusica, type Ambiente } from "@/lib/musica";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
 
 /* La aplicación del ritual facial: se elige qué trabajar, se arma la rutina y
@@ -60,6 +60,9 @@ type Guardado = {
   vozNombre?: string;
   /** Opcional: quien guardó antes de que existiera la música la tiene activada. */
   musica?: boolean;
+  /** Qué suena de fondo, y a qué volumen (0 a 1). */
+  ambiente?: Ambiente;
+  volumen?: number;
 };
 
 function hoy() {
@@ -143,12 +146,36 @@ export function RitualFacial() {
   const [sonido, setSonido] = useState(true);
   const [voz, setVoz] = useState(true);
   const [musica, setMusica] = useState(true);
+  const [ambiente, setAmbiente] = useState<Ambiente>("acorde");
+  const [volumen, setVolumen] = useState(0.5);
   const [vozNombre, setVozNombre] = useState<string | undefined>();
   const [racha, setRacha] = useState(0);
 
   const pitar = usarPitido(sonido);
   const { decir, callar, desbloquear } = usarVoz(voz, vozNombre);
-  const { iniciar: sonarMusica, pausar: pausarMusica, detener: callarMusica } = usarMusica();
+  const {
+    iniciar: sonarMusica,
+    pausar: pausarMusica,
+    detener: callarMusica,
+    configurar: ajustarMusica,
+  } = usarMusica();
+
+  // El ambiente y el volumen se pueden cambiar mientras suena: se oye el cambio.
+  useEffect(() => {
+    ajustarMusica(ambiente, volumen);
+  }, [ambiente, volumen, ajustarMusica]);
+
+  /* Lo del sonido se guarda apenas se toca, sin esperar a terminar la rutina:
+     quien viene a elegir el mar y se sale, la próxima vez encuentra el mar. */
+  const montado = useRef(false);
+  useEffect(() => {
+    if (!montado.current) {
+      montado.current = true;
+      return;
+    }
+    const g = leerGuardado();
+    if (g) guardar({ ...g, musica, ambiente, volumen, voz, vozNombre });
+  }, [musica, ambiente, volumen, voz, vozNombre]);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   /* Al cambiar de etapa el contenido se reemplaza entero, pero el navegador
      deja el scroll donde estaba: el botón «Armar mi rutina» está abajo del
@@ -178,6 +205,8 @@ export function RitualFacial() {
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
     setVoz(g.voz ?? true);
     setMusica(g.musica ?? true);
+    setAmbiente(g.ambiente ?? "acorde");
+    setVolumen(typeof g.volumen === "number" ? g.volumen : 0.5);
     setVozNombre(g.vozNombre);
 
     /* Si ya eligió alguna vez, la rutina se arma sola y se entra directo a
@@ -269,8 +298,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre, musica });
-  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre, musica]);
+    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre, musica, ambiente, volumen });
+  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre, musica, ambiente, volumen]);
 
   /* La voz lee la maniobra al entrar en ella. En el drenaje esto pesa más que
      en yoga: tienes las dos manos en la cara y los ojos cerrados, así que la
@@ -655,11 +684,56 @@ export function RitualFacial() {
           )}
         </div>
         {musica && (
-          <p style={{ ...ayuda, marginTop: "0.9rem", fontSize: "0.86rem" }}>
-            La música está afinada en 528 Hz, la frecuencia que la tradición solfeggio asocia a
-            la transformación. Eso es tradición: no hay estudios de un efecto propio de esa
-            frecuencia. Lo que sí está estudiado es que la música lenta y suave baja el estrés.
-          </p>
+          <div style={{ marginTop: "1.1rem" }}>
+            <p style={{ ...ayuda, margin: "0 0 0.5rem" }}>Qué suena de fondo:</p>
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              {AMBIENTES.map((a) => (
+                <button
+                  key={a.id}
+                  type="button"
+                  onClick={() => {
+                    setAmbiente(a.id);
+                    // Se escucha al tirito, sin tener que empezar la rutina.
+                    desbloquear();
+                    sonarMusica();
+                  }}
+                  style={ambiente === a.id ? chipActivo : chip}
+                  aria-pressed={ambiente === a.id}
+                >
+                  {a.label}
+                </button>
+              ))}
+              <button type="button" onClick={pausarMusica} style={chip}>
+                Parar la prueba
+              </button>
+            </div>
+            <p style={{ ...ayuda, margin: "0.5rem 0 0", fontSize: "0.86rem" }}>
+              {AMBIENTES.find((a) => a.id === ambiente)?.detalle}
+            </p>
+
+            <label style={{ display: "block", marginTop: "1rem" }}>
+              <span style={{ ...ayuda, display: "block", margin: "0 0 0.35rem" }}>
+                Volumen de la música: {Math.round(volumen * 100)}%
+                <span style={{ opacity: 0.7 }}> · la voz que guía no cambia</span>
+              </span>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                step={5}
+                value={Math.round(volumen * 100)}
+                onChange={(e) => setVolumen(Number(e.target.value) / 100)}
+                style={{ width: "min(100%, 280px)", accentColor: "#c8a050" }}
+              />
+            </label>
+
+            <p style={{ ...ayuda, marginTop: "0.8rem", fontSize: "0.86rem" }}>
+              El acorde está afinado en 528 Hz, la frecuencia que la tradición solfeggio asocia a
+              la transformación. Eso es tradición: no hay estudios de un efecto propio de esa
+              frecuencia. Lo que sí está estudiado es que la música lenta y suave baja el estrés.
+              El mar y el río llevan el mismo acorde debajo.
+            </p>
+          </div>
         )}
         {hayVoz() && voz && (
           <SelectorDeVoz

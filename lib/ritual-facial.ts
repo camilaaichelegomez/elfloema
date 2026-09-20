@@ -208,7 +208,9 @@ export const CATALOGO: Paso[] = [
     fase: "preparacion",
     nombre: "Calibra la presión",
     zona: "Aprender el tacto",
-    segundos: 35,
+    /* Se explican una sola vez y son cortas a propósito: son para entender,
+       no para trabajar. Duraban el doble y se hacían eternas. */
+    segundos: 15,
     como: [
       "Apoya dos dedos en tu antebrazo y húndelos apenas, lo justo para mover la piel.",
       "Esa es toda la fuerza: unos 55 gramos, el peso de un huevo.",
@@ -228,7 +230,7 @@ export const CATALOGO: Paso[] = [
     fase: "preparacion",
     nombre: "Qué es un círculo fijo",
     zona: "La maniobra base",
-    segundos: 40,
+    segundos: 18,
     como: [
       "Casi todo el drenaje es esto, así que vale la pena entenderlo una vez.",
       "Apoya dos dedos en la mejilla y muévelos en círculo SIN que resbalen: la piel gira con los dedos, los dedos no pasean por encima.",

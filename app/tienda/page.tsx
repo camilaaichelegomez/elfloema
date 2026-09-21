@@ -120,7 +120,6 @@ export default async function TiendaPage() {
                     color: "#c8a050",
                     letterSpacing: "0.14em",
                     textTransform: "uppercase",
-                    whiteSpace: "nowrap",
                     margin: 0,
                   }}
                 >

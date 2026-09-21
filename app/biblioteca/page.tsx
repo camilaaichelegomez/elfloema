@@ -323,7 +323,7 @@ export default function BibliotecaPage() {
         {/* cards grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))",
           gap: "clamp(1rem, 2vw, 1.75rem)",
           maxWidth: 1100,
           margin: "0 auto",

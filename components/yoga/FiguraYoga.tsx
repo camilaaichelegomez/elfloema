@@ -899,6 +899,12 @@ function Tronco({ f, color, extra }: { f: Esqueleto; color: string; extra?: numb
    con el nombre de la figura (por ejemplo, cobra.webp). Mientras una postura
    no tenga imagen, se sigue viendo su dibujo. Al agregar una imagen nueva,
    se suma su nombre aquí. */
+/* Cuando una ilustración cambia pero conserva su nombre, el teléfono sigue
+   mostrando la que tenía guardada. Este número va pegado a la dirección de
+   la imagen: al subirlo, todas se piden de nuevo. Se sube cada vez que se
+   reemplaza una ilustración. */
+export const VERSION_ILUSTRACIONES = 2;
+
 const CON_IMAGEN = new Set<string>([
   "aguila",
   "aguja",
@@ -1036,7 +1042,7 @@ export function FiguraYoga({
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={`/yoga/posturas/${figura}.webp`}
+        src={`/yoga/posturas/${figura}.webp?v=${VERSION_ILUSTRACIONES}`}
         width={tamano}
         height={alto}
         alt=""

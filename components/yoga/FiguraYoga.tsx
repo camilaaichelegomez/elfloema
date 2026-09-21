@@ -903,7 +903,7 @@ function Tronco({ f, color, extra }: { f: Esqueleto; color: string; extra?: numb
    mostrando la que tenía guardada. Este número va pegado a la dirección de
    la imagen: al subirlo, todas se piden de nuevo. Se sube cada vez que se
    reemplaza una ilustración. */
-export const VERSION_ILUSTRACIONES = 2;
+export const VERSION_ILUSTRACIONES = 3;
 
 const CON_IMAGEN = new Set<string>([
   "aguila",

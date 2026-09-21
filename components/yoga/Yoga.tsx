@@ -139,6 +139,96 @@ function usarPitido(activo: boolean) {
   );
 }
 
+/* Con qué respiración va cada paso de una serie: el guion empieza por ahí. */
+function respiracionDe(guion?: string) {
+  const m = guion?.match(/^\s*(inhala|exhala)/i);
+  if (!m) return null;
+  return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase();
+}
+
+/* La serie entera, en fila y numerada, como la lámina de un saludo al sol.
+
+   Antes la serie se leía como una lista de nombres, y un saludo al sol así
+   no se entiende: lo que hace falta es ver la forma de cada postura, en qué
+   orden van y con qué respiración. En el modo guiado la misma tira muestra
+   dónde vas: la postura de ahora queda marcada y la tira se mueve sola. */
+function TiraDeSerie({
+  pasos,
+  actual,
+  tamano = 92,
+}: {
+  pasos: PasoRutina[];
+  actual?: string;
+  tamano?: number;
+}) {
+  const marcado = useRef<HTMLLIElement | null>(null);
+  useEffect(() => {
+    marcado.current?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [actual]);
+
+  return (
+    <ol
+      style={{
+        listStyle: "none",
+        margin: 0,
+        padding: "0.2rem 0 0.4rem",
+        display: "flex",
+        gap: "0.45rem",
+        overflowX: "auto",
+      }}
+    >
+      {pasos.map((paso, i) => {
+        const esActual = actual === paso.clave;
+        const respira = respiracionDe(paso.guion);
+        return (
+          <li
+            key={paso.clave}
+            ref={esActual ? marcado : undefined}
+            style={{
+              flexShrink: 0,
+              width: tamano + 14,
+              textAlign: "center",
+              border: `1px solid ${esActual ? "#c8a050" : "rgba(200,160,80,0.18)"}`,
+              borderRadius: 6,
+              padding: "0.25rem",
+              background: esActual ? "rgba(200,160,80,0.12)" : "rgba(10,18,10,0.45)",
+              opacity: actual && !esActual ? 0.55 : 1,
+              scrollMarginInline: "1rem",
+            }}
+          >
+            <span style={{ ...rotulo, margin: 0, fontSize: "0.62rem" }}>{i + 1}</span>
+            <FiguraYoga figura={paso.figura} tamano={tamano} estilo={{ display: "block", borderRadius: 4 }} />
+            {respira && (
+              <span
+                style={{
+                  display: "block",
+                  fontSize: "0.66rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: respira === "Inhala" ? "#a8c88a" : "#c8a050",
+                }}
+              >
+                {respira}
+              </span>
+            )}
+            <span
+              style={{
+                display: "block",
+                fontSize: "0.72rem",
+                lineHeight: 1.25,
+                color: "rgba(217,203,170,0.85)",
+              }}
+            >
+              {paso.nombre}
+            </span>
+            <span style={{ display: "block", fontSize: "0.66rem", opacity: 0.55 }}>{paso.duracion}s</span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
 export function Yoga() {
   const [listo, setListo] = useState(false);
   const [etapa, setEtapa] = useState<Etapa>("preferencias");
@@ -998,27 +1088,13 @@ export function Yoga() {
                         <span style={{ ...tiempoFila, marginLeft: "auto" }}>{mmss(b.duracion)}</span>
                       </div>
                       <p style={{ ...ayuda, fontSize: "0.87rem", margin: "0.4rem 0 0.6rem" }}>{b.porque}</p>
-                      <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.3rem" }}>
-                        {b.pasos
-                          .filter(
-                            (x) =>
-                              x.secuencia?.vuelta === 1 &&
-                              (x.secuencia?.lado === undefined || x.secuencia?.lado === "derecho")
-                          )
-                          .map((x, i) => (
-                            <li
-                              key={x.clave}
-                              style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}
-                            >
-                              <span style={{ ...rotulo, margin: 0, minWidth: 16 }}>{i + 1}</span>
-                              <FiguraYoga figura={x.figura} tamano={46} estilo={{ flexShrink: 0, opacity: 0.8 }} />
-                              <span style={{ fontSize: "0.9rem", color: "rgba(217,203,170,0.85)", flex: 1 }}>
-                                {x.nombre}
-                              </span>
-                              <span style={{ ...tiempoFila, fontSize: "0.72rem" }}>{x.duracion}s</span>
-                            </li>
-                          ))}
-                      </ol>
+                      <TiraDeSerie
+                        pasos={b.pasos.filter(
+                          (x) =>
+                            x.secuencia?.vuelta === 1 &&
+                            (x.secuencia?.lado === undefined || x.secuencia?.lado === "derecho")
+                        )}
+                      />
                     </li>
                   )
                 )}
@@ -1187,6 +1263,29 @@ export function Yoga() {
             Más fácil: {pasoActual.masFacil}
           </p>
         )}
+
+        {/* La serie completa, con la postura de ahora marcada: en un saludo al
+            sol lo que se pierde es el hilo, no la postura suelta. */}
+        {pasoActual.secuencia &&
+          (() => {
+            const serie = pasoActual.secuencia;
+            const deLaVuelta = rutina.pasos.filter(
+              (x) =>
+                x.secuencia &&
+                x.secuencia.id === serie.id &&
+                x.secuencia.vuelta === serie.vuelta &&
+                x.secuencia.lado === serie.lado
+            );
+            const cual = deLaVuelta.findIndex((x) => x.clave === pasoActual.clave) + 1;
+            return (
+              <div style={{ margin: "0 0 1.2rem" }}>
+                <p style={{ ...rotulo, margin: "0 0 0.3rem" }}>
+                  Paso {cual} de {deLaVuelta.length} de la serie
+                </p>
+                <TiraDeSerie pasos={deLaVuelta} actual={pasoActual.clave} tamano={78} />
+              </div>
+            );
+          })()}
 
         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
           <button type="button" onClick={() => irA(indice - 1)} disabled={indice === 0} style={botonSec}>

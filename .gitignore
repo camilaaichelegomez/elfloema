@@ -121,3 +121,6 @@ biblioteca-yoga/
 # Los originales de las ilustraciones de yoga: en la web van solo los .webp
 public/yoga/posturas/*.jpg
 public/yoga/posturas/*.png
+
+# Originales de las ilustraciones de yoga (no se suben: la web usa los webp)
+posturas-originales/

@@ -324,7 +324,14 @@ const conLado = (paso: Paso, segundos: number) => (paso.porLado ? segundos * 2 :
 
 /** Lo que cuesta una secuencia entera, con sus vueltas y sus dos lados. */
 function costoSecuencia(sec: Secuencia, vueltas: number) {
-  const vuelta = sec.segundos.reduce((a, s) => a + s, 0);
+  /* Cada paso dura lo que pide la serie o lo que tarda la voz en decirlo, lo
+     que sea mayor: es lo mismo que hace `aplanar`. Contarlo aquí evita que
+     una serie parezca corta al elegirla y después se coma media práctica. */
+  const vuelta = sec.segundos.reduce((total, segundos, i) => {
+    const guion = sec.guion?.[i];
+    const hablar = guion ? Math.ceil(segundosDeVoz(guion) + RESPIRO_TRAS_LA_VOZ) : 0;
+    return total + Math.max(segundos, hablar);
+  }, 0);
   return vuelta * vueltas * (sec.porLado ? 2 : 1);
 }
 

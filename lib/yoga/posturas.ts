@@ -366,7 +366,7 @@ export const POSTURAS: Paso[] = [
     ],
     soloEnSecuencia: true,
     prioridad: 1,
-    figura: "montana",
+    figura: "manos_pecho",
   },
   {
     id: "sal-ocho-puntos",

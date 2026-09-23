@@ -32,6 +32,7 @@ export default function CaraDrenajeYogaFacial() {
     <PaginaBiblioteca
       id="cara"
       titulo="La cara: drenaje, masaje y yoga facial"
+      fondo="/fondo_cara.jpg"
       bajada="Tres cosas distintas que casi siempre se venden como una sola"
     >
       <Seccion titulo="Tres prácticas, tres efectos">

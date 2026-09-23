@@ -33,6 +33,7 @@ export default function YogaOrigen() {
     <PaginaBiblioteca
       id="yoga-origen"
       titulo="Yoga: de dónde viene"
+      fondo="/fondo_yoga_origen.jpg"
       bajada="Dos mil años de textos antes de la primera colchoneta"
     >
       <Seccion titulo="Qué quiere decir «yoga»">

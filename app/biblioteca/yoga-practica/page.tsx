@@ -29,6 +29,7 @@ export default function YogaPractica() {
     <PaginaBiblioteca
       id="yoga-practica"
       titulo="La práctica del yoga"
+      fondo="/fondo_yoga_practica.jpg"
       bajada="Las posturas, la clase por dentro, y dónde va la mirada"
     >
       <Seccion titulo="Los tres hilos">

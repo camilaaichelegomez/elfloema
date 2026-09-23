@@ -395,7 +395,11 @@ export function PaginaBiblioteca({
       style={{
         minHeight: "100vh",
         paddingBottom: 48,
-        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), url('${fondo}') center top / cover fixed, var(--bg-primary)`,
+        /* Dos capas de imagen: la propia de la sección y, debajo, la de la
+           Biblioteca. Si el archivo de la sección todavía no está subido, el
+           navegador descarta esa capa y se ve la de abajo en vez de un fondo
+           plano. */
+        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), url('${fondo}') center top / cover fixed, url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)`,
       }}
     >
       <GrainOverlay id={id} />

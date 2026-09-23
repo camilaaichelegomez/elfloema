@@ -32,6 +32,7 @@ export default function DrenajeLinfatico() {
     <PaginaBiblioteca
       id="drenaje"
       titulo="Drenaje linfático del cuerpo"
+      fondo="/fondo_drenaje.jpg"
       bajada="Un sistema sin bomba: se mueve porque tú te mueves"
     >
       <Seccion titulo="Qué es la linfa">

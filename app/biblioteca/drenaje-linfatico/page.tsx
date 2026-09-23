@@ -198,18 +198,18 @@ export default function DrenajeLinfatico() {
             "symmetric and centred, plain dark background. " + ESTILO_LAMINA
           }
           puntos={[
-            { x: 44, y: 21, texto: "Supraclaviculares — el hueco sobre la clavícula. Es la salida: por ahí la linfa vuelve a la sangre, y por eso se abre siempre primero." },
-            { x: 32, y: 29, texto: "Axilares — reciben el brazo, el pecho y la espalda alta de ese lado." },
-            { x: 25, y: 43, texto: "Cubitales — en la cara interna del codo; reciben antebrazo y mano." },
-            { x: 42, y: 55, texto: "Inguinales — en el pliegue de la ingle; reciben la pierna entera, el glúteo y el bajo vientre." },
-            { x: 43, y: 72, texto: "Poplíteos — detrás de la rodilla; reciben pantorrilla, tobillo y pie." },
-            { x: 55, y: 45, texto: "Abdomen y conducto torácico — no se tocan con las manos: se mueven respirando con el diafragma." },
+            { x: 46, y: 24, texto: "Supraclaviculares — el hueco sobre la clavícula. Es la salida: por ahí la linfa vuelve a la sangre, y por eso se abre siempre primero." },
+            { x: 42, y: 30, texto: "Axilares — reciben el brazo, el pecho y la espalda alta de ese lado." },
+            { x: 38, y: 45, texto: "Cubitales — en la cara interna del codo; reciben antebrazo y mano." },
+            { x: 45, y: 54, texto: "Inguinales — en el pliegue de la ingle; reciben la pierna entera, el glúteo y el bajo vientre." },
+            { x: 47, y: 72, texto: "Poplíteos — detrás de la rodilla; reciben pantorrilla, tobillo y pie." },
+            { x: 55, y: 46, texto: "Abdomen y conducto torácico — no se tocan con las manos: se mueven respirando con el diafragma." },
           ]}
           flechas={[
-            { d: "M 27 40 Q 30 34 33 31", color: "verde" },
-            { d: "M 33 27 Q 39 23 43 22", color: "verde" },
-            { d: "M 43 68 Q 42 62 42 57", color: "verde" },
-            { d: "M 43 52 Q 45 40 46 25", color: "verde" },
+            { d: "M 39 41 Q 40 36 42 32", color: "verde" },
+            { d: "M 43 28 Q 44 26 45 25", color: "verde" },
+            { d: "M 47 67 Q 47 62 47 58", color: "verde" },
+            { d: "M 47 52 Q 47 42 46 33", color: "verde" },
           ]}
           leyenda="Las flechas verdes son el camino de la linfa: siempre hacia la clavícula."
         />

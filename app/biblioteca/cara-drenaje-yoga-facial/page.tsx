@@ -81,17 +81,17 @@ export default function CaraDrenajeYogaFacial() {
             "visible, head and shoulders only, centred. " + ESTILO_LAMINA
           }
           puntos={[
-            { x: 29, y: 43, texto: "Preauriculares y parotídeos — delante de la oreja. Reciben la sien, el párpado de afuera y la mejilla alta." },
-            { x: 37, y: 58, texto: "Submandibulares — bajo el borde de la mandíbula. Reciben la mejilla, la nariz y el labio superior." },
-            { x: 50, y: 63, texto: "Submentonianos — bajo el mentón. Reciben el mentón y el centro del labio inferior." },
-            { x: 32, y: 73, texto: "Cervicales — a lo largo del cuello. Aquí baja todo lo anterior." },
-            { x: 41, y: 86, texto: "Supraclaviculares — sobre la clavícula. La salida: se abre primero y se cierra ahí al terminar." },
+            { x: 37, y: 45, texto: "Preauriculares y parotídeos — delante de la oreja. Reciben la sien, el párpado de afuera y la mejilla alta." },
+            { x: 42, y: 66, texto: "Submandibulares — bajo el borde de la mandíbula. Reciben la mejilla, la nariz y el labio superior." },
+            { x: 50, y: 70, texto: "Submentonianos — bajo el mentón. Reciben el mentón y el centro del labio inferior." },
+            { x: 44, y: 77, texto: "Cervicales — a lo largo del cuello. Aquí baja todo lo anterior." },
+            { x: 42, y: 83, texto: "Supraclaviculares — sobre la clavícula. La salida: se abre primero y se cierra ahí al terminar." },
           ]}
           flechas={[
-            { d: "M 48 44 Q 40 42 33 43", color: "verde" },
-            { d: "M 48 57 Q 43 58 40 58", color: "verde" },
-            { d: "M 30 48 Q 30 60 32 69", color: "verde" },
-            { d: "M 33 77 Q 37 82 40 84", color: "verde" },
+            { d: "M 47 47 Q 43 46 40 45", color: "verde" },
+            { d: "M 48 67 Q 46 67 44 66", color: "verde" },
+            { d: "M 37 49 Q 38 63 43 74", color: "verde" },
+            { d: "M 44 79 Q 43 81 42 82", color: "verde" },
           ]}
           leyenda="Nada sube: todo va hacia la oreja o la mandíbula, baja por el cuello y sale bajo la clavícula."
         />

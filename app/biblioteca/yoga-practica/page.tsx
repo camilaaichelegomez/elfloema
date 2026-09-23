@@ -81,19 +81,19 @@ export default function YogaPractica() {
           }
           puntos={[
             { x: 50, y: 33, texto: "La punta de la nariz. Es la más usada: sirve en casi todas las posturas de pie y en el perro boca abajo." },
-            { x: 50, y: 27, texto: "El entrecejo, en extensiones y aperturas de pecho." },
-            { x: 50, y: 55, texto: "El ombligo, en el perro boca abajo de algunas escuelas." },
-            { x: 32, y: 63, texto: "La mano, cuando un brazo está estirado: triángulo, guerrero II, torsiones abiertas." },
-            { x: 50, y: 73, texto: "Los dedos de los pies, en pinzas y flexiones hacia adelante." },
-            { x: 38, y: 11, texto: "Los pulgares, cuando los brazos van arriba: silla, guerrero I." },
-            { x: 62, y: 11, texto: "Arriba, al cielo, en posturas de elevación." },
-            { x: 78, y: 30, texto: "Hacia un lado, en la torsión hacia ese lado." },
-            { x: 22, y: 30, texto: "Hacia el otro lado, en la torsión contraria." },
+            { x: 50, y: 28, texto: "El entrecejo, en extensiones y aperturas de pecho." },
+            { x: 50, y: 62, texto: "El ombligo, en el perro boca abajo de algunas escuelas." },
+            { x: 25, y: 69, texto: "La mano, cuando un brazo está estirado: triángulo, guerrero II, torsiones abiertas." },
+            { x: 50, y: 81, texto: "Los dedos de los pies, en pinzas y flexiones hacia adelante." },
+            { x: 38, y: 13, texto: "Los pulgares, cuando los brazos van arriba: silla, guerrero I." },
+            { x: 62, y: 13, texto: "Arriba, al cielo, en posturas de elevación." },
+            { x: 78, y: 32, texto: "Hacia un lado, en la torsión hacia ese lado." },
+            { x: 22, y: 32, texto: "Hacia el otro lado, en la torsión contraria." },
           ]}
           flechas={[
-            { d: "M 50 28 L 50 16" },
-            { d: "M 56 30 L 73 30" },
-            { d: "M 44 30 L 27 30" },
+            { d: "M 50 26 L 50 17" },
+            { d: "M 58 32 L 73 32" },
+            { d: "M 42 32 L 27 32" },
           ]}
           leyenda="La mirada se apoya, no se clava: la cara queda blanda."
         />

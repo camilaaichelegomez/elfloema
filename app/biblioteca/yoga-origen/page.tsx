@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ESTILO_LAMINA, LaminaAnotada } from "@/components/biblioteca/LaminaAnotada";
 import {
   Acordeones,
   Check,
@@ -154,6 +155,27 @@ export default function YogaOrigen() {
           cuerpo, no «escalón»: no se suben en fila, se sostienen entre sí como los miembros de un
           cuerpo. Igual hay un orden de dificultad, y el texto los presenta así.
         </P>
+        <LaminaAnotada
+          num="I"
+          titulo="La rueda de los ocho miembros"
+          src="/biblioteca/cuerpo/ocho-miembros.jpg"
+          prompt={
+            "An open lotus flower seen from directly above, with exactly eight identical petals arranged " +
+            "symmetrically around a round golden centre, like an eight-pointed wheel. " + ESTILO_LAMINA
+          }
+          puntos={[
+            { x: 50, y: 15, texto: "Yama — cómo trato al mundo: no dañar, verdad, no tomar lo ajeno, usar bien la energía, no acumular." },
+            { x: 75, y: 25, texto: "Niyama — cómo me trato: limpieza, contento, disciplina, estudio de una misma, entrega." },
+            { x: 85, y: 50, texto: "Āsana — la postura. Aquí vive todo lo que en Occidente llamamos «yoga»." },
+            { x: 75, y: 75, texto: "Prāṇāyāma — regular la respiración." },
+            { x: 50, y: 85, texto: "Pratyāhāra — recoger los sentidos, soltar el tirón de afuera." },
+            { x: 25, y: 75, texto: "Dhāraṇā — concentración en un punto. De aquí sale la mirada fija, el dṛṣṭi." },
+            { x: 15, y: 50, texto: "Dhyāna — meditación: la atención ya no se va." },
+            { x: 25, y: 25, texto: "Samādhi — absorción. La meta declarada, y la que nadie puede medir." },
+          ]}
+          leyenda="Ocho miembros, no siete: se sostienen entre sí como los miembros de un cuerpo."
+        />
+
         <Acordeones
           items={[
             {

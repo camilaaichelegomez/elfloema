@@ -4,7 +4,7 @@ import { PageBackground } from "@/components/PageBackground";
 import { AgentesIA } from "@/components/AgentesIA";
 import { PlantasMedicinalesSection } from "@/components/PlantasMedicinalesSection";
 import { KnowledgeCards } from "@/components/KnowledgeCards";
-import { NavCards, GrimorioSection } from "@/components/NavCards";
+import { NavCards, CuerpoSection, GrimorioSection } from "@/components/NavCards";
 import { LaBotica } from "@/components/LaBotica";
 import { CartProvider } from "@/components/tienda/CartProvider";
 
@@ -19,6 +19,7 @@ export default function Home() {
       <PlantasMedicinalesSection />
       <KnowledgeCards />
       <NavCards />
+      <CuerpoSection />
       <GrimorioSection />
       <CartProvider>
         <LaBotica />

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ESTILO_LAMINA, LaminaAnotada } from "@/components/biblioteca/LaminaAnotada";
 import {
   Acordeones,
   Check,
@@ -70,6 +71,31 @@ export default function CaraDrenajeYogaFacial() {
           La cara no drena «hacia abajo» porque sí: sigue un mapa de ganglios. Conocerlo es la diferencia
           entre mover líquido y frotarse la cara.
         </P>
+        <LaminaAnotada
+          num="I"
+          titulo="Por dónde drena la cara"
+          src="/biblioteca/cuerpo/drenaje-cara.jpg"
+          prompt={
+            "A serene woman's face seen straight from the front, perfectly symmetric, eyes closed, calm " +
+            "neutral expression, hair pulled back away from the face and ears, bare neck and collarbones " +
+            "visible, head and shoulders only, centred. " + ESTILO_LAMINA
+          }
+          puntos={[
+            { x: 29, y: 43, texto: "Preauriculares y parotídeos — delante de la oreja. Reciben la sien, el párpado de afuera y la mejilla alta." },
+            { x: 37, y: 58, texto: "Submandibulares — bajo el borde de la mandíbula. Reciben la mejilla, la nariz y el labio superior." },
+            { x: 50, y: 63, texto: "Submentonianos — bajo el mentón. Reciben el mentón y el centro del labio inferior." },
+            { x: 32, y: 73, texto: "Cervicales — a lo largo del cuello. Aquí baja todo lo anterior." },
+            { x: 41, y: 86, texto: "Supraclaviculares — sobre la clavícula. La salida: se abre primero y se cierra ahí al terminar." },
+          ]}
+          flechas={[
+            { d: "M 48 44 Q 40 42 33 43", color: "verde" },
+            { d: "M 48 57 Q 43 58 40 58", color: "verde" },
+            { d: "M 30 48 Q 30 60 32 69", color: "verde" },
+            { d: "M 33 77 Q 37 82 40 84", color: "verde" },
+          ]}
+          leyenda="Nada sube: todo va hacia la oreja o la mandíbula, baja por el cuello y sale bajo la clavícula."
+        />
+
         <MiniTable
           headers={["Grupo de ganglios", "Dónde", "De dónde recibe"]}
           rows={[

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SECCIONES_CUERPO } from "@/components/biblioteca/IconosCuerpo";
 import { MouseEvent } from "react";
 
 function IconLeaf() {
@@ -272,6 +273,12 @@ function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeti
 
 export function NavCards() {
   return <CardsSection titulo="Cosmética Natural" items={cosmeticaCards} />;
+}
+
+/* El cuerpo: yoga y drenaje. Las tarjetas salen de la misma lista que usa la
+   Biblioteca, para que no se desincronicen. */
+export function CuerpoSection() {
+  return <CardsSection titulo="El cuerpo" items={SECCIONES_CUERPO} />;
 }
 
 export function GrimorioSection() {

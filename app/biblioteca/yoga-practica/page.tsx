@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { ArcoDeClase } from "@/components/biblioteca/Esquemas";
+import { ESTILO_LAMINA, LaminaAnotada } from "@/components/biblioteca/LaminaAnotada";
 import {
   Acordeones,
   Check,
@@ -67,6 +69,35 @@ export default function YogaPractica() {
           clavarlos</Dorado>. No es mirar fijo con intensidad: es dejar la mirada apoyada, como se apoya
           una mano.
         </P>
+        <LaminaAnotada
+          num="I"
+          titulo="Los nueve puntos de la mirada"
+          src="/biblioteca/cuerpo/nueve-drishtis.jpg"
+          prompt={
+            "A calm woman seated cross-legged on the floor, seen from the front, perfectly symmetric, " +
+            "hands resting open on her knees, back long, eyes softly open, simple fitted clothing, full " +
+            "figure from the top of the head to the crossed feet, plenty of empty space above the head. "
+            + ESTILO_LAMINA
+          }
+          puntos={[
+            { x: 50, y: 33, texto: "La punta de la nariz. Es la más usada: sirve en casi todas las posturas de pie y en el perro boca abajo." },
+            { x: 50, y: 27, texto: "El entrecejo, en extensiones y aperturas de pecho." },
+            { x: 50, y: 55, texto: "El ombligo, en el perro boca abajo de algunas escuelas." },
+            { x: 32, y: 63, texto: "La mano, cuando un brazo está estirado: triángulo, guerrero II, torsiones abiertas." },
+            { x: 50, y: 73, texto: "Los dedos de los pies, en pinzas y flexiones hacia adelante." },
+            { x: 38, y: 11, texto: "Los pulgares, cuando los brazos van arriba: silla, guerrero I." },
+            { x: 62, y: 11, texto: "Arriba, al cielo, en posturas de elevación." },
+            { x: 78, y: 30, texto: "Hacia un lado, en la torsión hacia ese lado." },
+            { x: 22, y: 30, texto: "Hacia el otro lado, en la torsión contraria." },
+          ]}
+          flechas={[
+            { d: "M 50 28 L 50 16" },
+            { d: "M 56 30 L 73 30" },
+            { d: "M 44 30 L 27 30" },
+          ]}
+          leyenda="La mirada se apoya, no se clava: la cara queda blanda."
+        />
+
         <SubLabel>Los nueve puntos clásicos</SubLabel>
         <MiniTable
           headers={["Punto", "Dónde", "Cuándo se usa"]}
@@ -376,6 +407,8 @@ export default function YogaPractica() {
           hasta dejarte más tranquila de lo que llegaste. Si termina arriba, quedas acelerada; si nunca
           sube, quedas con la sensación de no haber hecho nada.
         </P>
+        <ArcoDeClase />
+
         <MiniTable
           headers={["Parte", "Para qué", "20 min", "45 min", "60–75 min"]}
           rows={[

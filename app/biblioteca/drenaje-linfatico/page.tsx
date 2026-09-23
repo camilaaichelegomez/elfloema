@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { EsquemaLinfangion } from "@/components/biblioteca/Esquemas";
+import { ESTILO_LAMINA, LaminaAnotada } from "@/components/biblioteca/LaminaAnotada";
 import {
   Acordeones,
   Check,
@@ -119,6 +121,8 @@ export default function DrenajeLinfatico() {
           <Dorado>El pulso de las arterias vecinas</Dorado> y el movimiento de la piel, que es lo que
           aprovecha el masaje.
         </Check>
+        <EsquemaLinfangion />
+
         <Evidencia
           grado="Bien respaldado"
           fuente="Revisión de la fisiología de la presión y el flujo del conducto torácico: la actividad respiratoria influyó en flujo y/o presión en 5 de 6 estudios humanos y 12 de 17 en animales. Copias y referencias en biblioteca-cientifica/drenaje_linfatico (129 referencias)."
@@ -184,6 +188,32 @@ export default function DrenajeLinfatico() {
           suave y lento, no percusión. Golpetear fuerte sobre un ganglio no lo vacía más rápido y, si hay
           un ganglio inflamado, lo irrita. Si la piel queda roja, te pasaste de presión.
         </WarnBox>
+        <LaminaAnotada
+          num="I"
+          titulo="Dónde están los racimos de ganglios"
+          src="/biblioteca/cuerpo/ganglios-cuerpo.jpg"
+          prompt={
+            "A calm woman standing facing forward, arms relaxed and held slightly away from the body, " +
+            "palms open, feet together, simple fitted clothing, full body from head to feet, perfectly " +
+            "symmetric and centred, plain dark background. " + ESTILO_LAMINA
+          }
+          puntos={[
+            { x: 44, y: 21, texto: "Supraclaviculares — el hueco sobre la clavícula. Es la salida: por ahí la linfa vuelve a la sangre, y por eso se abre siempre primero." },
+            { x: 32, y: 29, texto: "Axilares — reciben el brazo, el pecho y la espalda alta de ese lado." },
+            { x: 25, y: 43, texto: "Cubitales — en la cara interna del codo; reciben antebrazo y mano." },
+            { x: 42, y: 55, texto: "Inguinales — en el pliegue de la ingle; reciben la pierna entera, el glúteo y el bajo vientre." },
+            { x: 43, y: 72, texto: "Poplíteos — detrás de la rodilla; reciben pantorrilla, tobillo y pie." },
+            { x: 55, y: 45, texto: "Abdomen y conducto torácico — no se tocan con las manos: se mueven respirando con el diafragma." },
+          ]}
+          flechas={[
+            { d: "M 27 40 Q 30 34 33 31", color: "verde" },
+            { d: "M 33 27 Q 39 23 43 22", color: "verde" },
+            { d: "M 43 68 Q 42 62 42 57", color: "verde" },
+            { d: "M 43 52 Q 45 40 46 25", color: "verde" },
+          ]}
+          leyenda="Las flechas verdes son el camino de la linfa: siempre hacia la clavícula."
+        />
+
         <SubLabel>Los seis lugares que conviene conocer</SubLabel>
         <MiniTable
           headers={["Racimo", "Dónde está", "A quién sirve"]}

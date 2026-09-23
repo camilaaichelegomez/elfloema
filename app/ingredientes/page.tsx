@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackButton } from "@/components/BackButton";
 import { llevarLaVistaAlAbrir } from "@/lib/llevar-la-vista";
+import { SECCIONES_EXTRA, type IngExtra } from "@/lib/ingredientes-extra";
 
 function GrainOverlay() {
   return (
@@ -84,6 +85,52 @@ function LineDivider() {
   return <div style={{ height: 1, background: "rgba(200,160,80,0.12)", margin: "24px 0" }} />;
 }
 
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    <span style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.58rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#a8c88a", border: "1px solid rgba(90,122,58,0.45)", background: "rgba(90,122,58,0.12)", borderRadius: 999, padding: "3px 10px" }}>
+      {children}
+    </span>
+  );
+}
+
+function Ficha({ ing }: { ing: IngExtra }) {
+  return (
+    <>
+      <IngTitle name={ing.nombre} italic={ing.inci} />
+      {(ing.enLab || ing.usadoEn) && (
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "10px" }}>
+          {ing.enLab && <Pill>En tu inventario</Pill>}
+          {ing.usadoEn && <Pill>Lo usas en {ing.usadoEn}</Pill>}
+        </div>
+      )}
+      <P>{ing.que}</P>
+      {ing.funcion?.map((f) => <Check key={f}>{f}</Check>)}
+      {ing.uso && (
+        <P style={{ marginTop: "8px" }}><strong style={{ color: "#c8a050" }}>Uso:</strong> {ing.uso}</P>
+      )}
+      {ing.ojo && <WarnBox>⚠ {ing.ojo}</WarnBox>}
+    </>
+  );
+}
+
+function ExtraItems({ id, separador = true }: { id: string; separador?: boolean }) {
+  const sec = SECCIONES_EXTRA[id];
+  if (!sec) return null;
+  return (
+    <>
+      {separador && <LineDivider />}
+      {separador && <SubLabel>Más ingredientes de esta categoría</SubLabel>}
+      {sec.nota && <InfoBox>{sec.nota}</InfoBox>}
+      {sec.items.map((ing, i) => (
+        <div key={ing.nombre}>
+          {i > 0 && <LineDivider />}
+          <Ficha ing={ing} />
+        </div>
+      ))}
+    </>
+  );
+}
+
 interface AccordionItemProps {
   id: string;
   title: string;
@@ -97,7 +144,7 @@ function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) 
       border: `1px solid ${open ? "rgba(200,160,80,0.3)" : "rgba(200,160,80,0.1)"}`,
       borderRadius: "0.5rem",
       marginBottom: "0.5rem",
-      background: open ? "rgba(200,160,80,0.04)" : "transparent",
+      background: open ? "rgba(8,13,8,0.6)" : "rgba(8,13,8,0.45)",
       transition: "border-color 0.3s, background 0.3s",
       overflow: "hidden",
     }}>
@@ -141,7 +188,7 @@ function AccordionItem({ title, open, onToggle, children }: AccordionItemProps) 
   );
 }
 
-const SECTIONS = ["bases", "aceites", "activos", "hidratantes", "arcillas", "tensioactivos", "emulsionantes", "esenciales", "preparaciones", "faltantes"] as const;
+const SECTIONS = ["bases", "aceites", "activos", "hidratantes", "arcillas", "tensioactivos", "emulsionantes", "esenciales", "preparaciones", "conservantes", "capilar", "faltantes"] as const;
 type SectionId = (typeof SECTIONS)[number];
 
 export default function Ingredientes() {
@@ -149,7 +196,7 @@ export default function Ingredientes() {
   const toggle = (id: SectionId) => setOpen((prev) => (prev === id ? null : id));
 
   return (
-    <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.58), rgba(10,16,10,0.74)), url('/fondo_ingredientes.jpg') center top / cover fixed, var(--bg-primary)", }}>
+    <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(8,13,8,0.88), rgba(8,13,8,0.94)), url('/fondo_ingredientes.jpg') center top / cover fixed, var(--bg-primary)", }}>
       <GrainOverlay />
       <div style={{ maxWidth: 880, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(64px,10vh,120px)" }}>
         <BackButton label="← Volver" />
@@ -279,6 +326,8 @@ export default function Ingredientes() {
           <P>Punto de fusión: 69–70°C</P>
           <GreenBox>En El Floema: ingrediente clave de la crema facial matificante — a 7% da la textura de "crema" sin necesitar agua ni emulsificante.</GreenBox>
 
+        <ExtraItems id="bases" />
+
         </AccordionItem>
 
         {/* ── 2. Aceites y Grasas Vegetales ── */}
@@ -314,6 +363,8 @@ export default function Ingredientes() {
           <Check>Solvente para aceites esenciales</Check>
           <Check>Vehículo para activos lipófilos</Check>
           <Check>Muy estable — larga vida útil</Check>
+
+        <ExtraItems id="aceites" />
 
         </AccordionItem>
 
@@ -476,6 +527,8 @@ export default function Ingredientes() {
           <Check>Refuerza la barrera</Check>
           <P>Extracto: 0.5–2%. Excelente aliada del matico y la milenrama en fórmulas reparadoras.</P>
 
+        <ExtraItems id="activos" />
+
         </AccordionItem>
 
         {/* ── Hidratantes y Humectantes ── */}
@@ -536,6 +589,8 @@ export default function Ingredientes() {
           <Check>Calmante y cicatrizante — clásico del after-sun</Check>
           <Check>Base acuosa ligera para geles y tónicos</Check>
           <WarnBox>⚠ Contiene agua → SIEMPRE conservante. El gel fresco se contamina en días.</WarnBox>
+
+        <ExtraItems id="hidratantes" />
 
         </AccordionItem>
 
@@ -628,6 +683,8 @@ export default function Ingredientes() {
           <Check>10–15% en barra sólida</Check>
           <Check>Solución saturada en spray</Check>
 
+        <ExtraItems id="arcillas" />
+
         </AccordionItem>
 
         {/* ── 5. Tensioactivos ── */}
@@ -660,6 +717,8 @@ export default function Ingredientes() {
           <Check>40–60% en acondicionadores sólidos</Check>
 
           <WarnBox>⚠ Incompatible con tensioactivos aniónicos (SCI, SLSA, SCS, SLS). Nunca mezclar directamente.</WarnBox>
+
+        <ExtraItems id="tensioactivos" />
 
         </AccordionItem>
 
@@ -710,6 +769,8 @@ export default function Ingredientes() {
           <Check>Emulsionante W/O nutritivo</Check>
           <Check>Vehículo de activos (liposomas) que mejora la penetración</Check>
           <Check>Emoliente y restaurador de la barrera</Check>
+
+        <ExtraItems id="emulsionantes" />
 
         </AccordionItem>
 
@@ -826,6 +887,8 @@ export default function Ingredientes() {
 
           <WarnBox>⚠ Fotosensibilizante potente — los citral son fuertemente fotosensibilizantes. Concentración máxima sin enjuague: 0.2% (IFRA). Nunca en productos de uso diurno sin protección solar. No usar en embarazo.</WarnBox>
 
+        <ExtraItems id="esenciales" />
+
         </AccordionItem>
 
         {/* ── 7. Preparaciones Propias ── */}
@@ -871,6 +934,18 @@ export default function Ingredientes() {
           <SubLabel>Tinturas pequeñas — 10ml c/u</SubLabel>
           <P>Tomillo · Manzano · Chilco — pequeñas cantidades, usar con criterio de prioridad en fórmulas.</P>
 
+        <ExtraItems id="preparaciones" />
+
+        </AccordionItem>
+
+        {/* ── Conservantes, antioxidantes y pH ── */}
+        <AccordionItem id="conservantes" title="Conservantes, Antioxidantes y pH" open={open === "conservantes"} onToggle={() => toggle("conservantes")}>
+          <ExtraItems id="conservantes" separador={false} />
+        </AccordionItem>
+
+        {/* ── Cuidado capilar ── */}
+        <AccordionItem id="capilar" title="Cuidado Capilar" open={open === "capilar"} onToggle={() => toggle("capilar")}>
+          <ExtraItems id="capilar" separador={false} />
         </AccordionItem>
 
         {/* ── 8. Ingredientes que Deberías Tener ── */}
@@ -886,11 +961,6 @@ export default function Ingredientes() {
 
           <IngTitle name="Aceite de Jojoba" italic="Simmondsia chinensis" />
           <P>Técnicamente es una cera líquida. No se enrancia. Imita el sebo natural. Emoliente no comedogénico para piel mixta y grasa. Muy estable. Ideal para syndets faciales.</P>
-
-          <LineDivider />
-
-          <IngTitle name="Pantenol (Provitamina B5)" />
-          <P>Humectante, cicatrizante, calmante. Se convierte en ácido pantoténico en la piel. Excelente en syndets para pieles sensibles.</P>
 
           <LineDivider />
 
@@ -912,22 +982,7 @@ export default function Ingredientes() {
           <IngTitle name="Proteína Hidrolizada de Trigo o Seda" />
           <P>Se deposita en la cutícula del cabello, rellena daños, da brillo y resistencia. Imprescindible en syndets capilares.</P>
 
-          <LineDivider />
-
-          <IngTitle name="Cosgard" italic="Benzyl Alcohol + Dehydroacetic Acid" />
-          <P>El conservante de cosmética natural más usado. Imprescindible en cualquier fórmula con agua. Activo en pH menor de 6.</P>
-
-          <LineDivider />
-
-          <IngTitle name="Polisorbato 20" />
-          <P>Solubilizante para aceites esenciales en bases acuosas. Sin él los AE flotan o quedan turbios en syndets líquidos y tónicos.</P>
-
-          <LineDivider />
-
-          <IngTitle name="Goma Xantana" />
-          <P>Espesante para bases acuosas. Da textura gel sin grasa. Para tónicos espesos, geles de aloe y syndets líquidos con cuerpo.</P>
-
-        </AccordionItem>
+          </AccordionItem>
 
       </div>
     </div>

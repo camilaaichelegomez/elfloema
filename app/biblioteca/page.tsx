@@ -76,6 +76,101 @@ function IconMortar() {
   );
 }
 
+/* ── Iconos de «El cuerpo» ────────────────────────────────────────────── */
+
+function IconLoto() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="11" r="4" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.6" />
+      <line x1="19" y1="16" x2="19" y2="27" stroke="#c8a050" strokeWidth="1" opacity="0.55" strokeLinecap="round" />
+      <path d="M19,27 C12,27 7,31 6,36 C11,37 16,33 19,27Z" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <path d="M19,27 C26,27 31,31 32,36 C27,37 22,33 19,27Z" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <path d="M10,37 C13,33 16,31 19,30 C22,31 25,33 28,37" stroke="#c8a050" strokeWidth="0.8" fill="none" opacity="0.5" />
+      <line x1="7" y1="39" x2="31" y2="39" stroke="#c8a050" strokeWidth="0.7" opacity="0.35" strokeLinecap="round" />
+      <circle cx="19" cy="11" r="1" fill="#7a4a8a" opacity="0.45" />
+    </svg>
+  );
+}
+
+function IconYoga() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="10" r="4.5" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.6" />
+      <line x1="19" y1="15" x2="19" y2="30" stroke="#c8a050" strokeWidth="1" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,18 C14,22 11,27 9,32" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,18 C24,22 27,27 29,32" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,30 C13,31 8,34 7,38" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.5" strokeLinecap="round" />
+      <path d="M19,30 C25,31 30,34 31,38" stroke="#c8a050" strokeWidth="0.9" fill="none" opacity="0.5" strokeLinecap="round" />
+      <line x1="6" y1="39" x2="32" y2="39" stroke="#c8a050" strokeWidth="0.8" opacity="0.4" strokeLinecap="round" />
+      <circle cx="19" cy="10" r="1" fill="#7a4a8a" opacity="0.45" />
+    </svg>
+  );
+}
+
+function IconLinfa() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <line x1="19" y1="6" x2="19" y2="42" stroke="#c8a050" strokeWidth="0.9" opacity="0.5" strokeLinecap="round" />
+      <path d="M19,12 C13,14 10,18 9,24" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.55" strokeLinecap="round" />
+      <path d="M19,12 C25,14 28,18 29,24" stroke="#5a7a3a" strokeWidth="0.8" fill="none" opacity="0.55" strokeLinecap="round" />
+      <path d="M19,26 C14,28 12,32 11,37" stroke="#5a7a3a" strokeWidth="0.7" fill="none" opacity="0.45" strokeLinecap="round" />
+      <path d="M19,26 C24,28 26,32 27,37" stroke="#5a7a3a" strokeWidth="0.7" fill="none" opacity="0.45" strokeLinecap="round" />
+      <circle cx="9" cy="24" r="2.2" stroke="#c8a050" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <circle cx="29" cy="24" r="2.2" stroke="#c8a050" strokeWidth="0.8" fill="none" opacity="0.6" />
+      <circle cx="11" cy="37" r="1.8" stroke="#c8a050" strokeWidth="0.7" fill="none" opacity="0.45" />
+      <circle cx="27" cy="37" r="1.8" stroke="#c8a050" strokeWidth="0.7" fill="none" opacity="0.45" />
+      <circle cx="19" cy="8" r="2.6" stroke="#c8a050" strokeWidth="0.85" fill="none" opacity="0.6" />
+      <circle cx="19" cy="8" r="1" fill="#7a4a8a" opacity="0.4" />
+    </svg>
+  );
+}
+
+function IconRostro() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <path d="M12,10 C18,5 27,8 27,17 L26,24 L30,29 C31,31 29,32 27,32 L26,36 C26,39 23,40 20,40 L19,44" stroke="#c8a050" strokeWidth="1" fill="none" opacity="0.65" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12,10 C7,15 7,26 12,33" stroke="#c8a050" strokeWidth="1" fill="none" opacity="0.5" strokeLinecap="round" />
+      <path d="M22,20 C20,21 18,21 17,20" stroke="#5a7a3a" strokeWidth="0.7" fill="none" opacity="0.5" strokeLinecap="round" />
+      <path d="M24,33 C20,36 16,37 13,36" stroke="#5a7a3a" strokeWidth="0.7" fill="none" opacity="0.45" strokeLinecap="round" />
+      <path d="M11,38 C14,41 18,42 21,41" stroke="#5a7a3a" strokeWidth="0.6" fill="none" opacity="0.35" strokeLinecap="round" />
+      <circle cx="22" cy="19" r="0.9" fill="#7a4a8a" opacity="0.45" />
+    </svg>
+  );
+}
+
+/* El cuerpo: la teoría de lo que las dos apps hacen practicar. Va aparte de
+   las plantas porque es otro tema, y ella lo pidió separado. */
+const CARDS_CUERPO = [
+  {
+    key: "yoga-origen",
+    label: "Yoga: de dónde viene",
+    desc: "Los textos, los cuatro caminos, los ocho miembros y el ayurveda. Por qué las posturas son solo una parte.",
+    Icon: IconLoto,
+    href: "/biblioteca/yoga-origen",
+  },
+  {
+    key: "yoga-practica",
+    label: "La práctica del yoga",
+    desc: "Familias de posturas, cómo se arma una clase, la respiración y dónde va la mirada.",
+    Icon: IconYoga,
+    href: "/biblioteca/yoga-practica",
+  },
+  {
+    key: "drenaje",
+    label: "Drenaje linfático",
+    desc: "Cómo se mueve la linfa en todo el cuerpo, el bombeo de ganglios, saltar, y qué dicen los estudios.",
+    Icon: IconLinfa,
+    href: "/biblioteca/drenaje-linfatico",
+  },
+  {
+    key: "cara",
+    label: "La cara",
+    desc: "Drenaje facial, masaje y yoga facial: qué hace cada uno, cuánto dura y qué tener en cuenta.",
+    Icon: IconRostro,
+    href: "/biblioteca/cara-drenaje-yoga-facial",
+  },
+];
+
 const CARDS = [
   {
     key: "botanica",
@@ -308,6 +403,33 @@ export default function BibliotecaPage() {
           padding: "0 clamp(1.25rem, 3vw, 2.5rem)",
         }}>
           {CARDS.map(({ key, label, desc, Icon, href }) => (
+            <BibliotecaCard key={key} label={label} desc={desc} Icon={Icon} href={href} />
+          ))}
+        </div>
+
+        {/* Subgrupo: el cuerpo */}
+        <div style={{ display: "flex", alignItems: "center", gap: "18px", maxWidth: 1100, margin: "clamp(44px, 7vh, 72px) auto clamp(20px, 3vh, 32px)", padding: "0 clamp(1.25rem, 3vw, 2.5rem)" }}>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(200,160,80,0.5))" }} />
+          <h2 style={{ fontFamily: "var(--font-grimoire)", fontSize: "clamp(1.1rem, 2.6vw, 1.6rem)", letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8c070", margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.9)", textAlign: "center" }}>
+            El cuerpo
+          </h2>
+          <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(200,160,80,0.5))" }} />
+        </div>
+
+        <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", fontSize: "clamp(0.92rem, 2vw, 1.05rem)", color: "rgba(212,196,160,0.55)", textAlign: "center", maxWidth: 620, margin: "0 auto clamp(20px, 3vh, 32px)", padding: "0 clamp(1.25rem, 3vw, 2.5rem)", lineHeight: 1.7 }}>
+          Yoga y drenaje linfático: de dónde vienen, cómo se hacen y qué está probado. La teoría de lo
+          que las apps te hacen practicar.
+        </p>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(200px, 100%), 1fr))",
+          gap: "clamp(1rem, 2vw, 1.75rem)",
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "0 clamp(1.25rem, 3vw, 2.5rem)",
+        }}>
+          {CARDS_CUERPO.map(({ key, label, desc, Icon, href }) => (
             <BibliotecaCard key={key} label={label} desc={desc} Icon={Icon} href={href} />
           ))}
         </div>

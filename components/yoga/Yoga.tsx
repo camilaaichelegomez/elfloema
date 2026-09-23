@@ -6,6 +6,7 @@ import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
 import { FASES_DE_CIERRE, MotorMusica, hayAudio, modoAutomatico, type Agua, type ModoMusica } from "@/lib/musica-yoga";
+import { miradaDe } from "@/lib/yoga/mirada";
 import {
   CUIDADOS,
   ESTILOS,
@@ -1257,6 +1258,11 @@ export function Yoga() {
             {pasoActual.respirar}
           </p>
         )}
+        {/* La mirada: el tercer hilo de la práctica, y el que más falta hace
+            en los equilibrios. */}
+        <p style={{ ...ayuda, maxWidth: "44ch", margin: "0 auto 0.8rem", color: "rgba(200,160,80,0.75)" }}>
+          {miradaDe(pasoActual)}
+        </p>
         {pasoActual.cuidado && <p style={avisoTexto}>{pasoActual.cuidado}</p>}
         {pasoActual.masFacil && (
           <p style={{ ...ayuda, maxWidth: "44ch", margin: "0 auto 1.1rem", fontSize: "0.88rem" }}>

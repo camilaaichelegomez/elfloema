@@ -401,6 +401,9 @@ export type Paso = {
   cuidado?: string;
   /** Cómo respirar durante la postura. */
   respirar?: string;
+  /** Dónde se posa la mirada. Si no se escribe, se usa la de su familia
+      (ver `miradaDe` en lib/yoga/mirada.ts). */
+  mirada?: string;
   /** Props que necesita de verdad. Sin ellos no entra. */
   necesita?: Prop[];
   /** Props que la mejoran pero no son obligatorios. */

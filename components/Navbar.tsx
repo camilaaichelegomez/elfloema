@@ -16,7 +16,7 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/biblioteca", label: "La Biblioteca", hint: "Ciencia, cosmética y grimorio" },
       { href: "/plantas", label: "Plantas", hint: "90 plantas medicinales" },
-      { href: "/recetas", label: "Recetas", hint: "Fórmulas del laboratorio" },
+      { href: "/formulas-el-floema", label: "Fórmulas de El Floema", hint: "Lo que lleva cada producto nuestro" },
       { href: "/blog", label: "Blog", hint: "Bitácora de El Floema" },
     ],
   },

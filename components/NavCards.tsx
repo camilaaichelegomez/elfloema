@@ -146,10 +146,10 @@ const cosmeticaCards = [
     Icon: IconFlask,
   },
   {
-    key: "recetas",
-    label: "Recetas",
-    subtitle: "Creaciones del grimorio",
-    href: "/recetas",
+    key: "formulas-el-floema",
+    label: "Fórmulas de El Floema",
+    subtitle: "Lo que lleva cada producto",
+    href: "/formulas-el-floema",
     Icon: IconScroll,
   },
   {

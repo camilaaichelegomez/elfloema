@@ -1,8 +1,10 @@
 import { BackButton } from "@/components/BackButton";
 import { supabase } from "@/lib/supabase";
+import { getProductos } from "@/lib/productos-db";
 
-// Lee las fórmulas en vivo desde Supabase en cada visita (transparencia: muestra
-// todas las recetas del Lab). Requiere la política de lectura pública en Supabase.
+// Lee las fórmulas en vivo desde Supabase en cada visita (transparencia: se
+// muestra entera la fórmula de cada producto). Requiere la política de lectura
+// pública en Supabase.
 export const dynamic = "force-dynamic";
 
 // ── Grain overlay ─────────────────────────────────────────────────────────────
@@ -46,6 +48,8 @@ interface Ingredient {
 interface Recipe {
   id: string;
   name: string;
+  /** El nombre de la fórmula en el Lab, cuando el producto se vende con otro. */
+  formulaName?: string;
   tag: string;
   desc: string;
   batch: string;
@@ -56,7 +60,7 @@ interface Recipe {
 }
 
 // ── Recipe data ────────────────────────────────────────────────────────────────
-// Recetas de respaldo (se muestran si Supabase aún no tiene lectura pública).
+// Fórmulas de respaldo (se muestran si Supabase aún no tiene lectura pública).
 const RECIPES_FALLBACK: Recipe[] = [
   {
     id: "syndet-facial-triwe",
@@ -186,6 +190,21 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
         >
           {recipe.name}
         </h2>
+
+        {recipe.formulaName && (
+          <p
+            style={{
+              fontFamily: "var(--font-grimoire)",
+              fontSize: "0.58rem",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "rgba(200,160,80,0.5)",
+              margin: "-0.2rem 0 0.7rem",
+            }}
+          >
+            Fórmula: {recipe.formulaName}
+          </p>
+        )}
 
         {/* Description */}
         <p
@@ -321,6 +340,63 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
   );
 }
 
+/* Cada fórmula del Lab tiene un nombre de trabajo («Aceite Desmaquillante»),
+   y el producto que sale de ella tiene el nombre con que se vende («Despoja»).
+   Aquí se muestra el segundo, y el de la fórmula queda abajo, chiquito.
+
+   Se emparejan solos por el nombre: el del catálogo, o el que quedó en la
+   dirección del producto. Para los dos casos en que quedaron escritos
+   distinto, va la equivalencia a mano. Si una fórmula no calza con ningún
+   producto (todavía no se vende, o es una versión vieja), se muestra con su
+   propio nombre. */
+const EQUIVALENCIAS: Record<string, string> = {
+  "syndet-facial-liquido-triwe": "syndet-facial-triwe",
+  "unguento-dolor-efecto-calor": "unguento-efecto-calor",
+};
+
+function clave(texto: string) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+async function nombresDeVenta(): Promise<Map<string, string>> {
+  const porClave = new Map<string, string>();
+  try {
+    const productos = await getProductos();
+    for (const p of productos) {
+      porClave.set(p.slug, p.nombre);
+      porClave.set(clave(p.nombre), p.nombre);
+    }
+  } catch {
+    /* sin catálogo: cada fórmula se queda con su nombre */
+  }
+  return porClave;
+}
+
+function conNombreDeVenta(receta: Recipe, porClave: Map<string, string>): Recipe {
+  const k = clave(receta.name);
+  const directo = porClave.get(EQUIVALENCIAS[k] ?? k);
+  // «Crema Reafirmante» ↔ «crema-reafirmante-facial»: uno empieza con el otro.
+  const parecido =
+    directo ??
+    [...porClave.entries()].find(
+      ([otra]) => otra.length >= 10 && (otra.startsWith(k) || k.startsWith(otra))
+    )?.[1];
+  if (!parecido) return receta;
+  // Si es el mismo nombre escrito distinto (tildes, mayúsculas), se usa el del
+  // catálogo y no se repite abajo.
+  const mismoNombre = clave(parecido) === k;
+  return {
+    ...receta,
+    name: parecido,
+    formulaName: mismoNombre ? undefined : receta.name,
+  };
+}
+
 // ── Carga desde Supabase ────────────────────────────────────────────────────────
 interface FormulaRow {
   id: string;
@@ -395,9 +471,11 @@ async function fetchRecipes(): Promise<Recipe[]> {
 }
 
 // ── Page ───────────────────────────────────────────────────────────────────────
-export default async function RecetasPage() {
-  const desdeSupabase = await fetchRecipes();
-  const RECIPES = desdeSupabase.length > 0 ? desdeSupabase : RECIPES_FALLBACK;
+export default async function FormulasElFloemaPage() {
+  const [desdeSupabase, porClave] = await Promise.all([fetchRecipes(), nombresDeVenta()]);
+  const RECIPES = (desdeSupabase.length > 0 ? desdeSupabase : RECIPES_FALLBACK).map((r) =>
+    conNombreDeVenta(r, porClave)
+  );
   return (
     <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
@@ -417,8 +495,8 @@ export default async function RecetasPage() {
 
         {/* Page header */}
         <div style={{ marginBottom: "clamp(48px,8vh,80px)" }}>
-          <Label>El Grimorio · Recetas</Label>
-          <PageTitle>Recetas</PageTitle>
+          <Label>El Grimorio · El Floema</Label>
+          <PageTitle>Fórmulas de El Floema</PageTitle>
           <p
             style={{
               fontFamily: "var(--font-body)",
@@ -429,7 +507,7 @@ export default async function RecetasPage() {
               marginBottom: 0,
             }}
           >
-            Fórmulas completas listas para producir
+            Lo que lleva cada producto nuestro, gramo a gramo
           </p>
           <div
             style={{
@@ -475,8 +553,8 @@ export default async function RecetasPage() {
                 margin: "0 auto",
               }}
             >
-              Todavía no hay recetas publicadas. Iremos sumando aquí las fórmulas
-              a medida que las vayamos creando y probando.
+              Todavía no hay fórmulas publicadas. Iremos sumando aquí las de cada
+              producto a medida que las vayamos creando y probando.
             </p>
           </div>
         ) : (

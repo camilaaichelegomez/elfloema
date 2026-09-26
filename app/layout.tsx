@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cinzel, Crimson_Text, Cormorant_Garamond, Lora } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { AvisoDeDatos } from "@/components/AvisoDeDatos";
 import { PolvoDorado } from "@/components/PolvoDorado";
 
 const cinzel = Cinzel({
@@ -58,6 +59,7 @@ export default function RootLayout({
       <body>
         {children}
         <PolvoDorado />
+        <AvisoDeDatos />
       </body>
     </html>
   );

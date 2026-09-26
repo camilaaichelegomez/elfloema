@@ -28,6 +28,7 @@ const NAV: NavGroup[] = [
       { href: "/belleza", label: "Belleza", hint: "Rutina y tipo de piel" },
       { href: "/ritual-facial", label: "Ritual facial", hint: "Yoga facial y drenaje linfático" },
       { href: "/yoga", label: "Ritual de yoga", hint: "Tu práctica armada a tu medida" },
+      { href: "/habitos", label: "Hábitos", hint: "Objetivos, hábitos y tareas del día" },
       { href: "/formulacion", label: "Formulación", hint: "Crear tus fórmulas" },
     ],
   },

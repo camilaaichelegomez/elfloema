@@ -2466,8 +2466,23 @@ img {
     var(--bg-primary);
 }
 
+/* Hábitos: el mismo velo en tres tramos, sobre otro bosque, para que la
+   sección se reconozca como del mismo sitio sin repetir la foto del yoga. */
+.habitos-bg {
+  background:
+    linear-gradient(
+      rgba(10, 16, 10, 0.86) 0,
+      rgba(10, 16, 10, 0.58) 240px,
+      rgba(10, 16, 10, 0.7) 60%,
+      rgba(10, 16, 10, 0.88) 100%
+    ),
+    url('/bosque-1.jpg') center top / cover fixed,
+    var(--bg-primary);
+}
+
 @media (max-width: 900px) {
   .ritual-bg,
+  .habitos-bg,
   .yoga-bg {
     background-attachment: scroll;
   }

@@ -5,6 +5,8 @@ import { llevarLaVista } from "@/lib/llevar-la-vista";
 import Link from "next/link";
 import {
   AFIRMACIONES,
+  EXTRAS,
+  type Extra,
   AVISOS_PIEL,
   CIERRE,
   CATALOGO,
@@ -60,6 +62,8 @@ type Guardado = {
   vozNombre?: string;
   /** Opcional: quien guardó antes de que existiera la música la tiene activada. */
   musica?: boolean;
+  /** Lo que se agregó a la rutina: saltos, golpecitos, acupresión… */
+  extras?: Extra[];
   /** Qué suena de fondo, y a qué volumen (0 a 1). */
   ambiente?: Ambiente;
   volumen?: number;
@@ -136,6 +140,7 @@ export function RitualFacial() {
   const [minutos, setMinutos] = useState<number>(10);
   const [momento, setMomento] = useState<Momento>("manana");
   const [enfoque, setEnfoque] = useState<Enfoque>("equilibrado");
+  const [extras, setExtras] = useState<Extra[]>([]);
   const [nivel, setNivel] = useState<Nivel>("primera");
   const [estadoPiel, setEstadoPiel] = useState<EstadoPiel>("normal");
   const [rutina, setRutina] = useState<Rutina | null>(null);
@@ -174,8 +179,8 @@ export function RitualFacial() {
       return;
     }
     const g = leerGuardado();
-    if (g) guardar({ ...g, musica, ambiente, volumen, voz, vozNombre });
-  }, [musica, ambiente, volumen, voz, vozNombre]);
+    if (g) guardar({ ...g, musica, ambiente, volumen, voz, vozNombre, extras });
+  }, [musica, ambiente, volumen, voz, vozNombre, extras]);
   const wakeRef = useRef<{ release: () => Promise<void> } | null>(null);
   /* Al cambiar de etapa el contenido se reemplaza entero, pero el navegador
      deja el scroll donde estaba: el botón «Armar mi rutina» está abajo del
@@ -200,6 +205,7 @@ export function RitualFacial() {
     setMinutos(minutosValidos(g.minutos));
     setMomento(g.momento ?? "manana");
     setEnfoque(g.enfoque ?? "equilibrado");
+    setExtras(g.extras ?? []);
     setNivel(g.nivel === "primera" ? "practico" : g.nivel ?? "practico");
     setEstadoPiel(g.estadoPiel ?? "normal");
     setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha ?? 0 : 0);
@@ -298,8 +304,8 @@ export function RitualFacial() {
     const yaHoy = g?.ultimoDia === hoy();
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     setRacha(nueva);
-    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, racha: nueva, ultimoDia: hoy(), voz, vozNombre, musica, ambiente, volumen });
-  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, voz, vozNombre, musica, ambiente, volumen]);
+    guardar({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, extras, racha: nueva, ultimoDia: hoy(), voz, vozNombre, musica, ambiente, volumen });
+  }, [etapa, necesidades, minutos, momento, enfoque, nivel, estadoPiel, extras, voz, vozNombre, musica, ambiente, volumen]);
 
   /* La voz lee la maniobra al entrar en ella. En el drenaje esto pesa más que
      en yoga: tienes las dos manos en la cara y los ojos cerrados, así que la
@@ -366,7 +372,7 @@ export function RitualFacial() {
   }
 
   function armar() {
-    const r = armarRutina({ necesidades, minutos, momento, enfoque, nivel, estadoPiel });
+    const r = armarRutina({ necesidades, minutos, momento, enfoque, nivel, estadoPiel, extras });
     setRutina(r);
     setIndice(0);
     setRestante(r.pasos[0] ? duracion(r.pasos[0]) : 0);
@@ -500,7 +506,46 @@ export function RitualFacial() {
           )}
         </div>
 
-        <p style={paso}>5 · ¿Cómo está tu piel hoy?</p>
+        <p style={paso}>5 · ¿Quieres agregarle algo?</p>
+        <p style={ayuda}>
+          Opcional. Cada cosa que marques entra completa y alarga la rutina lo que dice al lado; el
+          resto se acomoda solo. Lo que hay detrás de cada una está en{" "}
+          <Link href="/biblioteca/cara-drenaje-yoga-facial" style={{ color: "#e8c878" }}>
+            la Biblioteca
+          </Link>
+          .
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.8rem" }}>
+          {EXTRAS.map((e) => {
+            const activo = extras.includes(e.id);
+            return (
+              <button
+                key={e.id}
+                type="button"
+                onClick={() =>
+                  setExtras((xs) => (xs.includes(e.id) ? xs.filter((x) => x !== e.id) : [...xs, e.id]))
+                }
+                aria-pressed={activo}
+                style={{
+                  ...chip,
+                  textAlign: "left",
+                  maxWidth: 260,
+                  borderColor: activo ? "#e8c878" : "rgba(200,160,80,0.28)",
+                  background: activo ? "rgba(200,160,80,0.16)" : "rgba(13,26,13,0.5)",
+                  color: activo ? "#e8c878" : "#d4c4a0",
+                }}
+              >
+                <span style={{ fontSize: "0.94rem", display: "block" }}>
+                  {e.label}
+                  <span style={{ opacity: 0.6, fontSize: "0.8rem" }}> · {e.minutos}</span>
+                </span>
+                <span style={{ fontSize: "0.78rem", opacity: 0.6, display: "block" }}>{e.detalle}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <p style={paso}>6 · ¿Cómo está tu piel hoy?</p>
         <p style={ayuda}>
           No es un detalle: en acné y en rosácea el drenaje está indicado, pero el masaje facial no.
           Según lo que marques, saco o dejo pasos.

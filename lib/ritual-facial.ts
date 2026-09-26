@@ -60,6 +60,44 @@ export const NECESIDADES: { id: Necesidad; label: string; detalle: string }[] = 
    mantiene siempre porque abrir el cuello y cerrar el circuito son la entrada
    y la salida de todo lo que se mueva. Sin eso, lo movido no tiene por dónde
    irse. */
+/* Lo que se puede agregar a la rutina, y que no viene marcado de fábrica
+   porque no todo el mundo lo quiere ni le sirve. Cada uno entra entero: si
+   se elige, sus pasos van sí o sí, y el resto de la rutina se acomoda. */
+export type Extra = "saltos" | "golpecitos" | "acupresion" | "bruxismo" | "capilar";
+
+export const EXTRAS: { id: Extra; label: string; detalle: string; minutos: string }[] = [
+  {
+    id: "saltos",
+    label: "Saltos para activar",
+    detalle: "Un rato de rebotes suaves antes de empezar: el músculo que se contrae empuja la linfa.",
+    minutos: "+1½ min",
+  },
+  {
+    id: "golpecitos",
+    label: "Golpecitos por el cuerpo",
+    detalle: "Percusión suave en brazos, piernas y espalda baja. Despierta la circulación de la piel.",
+    minutos: "+1 min",
+  },
+  {
+    id: "acupresion",
+    label: "Puntos de acupresión",
+    detalle: "Cuatro puntos de la medicina china para la cara congestionada y la nariz tapada.",
+    minutos: "+2½ min",
+  },
+  {
+    id: "bruxismo",
+    label: "Para el bruxismo",
+    detalle: "Soltar masetero y sien, y enseñarle a la mandíbula dónde descansar.",
+    minutos: "+3 min",
+  },
+  {
+    id: "capilar",
+    label: "Masaje capilar",
+    detalle: "Cuatro minutos de cuero cabelludo, que es lo que se usó en el estudio.",
+    minutos: "+4 min",
+  },
+];
+
 export type Enfoque = "drenaje" | "equilibrado" | "ejercicios";
 
 export const ENFOQUES: { id: Enfoque; label: string; detalle: string }[] = [
@@ -140,6 +178,8 @@ export type Paso = {
   mediaPresion?: boolean;
   /** Es masofilaxia (masaje), no drenaje: fuera en acné y rosácea. */
   esMasaje?: boolean;
+  /** Solo entra si la persona pidió ese extra. */
+  extra?: Extra;
   /* Qué se busca con el ejercicio, y no es un detalle:
 
      Los músculos de la cara no son todos iguales. Los de EXPRESIÓN (frontal,
@@ -183,6 +223,42 @@ export const CATALOGO: Paso[] = [
     base: true,
     necesidades: [],
     prioridad: 0,
+  },
+  {
+    id: "act-saltos",
+    fase: "preparacion",
+    nombre: "Saltos suaves para activar",
+    zona: "Todo el cuerpo",
+    segundos: 90,
+    como: [
+      "De pie, rebota sobre las plantas de los pies: los talones apenas despegan del suelo.",
+      "Suelta los hombros y los brazos. Que el cuerpo entero tiemble un poco.",
+      "Si prefieres no saltar, sube y baja los talones o camina en el sitio: sirve igual.",
+      "Respira por la nariz. Esto no es cardio, es despertar la bomba.",
+    ],
+    extra: "saltos",
+    necesidades: [],
+    prioridad: 0,
+    fuente:
+      "La linfa no tiene corazón que la mueva: avanza por la contracción del propio vaso, por la respiración y por el músculo que la aprieta al moverse. Eso está bien establecido. Lo que NO tiene respaldo propio es el trampolín como método especial: lo que sirve es moverse, en la forma que sea.",
+  },
+  {
+    id: "act-golpecitos",
+    fase: "preparacion",
+    nombre: "Golpecitos por el cuerpo",
+    zona: "Brazos, piernas y espalda",
+    segundos: 60,
+    como: [
+      "Ahueca la mano, como si guardaras agua, y da golpecitos rítmicos.",
+      "Brazos, hombros, muslos, glúteos y espalda baja. Diez segundos por zona.",
+      "Que suene hueco, no plano: si suena a cachetada, estás pegando con la mano abierta.",
+      "Sáltate esta parte si tienes la piel irritada, moretones o várices marcadas.",
+    ],
+    extra: "golpecitos",
+    necesidades: [],
+    prioridad: 0,
+    fuente:
+      "La percusión del masaje clásico (tapotement) produce hiperemia: aumenta la circulación local de la piel. Es práctica establecida en masoterapia, con poca investigación propia. Y ojo: esto NO es drenaje linfático, que se hace con presión mínima y sin golpes.",
   },
   {
     id: "dre-respirar",
@@ -498,6 +574,75 @@ export const CATALOGO: Paso[] = [
     fuente: "DLM del rostro, maniobra 10 (effleurage final)",
   },
   {
+    id: "acu-yintang",
+    fase: "drenaje",
+    nombre: "Entre las cejas · Yintang",
+    zona: "Entrecejo",
+    segundos: 35,
+    como: [
+      "Apoya el dedo medio justo entre las cejas y hunde suave.",
+      "Sostén treinta segundos, respirando lento. No hagas círculos: aquí se sostiene.",
+      "Es el punto que la tradición china usa para la cabeza pesada y la nariz tapada.",
+    ],
+    extra: "acupresion",
+    necesidades: ["hinchazon"],
+    prioridad: 2,
+    fuente:
+      "Yintang (EX-HN3) es de los puntos más usados en los ensayos de acupuntura y acupresión para rinitis alérgica. Las revisiones encuentran mejoras modestas en los síntomas y en la calidad de vida; en las medidas objetivas de flujo nasal la evidencia es más débil.",
+  },
+  {
+    id: "acu-yingxiang",
+    fase: "drenaje",
+    nombre: "Al lado de la nariz · Yingxiang",
+    zona: "Aletas de la nariz",
+    segundos: 40,
+    como: [
+      "Índices en el pliegue que baja desde la nariz hacia la comisura, a un dedo del borde de la aleta.",
+      "Círculos pequeños y firmes, veinte de cada lado.",
+      "Si tienes la nariz tapada, aquí es donde más se nota.",
+    ],
+    extra: "acupresion",
+    necesidades: ["hinchazon"],
+    prioridad: 2,
+    fuente:
+      "Yingxiang (IG20) es el punto central de los protocolos de acupresión para congestión nasal y rinitis alérgica, junto con Yintang. Metaanálisis de terapias relacionadas con acupuntura: mejoras en síntomas nasales y calidad de vida, con estudios de calidad variable.",
+  },
+  {
+    id: "acu-zanzhu",
+    fase: "drenaje",
+    nombre: "Nacimiento de la ceja · Zanzhu",
+    zona: "Cejas",
+    segundos: 35,
+    como: [
+      "Pulgares en el huequito donde empieza la ceja, pegado al hueso de la nariz.",
+      "Presión hacia arriba y hacia adentro, como si empujaras el hueso. Veinte segundos.",
+      "Para los ojos pesados de la mañana y la frente apretada.",
+    ],
+    extra: "acupresion",
+    necesidades: ["ojeras", "hinchazon"],
+    prioridad: 3,
+    mediaPresion: true,
+    fuente:
+      "Zanzhu (V2) aparece en los protocolos de acupresión facial para congestión de la zona de los ojos. Evidencia escasa y de baja calidad: se ofrece como tradición, no como tratamiento.",
+  },
+  {
+    id: "acu-fengchi",
+    fase: "drenaje",
+    nombre: "En la nuca · Fengchi",
+    zona: "Base del cráneo",
+    segundos: 40,
+    como: [
+      "Pulgares en los dos huecos de la base del cráneo, a los lados de la columna.",
+      "Presiona hacia arriba y hacia el centro, con la cabeza pesada sobre los dedos.",
+      "Treinta segundos. Es donde se junta la tensión del día.",
+    ],
+    extra: "acupresion",
+    necesidades: ["mandibula", "hinchazon"],
+    prioridad: 3,
+    fuente:
+      "Fengchi (VB20) se usa en los protocolos de acupresión para cefalea tensional y congestión nasal. La evidencia es limitada; la sensación de alivio, inmediata.",
+  },
+  {
     id: "prep-deslizante",
     /* El drenaje se hace sobre la piel SECA: el dedo tiene que arrastrar la
        piel, no resbalar sobre ella, y con aceite patina y la piel no se mueve.
@@ -722,6 +867,84 @@ export const CATALOGO: Paso[] = [
     prioridad: 3,
   },
 
+  {
+    id: "bru-masetero-profundo",
+    grupo: "soltar",
+    fase: "ejercicios",
+    nombre: "Deshacer el nudo del masetero",
+    zona: "Mandíbula",
+    segundos: 60,
+    como: [
+      "Boca entreabierta, dientes separados. El músculo tiene que estar blando para trabajarlo.",
+      "Nudillos en el masetero. En vez de círculos, arrastra despacio de arriba hacia abajo, como planchando la fibra.",
+      "Cuando encuentres un punto que duele sordo, quédate ahí respirando diez segundos, sin aumentar la presión.",
+      "Treinta segundos por lado. Si el dolor es agudo o se dispara, sal.",
+    ],
+    extra: "bruxismo",
+    necesidades: ["mandibula"],
+    prioridad: 1,
+    esMasaje: true,
+    fuente:
+      "Ensayo aleatorizado en personas con bruxismo: la técnica de arrastre profundo sobre los músculos masticadores mejoró la calidad de sueño, la movilidad de la mandíbula y el umbral de dolor más que el TENS y que la liberación miofascial (Journal of Bodywork and Movement Therapies, 2022).",
+  },
+  {
+    id: "bru-temporal",
+    grupo: "soltar",
+    fase: "ejercicios",
+    nombre: "Soltar la sien",
+    zona: "Músculo temporal",
+    segundos: 45,
+    como: [
+      "Aprieta los dientes y toca la sien: eso que se mueve es el temporal, y también aprieta de noche.",
+      "Suelta la mandíbula y masajea en abanico, desde la sien hacia arriba y hacia atrás.",
+      "Veinte segundos por lado. Si tienes dolor de cabeza tensional, aquí vive.",
+    ],
+    extra: "bruxismo",
+    necesidades: ["mandibula"],
+    prioridad: 2,
+    esMasaje: true,
+    fuente:
+      "La terapia manual sobre los músculos masticadores y cervicales es parte de los programas de fisioterapia para trastornos temporomandibulares, con mejoras en dolor y movilidad (revisiones sistemáticas de enfoques de tratamiento en disfunción temporomandibular, 2023).",
+  },
+  {
+    id: "bru-reposo",
+    grupo: "soltar",
+    fase: "ejercicios",
+    nombre: "Dónde va la mandíbula cuando descansa",
+    zona: "Posición de reposo",
+    segundos: 50,
+    como: [
+      "Labios juntos, dientes SEPARADOS, lengua apoyada en el paladar detrás de los dientes de arriba.",
+      "Esa es la posición de reposo. Los dientes solo deberían tocarse al tragar y al comer.",
+      "Quédate así medio minuto y memoriza la sensación: es la que tienes que reencontrar durante el día.",
+      "Si te sorprendes apretando, vuelve a esto. Ese es todo el ejercicio.",
+    ],
+    extra: "bruxismo",
+    necesidades: ["mandibula"],
+    prioridad: 1,
+    fuente:
+      "La conciencia postural de la mandíbula y el reentrenamiento de la posición de reposo son parte de los programas conservadores para bruxismo de vigilia, junto con la terapia manual y el ejercicio.",
+  },
+  {
+    id: "bru-apertura-guiada",
+    grupo: "soltar",
+    fase: "ejercicios",
+    nombre: "Abrir derecho, con la lengua arriba",
+    zona: "Articulación",
+    segundos: 45,
+    como: [
+      "Lengua en el paladar. Abre la boca sin despegarla: se abre poco, y está bien.",
+      "Mírate en el espejo: la mandíbula tiene que bajar recta, sin irse a un lado.",
+      "Seis veces, lentas. Sin chasquidos y sin dolor.",
+    ],
+    repeticiones: "6 veces",
+    extra: "bruxismo",
+    necesidades: ["mandibula"],
+    prioridad: 3,
+    fuente:
+      "Ejercicios de apertura controlada con control de la desviación: ejercicio terapéutico estándar en el manejo conservador de los trastornos temporomandibulares. Si hay bloqueo, chasquido con dolor o limitación para abrir, eso se ve con odontóloga o kinesióloga, no con una app.",
+  },
+
   /* ── Fuerza de verdad ──────────────────────────────────────────
      Fortalecer pide volumen: con dos o tres ejercicios no pasa nada. Este
      bloque es el que sostiene la parte de fuerza cuando se elige el enfoque
@@ -898,6 +1121,58 @@ export const CATALOGO: Paso[] = [
     prioridad: 0,
   },
   {
+    id: "cap-craneo",
+    fase: "cierre",
+    nombre: "Masaje del cuero cabelludo",
+    zona: "Cabeza",
+    segundos: 120,
+    como: [
+      "Límpiate el aceite de las manos: esto se hace en seco, con las yemas, nunca con las uñas.",
+      "Apoya los dedos y MUEVE el cuero cabelludo sobre el hueso. No resbales por el pelo: la piel tiene que desplazarse.",
+      "Por zonas: sienes, encima de las orejas, coronilla, parte de atrás. Quince segundos en cada una.",
+      "Presión firme y sostenida, sin dolor. Es un estiramiento de la piel, no un rasguño.",
+    ],
+    extra: "capilar",
+    necesidades: [],
+    prioridad: 1,
+    fuente:
+      "Koyama et al., 2016: nueve hombres, cuatro minutos al día de masaje estandarizado del cuero cabelludo durante 24 semanas. El pelo se engrosó (de 0,085 a 0,092 mm) y cambió la expresión de genes del folículo; la CANTIDAD de pelos no aumentó. La hipótesis es la mecanotransducción: el estiramiento de la piel llega a las células de la papila dérmica.",
+  },
+  {
+    id: "cap-tracciones",
+    fase: "cierre",
+    nombre: "Tracciones suaves",
+    zona: "Raíz del pelo",
+    segundos: 60,
+    como: [
+      "Toma un mechón pequeño cerca de la raíz, con la mano entera, y tira suave un par de segundos.",
+      "Suelta y cambia de zona. Nunca desde las puntas, y nunca hasta que duela.",
+      "Un minuto por toda la cabeza.",
+    ],
+    extra: "capilar",
+    necesidades: [],
+    prioridad: 3,
+    fuente:
+      "Es la misma idea de estiramiento mecánico del estudio anterior. Traccionar fuerte o siempre en la misma zona hace lo contrario: la tracción sostenida (moños apretados, trenzas tirantes) causa alopecia por tracción, que sí está bien documentada.",
+  },
+  {
+    id: "cap-nuca",
+    fase: "cierre",
+    nombre: "Nuca y borde del pelo",
+    zona: "Nuca",
+    segundos: 60,
+    como: [
+      "Pulgares en la base del cráneo, dedos abiertos sobre la cabeza.",
+      "Círculos lentos por todo el borde del pelo, subiendo hacia la coronilla.",
+      "Termina peinando con los dedos desde la frente hacia atrás, tres veces.",
+    ],
+    extra: "capilar",
+    necesidades: [],
+    prioridad: 2,
+    fuente:
+      "Lo honesto: el masaje capilar engrosa el pelo que ya tienes y se siente bien. No revierte una alopecia androgenética, que tiene causa genética y hormonal; para eso lo que tiene evidencia sólida es el minoxidil y, con indicación médica, la finasterida. Si se te cae el pelo de golpe, en parches o con picazón, eso se ve con dermatóloga.",
+  },
+  {
     id: "cie-agua",
     fase: "cierre",
     nombre: "Un vaso de agua",
@@ -932,11 +1207,14 @@ export type Opciones = {
   momento: Momento;
   nivel: Nivel;
   estadoPiel: EstadoPiel;
+  /** Opcional: quien guardó antes de que existieran no lleva ninguno. */
+  extras?: Extra[];
 };
 
 const indice = new Map(CATALOGO.map((p, i) => [p.id, i]));
 
 function aplica(p: Paso, o: Opciones) {
+  if (p.extra && !(o.extras ?? []).includes(p.extra)) return false;
   if (p.soloPrimeraVez && o.nivel !== "primera") return false;
   if (p.soloMomento && p.soloMomento !== o.momento) return false;
   // Masofilaxia fuera en acné y rosácea (cosmetología integral de la biblioteca).
@@ -952,7 +1230,10 @@ function cobertura(p: Paso, necesidades: Necesidad[]) {
 export function armarRutina(o: Opciones): Rutina {
   const disponibles = CATALOGO.filter((p) => aplica(p, o));
 
-  const base = disponibles.filter((p) => p.base);
+  /* Los extras elegidos entran completos, como la base: quien pidió el masaje
+     capilar lo quiere entero, no la mitad porque no cupo. Lo que se acomoda es
+     el resto de la rutina. */
+  const base = disponibles.filter((p) => p.base || p.extra);
   const usados = new Set(base.map((p) => p.id));
   const segundosBase = base.reduce((a, p) => a + duracion(p), 0);
 

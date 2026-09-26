@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { BackButton } from "@/components/BackButton";
+import { BotonInstalar } from "@/components/BotonInstalar";
+import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Habitos } from "@/components/habitos/Habitos";
 import { HALLAZGOS, MITOS, SOBRE_LOS_DATOS } from "@/lib/habitos/ciencia";
 
@@ -16,6 +18,8 @@ export const metadata: Metadata = {
   title: "Hábitos — El Floema",
   description:
     "Tus objetivos, hábitos y tareas en un calendario, con gráficos de cómo vas y pausas cortas. Basado en lo que la investigación muestra que funciona.",
+  manifest: "/cuidado/manifest.webmanifest",
+  icons: { apple: "/icon-cuidado-180.png" },
 };
 
 export default function HabitosPage() {
@@ -25,6 +29,7 @@ export default function HabitosPage() {
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
+        <RegistrarServiceWorker />
         <BackButton />
 
         <header style={{ margin: "0 0 1.1rem" }}>
@@ -44,6 +49,8 @@ export default function HabitosPage() {
             Hábitos
           </h1>
         </header>
+
+        <BotonInstalar nombre="El Floema Cuidado" />
 
         <Habitos />
 

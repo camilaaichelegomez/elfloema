@@ -26,6 +26,7 @@ const NAV: NavGroup[] = [
       { href: "/agente", label: "Naturópata", hint: "Salud y bienestar" },
       { href: "/botanico", label: "Botánico", hint: "Plantas y evidencia" },
       { href: "/belleza", label: "Belleza", hint: "Rutina y tipo de piel" },
+      { href: "/cuidado", label: "El Floema Cuidado", hint: "Yoga, ritual facial y hábitos en una app" },
       { href: "/ritual-facial", label: "Ritual facial", hint: "Yoga facial y drenaje linfático" },
       { href: "/yoga", label: "Ritual de yoga", hint: "Tu práctica armada a tu medida" },
       { href: "/habitos", label: "Hábitos", hint: "Objetivos, hábitos y tareas del día" },

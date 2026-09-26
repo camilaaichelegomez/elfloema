@@ -21,10 +21,10 @@ export const metadata: Metadata = {
   title: "Ritual de yoga — El Floema",
   description:
     "Arma tu práctica de yoga según lo que necesites, con todos los estilos, y síguela paso a paso. Responde una vez y queda guardada.",
-  manifest: "/yoga/manifest.webmanifest",
+  manifest: "/cuidado/manifest.webmanifest",
   /* El iPhone no mira los iconos del manifiesto: usa esta etiqueta.
      Sin ella, la app instalada quedaba con el icono general del sitio. */
-  icons: { apple: "/icon-yoga-bailarin-180.png" },
+  icons: { apple: "/icon-cuidado-180.png" },
 };
 
 const POSTURAS_TOTAL = CATALOGO.filter((p) => p.familia !== "respiracion" && p.familia !== "quietud").length;
@@ -61,7 +61,7 @@ export default function YogaPage() {
           </h1>
         </header>
 
-        <BotonInstalar nombre="el Ritual de yoga" />
+        <BotonInstalar nombre="El Floema Cuidado" />
 
         <Yoga />
 

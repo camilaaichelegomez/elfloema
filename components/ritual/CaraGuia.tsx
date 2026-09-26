@@ -439,6 +439,108 @@ const MARCAS: Record<string, Guia> = {
   },
 
   // ── Ejercicios: la cara hace el gesto ──
+  /* ── Acupresión ──────────────────────────────────────────────
+     Puntos de la medicina china. Se sostiene la presión, no se pasea: por eso
+     van con aro y con el dedo apoyado, sin flecha de recorrido. */
+  "acu-yintang": {
+    marcas: [
+      { t: "mano", p: [110, 80], ang: 0, n: 1 },
+      { t: "aro", c: [110, 80], r: 10 },
+      { t: "nota", xy: [110, 212], texto: "sostén 30 s, sin círculos" },
+    ],
+  },
+  "acu-yingxiang": {
+    simetrico: true,
+    marcas: [
+      { t: "mano", p: [99, 126], ang: 340, n: 1 },
+      { t: "puntos", p: [[99, 126]] },
+      { t: "nota", xy: [110, 212], texto: "pegado a la aleta · círculos pequeños" },
+    ],
+  },
+  "acu-zanzhu": {
+    simetrico: true,
+    marcas: [
+      { t: "mano", p: [100, 92], ang: 350, n: 1 },
+      { t: "puntos", p: [[100, 84]] },
+      { t: "flecha", d: "M 100 94 L 100 78" },
+      { t: "nota", xy: [110, 212], texto: "empuja hacia arriba, contra el hueso" },
+    ],
+  },
+  "acu-fengchi": {
+    vista: "perfil",
+    marcas: [
+      { t: "puntos", p: [[156, 150]] },
+      { t: "aro", c: [156, 150], r: 12 },
+      { t: "flecha", d: "M 168 162 Q 160 156 156 150" },
+      { t: "nota", xy: [106, 58], texto: "los dos huecos de la nuca" },
+    ],
+  },
+
+  /* ── Bruxismo ────────────────────────────────────────────────
+     El masetero se trabaja arrastrando de arriba abajo, no en círculos: por
+     eso la flecha es recta y larga. */
+  "bru-masetero-profundo": {
+    simetrico: true,
+    gesto: { boca: "abierta" },
+    marcas: [
+      { t: "zona", d: "M 52 116 Q 68 112 74 130 Q 70 158 54 150 Z" },
+      { t: "mano", p: [62, 122], ang: 8, n: 2 },
+      { t: "flecha", d: "M 62 118 L 62 152" },
+      { t: "nota", xy: [110, 212], texto: "arrastra despacio, dientes separados" },
+    ],
+  },
+  "bru-temporal": {
+    simetrico: true,
+    marcas: [
+      { t: "zona", d: "M 54 84 Q 68 74 76 84 Q 70 106 56 104 Z" },
+      { t: "mano", p: [64, 92], ang: 300, n: 3 },
+      { t: "flecha", d: "M 66 96 Q 56 86 50 74" },
+      { t: "nota", xy: [110, 212], texto: "en abanico, hacia arriba y atrás" },
+    ],
+  },
+  "bru-reposo": {
+    gesto: { boca: "neutra" },
+    marcas: [
+      { t: "aro", c: [110, 150], r: 16 },
+      { t: "nota", xy: [110, 200], texto: "labios juntos · dientes separados" },
+      { t: "nota", xy: [110, 216], texto: "lengua en el paladar" },
+    ],
+  },
+  "bru-apertura-guiada": {
+    gesto: { boca: "abierta" },
+    marcas: [
+      { t: "flecha", d: "M 110 150 L 110 188" },
+      { t: "aro", c: [56, 118], r: 10 },
+      { t: "nota", xy: [110, 212], texto: "baja recta, sin irse al lado" },
+    ],
+  },
+
+  /* ── Cuero cabelludo ─────────────────────────────────────────
+     Lo importante no es dónde, sino QUÉ se mueve: la piel sobre el hueso. */
+  "cap-craneo": {
+    simetrico: true,
+    marcas: [
+      { t: "mano", p: [80, 52], ang: 200, n: 4 },
+      { t: "flecha", d: "M 72 44 Q 80 38 90 42" },
+      { t: "nota", xy: [110, 212], texto: "mueve la piel, no resbales el pelo" },
+    ],
+  },
+  "cap-tracciones": {
+    marcas: [
+      { t: "mano", p: [110, 46], ang: 180, n: 4 },
+      { t: "flecha", d: "M 110 40 L 110 20" },
+      { t: "nota", xy: [110, 212], texto: "desde la raíz, suave, dos segundos" },
+    ],
+  },
+  "cap-nuca": {
+    vista: "perfil",
+    marcas: [
+      { t: "mano", p: [152, 146], ang: 20, n: 3 },
+      { t: "flecha", d: "M 156 152 Q 146 120 130 86" },
+      { t: "nota", xy: [106, 58], texto: "del borde del pelo hacia la coronilla" },
+    ],
+  },
+
   "ej-pomulos": {
     simetrico: true,
     gesto: { boca: "sonrisa", mejillas: "elevadas" },

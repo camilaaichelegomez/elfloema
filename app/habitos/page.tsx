@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: "Hábitos — El Floema",
   description:
     "Tus objetivos, hábitos y tareas en un calendario, con gráficos de cómo vas y pausas cortas. Basado en lo que la investigación muestra que funciona.",
-  manifest: "/cuidado/manifest.webmanifest",
-  icons: { apple: "/icon-cuidado-180.png" },
+  manifest: "/florecer/manifest.webmanifest",
+  icons: { apple: "/icon-florecer-180.png" },
 };
 
 export default function HabitosPage() {
@@ -50,7 +50,7 @@ export default function HabitosPage() {
           </h1>
         </header>
 
-        <BotonInstalar nombre="El Floema Cuidado" />
+        <BotonInstalar nombre="Florecer" />
 
         <Habitos />
 

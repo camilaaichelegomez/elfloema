@@ -14,11 +14,11 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-v11";
+const VERSION = "floema-v12";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 
-/* Dos apps instalables comparten este worker: el Lab, y El Floema Cuidado
+/* Dos apps instalables comparten este worker: el Lab, y Florecer
    (yoga, ritual facial y hábitos juntos). Dos workers en el mismo scope se
    pisan entre sí, así que es uno solo para todo el sitio. */
 const RUTAS_BASE = [
@@ -28,7 +28,7 @@ const RUTAS_BASE = [
   "/lab/preparadas",
   "/ritual-facial",
   "/yoga",
-  "/cuidado",
+  "/florecer",
   "/habitos",
 ];
 

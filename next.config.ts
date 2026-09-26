@@ -5,7 +5,12 @@ const nextConfig: NextConfig = {
      El redirect es temporal a propósito: /recetas va a ser otra cosa (recetas
      con lo que hay en casa), y ese día se quita. */
   async redirects() {
-    return [{ source: "/recetas", destination: "/formulas-el-floema", permanent: false }];
+    return [
+      { source: "/recetas", destination: "/formulas-el-floema", permanent: false },
+      // La app junta se llamó /cuidado durante un día: quien la guardó así sigue llegando.
+      { source: "/cuidado", destination: "/florecer", permanent: false },
+      { source: "/cuidado/manifest.webmanifest", destination: "/florecer/manifest.webmanifest", permanent: false },
+    ];
   },
 
   async headers() {

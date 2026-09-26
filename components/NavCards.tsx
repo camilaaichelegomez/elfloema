@@ -286,14 +286,14 @@ function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeti
   );
 }
 
-/* El Floema Cuidado en el inicio: la app junta primero, y después sus tres
+/* Florecer en el inicio: la app junta primero, y después sus tres
    secciones, para quien entra buscando una sola de ellas. */
-const CUIDADO_CARDS = [
+const FLORECER_CARDS = [
   {
-    key: "cuidado",
-    label: "El Floema Cuidado",
+    key: "florecer",
+    label: "Florecer",
     subtitle: "Las tres, en una app",
-    href: "/cuidado",
+    href: "/florecer",
     Icon: IconLoto,
   },
   {
@@ -319,8 +319,8 @@ const CUIDADO_CARDS = [
   },
 ];
 
-export function CuidadoSection() {
-  return <CardsSection titulo="El Floema Cuidado" items={CUIDADO_CARDS} />;
+export function FlorecerSection() {
+  return <CardsSection titulo="Florecer" items={FLORECER_CARDS} />;
 }
 
 export function NavCards() {

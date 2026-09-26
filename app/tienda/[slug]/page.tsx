@@ -7,6 +7,7 @@ import { BackButton } from "@/components/BackButton";
 import ProductoImagen from "@/components/tienda/ProductoImagen";
 import FiguraCiencia from "@/components/tienda/FiguraCiencia";
 import AddToCartButton from "@/components/tienda/AddToCartButton";
+import { Comentarios } from "@/components/Comentarios";
 import { getProducto, getProductos } from "@/lib/productos-db";
 
 const GOLD = "#c8a050";
@@ -294,6 +295,12 @@ export default async function ProductoPage({
               </div>
             </section>
           )}
+
+          <Comentarios
+            pagina={`tienda/${producto.slug}`}
+            titulo="Comentarios"
+            intro="¿Ya lo probaste o tienes una duda? Cuéntanos. Los comentarios se publican después de una revisión."
+          />
 
           {/* Otros productos */}
           <section style={{ marginTop: "clamp(4rem,8vh,6rem)" }}>

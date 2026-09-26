@@ -3,7 +3,7 @@
 import { useEffect, useState, type CSSProperties, type FormEvent } from "react";
 import { supabase } from "@/lib/supabase";
 
-// Sección «Deja tu comentario» para las páginas públicas. Los comentarios se
+// Sección de comentarios para las páginas públicas (hoy, cada producto de la tienda). Los comentarios se
 // guardan sin aprobar y solo se muestran cuando la dueña los aprueba en el Lab.
 // Si la tabla todavía no existe en Supabase (supabase_comentarios.sql), la
 // sección no se muestra, para no dejar un formulario roto.
@@ -14,7 +14,15 @@ const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
 const ESPERA_MS = 30_000;
 
-export function Comentarios({ pagina }: { pagina: string }) {
+export function Comentarios({
+  pagina,
+  titulo: tituloSeccion = "Deja tu comentario",
+  intro = "Cuéntanos qué te pareció, qué te faltó o qué te gustaría aprender. Los comentarios se publican después de una revisión.",
+}: {
+  pagina: string;
+  titulo?: string;
+  intro?: string;
+}) {
   const [lista, setLista] = useState<Comentario[]>([]);
   const [disponible, setDisponible] = useState<boolean | null>(null);
   const [nombre, setNombre] = useState("");
@@ -86,11 +94,11 @@ export function Comentarios({ pagina }: { pagina: string }) {
   if (disponible === false || disponible === null) return null;
 
   return (
-    <section aria-labelledby="comentarios-titulo" style={{ marginTop: "4rem" }}>
+    <section aria-labelledby="comentarios-titulo" style={{ marginTop: "clamp(3rem,6vh,4.5rem)", maxWidth: 760, marginInline: "auto" }}>
       <div style={{ height: 1, background: "linear-gradient(to right,transparent,rgba(200,160,80,0.35),transparent)", marginBottom: "2rem" }} />
-      <h2 id="comentarios-titulo" style={titulo}>Deja tu comentario</h2>
+      <h2 id="comentarios-titulo" style={titulo}>{tituloSeccion}</h2>
       <p style={{ ...nota, marginBottom: "1.4rem" }}>
-        Cuéntanos qué te pareció, qué te faltó o qué te gustaría aprender. Los comentarios se publican después de una revisión.
+        {intro}
       </p>
 
       <form onSubmit={enviar} style={{ display: "grid", gap: "0.7rem", marginBottom: "2rem" }}>

@@ -64,11 +64,6 @@ const I = {
       <path d="M3.5 6.5 10 10l6.5-3.5M10 10v7" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
     </svg>
   ),
-  comentarios: (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4 4.5h12a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H9.4L6 16.5v-3H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-    </svg>
-  ),
   catalogo: (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <path d="M4 4.5h4.6c.9 0 1.6.7 1.6 1.6v9.4c0-.7-.6-1.3-1.3-1.3H4v-9.7Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
@@ -99,7 +94,6 @@ const PRINCIPALES: Seccion[] = [
 const SECUNDARIAS: (Seccion & { descripcion: string })[] = [
   { href: "/lab/productos", label: "Mis productos", icono: I.productos, descripcion: "Marcar fórmulas como producto y sus etiquetas" },
   { href: "/lab/pedidos", label: "Pedidos", icono: I.pedidos, descripcion: "Ventas de la tienda y qué falta despachar" },
-  { href: "/lab/comentarios", label: "Comentarios", icono: I.comentarios, descripcion: "Aprobar los comentarios que dejan en la web" },
   { href: "/lab/catalogo", label: "Mi catálogo", icono: I.catalogo, descripcion: "Precios, fotos y generar el catálogo" },
   { href: "/lab/etiquetas", label: "Etiquetas", icono: I.etiquetas, descripcion: "Diseñar e imprimir etiquetas de tus envases" },
   { href: "/lab/costos", label: "Costos", icono: I.costos, descripcion: "Cuánto te cuesta cada producto" },

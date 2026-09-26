@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { habitosDe, hoy as hoyTexto, leerDatos, tareasDe } from "@/lib/habitos/tipos";
 
-/* La portada de El Floema Cuidado.
+/* La portada de Florecer.
 
    Las tres secciones —la práctica de yoga, el ritual facial y los hábitos—
    eran tres apps instalables distintas, y tener tres iconos en el teléfono

@@ -19,20 +19,20 @@ export const dynamic = "force-static";
 
 export function GET() {
   const manifest: MetadataRoute.Manifest = {
-    name: "El Floema Cuidado",
-    short_name: "Cuidado",
+    name: "Florecer · El Floema",
+    short_name: "Florecer",
     description:
       "Tu práctica de yoga, el ritual facial y tus hábitos del día, en un solo lugar.",
-    start_url: "/cuidado",
+    start_url: "/florecer",
     scope: "/",
     display: "standalone",
     orientation: "portrait",
     background_color: "#0d1a0d",
     theme_color: "#0d1a0d",
     icons: [
-      { src: "/icon-cuidado-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-      { src: "/icon-cuidado-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-      { src: "/icon-cuidado-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/icon-florecer-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icon-florecer-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icon-florecer-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
       { name: "Ritual de yoga", url: "/yoga" },

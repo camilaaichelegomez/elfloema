@@ -3,19 +3,19 @@ import type { CSSProperties } from "react";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
-import { Portada } from "@/components/cuidado/Portada";
+import { Portada } from "@/components/florecer/Portada";
 
-/* El Floema Cuidado: la puerta de entrada a las tres secciones del cuerpo.
+/* Florecer: la puerta de entrada a las tres secciones del cuerpo.
 
    Son una sola app instalable. El Lab queda aparte a propósito: es trabajo,
    lo usa otra gente y tiene su propio manifiesto. */
 
 export const metadata: Metadata = {
-  title: "El Floema Cuidado — yoga, ritual facial y hábitos",
+  title: "Florecer — yoga, ritual facial y hábitos | El Floema",
   description:
     "Tu práctica de yoga, el ritual facial y tus hábitos del día en una sola app, que funciona sin internet.",
-  manifest: "/cuidado/manifest.webmanifest",
-  icons: { apple: "/icon-cuidado-180.png" },
+  manifest: "/florecer/manifest.webmanifest",
+  icons: { apple: "/icon-florecer-180.png" },
 };
 
 export default function CuidadoPage() {
@@ -42,11 +42,11 @@ export default function CuidadoPage() {
               textWrap: "balance",
             }}
           >
-            El Floema Cuidado
+            Florecer
           </h1>
         </header>
 
-        <BotonInstalar nombre="El Floema Cuidado" />
+        <BotonInstalar nombre="Florecer" />
 
         <Portada />
 

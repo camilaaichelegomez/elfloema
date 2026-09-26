@@ -326,6 +326,140 @@ export default function CaraDrenajeYogaFacial() {
         </Tradicion>
       </Seccion>
 
+      <Seccion titulo="Bruxismo: la mandíbula que no descansa">
+        <P>
+          Apretar o rechinar los dientes es de lo más común que hay, y de lo que más cambia una cara:
+          el masetero es un músculo que responde al uso, y usarlo ocho horas cada noche lo engrosa. De
+          ahí la mandíbula cuadrada, el dolor de cabeza al despertar y el desgaste del esmalte.
+        </P>
+        <InfoBox title="Lo primero, que no es un masaje">
+          <Dorado>La posición de reposo.</Dorado> Labios juntos, <Dorado>dientes separados</Dorado> y
+          lengua apoyada en el paladar, detrás de los dientes de arriba. Los dientes solo deberían
+          tocarse al tragar y al masticar: el resto del día, no. Sorprenderte apretando y volver a esa
+          posición es el ejercicio completo.
+        </InfoBox>
+        <SubLabel>Qué se trabaja, y cómo</SubLabel>
+        <MiniTable
+          headers={["Zona", "Cómo", "Para qué"]}
+          rows={[
+            [
+              "Masetero",
+              "Boca entreabierta y arrastre lento de arriba hacia abajo, como planchando la fibra. En el punto que duele sordo, quedarse respirando, sin apretar más.",
+              "Es el que más trabaja de noche y el que marca el contorno.",
+            ],
+            [
+              "Temporal (la sien)",
+              "Masaje en abanico, hacia arriba y atrás.",
+              "Es donde vive el dolor de cabeza tensional.",
+            ],
+            [
+              "Pterigoideos (por dentro)",
+              "Solo con profesional. No se trabajan sola en casa.",
+              "Participan en el bloqueo y el chasquido.",
+            ],
+            [
+              "Apertura guiada",
+              "Lengua en el paladar, abrir y cerrar mirándose al espejo, sin que la mandíbula se desvíe.",
+              "Reeduca el movimiento; evita el patrón torcido.",
+            ],
+          ]}
+        />
+        <Evidencia
+          grado="Prometedor"
+          fuente="Ensayo aleatorizado biopsicosocial en personas con bruxismo: el arrastre profundo sobre los músculos masticadores mejoró la calidad de sueño, la movilidad mandibular y el umbral de dolor por presión más que el TENS y que la liberación miofascial (Journal of Bodywork and Movement Therapies, 2022). Revisiones de enfoques de tratamiento en disfunción temporomandibular, 2023."
+        >
+          La terapia manual sobre los músculos masticadores y del cuello, sumada al ejercicio y a la
+          conciencia postural, mejora dolor, movilidad y calidad de sueño. La calidad de la evidencia es
+          moderada a baja y los estudios son pequeños, pero apuntan al mismo lado y el riesgo de
+          probarlo es mínimo.
+        </Evidencia>
+        <WarnBox title="Cuándo esto se va con profesional">
+          Si te bloqueas al abrir, si el chasquido duele, si la mandíbula se va a un lado, si el dolor
+          te despierta o si ya hay desgaste visible de los dientes: eso lo ve una odontóloga
+          —probablemente con férula— o una kinesióloga de mandíbula. El masaje ayuda con el músculo, no
+          con la articulación ni con el esmalte. Y la toxina botulínica en el masetero, que se ofrece
+          mucho, es un procedimiento médico con sus propios riesgos, no un plan B casero.
+        </WarnBox>
+      </Seccion>
+
+      <Seccion titulo="Los puntos de la medicina china">
+        <P>
+          La acupresión es acupuntura sin agujas: se sostiene o se masajea un punto concreto con el
+          dedo. En la cara, los que aparecen una y otra vez en los estudios son cuatro, y se usan para
+          lo mismo que buscamos aquí: la cara congestionada y la nariz tapada.
+        </P>
+        <MiniTable
+          headers={["Punto", "Dónde", "Para qué se usa", "Cómo"]}
+          rows={[
+            ["Yintang (EX-HN3)", "Justo entre las cejas", "Cabeza pesada, nariz tapada, calmar", "Presión sostenida 30 s, sin círculos"],
+            ["Yingxiang (IG20)", "Al lado de la aleta de la nariz, en el pliegue", "Congestión nasal", "Círculos pequeños y firmes, 20 por lado"],
+            ["Zanzhu (V2)", "En el nacimiento de la ceja, junto a la nariz", "Ojos pesados, frente apretada", "Empujar hacia arriba contra el hueso, 20 s"],
+            ["Fengchi (VB20)", "Los dos huecos de la base del cráneo", "Tensión de cuello y cabeza", "Presión hacia arriba y al centro, 30 s"],
+          ]}
+        />
+        <Evidencia
+          grado="Prometedor"
+          fuente="Metaanálisis de terapias relacionadas con acupuntura en rinitis alérgica; ensayo controlado de acupresión autoadministrada con Yingxiang, Yintang, Fengchi y otros puntos (BMC Complementary Medicine and Therapies, 2023). Referencias en biblioteca-cientifica/acupuntura_meridianos."
+        >
+          En rinitis alérgica y congestión nasal, la acupuntura y la acupresión muestran mejoras
+          modestas en los síntomas que la gente reporta y en la calidad de vida. En las medidas
+          objetivas —flujo de aire, inflamación— la evidencia es más débil y menos consistente. O sea:
+          es razonable que te sientas mejor, y no está demostrado que la nariz esté midiendo distinto.
+        </Evidencia>
+        <Tradicion>
+          Los meridianos y el qi que los explica son el marco de la medicina china tradicional, no
+          anatomía occidental: no hay canales de energía que un bisturí encuentre. Los puntos, en
+          cambio, sí caen en lugares con nervios y vasos concretos, y la hipótesis que se investiga es
+          neuromodulación: que estimularlos cambie el tono del sistema nervioso autónomo en esa zona.
+        </Tradicion>
+      </Seccion>
+
+      <Seccion titulo="Cuero cabelludo: masaje, caída y crecimiento">
+        <P>
+          El masaje capilar se volvió popular con una promesa grande —«hace crecer el pelo»— a partir de
+          un estudio chiquito. Vale la pena mirarlo de cerca, porque lo que muestra es real y es más
+          modesto que la promesa.
+        </P>
+        <Evidencia
+          grado="Prometedor"
+          fuente="Koyama et al., «Standardized Scalp Massage Results in Increased Hair Thickness by Inducing Stretching Forces to Dermal Papilla Cells in the Subcutaneous Tissue», Eplasty, 2016; encuesta de autoevaluación en alopecia androgenética, Dermatology and Therapy, 2019."
+        >
+          Nueve hombres sanos, <Dorado>cuatro minutos al día durante 24 semanas</Dorado>: el pelo se
+          engrosó de 0,085 a 0,092 mm, y en la biopsia cambió la expresión de genes del folículo (sube
+          NOGGIN, BMP4 y SMAD4, asociados a la fase de crecimiento; baja IL6, asociada a caída). La
+          <Dorado> cantidad</Dorado> de pelos no aumentó. La explicación propuesta es la
+          mecanotransducción: el estiramiento de la piel llega como señal a las células de la papila
+          dérmica.
+        </Evidencia>
+        <SubLabel>Cómo se hace, que es lo que decide si sirve</SubLabel>
+        <Check>
+          En seco y con las yemas, nunca con las uñas. Si te suena a rasguño, está mal.
+        </Check>
+        <Check>
+          <Dorado>Mover la piel sobre el hueso</Dorado>, no resbalar los dedos por el pelo. Ese
+          estiramiento es todo el mecanismo.
+        </Check>
+        <Check>Por zonas: sienes, encima de las orejas, coronilla y parte de atrás.</Check>
+        <Check>Cuatro minutos, todos los días. Menos que eso no es lo que se estudió.</Check>
+        <Check mark="·">
+          Las tracciones suaves desde la raíz son la misma idea. Tirar fuerte o siempre del mismo lado
+          hace lo contrario: la tracción sostenida —moños apretados, trenzas tirantes, extensiones—
+          produce alopecia por tracción, y esa sí está bien documentada.
+        </Check>
+        <WarnBox title="Lo honesto sobre la caída">
+          El masaje engrosa el pelo que tienes y se siente bien. <Dorado>No revierte una alopecia
+          androgenética</Dorado>, que tiene causa genética y hormonal: para eso lo que tiene evidencia
+          sólida es el minoxidil tópico y, con indicación médica, la finasterida. Y si el pelo se te cae
+          de golpe, en parches, con picazón, con descamación o con enrojecimiento del cuero cabelludo,
+          eso no es un masaje pendiente: es una consulta con dermatóloga.
+        </WarnBox>
+        <InfoBox title="Lo que sí puedes esperar">
+          Pelo más grueso al tacto con meses de constancia, menos tensión en la cabeza, y un rato
+          diario que baja el estrés —que, de paso, es uno de los factores que empeora el efluvio
+          telógeno, la caída difusa que aparece después de una pena, una enfermedad o un parto.
+        </InfoBox>
+      </Seccion>
+
       <Seccion titulo="Qué tener en cuenta antes de empezar">
         <SubLabel>Cuidados básicos</SubLabel>
         <Check>Manos limpias y uñas cortas. La cara se toca con las yemas, no con la punta de la uña.</Check>

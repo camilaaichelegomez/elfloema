@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BackButton } from "@/components/BackButton";
 import { llevarLaVistaAlAbrir } from "@/lib/llevar-la-vista";
+import { Comentarios } from "@/components/Comentarios";
 import { SECCIONES_EXTRA, type IngExtra } from "@/lib/ingredientes-extra";
 
 function GrainOverlay() {
@@ -983,6 +984,8 @@ export default function Ingredientes() {
           <P>Se deposita en la cutícula del cabello, rellena daños, da brillo y resistencia. Imprescindible en syndets capilares.</P>
 
           </AccordionItem>
+
+        <Comentarios pagina="ingredientes" />
 
       </div>
     </div>

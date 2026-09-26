@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SECCIONES_CUERPO } from "@/components/biblioteca/IconosCuerpo";
+import { IconLoto, IconRostro, IconYoga, SECCIONES_CUERPO } from "@/components/biblioteca/IconosCuerpo";
 import { MouseEvent } from "react";
 
 function IconLeaf() {
@@ -186,6 +186,21 @@ const grimorioCards = [
   },
 ];
 
+/* La lista con sus marcas: el icono de los hábitos. Va aquí y no en
+   IconosCuerpo porque esa lista es de la Biblioteca, no de las apps. */
+function IconHabitos() {
+  return (
+    <svg viewBox="0 0 64 64" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="12" y="12" width="13" height="13" rx="3" />
+      <path d="M15.5 18.5 l3 3 l6 -7" />
+      <rect x="12" y="32" width="13" height="13" rx="3" />
+      <path d="M15.5 38.5 l3 3 l6 -7" />
+      <path d="M32 18 L52 18 M32 38 L52 38 M32 52 L46 52" opacity="0.65" />
+      <rect x="12" y="49" width="13" height="6" rx="2" opacity="0.5" />
+    </svg>
+  );
+}
+
 function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeticaCards }) {
   const setCardCursor = (event: MouseEvent<HTMLAnchorElement>) => {
     const target = event.currentTarget;
@@ -269,6 +284,43 @@ function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeti
       </ul>
     </section>
   );
+}
+
+/* El Floema Cuidado en el inicio: la app junta primero, y después sus tres
+   secciones, para quien entra buscando una sola de ellas. */
+const CUIDADO_CARDS = [
+  {
+    key: "cuidado",
+    label: "El Floema Cuidado",
+    subtitle: "Las tres, en una app",
+    href: "/cuidado",
+    Icon: IconLoto,
+  },
+  {
+    key: "yoga-app",
+    label: "Ritual de yoga",
+    subtitle: "Tu práctica, armada hoy",
+    href: "/yoga",
+    Icon: IconYoga,
+  },
+  {
+    key: "ritual-facial-app",
+    label: "Ritual facial",
+    subtitle: "Drenaje y yoga facial",
+    href: "/ritual-facial",
+    Icon: IconRostro,
+  },
+  {
+    key: "habitos-app",
+    label: "Hábitos",
+    subtitle: "Objetivos, hábitos y tareas",
+    href: "/habitos",
+    Icon: IconHabitos,
+  },
+];
+
+export function CuidadoSection() {
+  return <CardsSection titulo="El Floema Cuidado" items={CUIDADO_CARDS} />;
 }
 
 export function NavCards() {

@@ -7,6 +7,7 @@ import { KnowledgeCards } from "@/components/KnowledgeCards";
 import { NavCards, CuerpoSection, GrimorioSection } from "@/components/NavCards";
 import { LaBotica } from "@/components/LaBotica";
 import { CartProvider } from "@/components/tienda/CartProvider";
+import { Comentarios } from "@/components/Comentarios";
 
 export default function Home() {
   return (
@@ -24,6 +25,11 @@ export default function Home() {
       <CartProvider>
         <LaBotica />
       </CartProvider>
+      <div style={{ position: "relative", zIndex: 1, padding: "0 clamp(1.5rem,5vw,3rem) clamp(3rem,8vh,5rem)" }}>
+        <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 clamp(1.2rem,4vw,2.4rem) clamp(1.6rem,4vw,2.4rem)", background: "rgba(8,13,8,0.78)", border: "1px solid rgba(200,160,80,0.18)", borderRadius: 14 }}>
+          <Comentarios pagina="inicio" />
+        </div>
+      </div>
       <footer className="site-footer">
         <img src="/logo.jpg" alt="El Floema" className="footer-logo" />
         <p className="footer-tagline">Con ciencia, mi magia despierta</p>

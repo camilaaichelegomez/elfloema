@@ -471,6 +471,10 @@ export type Preferencias = {
   binaural: boolean;
   /** Volumen de la música, de 0 a 1. */
   volumenMusica: number;
+  /** Que la práctica suba sola con la constancia. */
+  progresion?: boolean;
+  /** De 0 a 3. No se guarda: se calcula con las prácticas del último mes. */
+  impulso?: number;
   /** Un paisaje de agua encima de la música: mar, río o nada. */
   agua?: "ninguna" | "mar" | "rio";
   /** Nombre de la voz del dispositivo. Vacío = la que mejor suene de las que
@@ -497,6 +501,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   musica: "auto",
   binaural: false,
   volumenMusica: 0.7,
+  progresion: true,
   agua: "ninguna",
   ritmo: "normal",
 };

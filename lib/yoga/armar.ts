@@ -92,6 +92,24 @@ export type Rutina = {
   series: { nombre: string; vueltas: number; porque: string; porLado?: boolean }[];
 };
 
+/* Cuánto empuja la constancia, de 0 a 3. Sale de cuántas prácticas hubo en
+   el último mes, y sube tres cosas: la exigencia de lo que se elige, el
+   techo de nivel (una persona que practica seguido ya no es la misma de la
+   primera semana) y el rato que se sostiene cada postura.
+
+   Es deliberadamente lento: tres prácticas a la semana durante un mes para
+   llegar al tope. Lo que hace daño en yoga es apurar, no ir lento. */
+export function impulsoPorConstancia(dias: string[], hoy = new Date()) {
+  const limite = new Date(hoy);
+  limite.setDate(limite.getDate() - 30);
+  const desde = limite.toISOString().slice(0, 10);
+  const cuantas = dias.filter((d) => d >= desde).length;
+  if (cuantas >= 14) return 3;
+  if (cuantas >= 8) return 2;
+  if (cuantas >= 4) return 1;
+  return 0;
+}
+
 const NIVEL_MAX: Record<Nivel, 1 | 2 | 3> = {
   primera: 1,
   poco: 2,
@@ -242,11 +260,20 @@ function motivoDeCuidado(paso: Paso, p: Preferencias): string | null {
   return null;
 }
 
+/* El techo de nivel sube uno con la constancia, pero nunca para quien
+   marcó que es su primera vez: ahí el problema no es el aburrimiento. */
+function techoDeNivel(p: Preferencias) {
+  const base = NIVEL_MAX[p.nivel];
+  if (!p.progresion || p.nivel === "primera") return base;
+  const empuje = Math.min(3, Math.max(0, p.impulso ?? 0));
+  return Math.min(3, base + (empuje >= 2 ? 1 : 0)) as 1 | 2 | 3;
+}
+
 function pasaElFiltro(paso: Paso, p: Preferencias) {
   if (paso.soloCuidados && !paso.soloCuidados.some((c) => p.cuidados.includes(c))) return false;
   if (paso.evita?.some((c) => p.cuidados.includes(c))) return false;
   if (paso.necesita?.some((prop) => !p.props.includes(prop))) return false;
-  if (paso.nivel > NIVEL_MAX[p.nivel]) return false;
+  if (paso.nivel > techoDeNivel(p)) return false;
   if (paso.carga > CARGA_MAX[p.intensidad]) return false;
   if (paso.soloPrimeraVez && p.nivel !== "primera") return false;
   if (paso.soloAvanzada && p.nivel !== "avanzada") return false;
@@ -278,7 +305,7 @@ function quitadasPorCuidado(p: Preferencias): Quitada[] {
 function secuenciaDisponible(sec: Secuencia, p: Preferencias) {
   if (sec.evita?.some((c) => p.cuidados.includes(c))) return false;
   if (sec.necesita?.some((prop) => !p.props.includes(prop))) return false;
-  if (sec.nivel > NIVEL_MAX[p.nivel]) return false;
+  if (sec.nivel > techoDeNivel(p)) return false;
   if (sec.carga > CARGA_MAX[p.intensidad]) return false;
   if (sec.soloMomento && !sec.soloMomento.includes(p.momento)) return false;
   return sec.pasos.every((id) => {
@@ -301,18 +328,39 @@ function respondeALoPedido(sec: Secuencia, p: Preferencias, deChakras: Set<strin
 function puntaje(
   cosa: { objetivos: Objetivo[]; estilos: Estilo[]; carga: 1 | 2 | 3; prioridad: number; id: string },
   p: Preferencias,
-  deChakras: Set<string>
+  deChakras: Set<string>,
+  vistas?: Record<string, number>
 ) {
   const objetivos = cosa.objetivos.filter((o) => p.objetivos.includes(o)).length;
   const estilo = cosa.estilos.some((e) => p.estilos.includes(e)) ? 1 : 0;
   const neutro = cosa.estilos.length === 0 ? 0.35 : 0;
   const carga = (cosa.carga - 1) * SESGO_CARGA[p.intensidad];
   const chakra = deChakras.has(cosa.id) ? 2.6 : 0;
-  return objetivos * 3 + estilo * 2.2 + neutro + carga + chakra - cosa.prioridad * 0.45;
+  /* Con constancia, lo exigente pesa más y lo repetido pesa menos: así la
+     práctica deja de ser la misma sin que haya que cambiar nada a mano. */
+  const empuje = p.progresion ? Math.min(3, Math.max(0, p.impulso ?? 0)) : 0;
+  const masExigente = (cosa.carga - 1) * empuje * 0.5;
+  const novedad = empuje > 0 && (vistas?.[cosa.id] ?? 0) === 0 ? 0.8 + empuje * 0.3 : 0;
+  const repetida = empuje > 0 ? Math.min(1.2, (vistas?.[cosa.id] ?? 0) * 0.12) : 0;
+  return (
+    objetivos * 3 +
+    estilo * 2.2 +
+    neutro +
+    carga +
+    chakra +
+    masExigente +
+    novedad -
+    repetida -
+    cosa.prioridad * 0.45
+  );
 }
 
 function duracionBase(paso: Paso, p: Preferencias) {
-  const factor = paso.familia === "quietud" || paso.familia === "respiracion" ? 1 : RITMO[p.ritmo];
+  const empuje = p.progresion ? Math.min(3, Math.max(0, p.impulso ?? 0)) : 0;
+  // Cada escalón de constancia suma un 7% al rato que se sostiene la postura.
+  const constancia = paso.familia === "quietud" || paso.familia === "respiracion" ? 1 : 1 + empuje * 0.07;
+  const factor =
+    (paso.familia === "quietud" || paso.familia === "respiracion" ? 1 : RITMO[p.ritmo]) * constancia;
   const bruta = Math.round(paso.segundos * factor);
   return Math.min(maximoDe(paso), Math.max(minimoDe(paso), bruta));
 }
@@ -340,7 +388,7 @@ type Elegido =
   | { tipo: "paso"; paso: Paso; segundos: number }
   | { tipo: "secuencia"; sec: Secuencia; vueltas: number };
 
-export function armarRutina(prefs: Preferencias): Rutina {
+export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>): Rutina {
   const quitadas = quitadasPorCuidado(prefs);
   const deChakras = posturasDeChakras(prefs.chakras ?? []);
   const disponibles = CATALOGO.filter((p) => !p.soloEnSecuencia && pasaElFiltro(p, prefs));
@@ -380,9 +428,12 @@ export function armarRutina(prefs: Preferencias): Rutina {
         secuenciaDisponible(s, prefs) &&
         respondeALoPedido(s, prefs, deChakras) &&
         !s.pasos.some((id) => usados.has(id) && !POR_ID.get(id)?.base)
-    ).sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras));
+    ).sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas));
 
-    const cupoSerie = Math.round(cupo * 1.45);
+    /* Una serie puede pasarse de su fase, porque repetir es su gracia. Pero
+       el saludo al sol se pasaba tanto que se comía un tercio de la clase:
+       ahí el margen es chico. */
+    const cupoSerie = Math.round(cupo * (fase === "saludos" ? 1.12 : 1.45));
     for (const sec of seriesPosibles) {
       if (costoSecuencia(sec, sec.vueltasMin) > cupoSerie) continue;
       // Cuántas vueltas caben: se parte de las que pide la serie y se sube si
@@ -419,7 +470,7 @@ export function armarRutina(prefs: Preferencias): Rutina {
     let puestas = (porFaseElegido.get(fase) ?? []).filter((e) => e.tipo === "paso").length;
     const candidatos = disponibles
       .filter((p) => p.fase === fase && !usados.has(p.id))
-      .sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras));
+      .sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas));
 
     for (const paso of candidatos) {
       if (puestas >= tope) break;
@@ -469,7 +520,7 @@ export function armarRutina(prefs: Preferencias): Rutina {
       if (yaPuestas >= (MAX_POR_FASE[fase] ?? 99)) continue;
       const siguiente = disponibles
         .filter((p) => p.fase === fase && !usados.has(p.id))
-        .sort((a, b) => puntaje(b, prefs, deChakras) - puntaje(a, prefs, deChakras))
+        .sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas))
         .find((p) => conLado(p, minimoDe(p)) <= resto);
       if (!siguiente) continue;
       usados.add(siguiente.id);

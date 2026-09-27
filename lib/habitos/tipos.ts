@@ -208,6 +208,30 @@ export function racha(d: Datos, h: Habito, desde = hoy()) {
   return dias;
 }
 
+/* Cuántas veces seguidas se dejó pasar, contando solo los días que le
+   tocaban y SIN contar hoy: el día no ha terminado y no se le reprocha a
+   nadie algo que todavía puede hacer.
+
+   Sirve para la regla de «no falles dos veces»: saltarse una vez no rompe
+   nada —Lally midió que omitir una oportunidad no afecta el proceso de
+   automatización—, lo que rompe es que la excepción se vuelva la costumbre. */
+export function fallosSeguidos(d: Datos, h: Habito, desde = hoy()) {
+  let fecha = sumarDias(desde, -1);
+  let veces = 0;
+  for (let i = 0; i < 400; i++) {
+    if (!tocaHoy(h, fecha)) {
+      fecha = sumarDias(fecha, -1);
+      continue;
+    }
+    if (estaHecho(d, h.id, fecha)) break;
+    // Antes de crearse no se le puede reprochar nada.
+    if (fecha < h.creado) break;
+    veces++;
+    fecha = sumarDias(fecha, -1);
+  }
+  return veces;
+}
+
 /** De los últimos N días que le tocaban, cuántos se cumplieron. */
 export function cumplimiento(d: Datos, h: Habito, dias = 30, desde = hoy()) {
   let tocaron = 0;

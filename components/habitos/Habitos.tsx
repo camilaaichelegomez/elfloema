@@ -5,6 +5,7 @@ import {
   DATOS_VACIOS,
   avanceDeObjetivo,
   cumplimiento,
+  fallosSeguidos,
   fechaLarga,
   guardarDatos,
   habitosDe,
@@ -147,7 +148,15 @@ export function Habitos() {
         const clave = `${dia}:${h.id}`;
         if (avisados.current.has(clave) || hechos.includes(h.id)) continue;
         avisados.current.add(clave);
-        const texto = h.cuando ? `${h.nombre} · ${h.cuando}` : h.nombre;
+        const seguidos = fallosSeguidos(datos, h);
+        const texto =
+          seguidos >= 2
+            ? seguidos <= 3
+              ? `${h.nombre} · van ${seguidos} veces sin hacerlo, hoy no falles otra`
+              : `${h.nombre} · hace varios días que no lo haces, hoy vuelve`
+            : h.cuando
+              ? `${h.nombre} · ${h.cuando}`
+              : h.nombre;
         setPresencia(texto);
         if (typeof Notification !== "undefined" && Notification.permission === "granted") {
           try {
@@ -447,6 +456,23 @@ function Hoy({
                     {h.cuando && (
                       <span style={{ display: "block", ...ayuda, margin: 0, fontSize: "0.85rem" }}>
                         {h.cuando}
+                      </span>
+                    )}
+                    {!hecho && fallosSeguidos(datos, h) >= 2 && (
+                      <span
+                        style={{
+                          display: "block",
+                          ...ayuda,
+                          margin: 0,
+                          fontSize: "0.82rem",
+                          color: "rgba(221,148,100,0.95)",
+                        }}
+                      >
+                        {fallosSeguidos(datos, h) <= 3
+                          ? `Van ${fallosSeguidos(datos, h)} veces sin hacerlo.`
+                          : "Hace varios días que no lo haces."}{" "}
+                        Hoy vuelve, aunque sea la versión mínima: fallar una vez no rompe nada, dos
+                        empieza a ser la costumbre.
                       </span>
                     )}
                     {!hecho && h.hora && (

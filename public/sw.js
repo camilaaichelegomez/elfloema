@@ -14,7 +14,7 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-v12";
+const VERSION = "floema-v13";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 

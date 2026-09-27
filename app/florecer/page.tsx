@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Tu práctica de yoga, el ritual facial y tus hábitos del día en una sola app, que funciona sin internet.",
   manifest: "/florecer/manifest.webmanifest",
-  icons: { apple: "/icon-florecer-180.png" },
+  icons: { apple: "/icon-flor-180.png" },
 };
 
 export default function CuidadoPage() {

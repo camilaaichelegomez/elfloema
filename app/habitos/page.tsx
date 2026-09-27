@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description:
     "Tus objetivos, hábitos y tareas en un calendario, con gráficos de cómo vas y pausas cortas. Basado en lo que la investigación muestra que funciona.",
   manifest: "/florecer/manifest.webmanifest",
-  icons: { apple: "/icon-florecer-180.png" },
+  icons: { apple: "/icon-flor-180.png" },
 };
 
 export default function HabitosPage() {

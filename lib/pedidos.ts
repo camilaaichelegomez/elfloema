@@ -46,6 +46,46 @@ export async function guardarPedido(p: NuevoPedido) {
   if (error) throw new Error(`pedidos: ${error.message}`);
 }
 
+/* Prueba si de verdad se puede guardar un pedido: escribe una fila y la
+   borra. Devuelve una CAUSA, nunca el mensaje crudo de la base: ese mensaje
+   puede traer adentro el valor de una clave, como ya paso una vez. */
+export async function probarGuardado(): Promise<{ ok: boolean; causa?: string }> {
+  const orden = `DIAG-${Date.now().toString(36).toUpperCase()}`;
+  try {
+    const db = admin();
+    const { error } = await db.from("pedidos").insert({
+      orden,
+      pasarela: "mercadopago" as const,
+      total: 1,
+      items: [],
+      nombre: "prueba interna",
+      email: "prueba@elfloema.cl",
+      telefono: "",
+      metodo_envio: "domicilio",
+      direccion: null,
+      sucursal: null,
+      comentarios: null,
+    });
+    if (error) throw new Error(error.message);
+    await db.from("pedidos").delete().eq("orden", orden);
+    return { ok: true };
+  } catch (e) {
+    const m = (e instanceof Error ? e.message : String(e)).toLowerCase();
+    const causa = m.includes("invalid header value") || m.includes("headers.set")
+      ? "La clave de Supabase está mal pegada: quedó con un salto de línea o pegada dos veces. Tiene que ser UNA sola línea."
+      : m.includes("row-level security") || m.includes("permission denied")
+        ? "La clave no tiene permiso para escribir. Revisa que sea la «secret key» y no la «publishable»."
+        : m.includes("invalid api key") || m.includes("jwt")
+          ? "Supabase no reconoce la clave. Puede estar incompleta, vencida o ser de otro proyecto."
+          : m.includes("does not exist") && m.includes("column")
+            ? "Falta una columna en la tabla pedidos. Hay que correr el SQL."
+            : m.includes("schema cache") || m.includes("relation") || m.includes("42p01")
+              ? "No existe la tabla pedidos. Hay que correr el SQL."
+              : "No se pudo guardar y el motivo no es uno de los conocidos. Está en los registros de Vercel.";
+    return { ok: false, causa };
+  }
+}
+
 export async function anotarOrdenFlow(orden: string, flowOrden: number) {
   await admin().from("pedidos").update({ flow_orden: flowOrden }).eq("orden", orden);
 }

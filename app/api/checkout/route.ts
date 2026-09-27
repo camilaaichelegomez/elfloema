@@ -8,6 +8,7 @@ import {
   anotarPagoMP,
   guardarPedido,
   pedidosConfigurado,
+  probarGuardado,
   type ItemPedido,
   type Pasarela,
 } from "@/lib/pedidos";
@@ -48,11 +49,20 @@ function falta(): string[] {
   return pendientes;
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   const pasarelas = disponibles();
-  return NextResponse.json(
-    pasarelas.length > 0 ? { pasarelas } : { pasarelas, falta: falta() }
-  );
+  const base = pasarelas.length > 0 ? { pasarelas } : { pasarelas, falta: falta() };
+
+  /* Con ?probar=1 ademas escribe y borra una fila, para saber si la tienda
+     puede guardar pedidos de verdad. Devuelve una causa en castellano, nunca
+     el mensaje crudo de la base. */
+  if (new URL(req.url).searchParams.get("probar") !== "1") {
+    return NextResponse.json(base);
+  }
+  if (!pedidosConfigurado()) {
+    return NextResponse.json({ ...base, guardar: { ok: false, causa: "Falta SUPABASE_SECRET_KEY en Vercel." } });
+  }
+  return NextResponse.json({ ...base, guardar: await probarGuardado() });
 }
 
 type Pedido = { slug: string; cantidad: number };

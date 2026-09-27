@@ -12,8 +12,12 @@ import {
   type Pasarela,
 } from "@/lib/pedidos";
 
-// Guarda el pedido y crea el cobro en la pasarela que eligio la clienta: Flow
-// o Mercado Pago. Devuelve la direccion de pago, a la que el navegador la
+// Guarda el pedido y crea el cobro en la pasarela que eligio la clienta.
+//
+// Hoy la tienda cobra por Mercado Pago: la cuenta de Flow no se pudo activar
+// porque su verificacion llega por SMS y donde vive Camila no hay senal. El
+// codigo de Flow queda listo; el dia que active la cuenta, basta con poner
+// FLOW_API_KEY y FLOW_SECRET_KEY en Vercel y el boton aparece solo. Devuelve la direccion de pago, a la que el navegador la
 // envia. Los precios se leen SIEMPRE del catalogo del servidor, nunca del
 // cliente, para que no se puedan manipular.
 //

@@ -354,12 +354,10 @@ export default function PrivacidadPage() {
                 <strong style={{ color: "#c8a050" }}>Vercel</strong> — aloja el sitio y la aplicación.
               </>,
               <>
-                <strong style={{ color: "#c8a050" }}>Flow</strong> y{" "}
-                <strong style={{ color: "#c8a050" }}>Mercado Pago</strong> — procesan los pagos cuando la
-                tienda cobra en línea; usas la que prefieras.{" "}
-                <em>No recibimos ni guardamos los datos de tu tarjeta ni de tu banco</em>: los maneja
-                directamente la pasarela que elijas. Para cobrar le enviamos tu nombre, tu correo y el
-                monto del pedido.
+                <strong style={{ color: "#c8a050" }}>Mercado Pago</strong> — procesa los pagos de la
+                tienda. <em>No recibimos ni guardamos los datos de tu tarjeta ni de tu banco</em>: los
+                maneja directamente Mercado Pago. Para cobrar le enviamos tu nombre, tu correo y el
+                monto del pedido. Si algún día sumamos otra forma de pago, aparecerá aquí.
               </>,
               <>
                 <strong style={{ color: "#c8a050" }}>Groq</strong> y{" "}

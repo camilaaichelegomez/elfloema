@@ -323,7 +323,9 @@ export default function CheckoutPage() {
                       </p>
                     ))}
                     <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(212,196,160,0.45)", textAlign: "center", marginTop: "0.6rem" }}>
-                      Elige la que prefieras. En las dos, nosotras nunca vemos los datos de tu tarjeta.
+                      {pasarelas.length > 1
+                        ? "Elige la que prefieras. En las dos, nosotras nunca vemos los datos de tu tarjeta."
+                        : "Nosotras nunca vemos los datos de tu tarjeta."}
                     </p>
                   </div>
                 )}

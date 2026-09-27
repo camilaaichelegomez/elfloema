@@ -44,6 +44,8 @@ export type Habito = {
   dias: Dia[];
   /** Para que sea fácil de cumplir el peor día: la versión mínima. */
   minimo?: string;
+  /** Hora del recordatorio (HH:MM). Vacío = sin hora, no avisa. */
+  hora?: string;
   color?: string;
   archivado?: boolean;
   creado: string;

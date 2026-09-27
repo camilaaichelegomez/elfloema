@@ -128,6 +128,41 @@ export function Habitos() {
     return () => clearInterval(id);
   }, [listo, datos.prefs.recordatorios, datos.prefs.cadaMinutos]);
 
+  /* El recordatorio de cada hábito, a su hora.
+
+     Revisa cada medio minuto y avisa una sola vez por hábito y por día, solo
+     si toca hoy y todavía no está marcado. Vale la misma advertencia de
+     arriba: con la app cerrada y el teléfono bloqueado, esto no llega; para
+     eso haría falta un servidor que empuje la notificación. */
+  const avisados = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!listo) return;
+    const revisar = () => {
+      const ahora = new Date();
+      const hhmm = `${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}`;
+      const dia = hoy();
+      const hechos = datos.hechos[dia] ?? [];
+      for (const h of habitosDe(datos, dia)) {
+        if (!h.hora || h.hora !== hhmm) continue;
+        const clave = `${dia}:${h.id}`;
+        if (avisados.current.has(clave) || hechos.includes(h.id)) continue;
+        avisados.current.add(clave);
+        const texto = h.cuando ? `${h.nombre} · ${h.cuando}` : h.nombre;
+        setPresencia(texto);
+        if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+          try {
+            new Notification("Es la hora", { body: texto, icon: "/icon-192.png", tag: clave });
+          } catch {
+            /* algunos navegadores solo dejan notificar desde el service worker */
+          }
+        }
+      }
+    };
+    revisar();
+    const id = setInterval(revisar, 30000);
+    return () => clearInterval(id);
+  }, [listo, datos]);
+
   const fechaDeHoy = hoy();
   const habitosHoy = useMemo(() => habitosDe(datos, fechaDeHoy), [datos, fechaDeHoy]);
   const hechosHoy = datos.hechos[fechaDeHoy] ?? [];
@@ -333,6 +368,7 @@ function Hoy({
   marcarPaso: (tareaId: string, pasoId: string) => void;
 }) {
   const [nuevoHabito, setNuevoHabito] = useState(false);
+  const [editando, setEditando] = useState<string | null>(null);
   const [nuevaTarea, setNuevaTarea] = useState("");
   /* Ordenar: mientras está encendido, cada hábito muestra su ✕ y tocar la
      fila ya no lo marca. Así no se borra nada sin querer con el dedo. */
@@ -413,6 +449,11 @@ function Hoy({
                         {h.cuando}
                       </span>
                     )}
+                    {!hecho && h.hora && (
+                      <span style={{ display: "block", ...ayuda, margin: 0, fontSize: "0.8rem" }}>
+                        A las {h.hora}
+                      </span>
+                    )}
                     {!hecho && h.minimo && (
                       <span style={{ display: "block", ...ayuda, margin: 0, fontSize: "0.8rem" }}>
                         Día difícil: {h.minimo}
@@ -432,6 +473,25 @@ function Hoy({
                     </span>
                   )}
                 </button>
+                {ordenando && (
+                  <button
+                    type="button"
+                    aria-label={`Editar el hábito ${h.nombre}`}
+                    onClick={() => {
+                      setEditando(h.id);
+                      setNuevoHabito(false);
+                    }}
+                    style={{
+                      ...botonSec,
+                      minHeight: "auto",
+                      width: 42,
+                      padding: 0,
+                      flexShrink: 0,
+                    }}
+                  >
+                    ✎
+                  </button>
+                )}
                 {ordenando && (
                   <button
                     type="button"
@@ -467,14 +527,36 @@ function Hoy({
           })}
         </ul>
 
+        {editando && (
+          <FormularioHabito
+            datos={datos}
+            habito={habitos.find((h) => h.id === editando)}
+            alGuardar={(h) => {
+              actualizar((d) => ({
+                ...d,
+                habitos: d.habitos.map((x) => (x.id === h.id ? h : x)),
+              }));
+              setEditando(null);
+            }}
+            alCancelar={() => setEditando(null)}
+          />
+        )}
+
         {!nuevoHabito ? (
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.8rem" }}>
             <button type="button" onClick={() => setNuevoHabito(true)} style={botonLink}>
               Agregar un hábito
             </button>
             {habitos.length > 0 && (
-              <button type="button" onClick={() => setOrdenando((v) => !v)} style={botonLink}>
-                {ordenando ? "Listo" : "Borrar alguno"}
+              <button
+                type="button"
+                onClick={() => {
+                  setOrdenando((v) => !v);
+                  setEditando(null);
+                }}
+                style={botonLink}
+              >
+                {ordenando ? "Listo" : "Editar o borrar"}
               </button>
             )}
           </div>
@@ -739,32 +821,40 @@ function ListaTareas({
 
 function FormularioHabito({
   datos,
+  habito,
   alGuardar,
   alCancelar,
 }: {
   datos: Datos;
+  /** Si viene, el formulario edita ese hábito en vez de crear uno nuevo. */
+  habito?: Habito;
   alGuardar: (h: Habito) => void;
   alCancelar: () => void;
 }) {
-  const [nombre, setNombre] = useState("");
-  const [cuando, setCuando] = useState("");
-  const [minimo, setMinimo] = useState("");
-  const [objetivoId, setObjetivoId] = useState("");
-  const [dias, setDias] = useState<Dia[]>([]);
+  const [nombre, setNombre] = useState(habito?.nombre ?? "");
+  const [cuando, setCuando] = useState(habito?.cuando ?? "");
+  const [minimo, setMinimo] = useState(habito?.minimo ?? "");
+  const [hora, setHora] = useState(habito?.hora ?? "");
+  const [objetivoId, setObjetivoId] = useState(habito?.objetivoId ?? "");
+  const [dias, setDias] = useState<Dia[]>(habito?.dias ?? []);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         if (!nombre.trim()) return;
+        /* Al editar se conservan el id, la fecha en que se creó y si estaba
+           archivado: si no, se perdería la racha y el historial. */
         alGuardar({
-          id: nuevoId(),
+          ...habito,
+          id: habito?.id ?? nuevoId(),
           nombre: nombre.trim(),
           cuando: cuando.trim() || undefined,
           minimo: minimo.trim() || undefined,
+          hora: hora || undefined,
           objetivoId: objetivoId || undefined,
           dias,
-          creado: hoy(),
+          creado: habito?.creado ?? hoy(),
         });
       }}
       style={{ display: "grid", gap: "0.6rem", marginTop: "0.9rem" }}
@@ -807,6 +897,21 @@ function FormularioHabito({
         />
         <span style={{ ...ayuda, margin: 0, fontSize: "0.82rem" }}>
           Para el peor día. Lo que sostiene el hábito es no romper la repetición, no el tamaño.
+        </span>
+      </label>
+
+      <label style={{ display: "grid", gap: "0.3rem" }}>
+        <span style={rotulo}>¿A qué hora te lo recuerdo?</span>
+        <input
+          id="habito-hora"
+          type="time"
+          value={hora}
+          onChange={(e) => setHora(e.target.value)}
+          style={{ ...campo, maxWidth: 160 }}
+        />
+        <span style={{ ...ayuda, margin: 0, fontSize: "0.82rem" }}>
+          Opcional. El aviso llega si tienes la app abierta o en otra pestaña; con el teléfono
+          bloqueado y la app cerrada, una página web no puede despertarlo.
         </span>
       </label>
 
@@ -862,7 +967,7 @@ function FormularioHabito({
 
       <div style={{ display: "flex", gap: "0.5rem" }}>
         <button type="submit" style={botonPri}>
-          Guardar
+          {habito ? "Guardar cambios" : "Guardar"}
         </button>
         <button type="button" onClick={alCancelar} style={botonLink}>
           Cancelar

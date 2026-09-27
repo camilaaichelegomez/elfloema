@@ -126,13 +126,12 @@ export async function POST(req: Request) {
       comentarios: texto(c.comentarios, 600) || null,
     });
   } catch (e) {
-    console.error(e);
-    /* El motivo que devuelve la base, recortado: sirve para arreglarlo sin
-       tener que ir a buscar los registros de Vercel. Son mensajes tecnicos
-       («falta la columna X», «la regla de seguridad rechazo la fila»), no
-       datos de nadie. */
-    const detalle = e instanceof Error ? e.message.slice(0, 160) : undefined;
-    return NextResponse.json({ error: "no_se_guardo", detalle }, { status: 500 });
+    /* El motivo va SOLO a los registros del servidor, nunca en la respuesta.
+       Se probo devolverlo para diagnosticar y el primer error que llego traia
+       el valor entero de una clave secreta dentro del mensaje: un mensaje de
+       error puede cargar cualquier cosa, asi que aqui no sale ninguno. */
+    console.error("no se pudo guardar el pedido:", e);
+    return NextResponse.json({ error: "no_se_guardo" }, { status: 500 });
   }
 
   const origin = process.env.SITIO_URL || req.headers.get("origin") || "https://elfloema.vercel.app";

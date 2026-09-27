@@ -36,8 +36,23 @@ function disponibles(): Pasarela[] {
   return lista;
 }
 
+/* Que falta para poder cobrar. Son nombres de configuracion, no valores:
+   sirve para que Camila vea desde el navegador que llave no quedo puesta en
+   Vercel, sin tener que adivinar ni mandarme nada secreto. */
+function falta(): string[] {
+  const pendientes: string[] = [];
+  if (!pedidosConfigurado()) pendientes.push("SUPABASE_SECRET_KEY");
+  if (!flowConfigurado() && !mercadoPagoConfigurado()) {
+    pendientes.push("MP_ACCESS_TOKEN (o las dos claves de Flow)");
+  }
+  return pendientes;
+}
+
 export async function GET() {
-  return NextResponse.json({ pasarelas: disponibles() });
+  const pasarelas = disponibles();
+  return NextResponse.json(
+    pasarelas.length > 0 ? { pasarelas } : { pasarelas, falta: falta() }
+  );
 }
 
 type Pedido = { slug: string; cantidad: number };

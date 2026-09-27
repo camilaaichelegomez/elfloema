@@ -127,7 +127,12 @@ export async function POST(req: Request) {
     });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "no_se_guardo" }, { status: 500 });
+    /* El motivo que devuelve la base, recortado: sirve para arreglarlo sin
+       tener que ir a buscar los registros de Vercel. Son mensajes tecnicos
+       («falta la columna X», «la regla de seguridad rechazo la fila»), no
+       datos de nadie. */
+    const detalle = e instanceof Error ? e.message.slice(0, 160) : undefined;
+    return NextResponse.json({ error: "no_se_guardo", detalle }, { status: 500 });
   }
 
   const origin = process.env.SITIO_URL || req.headers.get("origin") || "https://elfloema.vercel.app";

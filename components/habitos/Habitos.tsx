@@ -334,6 +334,9 @@ function Hoy({
 }) {
   const [nuevoHabito, setNuevoHabito] = useState(false);
   const [nuevaTarea, setNuevaTarea] = useState("");
+  /* Ordenar: mientras está encendido, cada hábito muestra su ✕ y tocar la
+     fila ya no lo marca. Así no se borra nada sin querer con el dedo. */
+  const [ordenando, setOrdenando] = useState(false);
   const cumplidos = habitos.filter((h) => hechos.includes(h.id)).length;
 
   return (
@@ -361,10 +364,10 @@ function Hoy({
             const hecho = hechos.includes(h.id);
             const dias = racha(datos, h);
             return (
-              <li key={h.id}>
+              <li key={h.id} style={{ display: "flex", gap: "0.4rem", alignItems: "stretch" }}>
                 <button
                   type="button"
-                  onClick={() => marcarHabito(h)}
+                  onClick={() => (ordenando ? undefined : marcarHabito(h))}
                   aria-pressed={hecho}
                   style={{
                     ...tarjeta,
@@ -429,15 +432,52 @@ function Hoy({
                     </span>
                   )}
                 </button>
+                {ordenando && (
+                  <button
+                    type="button"
+                    aria-label={`Borrar el hábito ${h.nombre}`}
+                    onClick={() => {
+                      if (!confirm(`¿Borrar «${h.nombre}»? Se pierde también lo que llevas marcado de él.`)) return;
+                      actualizar((d) => ({
+                        ...d,
+                        habitos: d.habitos.filter((x) => x.id !== h.id),
+                        hechos: Object.fromEntries(
+                          Object.entries(d.hechos).map(([fecha, ids]) => [
+                            fecha,
+                            ids.filter((id) => id !== h.id),
+                          ])
+                        ),
+                      }));
+                    }}
+                    style={{
+                      ...botonSec,
+                      minHeight: "auto",
+                      width: 42,
+                      padding: 0,
+                      flexShrink: 0,
+                      color: "rgba(221,148,100,0.9)",
+                      borderColor: "rgba(221,148,100,0.4)",
+                    }}
+                  >
+                    ✕
+                  </button>
+                )}
               </li>
             );
           })}
         </ul>
 
         {!nuevoHabito ? (
-          <button type="button" onClick={() => setNuevoHabito(true)} style={{ ...botonLink, marginTop: "0.8rem" }}>
-            Agregar un hábito
-          </button>
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.8rem" }}>
+            <button type="button" onClick={() => setNuevoHabito(true)} style={botonLink}>
+              Agregar un hábito
+            </button>
+            {habitos.length > 0 && (
+              <button type="button" onClick={() => setOrdenando((v) => !v)} style={botonLink}>
+                {ordenando ? "Listo" : "Borrar alguno"}
+              </button>
+            )}
+          </div>
         ) : (
           <FormularioHabito
             datos={datos}
@@ -531,6 +571,7 @@ function ListaTareas({
 }) {
   const [abierta, setAbierta] = useState<string | null>(null);
   const [nuevoPaso, setNuevoPaso] = useState("");
+  const [borrando, setBorrando] = useState<string | null>(null);
 
   if (tareas.length === 0) return null;
 
@@ -590,6 +631,28 @@ function ListaTareas({
                   >
                     {abierta === t.id ? "Cerrar" : "Pasos"}
                   </button>
+                  {/* Borrar a la vista y en dos toques: el primero pregunta.
+                      Estaba escondido dentro de los pasos y no lo encontraba
+                      nadie, que es tan malo como no tenerlo. */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (borrando === t.id) {
+                        actualizar((d) => ({ ...d, tareas: d.tareas.filter((x) => x.id !== t.id) }));
+                        setBorrando(null);
+                      } else {
+                        setBorrando(t.id);
+                      }
+                    }}
+                    onBlur={() => setBorrando((b) => (b === t.id ? null : b))}
+                    style={{
+                      ...botonLink,
+                      fontSize: "0.82rem",
+                      color: borrando === t.id ? "#dd9464" : "rgba(221,148,100,0.65)",
+                    }}
+                  >
+                    {borrando === t.id ? "¿Seguro? Toca otra vez" : "Borrar"}
+                  </button>
                 </div>
               </div>
             </div>
@@ -614,7 +677,26 @@ function ListaTareas({
                       onChange={() => marcarPaso(t.id, p.id)}
                       style={{ accentColor: "#a8c88a", width: 18, height: 18 }}
                     />
-                    <span style={{ textDecoration: p.hecho ? "line-through" : "none" }}>{p.titulo}</span>
+                    <span style={{ flex: 1, textDecoration: p.hecho ? "line-through" : "none" }}>
+                      {p.titulo}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label={`Borrar el paso ${p.titulo}`}
+                      onClick={() =>
+                        actualizar((d) => ({
+                          ...d,
+                          tareas: d.tareas.map((x) =>
+                            x.id === t.id
+                              ? { ...x, pasos: x.pasos.filter((y) => y.id !== p.id) }
+                              : x
+                          ),
+                        }))
+                      }
+                      style={{ ...botonLink, fontSize: "0.9rem", color: "rgba(221,148,100,0.6)" }}
+                    >
+                      ✕
+                    </button>
                   </label>
                 ))}
                 <form
@@ -644,15 +726,6 @@ function ListaTareas({
                     Sumar
                   </button>
                 </form>
-                <button
-                  type="button"
-                  onClick={() =>
-                    actualizar((d) => ({ ...d, tareas: d.tareas.filter((x) => x.id !== t.id) }))
-                  }
-                  style={{ ...botonLink, justifySelf: "start", color: "rgba(221,148,100,0.8)" }}
-                >
-                  Borrar la tarea
-                </button>
               </div>
             )}
           </li>

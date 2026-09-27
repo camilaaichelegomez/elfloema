@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
+import { Sincroniza } from "@/components/florecer/Sincroniza";
 import { Habitos } from "@/components/habitos/Habitos";
 import { HALLAZGOS, MITOS, SOBRE_LOS_DATOS } from "@/lib/habitos/ciencia";
 
@@ -30,6 +31,7 @@ export default function HabitosPage() {
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
+        <Sincroniza />
         <BackButton />
 
         <header style={{ margin: "0 0 1.1rem" }}>

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   manifest: "/florecer/manifest.webmanifest",
   /* El iPhone no mira los iconos del manifiesto: usa esta etiqueta.
      Sin ella, la app instalada quedaba con el icono general del sitio. */
-  icons: { apple: "/icon-florecer-180.png" },
+  icons: { apple: "/icon-flor-180.png" },
 };
 
 export default function RitualFacialPage() {

@@ -1,7 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { armarRutina, enBloques, porFase, type PasoRutina, type Rutina } from "@/lib/yoga/armar";
+import {
+  armarRutina,
+  enBloques,
+  impulsoPorConstancia,
+  porFase,
+  type PasoRutina,
+  type Rutina,
+} from "@/lib/yoga/armar";
 import { CHAKRAS, type Chakra } from "@/lib/yoga/chakras";
 import { hayVoz, unirFrases, usarVoz } from "@/lib/voz";
 import { SelectorDeVoz } from "@/components/SelectorDeVoz";
@@ -73,6 +80,9 @@ type Guardado = {
   racha: number;
   ultimoDia: string;
   historial: Sesion[];
+  /** Cuántas veces se practicó cada postura. Con eso la app evita repetir
+      siempre lo mismo y puede traer algo nuevo cuando hay constancia. */
+  vistas?: Record<string, number>;
 };
 
 const hoy = () => new Date().toISOString().slice(0, 10);
@@ -241,6 +251,7 @@ export function Yoga() {
   const [rutina, setRutina] = useState<Rutina | null>(null);
   const [racha, setRacha] = useState(0);
   const [historial, setHistorial] = useState<Sesion[]>([]);
+  const [vistas, setVistas] = useState<Record<string, number>>({});
 
   const [indice, setIndice] = useState(0);
   const [restante, setRestante] = useState(0);
@@ -286,8 +297,12 @@ export function Yoga() {
       setPrefs(g.prefs);
       setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha : 0);
       setHistorial(g.historial ?? []);
+      setVistas(g.vistas ?? {});
       if (g.prefs.objetivos.length > 0) {
-        const r = armarRutina(g.prefs);
+        const r = armarRutina(
+          { ...g.prefs, impulso: impulsoPorConstancia((g.historial ?? []).map((x) => x.dia)) },
+          g.vistas
+        );
         setRutina(r);
         setRestante(r.pasos[0]?.duracion ?? 0);
         setEtapa("rutina");
@@ -449,10 +464,15 @@ export function Yoga() {
     const nueva = yaHoy ? g?.racha ?? 1 : seguido ? (g?.racha ?? 0) + 1 : 1;
     const sesion: Sesion = { dia: hoy(), minutos: prefs.minutos, objetivos: prefs.objetivos };
     const nuevoHistorial = [sesion, ...(g?.historial ?? [])].slice(0, 60);
+    const nuevasVistas = { ...(g?.vistas ?? {}) };
+    for (const id of new Set((rutina?.pasos ?? []).map((x) => x.id))) {
+      nuevasVistas[id] = (nuevasVistas[id] ?? 0) + 1;
+    }
     setRacha(nueva);
     setHistorial(nuevoHistorial);
-    guardar({ prefs, racha: nueva, ultimoDia: hoy(), historial: nuevoHistorial });
-  }, [etapa, prefs]);
+    setVistas(nuevasVistas);
+    guardar({ prefs, racha: nueva, ultimoDia: hoy(), historial: nuevoHistorial, vistas: nuevasVistas });
+  }, [etapa, prefs, rutina]);
 
   const guardarPrefs = useCallback((p: Preferencias) => {
     setPrefs(p);
@@ -462,6 +482,7 @@ export function Yoga() {
       racha: g?.racha ?? 0,
       ultimoDia: g?.ultimoDia ?? "",
       historial: g?.historial ?? [],
+      vistas: g?.vistas ?? {},
     });
   }, []);
 
@@ -475,7 +496,10 @@ export function Yoga() {
   }
 
   function armar(p: Preferencias = prefs) {
-    const r = armarRutina(p);
+    const r = armarRutina(
+      { ...p, impulso: impulsoPorConstancia(historial.map((x) => x.dia)) },
+      vistas
+    );
     setRutina(r);
     setIndice(0);
     setRestante(r.pasos[0]?.duracion ?? 0);
@@ -891,6 +915,35 @@ export function Yoga() {
           </div>
         </Pregunta>
 
+        <Pregunta
+          n={13}
+          titulo="¿Quieres que la práctica vaya subiendo?"
+          nota="Con la constancia, la app elige posturas algo más exigentes, sostiene un poco más cada una y trae cosas que no has hecho. Sube lento: un mes practicando tres veces por semana para llegar al tope."
+        >
+          <div style={fila}>
+            {(
+              [
+                [true, "Sí, hazla subir"],
+                [false, "Déjala como está"],
+              ] as [boolean, string][]
+            ).map(([valor, label]) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => setPrefs({ ...prefs, progresion: valor })}
+                aria-pressed={(prefs.progresion ?? true) === valor}
+                style={{
+                  ...chip,
+                  ...((prefs.progresion ?? true) === valor ? chipActivo : null),
+                  minWidth: 150,
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </Pregunta>
+
         <button
           type="button"
           onClick={() => {
@@ -944,6 +997,7 @@ export function Yoga() {
             " · " + prefs.estilos.map((e) => ESTILOS.find((x) => x.id === e)?.label).join(", ")}
           {racha > 1 && ` · ${racha} días seguidos`}
         </p>
+
 
         <p style={rotulo}>¿Hoy cambió algo?</p>
         <p style={{ ...ayuda, marginBottom: "0.6rem" }}>
@@ -1034,6 +1088,23 @@ export function Yoga() {
             </button>
           </div>
         </div>
+
+        {/* En qué escalón va la progresión. Se dice en palabras, no con una
+            barra de experiencia: esto no es un juego. */}
+        {(prefs.progresion ?? true) && (
+          <p style={{ ...ayuda, marginTop: "0.9rem", marginBottom: 0, color: "rgba(168,200,138,0.85)" }}>
+            {(() => {
+              const empuje = impulsoPorConstancia(historial.map((x) => x.dia));
+              if (empuje === 0)
+                return "Con la constancia la práctica sube sola: desde cuatro prácticas al mes empieza a pedirte un poco más.";
+              if (empuje === 1)
+                return "Vas subiendo: hoy entran posturas algo más exigentes y alguna que no habías hecho.";
+              if (empuje === 2)
+                return "Segundo escalón: se abren posturas de un nivel más y cada una se sostiene un poco más rato.";
+              return "Tercer escalón, el tope: lo más exigente que tienes disponible y las posturas al máximo de tiempo.";
+            })()}
+          </p>
+        )}
 
         {rutina.quitadas.length > 0 && (
           <div style={{ ...avisoCaja, marginTop: "1.2rem" }}>

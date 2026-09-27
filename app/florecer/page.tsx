@@ -4,6 +4,7 @@ import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Portada } from "@/components/florecer/Portada";
+import { Cuenta } from "@/components/florecer/Cuenta";
 
 /* Florecer: la puerta de entrada a las tres secciones del cuerpo.
 
@@ -47,6 +48,10 @@ export default function CuidadoPage() {
         </header>
 
         <BotonInstalar nombre="Florecer" />
+
+        <div style={{ marginBottom: "1rem" }}>
+          <Cuenta />
+        </div>
 
         <Portada />
 

@@ -4,6 +4,7 @@ import { BotonInstalar } from "@/components/BotonInstalar";
 import { RitualFacial } from "@/components/ritual/RitualFacial";
 import { PAUTAS } from "@/lib/ritual-facial";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
+import { Sincroniza } from "@/components/florecer/Sincroniza";
 
 /* Ritual facial: arma una rutina de drenaje linfático y ejercicios faciales
    según lo que cada persona quiera trabajar, y la guía paso a paso.
@@ -32,6 +33,7 @@ export default function RitualFacialPage() {
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
+        <Sincroniza />
         <BackButton />
 
         {/* Cabecera corta a propósito: lo primero que tiene que aparecer al

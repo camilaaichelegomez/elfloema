@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
+import { Sincroniza } from "@/components/florecer/Sincroniza";
 import { Yoga } from "@/components/yoga/Yoga";
 import { CATALOGO } from "@/lib/yoga/armar";
 import { SECUENCIAS } from "@/lib/yoga/secuencias";
@@ -39,6 +40,7 @@ export default function YogaPage() {
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
+        <Sincroniza />
         <BackButton />
 
         {/* Cabecera corta a propósito: lo primero que tiene que aparecer al

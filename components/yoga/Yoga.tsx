@@ -176,6 +176,10 @@ function TiraDeSerie({
         display: "flex",
         gap: "0.45rem",
         overflowX: "auto",
+        maxWidth: "100%",
+        // Sin esto, la tira empuja la caja y con ella la página entera.
+        minWidth: 0,
+        WebkitOverflowScrolling: "touch",
       }}
     >
       {pasos.map((paso, i) => {
@@ -1061,7 +1065,7 @@ export function Yoga() {
               <p style={rotulo}>
                 {ETIQUETA_FASE[fase]} · {mmss(pasos.reduce((a, p) => a + p.duracion, 0))}
               </p>
-              <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.4rem" }}>
+              <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: "0.4rem", minWidth: 0 }}>
                 {enBloques(pasos).map((b) =>
                   b.tipo === "paso" ? (
                     <li key={b.paso.clave} style={filaPaso}>
@@ -1471,6 +1475,8 @@ function Chips<T extends Opcion>({
 
 // ── Estilos ──────────────────────────────────────────────────
 const panel: CSSProperties = {
+  minWidth: 0,
+  overflowWrap: "anywhere",
   border: "1px solid rgba(200,160,80,0.22)",
   background: "rgba(12,22,12,0.72)",
   backdropFilter: "blur(3px)",
@@ -1520,6 +1526,7 @@ const chipActivo: CSSProperties = {
 };
 const filaPaso: CSSProperties = {
   display: "flex",
+  minWidth: 0,
   alignItems: "center",
   gap: "0.7rem",
   border: "1px solid rgba(200,160,80,0.14)",
@@ -1534,6 +1541,8 @@ const tiempoFila: CSSProperties = {
   flexShrink: 0,
 };
 const cajaSerie: CSSProperties = {
+  minWidth: 0,
+  overflow: "hidden",
   border: "1px solid rgba(168,200,138,0.28)",
   background: "rgba(13,26,13,0.55)",
   borderRadius: 6,

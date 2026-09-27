@@ -2,14 +2,39 @@ import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getProductos } from "@/lib/productos-db";
 import { crearPago, flowConfigurado } from "@/lib/flow";
-import { anotarOrdenFlow, guardarPedido, pedidosConfigurado, type ItemPedido } from "@/lib/pedidos";
+import { crearPreferencia, mercadoPagoConfigurado } from "@/lib/mercadopago";
+import {
+  anotarOrdenFlow,
+  anotarPagoMP,
+  guardarPedido,
+  pedidosConfigurado,
+  type ItemPedido,
+  type Pasarela,
+} from "@/lib/pedidos";
 
-// Guarda el pedido y crea el cobro en Flow. Devuelve la direccion de pago de
-// Flow, a la que el navegador envia a la clienta. Los precios se leen SIEMPRE
-// del catalogo del servidor, nunca del cliente, para que no se puedan manipular.
+// Guarda el pedido y crea el cobro en la pasarela que eligio la clienta: Flow
+// o Mercado Pago. Devuelve la direccion de pago, a la que el navegador la
+// envia. Los precios se leen SIEMPRE del catalogo del servidor, nunca del
+// cliente, para que no se puedan manipular.
 //
-// Mientras falten las claves (ver lib/flow.ts y lib/pedidos.ts), responde
+// El GET dice que pasarelas estan disponibles, para que el checkout muestre
+// solo los botones que de verdad funcionan. Si no hay ninguna configurada
+// (ver lib/flow.ts, lib/mercadopago.ts y lib/pedidos.ts), el POST responde
 // { configured: false } y el checkout muestra "el pago estará disponible pronto".
+
+/** Que se puede usar hoy. Si falta la clave de Supabase no hay ninguna, porque
+ *  sin guardar el pedido no sabriamos a donde despachar. */
+function disponibles(): Pasarela[] {
+  if (!pedidosConfigurado()) return [];
+  const lista: Pasarela[] = [];
+  if (flowConfigurado()) lista.push("flow");
+  if (mercadoPagoConfigurado()) lista.push("mercadopago");
+  return lista;
+}
+
+export async function GET() {
+  return NextResponse.json({ pasarelas: disponibles() });
+}
 
 type Pedido = { slug: string; cantidad: number };
 type Cliente = {
@@ -25,11 +50,12 @@ type Cliente = {
 const texto = (v: unknown, max = 300) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
 export async function POST(req: Request) {
-  if (!flowConfigurado() || !pedidosConfigurado()) {
+  const pasarelas = disponibles();
+  if (pasarelas.length === 0) {
     return NextResponse.json({ configured: false });
   }
 
-  let body: { items?: Pedido[]; cliente?: Cliente };
+  let body: { items?: Pedido[]; cliente?: Cliente; pasarela?: Pasarela };
   try {
     body = await req.json();
   } catch {
@@ -60,9 +86,16 @@ export async function POST(req: Request) {
   // Numero de pedido corto y legible, unico: EF-<fecha en base36>-<azar>.
   const orden = `EF-${Date.now().toString(36).toUpperCase()}-${randomBytes(2).toString("hex").toUpperCase()}`;
 
+  /* La pedida, si esta disponible; si no, la primera que haya. Asi un enlace
+     viejo o un navegador raro nunca deja a la clienta sin poder pagar. */
+  const pasarela: Pasarela = pasarelas.includes(body.pasarela as Pasarela)
+    ? (body.pasarela as Pasarela)
+    : pasarelas[0];
+
   try {
     await guardarPedido({
       orden,
+      pasarela,
       total,
       items,
       nombre: texto(c.nombre, 120),
@@ -81,10 +114,25 @@ export async function POST(req: Request) {
   const origin = process.env.SITIO_URL || req.headers.get("origin") || "https://elfloema.vercel.app";
   const unidades = items.reduce((s, x) => s + x.cantidad, 0);
 
+  const asunto = `El Floema · pedido ${orden} (${unidades} ${unidades === 1 ? "producto" : "productos"})`;
+
   try {
+    if (pasarela === "mercadopago") {
+      const pago = await crearPreferencia({
+        orden,
+        items,
+        email,
+        nombre: texto(c.nombre, 120),
+        urlRetorno: `${origin}/api/mercadopago/retorno`,
+        urlAviso: `${origin}/api/mercadopago/aviso`,
+      });
+      await anotarPagoMP(orden, pago.preferenciaId).catch(() => {});
+      return NextResponse.json({ url: pago.url });
+    }
+
     const pago = await crearPago({
       orden,
-      asunto: `El Floema · pedido ${orden} (${unidades} ${unidades === 1 ? "producto" : "productos"})`,
+      asunto,
       monto: total,
       email,
       urlConfirmacion: `${origin}/api/flow/confirmacion`,
@@ -94,6 +142,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: pago.url });
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: "flow_error" }, { status: 502 });
+    return NextResponse.json({ error: "pasarela_error" }, { status: 502 });
   }
 }

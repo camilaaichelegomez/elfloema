@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { BackButton } from "@/components/BackButton";
@@ -10,6 +10,20 @@ const GOLD = "#c8a050";
 const CREAM = "#d4c4a0";
 
 type MetodoEnvio = "domicilio" | "sucursal";
+
+type Pasarela = "flow" | "mercadopago";
+
+/* Cómo se llama y qué ofrece cada una, en palabras de quien va a pagar. */
+const PASARELAS: Record<Pasarela, { label: string; detalle: string }> = {
+  flow: {
+    label: "Pagar con Flow",
+    detalle: "Tarjeta de crédito o débito (Webpay), transferencia bancaria o MACH.",
+  },
+  mercadopago: {
+    label: "Pagar con Mercado Pago",
+    detalle: "Tarjeta de crédito o débito, saldo de Mercado Pago o cuotas.",
+  },
+};
 
 export default function CheckoutPage() {
   const { items, total, count, allPriced } = useCart();
@@ -23,8 +37,27 @@ export default function CheckoutPage() {
     comentarios: "",
   });
   const [errores, setErrores] = useState<Record<string, boolean>>({});
+  /* Qué pasarelas están funcionando hoy. Se pregunta al servidor para no
+     ofrecer un botón que después no puede cobrar. */
+  const [pasarelas, setPasarelas] = useState<Pasarela[]>([]);
+  const [pagando, setPagando] = useState<Pasarela | null>(null);
   const [aviso, setAviso] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+
+  useEffect(() => {
+    let vigente = true;
+    fetch("/api/checkout")
+      .then((r) => r.json())
+      .then((d) => {
+        if (vigente && Array.isArray(d?.pasarelas)) setPasarelas(d.pasarelas);
+      })
+      .catch(() => {
+        /* sin respuesta: se muestra un solo botón y el servidor decide */
+      });
+    return () => {
+      vigente = false;
+    };
+  }, []);
 
   function set(campo: keyof typeof form, valor: string) {
     setForm((f) => ({ ...f, [campo]: valor }));
@@ -41,13 +74,14 @@ export default function CheckoutPage() {
     return Object.keys(e).length === 0;
   }
 
-  async function pagar() {
+  async function pagar(pasarela?: Pasarela) {
     setAviso(null);
     if (!validar()) {
       setAviso("Por favor completa los campos obligatorios (*).");
       return;
     }
     setEnviando(true);
+    setPagando(pasarela ?? null);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
@@ -55,6 +89,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           items: items.map((x) => ({ slug: x.slug, cantidad: x.cantidad })),
           cliente: { ...form, metodoEnvio: metodo },
+          pasarela,
         }),
       });
       const data = await res.json();
@@ -75,6 +110,7 @@ export default function CheckoutPage() {
       setAviso("Hubo un problema de conexión. Intenta de nuevo.");
     } finally {
       setEnviando(false);
+      setPagando(null);
     }
   }
 
@@ -226,32 +262,70 @@ export default function CheckoutPage() {
                   </p>
                 )}
 
-                <button
-                  onClick={pagar}
-                  disabled={!allPriced || enviando}
-                  style={{
-                    width: "100%",
-                    marginTop: "1.6rem",
-                    fontFamily: "var(--font-cinzel), serif",
-                    fontSize: "0.8rem",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: allPriced ? "#12200f" : "rgba(212,196,160,0.6)",
-                    background: allPriced ? "linear-gradient(135deg, #e8c878, #c8a050)" : "rgba(200,160,80,0.12)",
-                    border: "1px solid rgba(200,160,80,0.5)",
-                    borderRadius: 3,
-                    padding: "1.05rem",
-                    cursor: allPriced && !enviando ? "pointer" : "not-allowed",
-                  }}
-                >
-                  {enviando ? "Redirigiendo…" : allPriced ? "Ir a pagar" : "Precios próximamente"}
-                </button>
+                {/* Un botón por pasarela disponible. Si el servidor todavía no
+                    respondió, queda uno solo y él decide por dónde cobrar. */}
+                <div style={{ display: "grid", gap: "0.7rem", marginTop: "1.6rem" }}>
+                  {(pasarelas.length > 0 ? pasarelas : [null]).map((id, i) => {
+                    const primero = i === 0;
+                    const texto = id ? PASARELAS[id].label : "Ir a pagar";
+                    const esperando = enviando && (pagando === id || pasarelas.length <= 1);
+                    return (
+                      <button
+                        key={id ?? "unica"}
+                        onClick={() => pagar(id ?? undefined)}
+                        disabled={!allPriced || enviando}
+                        style={{
+                          width: "100%",
+                          fontFamily: "var(--font-cinzel), serif",
+                          fontSize: "0.8rem",
+                          letterSpacing: "0.2em",
+                          textTransform: "uppercase",
+                          color: !allPriced
+                            ? "rgba(212,196,160,0.6)"
+                            : primero
+                              ? "#12200f"
+                              : "#e8c878",
+                          background: !allPriced
+                            ? "rgba(200,160,80,0.12)"
+                            : primero
+                              ? "linear-gradient(135deg, #e8c878, #c8a050)"
+                              : "rgba(13,26,13,0.5)",
+                          border: "1px solid rgba(200,160,80,0.5)",
+                          borderRadius: 3,
+                          padding: "1.05rem",
+                          cursor: allPriced && !enviando ? "pointer" : "not-allowed",
+                        }}
+                      >
+                        {esperando ? "Redirigiendo…" : allPriced ? texto : "Precios próximamente"}
+                      </button>
+                    );
+                  })}
+                </div>
 
                 {allPriced && (
-                  <p style={{ fontFamily: "var(--font-crimson), serif", fontSize: "0.9rem", color: "rgba(212,196,160,0.6)", textAlign: "center", marginTop: "0.8rem", lineHeight: 1.5 }}>
-                    Pago seguro con Flow: tarjeta de crédito o débito (Webpay), transferencia bancaria o MACH.
-                    Nosotras nunca vemos los datos de tu tarjeta.
-                  </p>
+                  <div style={{ marginTop: "0.9rem" }}>
+                    {(pasarelas.length > 0 ? pasarelas : (["flow"] as Pasarela[])).map((id) => (
+                      <p
+                        key={id}
+                        style={{
+                          fontFamily: "var(--font-crimson), serif",
+                          fontSize: "0.88rem",
+                          color: "rgba(212,196,160,0.6)",
+                          textAlign: "center",
+                          margin: "0 0 0.35rem",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        <strong style={{ color: "rgba(232,200,120,0.85)" }}>
+                          {PASARELAS[id].label.replace("Pagar con ", "")}:
+                        </strong>{" "}
+                        {PASARELAS[id].detalle}
+                      </p>
+                    ))}
+                    <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(212,196,160,0.45)", textAlign: "center", marginTop: "0.6rem" }}>
+                      Elige la que prefieras. En las dos, nosotras nunca vemos los datos de tu tarjeta.
+                    </p>
+                  </div>
                 )}
 
                 {!allPriced && (

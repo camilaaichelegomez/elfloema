@@ -5,7 +5,9 @@
 create table if not exists public.pedidos (
   id           bigint generated always as identity primary key,
   orden        text not null unique,
-  flow_orden   bigint,
+  pasarela     text,        -- 'flow' o 'mercadopago'
+  flow_orden   bigint,      -- el numero de orden de Flow
+  pago_id      text,        -- el id del pago (o de la preferencia) en Mercado Pago
   estado       text not null default 'pendiente'
                check (estado in ('pendiente', 'pagado', 'rechazado', 'anulado')),
   total        integer not null,
@@ -34,3 +36,7 @@ create policy "la duena marca despachados" on public.pedidos
   for update to authenticated
   using ((auth.jwt() ->> 'email') = 'camilaaichelegomez@gmail.com')
   with check ((auth.jwt() ->> 'email') = 'camilaaichelegomez@gmail.com');
+
+-- ── Si la tabla ya existe, esto agrega lo que falta y no toca nada mas ──
+alter table public.pedidos add column if not exists pasarela text;
+alter table public.pedidos add column if not exists pago_id  text;

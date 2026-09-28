@@ -70,7 +70,7 @@ export function PlantaIlustracion({
             {imgOk ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={`/plantas/${slug}.jpg`}
+                src={`/plantas/${slug}.webp`}
                 alt={`Foto de ${nombre}`}
                 onError={() => setImgOk(false)}
                 style={{ display: "block", width: "100%", height: "auto", borderRadius: 2 }}
@@ -109,7 +109,7 @@ export function PlantaIlustracion({
               <span style={{ ...gemStyle, bottom: -3, right: -3 }} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/plantas/${slug}-dibujo.jpg`}
+                src={`/plantas/${slug}-dibujo.webp`}
                 alt={`Lámina botánica de ${nombre}`}
                 onError={() => setDibujoOk(false)}
                 style={{ display: "block", width: "100%", height: "auto", borderRadius: 2 }}

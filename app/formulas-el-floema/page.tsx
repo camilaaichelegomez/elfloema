@@ -477,7 +477,7 @@ export default async function FormulasElFloemaPage() {
     conNombreDeVenta(r, porClave)
   );
   return (
-    <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_recetas.jpg') center top / cover fixed, var(--bg-primary)" }}>
+    <div className="parchment-bg bg-vivo" style={{ position: "relative", minHeight: "100vh", background: "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/fondo_recetas.webp') center top / cover fixed, var(--bg-primary)" }}>
       <GrainOverlay />
 
       <div

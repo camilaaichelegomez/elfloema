@@ -34,7 +34,7 @@ export default function YogaOrigen() {
     <PaginaBiblioteca
       id="yoga-origen"
       titulo="Yoga: de dónde viene"
-      fondo="/fondo_yoga_origen.jpg"
+      fondo="/fondo_yoga_origen.webp"
       bajada="Dos mil años de textos antes de la primera colchoneta"
     >
       <Seccion titulo="Qué quiere decir «yoga»">
@@ -158,7 +158,7 @@ export default function YogaOrigen() {
         <LaminaAnotada
           num="I"
           titulo="La rueda de los ocho miembros"
-          src="/biblioteca/cuerpo/ocho-miembros.jpg"
+          src="/biblioteca/cuerpo/ocho-miembros.webp"
           prompt={
             "An open lotus flower seen from directly above, with exactly eight identical petals arranged " +
             "symmetrically around a round golden centre, like an eight-pointed wheel. " + ESTILO_LAMINA

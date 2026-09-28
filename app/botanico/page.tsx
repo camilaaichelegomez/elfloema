@@ -96,7 +96,7 @@ export default function BotanicoPage() {
     <div className="bg-vivo"
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(rgba(8,14,8,0.58), rgba(8,14,8,0.74)), url('/fondo_botanico.jpg') center top / cover fixed, var(--bg-primary)",
+        background: "linear-gradient(rgba(8,14,8,0.58), rgba(8,14,8,0.74)), url('/fondo_botanico.webp') center top / cover fixed, var(--bg-primary)",
         display: "flex",
         flexDirection: "column",
       }}
@@ -177,7 +177,7 @@ export default function BotanicoPage() {
           </div>
 
           <img
-            src="/logo.jpg"
+            src="/logo.webp"
             alt="El Floema"
             style={{
               width: 36,

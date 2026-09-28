@@ -33,7 +33,7 @@ export default function CaraDrenajeYogaFacial() {
     <PaginaBiblioteca
       id="cara"
       titulo="La cara: drenaje, masaje y yoga facial"
-      fondo="/fondo_cara.jpg"
+      fondo="/fondo_cara.webp"
       bajada="Tres cosas distintas que casi siempre se venden como una sola"
     >
       <Seccion titulo="Tres prácticas, tres efectos">
@@ -74,7 +74,7 @@ export default function CaraDrenajeYogaFacial() {
         <LaminaAnotada
           num="I"
           titulo="Por dónde drena la cara"
-          src="/biblioteca/cuerpo/drenaje-cara.jpg"
+          src="/biblioteca/cuerpo/drenaje-cara.webp"
           prompt={
             "A serene woman's face seen straight from the front, perfectly symmetric, eyes closed, calm " +
             "neutral expression, hair pulled back away from the face and ears, bare neck and collarbones " +

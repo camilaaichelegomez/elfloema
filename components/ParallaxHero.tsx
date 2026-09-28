@@ -58,7 +58,7 @@ export function ParallaxHero() {
           willChange: 'transform',
         }}
       >
-        <Image src="/hero.png" alt="" fill style={{ objectFit: 'cover' }} priority sizes="100vw" />
+        <Image src="/hero.webp" alt="" fill style={{ objectFit: 'cover' }} priority sizes="100vw" />
       </div>
 
       <div

@@ -64,7 +64,7 @@ export default function ProductoImagen({
       {imgOk ? (
         <img
           ref={imgRef}
-          src={`/tienda/${slug}.jpg`}
+          src={`/tienda/${slug}.webp`}
           alt={nombre}
           onError={() => setImgOk(false)}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}

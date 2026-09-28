@@ -55,7 +55,7 @@ export default async function ProductoPage({
       <main className="bg-vivo"
         style={{
           background:
-            "linear-gradient(rgba(8,13,8,0.58), rgba(8,13,8,0.74)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",
+            "linear-gradient(rgba(8,13,8,0.58), rgba(8,13,8,0.74)), url('/fondo_tienda.webp') center top / cover fixed, var(--bg-primary)",
           minHeight: "100vh",
           paddingTop: "5rem",
         }}
@@ -242,7 +242,7 @@ export default async function ProductoPage({
               {producto.bioquimica && (
                 <div style={{ maxWidth: 640, margin: "1.6rem auto 0" }}>
                   <FiguraCiencia
-                    src={`/tienda/${producto.slug}-ciencia.jpg`}
+                    src={`/tienda/${producto.slug}-ciencia.webp`}
                     prompt={producto.bioquimica.prompt}
                     leyenda={producto.bioquimica.leyenda}
                   />
@@ -287,7 +287,7 @@ export default async function ProductoPage({
               <h2 style={{ ...sectionHeading, textAlign: "center" }}>Ficha ilustrada</h2>
               <div style={{ maxWidth: 560, margin: "0 auto" }}>
                 <FiguraCiencia
-                  src={`/tienda/${producto.slug}-ficha.jpg`}
+                  src={`/tienda/${producto.slug}-ficha.webp`}
                   prompt={producto.fichaPrompt}
                   titulo="Ficha ilustrada"
                   leyenda="Infografía completa del producto (se genera con IA; el texto se agrega en Canva)."

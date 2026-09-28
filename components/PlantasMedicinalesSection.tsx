@@ -375,7 +375,7 @@ export function PlantasMedicinalesSection() {
         }}
       >
         <img
-          src="/bosque-hero.jpg"
+          src="/bosque-hero.webp"
           alt=""
           style={{
             height: "33%",
@@ -388,7 +388,7 @@ export function PlantasMedicinalesSection() {
           }}
         />
         <img
-          src="/bosque-plantas.jpg"
+          src="/bosque-plantas.webp"
           alt=""
           style={{
             height: "35%",
@@ -402,7 +402,7 @@ export function PlantasMedicinalesSection() {
           }}
         />
         <img
-          src="/bosque-agente.jpg"
+          src="/bosque-agente.webp"
           alt=""
           style={{
             height: "32%",

@@ -136,7 +136,7 @@ export default function ProductoCard({
             {/* real photo when available */}
             {imgOk && (
               <img
-                src={`/tienda/${producto.slug}.jpg`}
+                src={`/tienda/${producto.slug}.webp`}
                 alt={producto.nombre}
                 onError={() => setImgOk(false)}
                 style={{

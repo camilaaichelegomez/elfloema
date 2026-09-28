@@ -107,7 +107,7 @@ export default function Navbar() {
     <nav className={`navbar-grimorio${scrolled ? " scrolled" : ""}`} ref={navRef}>
       <div className="navbar-inner">
         <Link href="/" className="navbar-logo" onClick={() => setOpen(false)}>
-          <img src="/logo.jpg" alt="" />
+          <img src="/logo.webp" alt="" />
           <span className="navbar-title">El Floema</span>
         </Link>
 

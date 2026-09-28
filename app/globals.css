@@ -1736,7 +1736,7 @@ img {
        Los paneles (.lab-panel) llevan su propio fondo, así que las tablas y
        formularios siguen legibles aunque la botica se vea detrás. */
     linear-gradient(rgba(10, 16, 10, 0.68), rgba(10, 16, 10, 0.8)),
-    url('/fondo_lab.jpg') center top / cover fixed,
+    url('/fondo_lab.webp') center top / cover fixed,
     var(--bg-primary);
 }
 /* `fixed` cuesta caro en móvil (el Lab se usa desde el teléfono). */
@@ -2441,7 +2441,7 @@ img {
       rgba(10, 16, 10, 0.6) 60%,
       rgba(10, 16, 10, 0.84) 100%
     ),
-    url('/fondo_belleza.jpg') center top / cover fixed,
+    url('/fondo_belleza.webp') center top / cover fixed,
     var(--bg-primary);
 }
 
@@ -2462,7 +2462,7 @@ img {
       rgba(10, 16, 10, 0.62) 60%,
       rgba(10, 16, 10, 0.84) 100%
     ),
-    url('/bosque-3.jpg') center top / cover fixed,
+    url('/bosque-3.webp') center top / cover fixed,
     var(--bg-primary);
 }
 
@@ -2476,7 +2476,7 @@ img {
       rgba(10, 16, 10, 0.7) 60%,
       rgba(10, 16, 10, 0.88) 100%
     ),
-    url('/bosque-1.jpg') center top / cover fixed,
+    url('/bosque-1.webp') center top / cover fixed,
     var(--bg-primary);
 }
 
@@ -2485,6 +2485,15 @@ img {
   .habitos-bg,
   .yoga-bg {
     background-attachment: scroll;
+  }
+
+  /* El fondo «pegado» obliga al teléfono a repintar la imagen entera en cada
+     dedo de scroll, y se siente lento. En pantalla chica se suelta: el efecto
+     casi no se nota y el desplazamiento queda fluido. Va con !important
+     porque los fondos se escriben en el estilo de cada página. */
+  .bg-vivo,
+  .parchment-bg {
+    background-attachment: scroll !important;
   }
 }
 

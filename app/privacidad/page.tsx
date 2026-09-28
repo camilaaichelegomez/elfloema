@@ -159,7 +159,7 @@ export default function PrivacidadPage() {
         className="bg-vivo"
         style={{
           background:
-            "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)",
+            "linear-gradient(rgba(10,16,10,0.42), rgba(10,16,10,0.6)), url('/biblioteca-fondo.webp') center top / cover fixed, var(--bg-primary)",
           minHeight: "100vh",
           paddingTop: "5rem",
         }}

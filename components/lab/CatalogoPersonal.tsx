@@ -36,7 +36,7 @@ const PLANTILLAS: Plantilla[] = [
     id: "grimorio",
     nombre: "Grimorio",
     descripcion: "Oscuro y ritual",
-    fondo: "/fondo_tienda.jpg",
+    fondo: "/fondo_tienda.webp",
     papel: "#0b140b",
     tinta: "#e8d8b0",
     tintaSuave: "rgba(212,196,160,0.75)",

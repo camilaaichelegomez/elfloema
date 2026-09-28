@@ -124,7 +124,7 @@ export function LabShell({ children }: { children: ReactNode }) {
     <div className="lab-shell">
       <aside className="lab-sidebar">
         <Link href="/lab/inventario" className="lab-sidebar-marca">
-          <img src="/logo.jpg" alt="" />
+          <img src="/logo.webp" alt="" />
           <span>Floema Lab</span>
         </Link>
 

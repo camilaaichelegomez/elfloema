@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </div>
       <footer className="site-footer">
-        <img src="/logo.jpg" alt="El Floema" className="footer-logo" />
+        <img src="/logo.webp" alt="El Floema" className="footer-logo" />
         <p className="footer-tagline">Con ciencia, mi magia despierta</p>
         <p className="footer-handle">@elfloema</p>
         <p style={{ marginTop: "0.9rem" }}>

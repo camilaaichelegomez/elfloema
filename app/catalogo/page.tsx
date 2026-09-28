@@ -143,7 +143,7 @@ function Divisor() {
 const pageStyle: CSSProperties = {
   minHeight: "100vh",
   background:
-    "linear-gradient(rgba(9,15,9,0.93), rgba(9,15,9,0.97)), radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,160,80,0.06), transparent 70%), url('/fondo_tienda.jpg') center top / cover fixed, #0b140b",
+    "linear-gradient(rgba(9,15,9,0.93), rgba(9,15,9,0.97)), radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,160,80,0.06), transparent 70%), url('/fondo_tienda.webp') center top / cover fixed, #0b140b",
   color: CREAM,
   WebkitPrintColorAdjust: "exact",
   printColorAdjust: "exact",

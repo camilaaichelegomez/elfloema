@@ -98,7 +98,7 @@ export default function PedidoPage() {
         className="bg-vivo"
         style={{
           background:
-            "linear-gradient(rgba(8,13,8,0.62), rgba(8,13,8,0.78)), url('/fondo_tienda.jpg') center top / cover fixed, var(--bg-primary)",
+            "linear-gradient(rgba(8,13,8,0.62), rgba(8,13,8,0.78)), url('/fondo_tienda.webp') center top / cover fixed, var(--bg-primary)",
           minHeight: "100vh",
           padding: "clamp(7rem,16vh,10rem) clamp(1.25rem,5vw,3rem) 6rem",
         }}

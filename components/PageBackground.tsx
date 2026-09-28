@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const BOSQUES = ['/bosque-1.jpg', '/bosque-2.jpg', '/bosque-3.jpg'];
+const BOSQUES = ['/bosque-1.webp', '/bosque-2.webp', '/bosque-3.webp'];
 
 function clamp(v: number, a: number, b: number) {
   return Math.max(a, Math.min(b, v));

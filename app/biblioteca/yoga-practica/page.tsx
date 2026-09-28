@@ -31,7 +31,7 @@ export default function YogaPractica() {
     <PaginaBiblioteca
       id="yoga-practica"
       titulo="La práctica del yoga"
-      fondo="/fondo_yoga_practica.jpg"
+      fondo="/fondo_yoga_practica.webp"
       bajada="Las posturas, la clase por dentro, y dónde va la mirada"
     >
       <Seccion titulo="Los tres hilos">
@@ -72,7 +72,7 @@ export default function YogaPractica() {
         <LaminaAnotada
           num="I"
           titulo="Los nueve puntos de la mirada"
-          src="/biblioteca/cuerpo/nueve-drishtis.jpg"
+          src="/biblioteca/cuerpo/nueve-drishtis.webp"
           prompt={
             "A calm woman seated cross-legged on the floor, seen from the front, perfectly symmetric, " +
             "hands resting open on her knees, back long, eyes softly open, simple fitted clothing, full " +

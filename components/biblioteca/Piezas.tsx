@@ -380,7 +380,7 @@ export function PaginaBiblioteca({
   id,
   titulo,
   bajada,
-  fondo = "/biblioteca-fondo.jpg",
+  fondo = "/biblioteca-fondo.webp",
   children,
 }: {
   id: string;
@@ -399,7 +399,7 @@ export function PaginaBiblioteca({
            Biblioteca. Si el archivo de la sección todavía no está subido, el
            navegador descarta esa capa y se ve la de abajo en vez de un fondo
            plano. */
-        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), url('${fondo}') center top / cover fixed, url('/biblioteca-fondo.jpg') center top / cover fixed, var(--bg-primary)`,
+        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), url('${fondo}') center top / cover fixed, url('/biblioteca-fondo.webp') center top / cover fixed, var(--bg-primary)`,
       }}
     >
       <GrainOverlay id={id} />

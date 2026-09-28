@@ -34,7 +34,7 @@ export default function DrenajeLinfatico() {
     <PaginaBiblioteca
       id="drenaje"
       titulo="Drenaje linfático del cuerpo"
-      fondo="/fondo_drenaje.jpg"
+      fondo="/fondo_drenaje.webp"
       bajada="Un sistema sin bomba: se mueve porque tú te mueves"
     >
       <Seccion titulo="Qué es la linfa">
@@ -191,7 +191,7 @@ export default function DrenajeLinfatico() {
         <LaminaAnotada
           num="I"
           titulo="Dónde están los racimos de ganglios"
-          src="/biblioteca/cuerpo/ganglios-cuerpo.jpg"
+          src="/biblioteca/cuerpo/ganglios-cuerpo.webp"
           prompt={
             "A calm woman standing facing forward, arms relaxed and held slightly away from the body, " +
             "palms open, feet together, simple fitted clothing, full body from head to feet, perfectly " +

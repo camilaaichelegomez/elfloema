@@ -96,7 +96,7 @@ export function AvisoDeDatos() {
         <button type="button" onClick={cerrar} style={boton}>
           Entendido
         </button>
-        <Link href="/privacidad#cookies" onClick={cerrar} style={enlace}>
+        <Link prefetch={false} href="/privacidad#cookies" onClick={cerrar} style={enlace}>
           Leer la política
         </Link>
       </div>

@@ -1290,7 +1290,7 @@ function TablaFormulas({
                 <button type="button" onClick={() => onEditar(f)} style={iconoAccionStyle} aria-label="Editar" title="Editar fórmula">
                   <Pencil size={14} />
                 </button>
-                <Link
+                <Link prefetch={false}
                   href={`/lab/etiquetas/${f.id}`}
                   style={{ ...iconoAccionStyle, display: "inline-flex", textDecoration: "none" }}
                   aria-label="Generar etiqueta"

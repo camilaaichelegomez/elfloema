@@ -40,7 +40,7 @@ export default function FiguraCiencia({
     <figure style={{ margin: "0 0 0.6rem" }}>
       <div style={marcoStyle}>
         {imgOk ? (
-          <img
+          <img loading="lazy" decoding="async"
             ref={imgRef}
             src={src}
             alt={leyenda ?? "Ilustración del proceso"}

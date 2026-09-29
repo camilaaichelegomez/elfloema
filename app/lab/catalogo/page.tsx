@@ -31,7 +31,7 @@ export default async function CatalogoLabPage() {
       <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <LabEncabezado titulo="Mi catálogo" actual="catalogo" />
         <div style={{ marginBottom: "1.2rem" }}>
-          <Link href="/lab/catalogo/imprimir" className="lab-cta-catalogo">
+          <Link prefetch={false} href="/lab/catalogo/imprimir" className="lab-cta-catalogo">
             Generar mi catálogo (PDF o Word) →
           </Link>
         </div>

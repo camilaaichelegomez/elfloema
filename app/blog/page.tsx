@@ -65,7 +65,7 @@ function excerpt(contenido: string, max = 130): string {
 function PostCard({ post }: { post: Post }) {
   const cat = post.categoria as Categoria;
   return (
-    <Link
+    <Link prefetch={false}
       href={`/blog/${post.slug}`}
       style={{
         display: "flex",
@@ -89,7 +89,7 @@ function PostCard({ post }: { post: Post }) {
       {/* Image */}
       {post.imagen_url && (
         <div style={{ width: "100%", aspectRatio: "16/9", overflow: "hidden", background: "#0e1a0e" }}>
-          <img
+          <img loading="lazy" decoding="async"
             src={post.imagen_url}
             alt={post.titulo}
             style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85 }}
@@ -178,7 +178,7 @@ function EmptyState({ filtered }: { filtered: boolean }) {
 // ── Card estática H0 Hackathon ────────────────────────────────────────────────
 function H0HackathonCard() {
   return (
-    <Link
+    <Link prefetch={false}
       href="/blog/h0-hackathon"
       style={{
         display: "flex",

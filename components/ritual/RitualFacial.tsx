@@ -510,7 +510,7 @@ export function RitualFacial() {
         <p style={ayuda}>
           Opcional. Cada cosa que marques entra completa y alarga la rutina lo que dice al lado; el
           resto se acomoda solo. Lo que hay detrás de cada una está en{" "}
-          <Link href="/biblioteca/cara-drenaje-yoga-facial" style={{ color: "#e8c878" }}>
+          <Link prefetch={false} href="/biblioteca/cara-drenaje-yoga-facial" style={{ color: "#e8c878" }}>
             la Biblioteca
           </Link>
           .
@@ -1035,7 +1035,7 @@ export function RitualFacial() {
 
       <p style={{ ...ayuda, marginTop: "1.6rem" }}>
         Para el aceite de los masajes, uno vegetal sirve mejor que una crema:{" "}
-        <Link href="/tienda" style={{ color: "#e8c878" }}>
+        <Link prefetch={false} href="/tienda" style={{ color: "#e8c878" }}>
           mira los de la tienda
         </Link>
         .

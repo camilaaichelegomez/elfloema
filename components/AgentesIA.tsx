@@ -168,7 +168,7 @@ export function AgentesIA() {
           }}
         >
           {AGENTES.map((a) => (
-            <Link
+            <Link prefetch={false}
               key={a.href}
               href={a.href}
               style={{ textDecoration: "none" }}

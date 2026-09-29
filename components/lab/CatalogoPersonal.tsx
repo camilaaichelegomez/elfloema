@@ -206,7 +206,7 @@ export function CatalogoPersonal({
           .map((it) => {
             const foto = abs(it.imagenUrl);
             const celdaFoto = foto
-              ? `<td width="120" style="padding:8pt 10pt 8pt 0;vertical-align:top;"><img src="${foto}" width="110" style="width:110px;border:1px solid ${p.wordAcento};"/></td>`
+              ? `<td width="120" style="padding:8pt 10pt 8pt 0;vertical-align:top;"><img loading="lazy" decoding="async" src="${foto}" width="110" style="width:110px;border:1px solid ${p.wordAcento};"/></td>`
               : "";
             return `
     <tr>
@@ -354,7 +354,7 @@ export function CatalogoPersonal({
                 {/* Foto (o botón para subirla) */}
                 <div style={{ flexShrink: 0, width: 96 }}>
                   {it.imagenUrl ? (
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={it.imagenUrl}
                       alt={it.nombre}
                       style={{ width: 96, height: 96, objectFit: "cover", borderRadius: 4, border: `1px solid ${p.borde}` }}

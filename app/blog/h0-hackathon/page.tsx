@@ -120,7 +120,7 @@ export default function H0HackathonPost() {
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(80px,12vh,140px)" }}>
 
         {/* Back */}
-        <Link href="/blog" style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(200,160,80,0.5)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "2.5rem", transition: "color 0.2s" }}>
+        <Link prefetch={false} href="/blog" style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(200,160,80,0.5)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "2.5rem", transition: "color 0.2s" }}>
           ← Volver al blog
         </Link>
 
@@ -230,7 +230,7 @@ export default function H0HackathonPost() {
 
         {/* Footer */}
         <div style={{ marginTop: "4rem", paddingTop: "2rem", borderTop: "1px solid rgba(200,160,80,0.1)", textAlign: "center" }}>
-          <Link href="/blog" style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(200,160,80,0.55)", textDecoration: "none" }}>
+          <Link prefetch={false} href="/blog" style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(200,160,80,0.55)", textDecoration: "none" }}>
             ← Volver a la bitácora
           </Link>
         </div>

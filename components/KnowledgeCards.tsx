@@ -272,7 +272,7 @@ export function KnowledgeCards() {
               transition={{ duration: 0.95, ease: "easeOut", delay: 0.06 }}
             >
               {href ? (
-                <Link
+                <Link prefetch={false}
                   href={href}
                   className="nav-card knowledge-card"
                   onMouseMove={setCardCursor}

@@ -431,7 +431,7 @@ export default function YogaPractica() {
         <P>
           Así está armada la app: elige tu objetivo y el tiempo, y arma la curva completa con la
           respiración y el cierre incluidos.{" "}
-          <Link href="/yoga" style={ENLACE}>
+          <Link prefetch={false} href="/yoga" style={ENLACE}>
             Armar mi práctica →
           </Link>
         </P>
@@ -511,7 +511,7 @@ export default function YogaPractica() {
         </Check>
         <LineDivider />
         <P style={{ textAlign: "center", marginBottom: 0 }}>
-          <Link href="/biblioteca/yoga-origen" style={ENLACE}>
+          <Link prefetch={false} href="/biblioteca/yoga-origen" style={ENLACE}>
             ← De dónde viene todo esto
           </Link>
         </P>

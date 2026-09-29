@@ -388,7 +388,7 @@ export default function DrenajeLinfatico() {
         <LineDivider />
         <P style={{ textAlign: "center", marginBottom: 0 }}>
           Para la cara, con su propio mapa y sus propias presiones:{" "}
-          <Link href="/biblioteca/cara-drenaje-yoga-facial" style={ENLACE}>
+          <Link prefetch={false} href="/biblioteca/cara-drenaje-yoga-facial" style={ENLACE}>
             drenaje y yoga facial →
           </Link>
         </P>

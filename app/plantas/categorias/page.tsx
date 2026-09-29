@@ -21,7 +21,7 @@ const CATEGORIA_ICONS: Record<string, string> = {
 function PlantaPill({ planta }: { planta: Planta }) {
   const Icon = plantaIcons[planta.slug];
   return (
-    <Link
+    <Link prefetch={false}
       href={`/plantas/${planta.slug}`}
       style={{
         display: "flex",
@@ -276,7 +276,7 @@ export default function CategoriasPage() {
               <span style={{ color: "#c8a050", fontSize: "0.75rem" }}>✦ ✦ ✦</span>
               <div style={{ flex: 1, height: 1, background: "linear-gradient(to left, transparent, #c8a050)" }} />
             </div>
-            <Link
+            <Link prefetch={false}
               href="/plantas"
               style={{
                 display: "inline-flex",

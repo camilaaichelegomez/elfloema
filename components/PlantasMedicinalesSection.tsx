@@ -261,7 +261,7 @@ function PlantCard({ planta, index }: { planta: Planta; index: number }) {
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
     >
-      <Link
+      <Link prefetch={false}
         href={`/plantas/${planta.slug}`}
         style={{
           display: "flex",
@@ -374,7 +374,7 @@ export function PlantasMedicinalesSection() {
           flexDirection: "column",
         }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/bosque-hero.webp"
           alt=""
           style={{
@@ -387,7 +387,7 @@ export function PlantasMedicinalesSection() {
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 60%, transparent 100%)",
           }}
         />
-        <img
+        <img loading="lazy" decoding="async"
           src="/bosque-plantas.webp"
           alt=""
           style={{
@@ -401,7 +401,7 @@ export function PlantasMedicinalesSection() {
             WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
           }}
         />
-        <img
+        <img loading="lazy" decoding="async"
           src="/bosque-agente.webp"
           alt=""
           style={{
@@ -626,7 +626,7 @@ export function PlantasMedicinalesSection() {
 
           {/* CTA */}
           <div style={{ textAlign: "right", marginTop: "auto" }}>
-            <Link
+            <Link prefetch={false}
               href="/plantas"
               style={{
                 display: "inline-flex",

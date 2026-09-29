@@ -39,7 +39,7 @@ export default function CatalogoImagen({
       }}
     >
       {imgOk ? (
-        <img
+        <img loading="lazy" decoding="async"
           ref={imgRef}
           src={`/tienda/${slug}.webp`}
           alt={nombre}

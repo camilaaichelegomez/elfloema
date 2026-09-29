@@ -367,7 +367,7 @@ export default function PlantasPage() {
             <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", fontSize: "clamp(1rem,2vw,1.2rem)", color: "#d4c4a0", opacity: 0.55, marginBottom: "1.5rem" }}>
               La sabiduría del bosque valdiviano
             </p>
-            <Link href="/plantas/categorias" style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a050", opacity: 0.45, borderBottom: "1px solid rgba(200,160,80,0.22)", paddingBottom: "0.15rem", textDecoration: "none", transition: "opacity 0.3s" }}>
+            <Link prefetch={false} href="/plantas/categorias" style={{ fontFamily: "var(--font-cinzel), serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#c8a050", opacity: 0.45, borderBottom: "1px solid rgba(200,160,80,0.22)", paddingBottom: "0.15rem", textDecoration: "none", transition: "opacity 0.3s" }}>
               Ver catálogo por categoría →
             </Link>
           </header>

@@ -20,9 +20,27 @@ function getOpacity(index: number, progress: number) {
 export function PageBackground() {
   const [progress, setProgress] = useState(0);
 
+  /* Los tres bosques ocupan la pantalla entera y pesan casi un mega entre
+     todos, pero al llegar no se ve ninguno: el hero los tapa por completo.
+     Bajarlos de entrada era quitarle el ancho de banda a lo unico que la
+     visita si esta mirando.
+
+     Asi que el primero se pide cuando la pagina ya termino de cargar, y los
+     otros dos apenas se empieza a bajar. Mientras tanto queda el verde de
+     fondo, que es el mismo tono del bosque: no se ve ningun hueco. */
+  const [primerBosque, setPrimerBosque] = useState(false);
+  const [masBosques, setMasBosques] = useState(false);
+
   useEffect(() => {
+    const pedirElPrimero = () => setPrimerBosque(true);
+    const idle = (window as { requestIdleCallback?: (cb: () => void) => number })
+      .requestIdleCallback;
+    const id = idle ? idle(pedirElPrimero) : window.setTimeout(pedirElPrimero, 1200);
+
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
+      if (window.scrollY > 0) setPrimerBosque(true);
+      if (window.scrollY > heroHeight * 0.25) setMasBosques(true);
       const afterHero = window.scrollY - heroHeight;
       const remaining = document.body.scrollHeight - heroHeight - window.innerHeight;
       if (remaining <= 0 || afterHero < 0) return;
@@ -30,7 +48,10 @@ export function PageBackground() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (!idle) window.clearTimeout(id);
+    };
   }, []);
 
   return (
@@ -42,26 +63,27 @@ export function PageBackground() {
         backgroundColor: '#0d2318',
       }}
     >
-      {BOSQUES.map((src, i) => (
-        <div
-          key={src}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            opacity: getOpacity(i, progress),
-            transition: 'opacity 0.3s ease',
-          }}
-        >
-          <Image
-            src={src}
-            alt=""
-            fill
-            style={{ objectFit: 'cover' }}
-            priority={i === 0}
-            sizes="100vw"
-          />
-        </div>
-      ))}
+      {BOSQUES.map((src, i) =>
+        (i === 0 && !primerBosque) || (i > 0 && !masBosques) ? null : (
+          <div
+            key={src}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              opacity: getOpacity(i, progress),
+              transition: 'opacity 0.3s ease',
+            }}
+          >
+            <Image
+              src={src}
+              alt=""
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="100vw"
+            />
+          </div>
+        )
+      )}
       <div
         style={{
           position: 'absolute',

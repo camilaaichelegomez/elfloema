@@ -19,7 +19,7 @@ export default async function FichasPage() {
     <div className="ficha-page">
       <FichaEstilos />
       <div className="ficha-toolbar no-print">
-        <Link href="/tienda">← Volver a la tienda</Link>
+        <Link prefetch={false} href="/tienda">← Volver a la tienda</Link>
         <BotonImprimir label="Imprimir todas 🖨" />
       </div>
       <p className="ficha-note no-print">

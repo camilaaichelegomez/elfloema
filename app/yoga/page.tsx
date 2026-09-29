@@ -259,7 +259,7 @@ export default function YogaPage() {
           <p style={{ ...fuente, marginTop: "2rem", textAlign: "center" }}>
             Los dibujos de cada postura están hechos a mano en la propia página. Lo que muestran es la
             forma: dónde va cada articulación, que es lo que de verdad importa.{" "}
-            <Link href="/biblioteca" style={{ color: "rgba(200,160,80,0.8)" }}>
+            <Link prefetch={false} href="/biblioteca" style={{ color: "rgba(200,160,80,0.8)" }}>
               Ver la biblioteca
             </Link>
             .

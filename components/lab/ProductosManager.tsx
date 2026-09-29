@@ -141,7 +141,7 @@ export function ProductosManager({
           return (
             <div key={p.id} className="lab-panel" style={cardStyle}>
               <div style={cardHeaderStyle}>
-                <Link href={`/lab/productos/${p.id}`} style={nombreLinkStyle} title="Ver todo el producto">
+                <Link prefetch={false} href={`/lab/productos/${p.id}`} style={nombreLinkStyle} title="Ver todo el producto">
                   <h3 style={nombreStyle}>{p.nombre}</h3>
                   {(etiqueta?.subtitle || p.categoria) && (
                     <p style={subtituloStyle}>{etiqueta?.subtitle || p.categoria}</p>
@@ -149,7 +149,7 @@ export function ProductosManager({
                   <span style={verMasStyle}>Ver ficha completa →</span>
                 </Link>
                 <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}>
-                  <Link href={`/lab/etiquetas/${p.id}`} style={editarLinkStyle}>
+                  <Link prefetch={false} href={`/lab/etiquetas/${p.id}`} style={editarLinkStyle}>
                     <Pencil size={12} /> {tieneContenido ? "Editar" : "Generar"}
                   </Link>
                   <button

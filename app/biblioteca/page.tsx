@@ -128,7 +128,7 @@ function BibliotecaCard({
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <Link
+      <Link prefetch={false}
         href={href}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -353,7 +353,7 @@ export default function BibliotecaPage() {
           transition={{ duration: 0.8, delay: 0.4 }}
           style={{ textAlign: "center", marginTop: "clamp(3rem, 6vh, 5rem)" }}
         >
-          <Link href="/" style={{
+          <Link prefetch={false} href="/" style={{
             fontFamily: "var(--font-grimoire)",
             fontSize: "0.58rem",
             letterSpacing: "0.28em",

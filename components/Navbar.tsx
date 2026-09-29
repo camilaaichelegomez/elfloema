@@ -106,7 +106,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar-grimorio${scrolled ? " scrolled" : ""}`} ref={navRef}>
       <div className="navbar-inner">
-        <Link href="/" className="navbar-logo" onClick={() => setOpen(false)}>
+        <Link prefetch={false} href="/" className="navbar-logo" onClick={() => setOpen(false)}>
           <img src="/logo.webp" alt="" />
           <span className="navbar-title">El Floema</span>
         </Link>
@@ -129,7 +129,7 @@ export default function Navbar() {
             if (!g.items) {
               return (
                 <li key={g.label} className="nav-item">
-                  <Link
+                  <Link prefetch={false}
                     href={g.href!}
                     className={`nav-link${activo ? " is-active" : ""}`}
                     aria-current={activo ? "page" : undefined}
@@ -169,7 +169,7 @@ export default function Navbar() {
                   {g.items.map((i) => {
                     const itemActivo = pathname.startsWith(i.href);
                     return (
-                      <Link
+                      <Link prefetch={false}
                         key={i.href}
                         href={i.href}
                         className={`nav-menu-item${itemActivo ? " is-active" : ""}`}

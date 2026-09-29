@@ -83,7 +83,7 @@ function Contenido() {
           N.º de pedido: <strong style={{ color: CREAM, fontStyle: "normal", letterSpacing: "0.04em" }}>{orden}</strong>
         </p>
       )}
-      <Link href={reintentar ? "/tienda/checkout" : "/tienda"} style={boton}>
+      <Link prefetch={false} href={reintentar ? "/tienda/checkout" : "/tienda"} style={boton}>
         {reintentar ? "Intentar de nuevo →" : "Volver a la tienda →"}
       </Link>
     </div>

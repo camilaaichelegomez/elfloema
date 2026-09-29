@@ -4,6 +4,7 @@ import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Sincroniza } from "@/components/florecer/Sincroniza";
+import { Desplegable } from "@/components/florecer/Desplegable";
 import { Habitos } from "@/components/habitos/Habitos";
 import { HALLAZGOS, MITOS, SOBRE_LOS_DATOS } from "@/lib/habitos/ciencia";
 
@@ -56,46 +57,49 @@ export default function HabitosPage() {
 
         <Habitos />
 
-        <section style={{ marginTop: "3rem" }}>
-          <h2 style={encabezado}>Por qué está hecha así</h2>
-          <p style={parrafo}>
-            No es una app de motivación. Cada cosa que te pide —escribir cuándo harás algo, partir
-            una tarea en pasos, marcar el día— está ahí porque hay investigación que la respalda.
-            Esto es lo que dice cada estudio y qué se hizo con eso.
-          </p>
+        <Desplegable titulo="Por qué está hecha así">
 
-          <ul style={{ listStyle: "none", margin: "1.4rem 0 0", padding: 0, display: "grid", gap: "1rem" }}>
-            {HALLAZGOS.map((h) => (
-              <li key={h.titulo} style={ficha}>
-                <h3 style={{ ...parrafo, color: "#e8c878", fontSize: "1.05rem", margin: "0 0 0.4rem" }}>
-                  {h.titulo}
-                </h3>
-                <p style={{ ...parrafo, margin: "0 0 0.5rem" }}>{h.dice}</p>
-                <p style={{ ...parrafo, margin: "0 0 0.5rem", color: "rgba(168,200,138,0.85)" }}>
-                  En la app: {h.enLaApp}
-                </p>
-                <p style={{ ...parrafo, margin: 0, fontSize: "0.82rem", opacity: 0.6 }}>{h.fuente}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+          <section style={{ marginTop: "3rem" }}>
+            <h2 style={encabezado}>Por qué está hecha así</h2>
+            <p style={parrafo}>
+              No es una app de motivación. Cada cosa que te pide —escribir cuándo harás algo, partir
+              una tarea en pasos, marcar el día— está ahí porque hay investigación que la respalda.
+              Esto es lo que dice cada estudio y qué se hizo con eso.
+            </p>
 
-        <section style={{ marginTop: "2.4rem" }}>
-          <h2 style={encabezado}>Lo que se repite y no es verdad</h2>
-          <ul style={{ listStyle: "none", margin: "1rem 0 0", padding: 0, display: "grid", gap: "0.9rem" }}>
-            {MITOS.map((m) => (
-              <li key={m.mito} style={ficha}>
-                <p style={{ ...parrafo, margin: "0 0 0.4rem", color: "#dd9464" }}>{m.mito}</p>
-                <p style={{ ...parrafo, margin: 0 }}>{m.realidad}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+            <ul style={{ listStyle: "none", margin: "1.4rem 0 0", padding: 0, display: "grid", gap: "1rem" }}>
+              {HALLAZGOS.map((h) => (
+                <li key={h.titulo} style={ficha}>
+                  <h3 style={{ ...parrafo, color: "#e8c878", fontSize: "1.05rem", margin: "0 0 0.4rem" }}>
+                    {h.titulo}
+                  </h3>
+                  <p style={{ ...parrafo, margin: "0 0 0.5rem" }}>{h.dice}</p>
+                  <p style={{ ...parrafo, margin: "0 0 0.5rem", color: "rgba(168,200,138,0.85)" }}>
+                    En la app: {h.enLaApp}
+                  </p>
+                  <p style={{ ...parrafo, margin: 0, fontSize: "0.82rem", opacity: 0.6 }}>{h.fuente}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        <section style={{ marginTop: "2.4rem" }}>
-          <h2 style={encabezado}>Dónde queda lo que escribes</h2>
-          <p style={parrafo}>{SOBRE_LOS_DATOS}</p>
-        </section>
+          <section style={{ marginTop: "2.4rem" }}>
+            <h2 style={encabezado}>Lo que se repite y no es verdad</h2>
+            <ul style={{ listStyle: "none", margin: "1rem 0 0", padding: 0, display: "grid", gap: "0.9rem" }}>
+              {MITOS.map((m) => (
+                <li key={m.mito} style={ficha}>
+                  <p style={{ ...parrafo, margin: "0 0 0.4rem", color: "#dd9464" }}>{m.mito}</p>
+                  <p style={{ ...parrafo, margin: 0 }}>{m.realidad}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section style={{ marginTop: "2.4rem" }}>
+            <h2 style={encabezado}>Dónde queda lo que escribes</h2>
+            <p style={parrafo}>{SOBRE_LOS_DATOS}</p>
+          </section>
+        </Desplegable>
       </div>
     </main>
   );

@@ -190,7 +190,11 @@ export default function FuerzaPage() {
         </p>
         <p style={{ ...fuente, marginTop: "0.8rem" }}>
           {EJERCICIOS.length} ejercicios repartidos en {PATRONES.length} patrones de movimiento. Las
-          ilustraciones vienen después: por ahora cada uno está descrito paso a paso.
+          ilustraciones vienen después: por ahora cada uno está descrito paso a paso.{" "}
+          <Link href="/fuerza/dibujos" style={enlace}>
+            Los nombres y los prompts para generarlas
+          </Link>
+          .
         </p>
       </div>
       <BarraFlorecer />

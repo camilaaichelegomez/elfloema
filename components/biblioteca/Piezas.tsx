@@ -386,9 +386,12 @@ export function PaginaBiblioteca({
   id: string;
   titulo: string;
   bajada: string;
-  fondo?: string;
+  /** Una imagen, o varias a probar en orden (p. ej. el mismo fondo en webp,
+      png y jpg): las que no existen se descartan solas. */
+  fondo?: string | string[];
   children: ReactNode;
 }) {
+  const capas = (Array.isArray(fondo) ? fondo : [fondo]).map((f) => `url('${f}') center top / cover fixed`).join(", ");
   return (
     <main
       className="parchment-bg bg-vivo"
@@ -399,7 +402,7 @@ export function PaginaBiblioteca({
            Biblioteca. Si el archivo de la sección todavía no está subido, el
            navegador descarta esa capa y se ve la de abajo en vez de un fondo
            plano. */
-        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), url('${fondo}') center top / cover fixed, url('/biblioteca-fondo.webp') center top / cover fixed, var(--bg-primary)`,
+        background: `linear-gradient(rgba(10,16,10,0.45), rgba(10,16,10,0.62)), ${capas}, url('/biblioteca-fondo.webp') center top / cover fixed, var(--bg-primary)`,
       }}
     >
       <GrainOverlay id={id} />

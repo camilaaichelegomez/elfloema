@@ -85,6 +85,21 @@ export const POSTURAS: Postura[] = [
     figura: "de_pie_brazos",
   },
   {
+    /* La Deméter con elevación de pelvis: la acostada, con la cadera en el
+       aire. Pide más control que la acostada, por eso aparece en el nivel
+       medio. */
+    id: "acostada_cadera_arriba",
+    nombre: "Acostada, cadera arriba",
+    nivel: "medio",
+    pasos: [
+      "Boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
+      "Despega la pelvis del suelo hasta que rodillas, cadera y hombros queden en una línea.",
+      "Brazos al costado del cuerpo, apoyados en el suelo; el peso va en los pies y en los omóplatos.",
+    ],
+    ojo: "Sube la cadera sin arquear la espalda baja ni apretar los glúteos al máximo: la línea es recta, no un arco.",
+    figura: "acostada_cadera_arriba",
+  },
+  {
     id: "cuadrupedia",
     nombre: "En cuatro apoyos",
     nivel: "medio",

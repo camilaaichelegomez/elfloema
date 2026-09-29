@@ -1,110 +1,50 @@
-# Prompts para las imágenes de la sección Hipopresivos
+# Imágenes de la sección Hipopresivos
 
-Son 11 posturas y 2 fondos. Cada prompt está **entero**: lo copias, lo pegas y
-listo. No hay que agregarle nada.
+Son **13 posturas y 2 fondos**. Las posturas son las de la lámina de posturas
+hipopresivas (Low Pressure Fitness), con sus nombres. La mejor forma de que
+el dibujo salga fiel es **recortar cada figura de la lámina** y dársela a la
+IA como foto de referencia.
 
-El estilo es el mismo de Fuerza y de las posturas de yoga —figura plana dorada
-sobre verde muy oscuro— para que las secciones se vean de la misma app.
+## Cómo hacer cada postura
 
-**Qué hacer con cada imagen:**
+1. Recorta de la lámina la figura de la postura (una sola figura por imagen).
+2. Súbela a la IA y pega el prompt de abajo, tal cual.
+3. Guarda el resultado con el nombre de la tabla: `venus.png`, `atenea.png`…
+   Sirven png, jpg o webp; no hay que convertir nada.
+4. Súbelas a la carpeta `public/hipopresivos/` (en GitHub: Add file → Upload
+   files → Commit changes).
 
-1. Genera en **horizontal 4:3** (800×600 va bien).
-2. Guárdala con **el nombre del título**, tal cual: `acostada.webp`.
-3. Déjala en `public/hipopresivos/`.
+En cuanto el archivo existe, el dibujo **aparece solo** en la app.
 
-En cuanto el archivo existe, el dibujo **aparece solo** en la app: en la
-práctica y en la lista de posturas. Mientras no exista, no se ve nada roto.
+## Los nombres
 
-Si te salen en png o jpg, no las conviertas: déjalas todas en una carpeta y me
-dices, yo las paso a webp con el nombre correcto.
+| Archivo | Postura | Nivel en la app |
+|---|---|---|
+| `venus` | Venus: de pie, brazos hacia abajo y a los lados | Empezando |
+| `atenea` | Atenea: de pie, codos abiertos, manos delante de la pelvis | Empezando |
+| `artemisa` | Artemisa: de pie, doblada hacia adelante | Empezando |
+| `aura` | Aura: de rodillas, brazos al frente | Empezando |
+| `maya` | Maya: en cuatro apoyos | Empezando |
+| `gaia` | Gaia: en cuatro apoyos, espalda redondeada | Empezando |
+| `hestia` | Hestia: sentada, piernas estiradas, brazos al frente | Empezando |
+| `demeter` | Deméter: acostada boca arriba, brazos arriba | Empezando |
+| `freya` | Freya: de pie, brazos arriba | Ya me sale |
+| `persefone` | Perséfone: estocada | Ya me sale |
+| `isis` | Isis: de rodillas, inclinada con los brazos adelante | Ya me sale |
+| `selene` | Selene: acostada, brazos estirados sobre la cabeza | Ya me sale |
+| `afrodita` | Afrodita: acostada, cadera arriba, brazos sobre la cabeza | Con práctica |
 
-**Lo más importante de todas:** la cintura tiene que verse **hundida hacia
-adentro** y las costillas **abiertas hacia los lados**, que es el gesto de la
-pausa. Si la IA dibuja la guata inflada o un abdomen marcado, vuelve a
-generarla.
+Todo en minúscula y sin tildes (`demeter`, `persefone`).
 
-**Por dónde empezar**, si no quieres hacer todas de una: `acostada`, `sentada`
-y `de_pie`. Son las del primer nivel, así que con esas tres queda cubierta
-cualquier sesión de quien recién empieza.
-
----
-
-## Las posturas
-
-### `acostada.webp` — Acostada boca arriba
-
-```
-Side view. Lying on her back on the mat, knees bent and feet flat on the floor hip-width apart, arms resting slightly away from the body with palms up, neck long with the chin slightly tucked, lower back resting on the mat. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `sentada.webp` — Sentada
-
-```
-Three-quarter view from the front. Sitting tall on the front edge of a simple chair, back straight and not touching the backrest, feet flat on the floor, hands resting on the thighs with elbows opened out to the sides, shoulders relaxed down away from the ears. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `venus.webp` — De pie, brazos a lo largo (Venus)
-
-Mejor generarla **a partir de una foto de referencia** (busca *Venus
-hipopresivos*): sube la foto y pega este texto.
+## El prompt (el mismo para todas)
 
 ```
-Redraw the exact body pose from the attached photo — same position of the arms, elbows, hands, legs and hips, same angle — as a flat vector illustration. Standing, arms extended along the body. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible, generous empty margin, horizontal 4:3 composition. Do not copy the person, the clothes or the room from the photo: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
+Redraw the exact body pose from the attached image — same position of the arms, elbows, wrists, hands, legs and hips, same camera angle — as a flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Do not copy the person, the clothes, the labels or the numbers from the image: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
 ```
 
-### `de_pie.webp` — De pie
-
-```
-Side view. Standing with feet parallel and hip-width apart, knees softly bent, the whole body leaning slightly forward in one straight line so the weight is over the balls of the feet, heels still on the floor, arms hanging at the sides with elbows slightly bent and opened out, hands at hip level. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `de_pie_brazos.webp` — De pie, brazos adelante
-
-```
-Three-quarter view from the front. Standing, knees softly bent, body leaning slightly forward, both arms reaching forward at navel height with elbows opened out wide and fingertips pointing toward each other, palms pushing gently forward, shoulders low. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `afrodita.webp` — Acostada (Afrodita)
-
-Mejor generarla **a partir de una foto de referencia** (busca *Afrodita
-hipopresivos*): sube la foto y pega este texto.
-
-```
-Redraw the exact body pose from the attached photo — same position of the arms, elbows, hands, legs and hips, same angle — as a flat vector illustration. Lying on her back on the mat. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible, generous empty margin, horizontal 4:3 composition. Do not copy the person, the clothes or the room from the photo: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
-```
-
-### `acostada_cadera_arriba.webp` — Acostada, cadera arriba (Deméter con elevación de pelvis)
-
-Esta es mejor generarla **a partir de una foto de referencia** de la postura:
-sube la foto y pega este texto.
-
-```
-Redraw the exact body pose from the attached photo — same position of the arms, elbows, hands, legs and hips, same angle — as a flat vector illustration. Side view: lying on her back with knees bent and feet flat on the floor, pelvis lifted off the mat so knees, hips and shoulders form one straight line. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible, generous empty margin, horizontal 4:3 composition. Do not copy the person, the clothes or the room from the photo: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
-```
-
-### `cuadrupedia.webp` — En cuatro apoyos
-
-```
-Side view. On hands and knees on the mat: hands under the shoulders, knees under the hips, back perfectly flat like a table from the crown of the head to the tailbone, elbows slightly bent and opened out, gaze to the floor. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `de_rodillas.webp` — De rodillas
-
-```
-Side view. Kneeling upright on the mat with knees hip-width apart, the whole trunk tilted slightly forward in one straight line from the knees to the head, arms at the sides with elbows opened out, hands at waist height. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `inclinada.webp` — De pie, inclinada
-
-```
-Side view. Standing with knees bent, hinging forward at the hips with a long straight back at about 45 degrees, both hands resting on the thighs just above the knees, elbows opened out to the sides, neck long in line with the spine. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `semisentadilla.webp` — Media sentadilla
-
-```
-Three-quarter view from the front. Half squat with feet hip-width apart, hips pushed back as if about to sit on a high stool, trunk leaning forward with a long straight back, both arms reaching forward at chest height with elbows opened out, knees tracking over the toes. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
+Si ya tienes un dibujo que salió bien, súbelo también y agrega al final:
+*"Match the style of the second attached illustration exactly."* Así todas
+quedan iguales.
 
 ---
 

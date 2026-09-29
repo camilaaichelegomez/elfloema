@@ -82,9 +82,16 @@ function cuerpo(p: PedidoParaAviso) {
 }
 
 /** Avisa que entró una venta. Si algo falla, lo dice en los registros y
- *  sigue: el pedido ya está guardado y eso es lo que importa. */
-export async function avisarVenta(p: PedidoParaAviso) {
-  if (!correoConfigurado()) return;
+ *  sigue: el pedido ya está guardado y eso es lo que importa.
+ *
+ *  Devuelve cómo le fue —sin lanzar nunca— para que la prueba desde el Lab
+ *  pueda decir la verdad en vez de un «enviado» que no llegó a ninguna parte.
+ *  La causa es en castellano y no incluye la respuesta cruda de Resend: ahí
+ *  podría venir el valor de una clave, como ya pasó una vez con Supabase. */
+export async function avisarVenta(p: PedidoParaAviso): Promise<{ ok: boolean; causa?: string }> {
+  if (!correoConfigurado()) {
+    return { ok: false, causa: "Faltan RESEND_API_KEY y CORREO_AVISOS en Vercel." };
+  }
   try {
     const res = await fetch(API, {
       method: "POST",
@@ -99,8 +106,26 @@ export async function avisarVenta(p: PedidoParaAviso) {
         html: cuerpo(p),
       }),
     });
-    if (!res.ok) console.error("aviso de venta:", res.status, await res.text().catch(() => ""));
+    if (res.ok) return { ok: true };
+
+    const detalle = await res.text().catch(() => "");
+    console.error("aviso de venta:", res.status, detalle);
+    const m = detalle.toLowerCase();
+    return {
+      ok: false,
+      causa:
+        res.status === 401 || res.status === 403
+          ? "Resend no acepta la clave. Puede estar incompleta, mal pegada o borrada."
+          : m.includes("testing emails") || m.includes("own email address")
+            ? "Con el remitente prestado (onboarding@resend.dev) Resend solo deja escribirle a la dirección dueña de la cuenta. CORREO_AVISOS tiene que ser ese mismo correo, o hay que verificar elfloema.cl en Resend."
+            : m.includes("domain") || m.includes("from")
+              ? "Resend rechaza el remitente. Si pusiste CORREO_REMITENTE, ese dominio tiene que estar verificado en Resend."
+              : res.status === 429
+                ? "Resend está limitando el envío por ahora. Probá de nuevo en un rato."
+                : "Resend rechazó el envío y el motivo no es uno de los conocidos. Está en los registros de Vercel.",
+    };
   } catch (e) {
     console.error("aviso de venta:", e);
+    return { ok: false, causa: "No se pudo contactar a Resend. Puede ser un tropiezo de red." };
   }
 }

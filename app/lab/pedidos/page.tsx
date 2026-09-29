@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
 import { LabEncabezado } from "@/components/lab/LabEncabezado";
 import { PedidosManager, type Pedido } from "@/components/lab/PedidosManager";
+import { ProbarCorreo } from "@/components/lab/ProbarCorreo";
 
 export default async function PedidosLabPage() {
   const supabase = await createClient();
@@ -27,6 +28,8 @@ export default async function PedidosLabPage() {
     >
       <div style={{ maxWidth: 1080, margin: "0 auto" }}>
         <LabEncabezado titulo="Pedidos de la tienda" actual="pedidos" />
+
+        <ProbarCorreo />
 
         {error ? (
           <p style={{ fontFamily: "var(--font-body)", color: "#e05a4a" }}>

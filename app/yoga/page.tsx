@@ -41,7 +41,7 @@ export default function YogaPage() {
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
         <Sincroniza />
-        <BackButton />
+        <BackButton href="/florecer" />
 
         {/* Cabecera corta a propósito: lo primero que tiene que aparecer al
             entrar es la práctica. La presentación larga va más abajo. */}

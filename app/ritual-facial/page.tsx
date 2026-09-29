@@ -34,7 +34,7 @@ export default function RitualFacialPage() {
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
         <Sincroniza />
-        <BackButton />
+        <BackButton href="/florecer" />
 
         {/* Cabecera corta a propósito: lo primero que tiene que aparecer al
             entrar es la rutina. La presentación larga va debajo. */}

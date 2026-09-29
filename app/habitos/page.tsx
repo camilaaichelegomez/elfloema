@@ -32,7 +32,7 @@ export default function HabitosPage() {
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <RegistrarServiceWorker />
         <Sincroniza />
-        <BackButton />
+        <BackButton href="/florecer" />
 
         <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Cuidado de los días</p>

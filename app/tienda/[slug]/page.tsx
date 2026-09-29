@@ -32,8 +32,15 @@ export const revalidate = 60;
    alguien entra. Un producto nuevo igual funciona: se arma la primera vez que
    lo visitan y queda guardado. */
 export async function generateStaticParams() {
-  const productos = await getProductos();
-  return productos.map((p) => ({ slug: p.slug }));
+  try {
+    const productos = await getProductos();
+    return productos.map((p) => ({ slug: p.slug }));
+  } catch {
+    /* Si Supabase no contesta justo al publicar, no se cae la publicacion
+       entera: no se arma ninguna ficha de antemano y cada una se arma la
+       primera vez que la visitan, como antes. */
+    return [];
+  }
 }
 
 export async function generateMetadata({

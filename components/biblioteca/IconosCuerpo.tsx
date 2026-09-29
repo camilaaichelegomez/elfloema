@@ -61,6 +61,23 @@ export function IconRostro() {
   );
 }
 
+/* Una figura sentada con las piernas cruzadas, del mismo trazo y el mismo
+   dorado que los demás iconos de la biblioteca. */
+function IconSentada() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="11" r="5" stroke="#c8a050" strokeWidth="0.9" opacity="0.62" />
+      <path d="M19,16 L19,30" stroke="#c8a050" strokeWidth="0.9" opacity="0.55" strokeLinecap="round" />
+      <path d="M19,19 C12,22 9,27 8,32" stroke="#c8a050" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+      <path d="M19,19 C26,22 29,27 30,32" stroke="#c8a050" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+      <path d="M5,37 C12,29 26,29 33,37" stroke="#c8a050" strokeWidth="0.9" opacity="0.6" fill="none" />
+      <path d="M9,37 C14,43 24,43 29,37" stroke="#5a7a3a" strokeWidth="0.7" opacity="0.5" fill="none" />
+      <circle cx="19" cy="4" r="1.6" fill="#c8a050" opacity="0.28" />
+      <circle cx="19" cy="4" r="3.4" stroke="#c8a050" strokeWidth="0.5" opacity="0.22" fill="none" />
+    </svg>
+  );
+}
+
 export const SECCIONES_CUERPO = [
   {
     key: "yoga-origen",
@@ -77,6 +94,14 @@ export const SECCIONES_CUERPO = [
     desc: "Familias de posturas, cómo se arma una clase, la respiración y dónde va la mirada.",
     href: "/biblioteca/yoga-practica",
     Icon: IconYoga,
+  },
+  {
+    key: "meditacion",
+    label: "Meditación",
+    subtitle: "Teoría, técnicas y evidencia",
+    desc: "Qué es meditar, de dónde viene, las quince técnicas, qué está probado, los mitos y cuándo tener cuidado.",
+    href: "/biblioteca/meditacion",
+    Icon: IconSentada,
   },
   {
     key: "drenaje",

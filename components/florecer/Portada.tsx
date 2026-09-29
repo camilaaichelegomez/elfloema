@@ -56,6 +56,16 @@ const SENAS: Record<string, React.ReactNode> = {
       <path d="M49 22 q8 8 3 19" opacity="0.35" />
     </>
   ),
+  meditacion: (
+    <>
+      <circle cx="31" cy="13" r="5" />
+      <path d="M31 18 L31 37" />
+      <path d="M31 23 q-10 4 -12 14" />
+      <path d="M31 23 q10 4 12 14" />
+      <path d="M13 45 q18 -11 36 0" />
+      <path d="M18 45 q13 9 26 0" opacity="0.55" />
+    </>
+  ),
   habitos: (
     <>
       <rect x="14" y="12" width="12" height="12" rx="2" />
@@ -105,6 +115,12 @@ const SECCIONES = [
     titulo: "Hábitos",
     linea: "Tus objetivos, lo de cada día y lo que hay que hacer.",
     sena: "habitos",
+  },
+  {
+    href: "/meditacion",
+    titulo: "Meditación",
+    linea: "Sentarse un rato, y toda la teoría de por qué sirve.",
+    sena: "meditacion",
   },
 ];
 
@@ -161,7 +177,7 @@ export function Portada() {
 
       <nav style={{ display: "grid", gap: "0.8rem" }}>
         {SECCIONES.map((s) => (
-          <Link key={s.href} href={s.href} style={{ ...panel, ...tarjetaEnlace }}>
+          <Link prefetch={false} key={s.href} href={s.href} style={{ ...panel, ...tarjetaEnlace }}>
             <Sena cual={s.sena} />
             <span style={{ flex: 1, minWidth: 0 }}>
               <span style={tituloSeccion}>{s.titulo}</span>

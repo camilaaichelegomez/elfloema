@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
+import { BarraFlorecer } from "@/components/florecer/BarraFlorecer";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Sincroniza } from "@/components/florecer/Sincroniza";
 import { Desplegable } from "@/components/florecer/Desplegable";
@@ -36,7 +37,7 @@ const SERIES_TOTAL = SECUENCIAS.length;
 export default function YogaPage() {
   return (
     <main
-      className="yoga-bg"
+      className="yoga-bg con-barra-florecer"
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
@@ -266,6 +267,7 @@ export default function YogaPage() {
           </p>
         </Desplegable>
       </div>
+      <BarraFlorecer />
     </main>
   );
 }

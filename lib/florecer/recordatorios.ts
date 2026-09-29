@@ -24,7 +24,7 @@ export type Recordatorio = {
 };
 
 export const MAX_RECORDATORIOS = 40;
-export const RUTAS_PERMITIDAS = ["/florecer", "/yoga", "/ritual-facial", "/habitos", "/meditacion", "/fuerza"];
+export const RUTAS_PERMITIDAS = ["/florecer", "/yoga", "/ritual-facial", "/habitos", "/meditacion", "/fuerza", "/hipopresivos"];
 
 /* Solo se guardan suscripciones de los servicios de avisos de los
    navegadores. El servidor le hace un pedido a esa dirección, así que dejar

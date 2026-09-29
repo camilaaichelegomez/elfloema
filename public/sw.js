@@ -14,7 +14,7 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-v16";
+const VERSION = "floema-v17";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 
@@ -32,6 +32,7 @@ const RUTAS_BASE = [
   "/habitos",
   "/meditacion",
   "/fuerza",
+  "/hipopresivos",
 ];
 
 /* ── IndexedDB mínima para la cola ───────────────────────── */

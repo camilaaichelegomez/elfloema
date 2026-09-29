@@ -40,6 +40,7 @@ export function GET() {
       { name: "Hábitos", url: "/habitos" },
       { name: "Meditación", url: "/meditacion" },
       { name: "Fuerza", url: "/fuerza" },
+      { name: "Hipopresivos", url: "/hipopresivos" },
     ],
   };
 

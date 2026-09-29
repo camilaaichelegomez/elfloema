@@ -1,0 +1,9 @@
+Acá van los dibujos de las posturas de la sección Hipopresivos.
+
+Un archivo .webp por postura, con el nombre exacto que aparece en
+prompts-hipopresivos.md (en la raíz del proyecto). Por ejemplo: acostada.webp
+
+En cuanto el archivo existe, el dibujo aparece solo en la app: en la práctica
+y en la lista de posturas. Mientras no exista, no se muestra nada.
+
+Tamaño: horizontal 4:3, 800x600 va bien.

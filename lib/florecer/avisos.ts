@@ -15,7 +15,7 @@ import type { Recordatorio } from "@/lib/florecer/recordatorios";
 
 const CLAVE = "floema-recordatorios";
 
-export type Seccion = "yoga" | "cara" | "meditacion" | "fuerza";
+export type Seccion = "yoga" | "cara" | "meditacion" | "fuerza" | "hipopresivos";
 
 export type Ajustes = {
   activo: boolean;
@@ -27,6 +27,7 @@ export type Ajustes = {
 export const SECCIONES: { id: Seccion; label: string; titulo: string; cuerpo: string; url: string; clave: string }[] = [
   { id: "yoga", label: "Yoga", titulo: "Tu práctica de yoga", cuerpo: "Ya está armada. Un rato para el cuerpo.", url: "/yoga", clave: "floema-yoga" },
   { id: "fuerza", label: "Fuerza", titulo: "Tu sesión de fuerza", cuerpo: "Con tu propio cuerpo, sin pesas.", url: "/fuerza", clave: "floema-fuerza" },
+  { id: "hipopresivos", label: "Hipopresivos", titulo: "Tus hipopresivos", cuerpo: "Unos minutos de respiración y pausa, con el estómago vacío.", url: "/hipopresivos", clave: "floema-hipopresivos" },
   { id: "cara", label: "Ritual facial", titulo: "Tu ritual facial", cuerpo: "Drenaje y yoga facial, paso a paso.", url: "/ritual-facial", clave: "floema-ritual-facial" },
   { id: "meditacion", label: "Meditación", titulo: "Un rato de meditación", cuerpo: "Sentarte un momento y volver a ti.", url: "/meditacion", clave: "" },
 ];

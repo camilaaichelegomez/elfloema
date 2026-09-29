@@ -788,6 +788,59 @@ PLANTS: dict[str, dict] = {
             "strength training knee osteoarthritis pain",
         ],
     },
+
+    # -- Hipopresivos ----------------------------------------------------------
+    # La seccion de hipopresivos promete poco a proposito: es un terreno donde
+    # se vende mucho y se midio menos. Un tema por pregunta que la seccion
+    # responde, solo con ensayos y revisiones. Todo va a la carpeta hipopresivos/.
+    "hipopresivos_suelo_pelvico": {
+        "common_name": "Hipopresivos y suelo pelvico",
+        "scientific_name": "Tematica",
+        "folder": "hipopresivos/suelo_pelvico",
+        "search_terms": [
+            "hypopressive exercises pelvic floor dysfunction randomized",
+            "hypopressive exercises systematic review pelvic floor",
+            "hypopressive urinary incontinence randomized controlled trial",
+            "hypopressive versus pelvic floor muscle training",
+        ],
+    },
+    "hipopresivos_prolapso": {
+        "common_name": "Hipopresivos y prolapso",
+        "scientific_name": "Tematica",
+        "folder": "hipopresivos/prolapso",
+        "search_terms": [
+            "hypopressive exercises pelvic organ prolapse randomized",
+            "pelvic floor muscle training hypopressive prolapse pooled analysis",
+        ],
+    },
+    "hipopresivos_mecanismo": {
+        "common_name": "Presion abdominal y activacion muscular",
+        "scientific_name": "Tematica",
+        "folder": "hipopresivos/mecanismo",
+        "search_terms": [
+            "hypopressive intra-abdominal pressure measurement",
+            "hypopressive technique electromyography transversus abdominis pelvic floor",
+            "hypopressive exercise blood pressure",
+        ],
+    },
+    "hipopresivos_lumbar": {
+        "common_name": "Hipopresivos y dolor lumbar",
+        "scientific_name": "Tematica",
+        "folder": "hipopresivos/lumbar",
+        "search_terms": [
+            "hypopressive abdominal gymnastics low back pain randomized",
+            "hypopressive diaphragm thickness inspiratory muscle strength",
+        ],
+    },
+    "hipopresivos_posparto": {
+        "common_name": "Hipopresivos, posparto y diastasis",
+        "scientific_name": "Tematica",
+        "folder": "hipopresivos/posparto",
+        "search_terms": [
+            "hypopressive diastasis recti postpartum randomized",
+            "hypopressive exercises healthy women systematic review",
+        ],
+    },
 }
 
 

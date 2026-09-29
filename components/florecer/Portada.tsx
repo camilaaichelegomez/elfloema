@@ -191,6 +191,12 @@ const SECCIONES = [
     linea: "Masa muscular con tu propio cuerpo, subiendo de a poco.",
     sena: "fuerza",
   },
+  {
+    href: "/hipopresivos",
+    titulo: "Hipopresivos",
+    linea: "Respiración y pausa guiadas, para el centro del cuerpo.",
+    sena: "hipopresivos",
+  },
 ];
 
 export function Portada() {

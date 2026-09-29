@@ -54,6 +54,19 @@ export const SENAS: Record<string, ReactNode> = {
       <path d="M31 8 q6 6 0 12 q-6 -6 0 -12" opacity="0.5" />
     </>
   ),
+  /* Hipopresivos: un torso con las costillas abiertas hacia los lados y la
+     cintura hundida, que es el gesto de la pausa. */
+  hipopresivos: (
+    <>
+      <circle cx="31" cy="9" r="5" />
+      <path d="M31 14 L31 18" />
+      <path d="M21 20 q-7 7 -1 13 q4 4 1 12" />
+      <path d="M41 20 q7 7 1 13 q-4 4 -1 12" />
+      <path d="M23 26 q8 4 16 0" opacity="0.6" />
+      <path d="M12 22 L7 19 M50 22 L55 19" opacity="0.5" />
+      <path d="M21 45 L20 58 M41 45 L42 58" />
+    </>
+  ),
   habitos: (
     <>
       <rect x="14" y="12" width="12" height="12" rx="2" />

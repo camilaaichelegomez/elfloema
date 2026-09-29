@@ -215,6 +215,22 @@ function IconFuerza() {
   );
 }
 
+/* Un torso con las costillas abiertas y la cintura hundida: la pausa de los
+   hipopresivos. Es el mismo dibujo de la barra de Florecer. */
+function IconHipopresivos() {
+  return (
+    <svg viewBox="0 0 62 64" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="31" cy="9" r="5" />
+      <path d="M31 14 L31 18" />
+      <path d="M21 20 q-7 7 -1 13 q4 4 1 12" />
+      <path d="M41 20 q7 7 1 13 q-4 4 -1 12" />
+      <path d="M23 26 q8 4 16 0" opacity="0.6" />
+      <path d="M12 22 L7 19 M50 22 L55 19" opacity="0.5" />
+      <path d="M21 45 L20 58 M41 45 L42 58" />
+    </svg>
+  );
+}
+
 /* Una figura sentada con las piernas cruzadas, del mismo trazo que las otras. */
 function IconMeditacion() {
   return (
@@ -358,6 +374,13 @@ const FLORECER_CARDS = [
     subtitle: "Masa muscular en casa",
     href: "/fuerza",
     Icon: IconFuerza,
+  },
+  {
+    key: "hipopresivos-app",
+    label: "Hipopresivos",
+    subtitle: "Respiración y pausa guiadas",
+    href: "/hipopresivos",
+    Icon: IconHipopresivos,
   },
 ];
 

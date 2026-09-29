@@ -2781,17 +2781,20 @@ img {
   margin-top: 0.4rem !important;
 }
 
-/* Fuerza: el bosque de la portada, con el velo más liviano arriba porque la
-   sesión del día tiene que verse apenas entras. */
-.fuerza-bg {
+/* Hipopresivos: su propio fondo (fondo_hipopresivos_app.webp, cuando exista)
+   y, debajo, el bosque de meditación. Si el archivo todavía no está, el
+   navegador descarta esa capa y se ve el bosque. El velo es parejo y oscuro:
+   la práctica se mira con el círculo que respira al centro. */
+.hipopresivos-bg {
   background:
     linear-gradient(
       rgba(10, 16, 10, 0.86) 0,
-      rgba(10, 16, 10, 0.62) 240px,
-      rgba(10, 16, 10, 0.76) 55%,
+      rgba(10, 16, 10, 0.64) 240px,
+      rgba(10, 16, 10, 0.78) 55%,
       rgba(10, 16, 10, 0.9) 100%
     ),
-    url('/bosque-hero.webp') center top / cover fixed,
+    url('/fondo_hipopresivos_app.webp') center top / cover fixed,
+    url('/bosque-2.webp') center top / cover fixed,
     var(--bg-primary);
 }
 
@@ -2829,6 +2832,7 @@ img {
   .habitos-bg,
   .meditacion-bg,
   .fuerza-bg,
+  .hipopresivos-bg,
   .yoga-bg {
     background-attachment: scroll;
   }

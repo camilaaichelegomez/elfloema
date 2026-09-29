@@ -153,7 +153,7 @@ export function Evidencia({
   children,
   fuente,
 }: {
-  grado: "Bien respaldado" | "Prometedor" | "Evidencia débil" | "No hay evidencia";
+  grado: "Bien respaldado" | "Prometedor" | "Evidencia débil" | "No hay evidencia" | "No se confirmó";
   children: ReactNode;
   fuente?: string;
 }) {

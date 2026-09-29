@@ -39,6 +39,7 @@ const NAV: NavGroup[] = [
       { href: "/habitos", label: "Hábitos", hint: "Objetivos, hábitos y tareas del día" },
       { href: "/meditacion", label: "Meditación", hint: "La práctica y toda la teoría" },
       { href: "/fuerza", label: "Fuerza", hint: "Masa muscular con tu propio cuerpo" },
+      { href: "/hipopresivos", label: "Hipopresivos", hint: "Respiración y pausa, guiadas" },
     ],
   },
   { label: "El Floema Lab", href: "/lab" },

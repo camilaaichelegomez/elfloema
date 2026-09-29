@@ -43,7 +43,7 @@ export default function FuerzaPage() {
       <div style={{ maxWidth: 940, margin: "0 auto", minWidth: 0 }}>
         <RegistrarServiceWorker />
         <Sincroniza />
-        <BackButton href="/florecer" />
+        <BackButton label="← Entrenar" href="/entrenar" />
 
         <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Cuidado de la fuerza</p>

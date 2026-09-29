@@ -54,6 +54,17 @@ export const SENAS: Record<string, ReactNode> = {
       <path d="M31 8 q6 6 0 12 q-6 -6 0 -12" opacity="0.5" />
     </>
   ),
+  /* Entrenar: una figura en movimiento, a medio paso, con un brazo arriba.
+     Agrupa yoga, fuerza e hipopresivos. */
+  entrenar: (
+    <>
+      <circle cx="34" cy="9" r="5" />
+      <path d="M32 15 L27 34" />
+      <path d="M31 20 L41 13 M31 20 L20 26" />
+      <path d="M27 34 L37 44 L35 56 M27 34 L19 46 L11 50" />
+      <path d="M8 58 L44 58" opacity="0.5" />
+    </>
+  ),
   /* Hipopresivos: un torso con las costillas abiertas hacia los lados y la
      cintura hundida, que es el gesto de la pausa. */
   hipopresivos: (

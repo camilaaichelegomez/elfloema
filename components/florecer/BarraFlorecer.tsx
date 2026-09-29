@@ -17,6 +17,7 @@ const PESTANAS = [
   { href: "/ritual-facial", label: "Rostro", sena: "cara" },
   { href: "/habitos", label: "Hábitos", sena: "habitos" },
   { href: "/meditacion", label: "Meditar", sena: "meditacion" },
+  { href: "/fuerza", label: "Fuerza", sena: "fuerza" },
 ];
 
 export function BarraFlorecer() {

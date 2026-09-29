@@ -2499,9 +2499,9 @@ img {
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  max-width: 560px;
+  max-width: 620px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .barra-florecer a {
@@ -2514,12 +2514,21 @@ img {
   padding: 6px 4px;
   text-decoration: none;
   font-family: var(--font-cinzel), serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(217, 203, 170, 0.6);
   position: relative;
   transition: color 0.2s ease;
+}
+
+/* En pantallas angostas, seis pestañas no caben con la letra normal. */
+@media (max-width: 380px) {
+  .barra-florecer a {
+    font-size: 0.5rem;
+    letter-spacing: 0.02em;
+    padding: 6px 2px;
+  }
 }
 
 .barra-florecer a:hover {
@@ -2607,6 +2616,34 @@ img {
   margin-top: 0.4rem !important;
 }
 
+/* Fuerza: el bosque de la portada, con el velo más liviano arriba porque la
+   sesión del día tiene que verse apenas entras. */
+.fuerza-bg {
+  background:
+    linear-gradient(
+      rgba(10, 16, 10, 0.86) 0,
+      rgba(10, 16, 10, 0.62) 240px,
+      rgba(10, 16, 10, 0.76) 55%,
+      rgba(10, 16, 10, 0.9) 100%
+    ),
+    url('/bosque-hero.webp') center top / cover fixed,
+    var(--bg-primary);
+}
+
+/* Fuerza: el bosque de la portada, con el velo un poco más liviano arriba
+   porque la sesión del día tiene que verse apenas entras. */
+.fuerza-bg {
+  background:
+    linear-gradient(
+      rgba(10, 16, 10, 0.86) 0,
+      rgba(10, 16, 10, 0.62) 240px,
+      rgba(10, 16, 10, 0.76) 55%,
+      rgba(10, 16, 10, 0.9) 100%
+    ),
+    url('/bosque-hero.webp') center top / cover fixed,
+    var(--bg-primary);
+}
+
 /* Meditación: el tercer bosque, y el velo más oscuro de los tres. Es la
    sección más larga de leer del sitio y el texto tiene que ganarle a la foto
    sin discusión. */
@@ -2626,6 +2663,7 @@ img {
   .ritual-bg,
   .habitos-bg,
   .meditacion-bg,
+  .fuerza-bg,
   .yoga-bg {
     background-attachment: scroll;
   }

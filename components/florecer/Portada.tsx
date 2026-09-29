@@ -60,6 +60,12 @@ const SECCIONES = [
     linea: "Sentarse un rato, y toda la teoría de por qué sirve.",
     sena: "meditacion",
   },
+  {
+    href: "/fuerza",
+    titulo: "Fuerza",
+    linea: "Masa muscular con tu propio cuerpo, subiendo de a poco.",
+    sena: "fuerza",
+  },
 ];
 
 export function Portada() {

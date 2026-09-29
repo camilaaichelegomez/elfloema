@@ -659,6 +659,135 @@ PLANTS: dict[str, dict] = {
             "hip flexor tightness sitting exercise",
         ],
     },
+
+    # -- Fuerza y masa muscular ------------------------------------------------
+    # La seccion de fuerza de la app es para mujeres adultas, que pierden masa
+    # muscular antes y mas rapido de lo que casi nadie les cuenta. Un tema por
+    # pregunta que la seccion tiene que poder responder con evidencia y no con
+    # lo que se dice en el gimnasio. Todo va a la carpeta fuerza/.
+    "fuerza_mujeres_hipertrofia": {
+        "common_name": "Fuerza e hipertrofia en mujeres",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/mujeres_hipertrofia",
+        "search_terms": [
+            "resistance training muscle hypertrophy women randomized",
+            "sex differences resistance training hypertrophy",
+            "strength training women lean body mass trial",
+            "resistance exercise female skeletal muscle adaptation",
+            "women strength training meta-analysis muscle",
+        ],
+    },
+    "fuerza_calistenia": {
+        "common_name": "Calistenia y peso corporal",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/calistenia",
+        "search_terms": [
+            "calisthenics training randomized controlled trial",
+            "bodyweight resistance training muscle strength trial",
+            "bodyweight exercise versus weight training hypertrophy",
+            "push-up training program strength adaptation",
+            "suspension training TRX strength trial",
+        ],
+    },
+    "fuerza_sarcopenia": {
+        "common_name": "Perdida de masa muscular con la edad",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/sarcopenia",
+        "search_terms": [
+            "sarcopenia prevention resistance training women",
+            "age-related muscle mass loss longitudinal adults",
+            "muscle mass decline middle age women",
+            "sarcopenia definition diagnosis consensus",
+            "resistance training older women muscle quality",
+        ],
+    },
+    "fuerza_dosis": {
+        "common_name": "Dosis: series, repeticiones y frecuencia",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/dosis",
+        "search_terms": [
+            "resistance training volume dose-response hypertrophy meta-analysis",
+            "training frequency muscle hypertrophy meta-analysis",
+            "proximity to failure resistance training hypertrophy",
+            "low load high repetition versus high load hypertrophy",
+            "minimal dose resistance training strength",
+            "rest interval hypertrophy strength meta-analysis",
+        ],
+    },
+    "fuerza_progresion": {
+        "common_name": "Progresion y sobrecarga",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/progresion",
+        "search_terms": [
+            "progressive overload resistance training adaptation",
+            "eccentric training hypertrophy meta-analysis",
+            "range of motion resistance training hypertrophy",
+            "time under tension repetition duration hypertrophy",
+            "detraining muscle mass strength loss",
+        ],
+    },
+    "fuerza_proteina": {
+        "common_name": "Proteina y masa muscular",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/proteina",
+        "search_terms": [
+            "protein intake resistance training muscle mass meta-analysis",
+            "protein distribution muscle protein synthesis women",
+            "dietary protein requirement older adults muscle",
+            "creatine supplementation women muscle strength",
+            "energy availability muscle adaptation female athletes",
+        ],
+    },
+    "fuerza_menopausia": {
+        "common_name": "Menopausia, hormonas y musculo",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/menopausia",
+        "search_terms": [
+            "menopause muscle mass loss estrogen skeletal muscle",
+            "resistance training postmenopausal women body composition",
+            "menopausal hormone therapy muscle strength",
+            "perimenopause physical function strength",
+            "menstrual cycle phase resistance training adaptation",
+        ],
+    },
+    "fuerza_hueso": {
+        "common_name": "Hueso y densidad osea",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/hueso",
+        "search_terms": [
+            "resistance training bone mineral density postmenopausal randomized",
+            "high intensity resistance impact training osteoporosis LIFTMOR",
+            "exercise osteopenia bone density meta-analysis women",
+            "weight bearing exercise bone health premenopausal",
+            "falls prevention strength training older women",
+        ],
+    },
+    "fuerza_metabolico": {
+        "common_name": "Fuerza, metabolismo y salud",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/metabolico",
+        "search_terms": [
+            "resistance training insulin sensitivity women trial",
+            "muscle strength all-cause mortality cohort",
+            "grip strength mortality prospective study",
+            "resistance training blood pressure meta-analysis",
+            "resistance training mental health depression meta-analysis",
+            "resting metabolic rate resistance training body composition",
+        ],
+    },
+    "fuerza_seguridad": {
+        "common_name": "Seguridad, dolor y suelo pelvico",
+        "scientific_name": "Tematica",
+        "folder": "fuerza/seguridad",
+        "search_terms": [
+            "resistance training injury incidence rate",
+            "delayed onset muscle soreness recovery evidence",
+            "pelvic floor muscle training exercise intra-abdominal pressure",
+            "diastasis recti abdominal exercise postpartum",
+            "resistance training pregnancy safety guidelines",
+            "strength training knee osteoarthritis pain",
+        ],
+    },
 }
 
 

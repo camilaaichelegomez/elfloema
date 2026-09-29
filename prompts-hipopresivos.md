@@ -1,6 +1,6 @@
 # Prompts para las imágenes de la sección Hipopresivos
 
-Son 10 posturas y 2 fondos. Cada prompt está **entero**: lo copias, lo pegas y
+Son 11 posturas y 2 fondos. Cada prompt está **entero**: lo copias, lo pegas y
 listo. No hay que agregarle nada.
 
 El estilo es el mismo de Fuerza y de las posturas de yoga —figura plana dorada
@@ -62,6 +62,15 @@ Side view. Standing with feet parallel and hip-width apart, knees softly bent, t
 
 ```
 Three-quarter view from the front. Standing, knees softly bent, body leaning slightly forward, both arms reaching forward at navel height with elbows opened out wide and fingertips pointing toward each other, palms pushing gently forward, shoulders low. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
+```
+
+### `afrodita.webp` — Acostada (Afrodita)
+
+Mejor generarla **a partir de una foto de referencia** (busca *Afrodita
+hipopresivos*): sube la foto y pega este texto.
+
+```
+Redraw the exact body pose from the attached photo — same position of the arms, elbows, hands, legs and hips, same angle — as a flat vector illustration. Lying on her back on the mat. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible, generous empty margin, horizontal 4:3 composition. Do not copy the person, the clothes or the room from the photo: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
 ```
 
 ### `acostada_cadera_arriba.webp` — Acostada, cadera arriba (Deméter con elevación de pelvis)

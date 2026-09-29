@@ -100,6 +100,21 @@ export const POSTURAS: Postura[] = [
     figura: "de_pie_brazos",
   },
   {
+    /* Afrodita: otra de las posturas acostadas del método. Lo que se sabe
+       con seguridad es que va boca arriba; el detalle fino lo da el dibujo,
+       que Camila genera desde una foto de referencia. */
+    id: "afrodita",
+    nombre: "Acostada (Afrodita)",
+    nivel: "medio",
+    pasos: [
+      "Boca arriba sobre la colchoneta, como muestra el dibujo.",
+      "Nuca larga, mentón un poco hacia adentro, hombros lejos de las orejas.",
+      "La espalda baja apoyada, sin despegarla durante la pausa.",
+    ],
+    ojo: "No levantes la cabeza ni el mentón: el cuello queda largo y suelto.",
+    figura: "afrodita",
+  },
+  {
     /* La Deméter con elevación de pelvis: la acostada, con la cadera en el
        aire. Pide más control que la acostada, por eso aparece en el nivel
        medio. */

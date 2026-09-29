@@ -2480,6 +2480,59 @@ img {
     var(--bg-primary);
 }
 
+/* Florecer: la explicación de abajo de cada sección, plegada hasta que se
+   pide. El botón es la línea entera, para que sea fácil de tocar. */
+.florecer-desplegable {
+  margin-top: 2.4rem;
+  border: 1px solid rgba(200, 160, 80, 0.28);
+  border-radius: 8px;
+  background: rgba(12, 22, 12, 0.6);
+}
+
+.florecer-desplegable > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.1rem;
+  min-height: 44px;
+  font-family: var(--font-grimoire);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #c8a050;
+}
+
+.florecer-desplegable > summary::-webkit-details-marker {
+  display: none;
+}
+
+.florecer-desplegable > summary:focus-visible {
+  outline: 1px solid #c8a050;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.florecer-desplegable-flecha {
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.florecer-desplegable[open] .florecer-desplegable-flecha {
+  transform: rotate(180deg);
+}
+
+.florecer-desplegable-cuerpo {
+  padding: 0 clamp(0.9rem, 3vw, 1.4rem) 1.4rem;
+}
+
+/* Dentro del desplegable, la primera sección no necesita su margen de arriba. */
+.florecer-desplegable-cuerpo > :first-child {
+  margin-top: 0.4rem !important;
+}
+
 @media (max-width: 900px) {
   .ritual-bg,
   .habitos-bg,

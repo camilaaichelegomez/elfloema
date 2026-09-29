@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { TERMINO_EN_INGLES, enlaceDeVideo } from "@/lib/fuerza/buscar";
 import type { PromptDibujo } from "@/lib/fuerza/leer-prompts";
 
 /* La lista de los dibujos por hacer, con botones para copiar.
@@ -147,9 +148,32 @@ export function Dibujos({ prompts }: { prompts: PromptDibujo[] }) {
                       </span>
                     </div>
 
+                    {TERMINO_EN_INGLES[p.archivo] && (
+                      <p style={{ ...texto, margin: "0.4rem 0 0", fontSize: "0.9rem" }}>
+                        Se llama{" "}
+                        <span style={{ ...codigo, color: "rgba(168,200,138,0.95)" }}>
+                          {TERMINO_EN_INGLES[p.archivo]}
+                        </span>
+                        . Con ese nombre lo encuentras, y sirve para pedirle el dibujo a otra IA.
+                      </p>
+                    )}
+
                     <div style={{ ...fila, marginTop: "0.7rem" }}>
                       <BotonCopiar texto={`${p.archivo}.webp`} label="Copiar nombre" principal />
+                      {TERMINO_EN_INGLES[p.archivo] && (
+                        <BotonCopiar texto={TERMINO_EN_INGLES[p.archivo]} label="Copiar en inglés" />
+                      )}
                       <BotonCopiar texto={p.prompt} label="Copiar prompt" />
+                      {enlaceDeVideo(p.archivo) && (
+                        <a
+                          href={enlaceDeVideo(p.archivo) as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={enlace}
+                        >
+                          Ver cómo es ↗
+                        </a>
+                      )}
                       <button
                         type="button"
                         onClick={() => setAbierto(abierto === p.archivo ? null : p.archivo)}

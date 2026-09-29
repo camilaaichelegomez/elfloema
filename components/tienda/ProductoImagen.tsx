@@ -61,8 +61,11 @@ export default function ProductoImagen({
         boxShadow: "0 20px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(200,160,80,0.06)",
       }}
     >
+      {/* Esta es LA foto del producto y va arriba de todo: se pide de
+          inmediato, no cuando se baja. */}
       {imgOk ? (
         <img
+          decoding="async"
           ref={imgRef}
           src={`/tienda/${slug}.webp`}
           alt={nombre}

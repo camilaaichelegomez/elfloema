@@ -123,14 +123,14 @@ export function LabShell({ children }: { children: ReactNode }) {
   return (
     <div className="lab-shell">
       <aside className="lab-sidebar">
-        <Link href="/lab/inventario" className="lab-sidebar-marca">
+        <Link prefetch={false} href="/lab/inventario" className="lab-sidebar-marca">
           <img src="/logo.webp" alt="" />
           <span>Floema Lab</span>
         </Link>
 
         <nav className="lab-sidebar-nav">
           {SECCIONES.map((s) => (
-            <Link
+            <Link prefetch={false}
               key={s.href}
               href={s.href}
               className={`lab-nav-item${activo(s.href) ? " is-active" : ""}`}
@@ -142,7 +142,7 @@ export function LabShell({ children }: { children: ReactNode }) {
           ))}
         </nav>
 
-        <Link href="/" className="lab-nav-item lab-nav-salir">
+        <Link prefetch={false} href="/" className="lab-nav-item lab-nav-salir">
           <span className="lab-nav-icono">
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M12 6.5V4.8c0-.8-.7-1.5-1.5-1.5h-5C4.7 3.3 4 4 4 4.8v10.4c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
@@ -158,7 +158,7 @@ export function LabShell({ children }: { children: ReactNode }) {
       {/* ── Celular: 3 fijas + «Más», sin scroll escondido ── */}
       <nav className="lab-tabbar" aria-label="Secciones del Lab">
         {PRINCIPALES.map((s) => (
-          <Link
+          <Link prefetch={false}
             key={s.href}
             href={s.href}
             className={`lab-tab${activo(s.href) ? " is-active" : ""}`}
@@ -188,7 +188,7 @@ export function LabShell({ children }: { children: ReactNode }) {
             <p className="lab-mas-titulo">Todo lo que puedes hacer</p>
 
             {SECUNDARIAS.map((s) => (
-              <Link key={s.href} href={s.href} className={`lab-mas-item${activo(s.href) ? " is-active" : ""}`}>
+              <Link prefetch={false} key={s.href} href={s.href} className={`lab-mas-item${activo(s.href) ? " is-active" : ""}`}>
                 <span className="lab-nav-icono">{s.icono}</span>
                 <span>
                   <span className="lab-mas-item-label">{s.label}</span>
@@ -197,7 +197,7 @@ export function LabShell({ children }: { children: ReactNode }) {
               </Link>
             ))}
 
-            <Link href="/" className="lab-mas-item">
+            <Link prefetch={false} href="/" className="lab-mas-item">
               <span className="lab-nav-icono">
                 <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M12 6.5V4.8c0-.8-.7-1.5-1.5-1.5h-5C4.7 3.3 4 4 4 4.8v10.4c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />

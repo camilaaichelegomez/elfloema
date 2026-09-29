@@ -5,7 +5,10 @@ import { getProductos } from "@/lib/productos-db";
 // Lee las fórmulas en vivo desde Supabase en cada visita (transparencia: se
 // muestra entera la fórmula de cada producto). Requiere la política de lectura
 // pública en Supabase.
-export const dynamic = "force-dynamic";
+/* La pagina queda guardada y se entrega al instante, en vez de rearmarse
+   desde Supabase en cada visita. Se rehace sola al minuto, asi que un cambio
+   hecho en el Lab tarda como mucho ese minuto en aparecer aca. */
+export const revalidate = 60;
 
 // ── Grain overlay ─────────────────────────────────────────────────────────────
 function GrainOverlay() {

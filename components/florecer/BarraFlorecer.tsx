@@ -16,6 +16,7 @@ const PESTANAS = [
   { href: "/yoga", label: "Yoga", sena: "yoga" },
   { href: "/ritual-facial", label: "Rostro", sena: "cara" },
   { href: "/habitos", label: "Hábitos", sena: "habitos" },
+  { href: "/meditacion", label: "Meditar", sena: "meditacion" },
 ];
 
 export function BarraFlorecer() {
@@ -28,7 +29,7 @@ export function BarraFlorecer() {
           const activa = pathname.startsWith(p.href);
           return (
             <li key={p.href}>
-              <Link href={p.href} aria-current={activa ? "page" : undefined} data-activa={activa || undefined}>
+              <Link prefetch={false} href={p.href} aria-current={activa ? "page" : undefined} data-activa={activa || undefined}>
                 {/* En chico, el trazo se engrosa para que no se pierda. */}
                 <Sena cual={p.sena} tamano={28} grosor={3.4} />
                 <span>{p.label}</span>

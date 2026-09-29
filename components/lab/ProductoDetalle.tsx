@@ -52,7 +52,7 @@ export function ProductoDetalle({
           <h1 style={nombreStyle}>{formula.nombre}</h1>
           {(subtitle || formula.categoria) && <p style={subtituloStyle}>{subtitle || formula.categoria}</p>}
         </div>
-        <Link href={`/lab/etiquetas/${productId}`} style={editarLinkStyle}>
+        <Link prefetch={false} href={`/lab/etiquetas/${productId}`} style={editarLinkStyle}>
           <Pencil size={13} /> Editar etiqueta y descripciones
         </Link>
       </div>

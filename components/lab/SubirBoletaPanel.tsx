@@ -209,7 +209,7 @@ export function SubirBoletaPanel({
         <div>
           <div style={{ display: "flex", gap: "0.8rem", alignItems: "flex-start", marginBottom: "1rem" }}>
             {preview ? (
-              <img src={preview} alt="Boleta" style={previewImgStyle} />
+              <img loading="lazy" decoding="async" src={preview} alt="Boleta" style={previewImgStyle} />
             ) : (
               archivoNombre && (
                 <div style={previewArchivoStyle}>

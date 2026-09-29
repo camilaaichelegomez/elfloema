@@ -2501,7 +2501,7 @@ img {
   padding: 0;
   max-width: 560px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .barra-florecer a {
@@ -2607,9 +2607,25 @@ img {
   margin-top: 0.4rem !important;
 }
 
+/* Meditación: el tercer bosque, y el velo más oscuro de los tres. Es la
+   sección más larga de leer del sitio y el texto tiene que ganarle a la foto
+   sin discusión. */
+.meditacion-bg {
+  background:
+    linear-gradient(
+      rgba(10, 16, 10, 0.88) 0,
+      rgba(10, 16, 10, 0.66) 240px,
+      rgba(10, 16, 10, 0.78) 55%,
+      rgba(10, 16, 10, 0.9) 100%
+    ),
+    url('/bosque-2.webp') center top / cover fixed,
+    var(--bg-primary);
+}
+
 @media (max-width: 900px) {
   .ritual-bg,
   .habitos-bg,
+  .meditacion-bg,
   .yoga-bg {
     background-attachment: scroll;
   }

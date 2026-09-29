@@ -241,7 +241,7 @@ export default function CaraDrenajeYogaFacial() {
           ]}
         />
         <P style={{ textAlign: "center", marginTop: 20 }}>
-          <Link
+          <Link prefetch={false}
             href="/ritual-facial"
             style={{
               ...ENLACE,
@@ -483,7 +483,7 @@ export default function CaraDrenajeYogaFacial() {
         <LineDivider />
         <P style={{ textAlign: "center", marginBottom: 0 }}>
           Cómo funciona el sistema completo:{" "}
-          <Link href="/biblioteca/drenaje-linfatico" style={ENLACE}>
+          <Link prefetch={false} href="/biblioteca/drenaje-linfatico" style={ENLACE}>
             drenaje linfático del cuerpo →
           </Link>
         </P>

@@ -144,10 +144,10 @@ export function ParallaxHero() {
           className="hero-entra hero-acciones"
           style={{ animationDelay: '320ms', pointerEvents: 'auto' }}
         >
-          <Link href="/tienda" className="hero-cta hero-cta--primario">
+          <Link prefetch={false} href="/tienda" className="hero-cta hero-cta--primario">
             Ver la tienda
           </Link>
-          <Link href="/biblioteca" className="hero-cta hero-cta--secundario">
+          <Link prefetch={false} href="/biblioteca" className="hero-cta hero-cta--secundario">
             Explorar la biblioteca
           </Link>
         </div>

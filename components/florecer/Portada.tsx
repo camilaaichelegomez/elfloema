@@ -54,6 +54,12 @@ const SECCIONES = [
     linea: "Tus objetivos, lo de cada día y lo que hay que hacer.",
     sena: "habitos",
   },
+  {
+    href: "/meditacion",
+    titulo: "Meditación",
+    linea: "Sentarse un rato, y toda la teoría de por qué sirve.",
+    sena: "meditacion",
+  },
 ];
 
 export function Portada() {
@@ -109,7 +115,7 @@ export function Portada() {
 
       <nav style={{ display: "grid", gap: "0.8rem" }}>
         {SECCIONES.map((s) => (
-          <Link key={s.href} href={s.href} style={{ ...panel, ...tarjetaEnlace }}>
+          <Link prefetch={false} key={s.href} href={s.href} style={{ ...panel, ...tarjetaEnlace }}>
             <span style={{ color: "#c8a050", display: "flex" }}>
               <Sena cual={s.sena} />
             </span>

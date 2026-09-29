@@ -227,7 +227,7 @@ export default async function PlantaPage({
 
           {/* Volver a la biblioteca */}
           <div style={{ textAlign: "center", marginTop: "clamp(2.5rem,5vh,4rem)" }}>
-            <Link
+            <Link prefetch={false}
               href="/plantas"
               style={{
                 fontFamily: "var(--font-cinzel), serif",

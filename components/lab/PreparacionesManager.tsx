@@ -289,10 +289,10 @@ export function PreparacionesManager({ initialPreparaciones }: { initialPreparac
                 {viendo.formula_id ? (
                   <>
                     <div style={accesosDirectosStyle}>
-                      <Link href={`/lab/etiquetas/${viendo.formula_id}`} style={accesoDirectoStyle}>
+                      <Link prefetch={false} href={`/lab/etiquetas/${viendo.formula_id}`} style={accesoDirectoStyle}>
                         <Tag size={13} /> Generar etiqueta
                       </Link>
-                      <Link href={`/lab/etiquetas/${viendo.formula_id}`} style={accesoDirectoStyle}>
+                      <Link prefetch={false} href={`/lab/etiquetas/${viendo.formula_id}`} style={accesoDirectoStyle}>
                         <Sparkles size={13} /> Copy de catálogo y redes
                       </Link>
                       <button

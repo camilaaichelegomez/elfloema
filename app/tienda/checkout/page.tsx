@@ -148,7 +148,7 @@ export default function CheckoutPage() {
               <p style={{ fontFamily: "var(--font-crimson), serif", fontStyle: "italic", color: CREAM, opacity: 0.7, fontSize: "1.1rem", marginBottom: "1.5rem" }}>
                 Tu carrito está vacío. 🌿
               </p>
-              <Link href="/tienda" style={linkBoton}>
+              <Link prefetch={false} href="/tienda" style={linkBoton}>
                 Ir a la tienda →
               </Link>
             </div>

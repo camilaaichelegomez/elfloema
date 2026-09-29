@@ -33,7 +33,7 @@ export default async function FichaProductoPage({
     <div className="ficha-page">
       <FichaEstilos />
       <div className="ficha-toolbar no-print">
-        <Link href={`/tienda/${producto.slug}`}>← Volver al producto</Link>
+        <Link prefetch={false} href={`/tienda/${producto.slug}`}>← Volver al producto</Link>
         <BotonImprimir />
       </div>
       <p className="ficha-note no-print">

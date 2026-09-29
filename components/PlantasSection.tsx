@@ -148,7 +148,7 @@ export function PlantasSection() {
         transition={{ duration: 0.7, delay: 0.35 }}
         style={{ textAlign: "center", marginTop: "3rem" }}
       >
-        <Link
+        <Link prefetch={false}
           href="/plantas"
           style={{
             display: "inline-flex",

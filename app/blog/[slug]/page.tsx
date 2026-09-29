@@ -89,7 +89,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "clamp(80px,12vh,140px) clamp(24px,5vw,64px) clamp(80px,12vh,140px)" }}>
 
         {/* Back */}
-        <Link
+        <Link prefetch={false}
           href="/blog"
           style={{
             fontFamily: "var(--font-cinzel), serif",
@@ -152,7 +152,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         {/* Hero image */}
         {post.imagen_url && (
           <div style={{ borderRadius: "0.5rem", overflow: "hidden", marginBottom: "2.5rem", border: "1px solid rgba(200,160,80,0.12)" }}>
-            <img
+            <img loading="lazy" decoding="async"
               src={post.imagen_url}
               alt={post.titulo}
               style={{ width: "100%", display: "block", objectFit: "cover", maxHeight: "420px" }}
@@ -209,7 +209,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
         {/* Footer nav */}
         <div style={{ marginTop: "4rem", paddingTop: "2rem", borderTop: "1px solid rgba(200,160,80,0.1)", textAlign: "center" }}>
-          <Link
+          <Link prefetch={false}
             href="/blog"
             style={{
               fontFamily: "var(--font-grimoire)",

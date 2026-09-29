@@ -23,7 +23,25 @@ const sectionHeading: CSSProperties = {
   margin: "0 0 0.9rem",
 };
 
-export const dynamic = "force-dynamic";
+/* La pagina queda guardada y se entrega al instante, en vez de rearmarse
+   desde Supabase en cada visita. Se rehace sola al minuto, asi que un cambio
+   hecho en el Lab tarda como mucho ese minuto en aparecer aca. */
+export const revalidate = 60;
+
+/* Las fichas de los productos que ya existen se arman al publicar, no cuando
+   alguien entra. Un producto nuevo igual funciona: se arma la primera vez que
+   lo visitan y queda guardado. */
+export async function generateStaticParams() {
+  try {
+    const productos = await getProductos();
+    return productos.map((p) => ({ slug: p.slug }));
+  } catch {
+    /* Si Supabase no contesta justo al publicar, no se cae la publicacion
+       entera: no se arma ninguna ficha de antemano y cada una se arma la
+       primera vez que la visitan, como antes. */
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -195,7 +213,7 @@ export default async function ProductoPage({
                 Escríbenos a @elfloema.cl para conocer disponibilidad y precios.
               </p>
 
-              <Link
+              <Link prefetch={false}
                 href={`/tienda/${producto.slug}/ficha`}
                 style={{
                   display: "inline-block",
@@ -314,7 +332,7 @@ export default async function ProductoPage({
                 .filter((p) => p.slug !== producto.slug && !p.oculto)
                 .slice(0, 6)
                 .map((p) => (
-                  <Link
+                  <Link prefetch={false}
                     key={p.slug}
                     href={`/tienda/${p.slug}`}
                     style={{

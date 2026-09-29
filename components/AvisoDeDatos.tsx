@@ -23,7 +23,7 @@ const CLAVE = "floema-aviso-datos";
 
 /* En las secciones de Florecer hay una barra fija abajo: el aviso se sube
    para quedar encima de ella y no tapar los botones. */
-const CON_BARRA = ["/florecer", "/yoga", "/ritual-facial", "/habitos"];
+const CON_BARRA = ["/florecer", "/yoga", "/ritual-facial", "/habitos", "/meditacion"];
 const UN_ANO = 365 * 24 * 60 * 60 * 1000;
 
 export function AvisoDeDatos() {
@@ -105,7 +105,7 @@ export function AvisoDeDatos() {
       >
         Solo guardamos lo necesario para que funcione.{" "}
         <strong style={{ color: "#e8c878", fontWeight: 600 }}>Sin publicidad ni seguimiento.</strong>{" "}
-        <Link href="/privacidad#cookies" onClick={cerrar} style={enlace}>
+        <Link prefetch={false} href="/privacidad#cookies" onClick={cerrar} style={enlace}>
           Más
         </Link>
       </p>

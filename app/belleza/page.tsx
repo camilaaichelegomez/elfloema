@@ -123,7 +123,7 @@ export default function BellezaPage() {
             height: 64,
           }}
         >
-          <Link
+          <Link prefetch={false}
             href="/"
             style={{
               fontFamily: "var(--font-grimoire)",

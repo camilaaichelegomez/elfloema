@@ -11,7 +11,10 @@ export const metadata = {
   description: "Cosmética botánica elaborada con ciencia — sérums, hidrolatos, jabones y velas de El Floema.",
 };
 
-export const dynamic = "force-dynamic";
+/* La pagina queda guardada y se entrega al instante, en vez de rearmarse
+   desde Supabase en cada visita. Se rehace sola al minuto, asi que un cambio
+   hecho en el Lab tarda como mucho ese minuto en aparecer aca. */
+export const revalidate = 60;
 
 // Orden de exhibición: primero el ritual facial completo, luego capilar,
 // cuerpo y por último aromaterapia/hogar. Una categoría que no está en esta
@@ -89,7 +92,7 @@ export default async function TiendaPage() {
 
           {/* Enlace al catálogo */}
           <div style={{ textAlign: "center", marginBottom: "clamp(2rem,4vh,3rem)" }}>
-            <Link
+            <Link prefetch={false}
               href="/catalogo"
               style={{
                 fontFamily: "var(--font-cinzel), serif",

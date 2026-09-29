@@ -175,7 +175,7 @@ export function LaBotica() {
           zIndex: 1,
         }}
       >
-        <Link
+        <Link prefetch={false}
           href="/tienda"
           style={{
             display: "inline-block",

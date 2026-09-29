@@ -230,7 +230,7 @@ export function AsistenteChat({
       {formulaGuardada && (
         <div className="lab-ok-msg" style={guardadoBoxStyle}>
           <span>&ldquo;{formulaGuardada}&rdquo; se guardó correctamente.</span>
-          <Link href="/lab/formulas" style={botonVerFormulaStyle}>
+          <Link prefetch={false} href="/lab/formulas" style={botonVerFormulaStyle}>
             Ver fórmula
           </Link>
         </div>

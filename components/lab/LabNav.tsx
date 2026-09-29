@@ -28,7 +28,7 @@ export function LabNav({
                 ✦
               </span>
             )}
-            <Link href={e.href} style={activo ? { ...enlaceStyle, ...enlaceActivoStyle } : enlaceStyle}>
+            <Link prefetch={false} href={e.href} style={activo ? { ...enlaceStyle, ...enlaceActivoStyle } : enlaceStyle}>
               {e.label}
             </Link>
           </Fragment>

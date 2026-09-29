@@ -201,6 +201,20 @@ function IconHabitos() {
   );
 }
 
+/* Una figura sentada con las piernas cruzadas, del mismo trazo que las otras. */
+function IconMeditacion() {
+  return (
+    <svg viewBox="0 0 64 64" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="32" cy="15" r="5.5" />
+      <path d="M32 20.5 L32 38" />
+      <path d="M32 25 q-11 4 -13 15" />
+      <path d="M32 25 q11 4 13 15" />
+      <path d="M13 47 q19 -12 38 0" />
+      <path d="M19 47 q13 9 26 0" opacity="0.55" />
+    </svg>
+  );
+}
+
 function CardsSection({ titulo, items }: { titulo: string; items: typeof cosmeticaCards }) {
   const setCardCursor = (event: MouseEvent<HTMLAnchorElement>) => {
     const target = event.currentTarget;
@@ -316,6 +330,13 @@ const FLORECER_CARDS = [
     subtitle: "Objetivos, hábitos y tareas",
     href: "/habitos",
     Icon: IconHabitos,
+  },
+  {
+    key: "meditacion-app",
+    label: "Meditación",
+    subtitle: "La práctica y la teoría",
+    href: "/meditacion",
+    Icon: IconMeditacion,
   },
 ];
 

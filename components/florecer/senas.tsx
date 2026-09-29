@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /* Las señas de Florecer, dibujadas a mano y del mismo grosor: una figura de
-   pie, una cara de perfil, una lista con sus marcas y la flor. Con fotos,
+   pie, una cara de perfil, alguien meditando, una lista con sus marcas y la flor. Con fotos,
    cada tarjeta tiraba para su lado. Las usan la portada y la barra de abajo,
    y toman el color del texto que las rodea. */
 export const SENAS: Record<string, ReactNode> = {
@@ -32,6 +32,16 @@ export const SENAS: Record<string, ReactNode> = {
       <path d="M28 38 q4 3 8 0" />
       <path d="M44 24 q6 6 2 14" opacity="0.55" />
       <path d="M49 22 q8 8 3 19" opacity="0.35" />
+    </>
+  ),
+  meditacion: (
+    <>
+      <circle cx="31" cy="13" r="5" />
+      <path d="M31 18 L31 37" />
+      <path d="M31 23 q-10 4 -12 14" />
+      <path d="M31 23 q10 4 12 14" />
+      <path d="M13 45 q18 -11 36 0" />
+      <path d="M18 45 q13 9 26 0" opacity="0.55" />
     </>
   ),
   habitos: (

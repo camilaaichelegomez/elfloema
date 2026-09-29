@@ -106,7 +106,7 @@ export default function ProductoCard({
         />
 
         {/* Link: imagen + texto (navega al producto) */}
-        <Link
+        <Link prefetch={false}
           href={`/tienda/${producto.slug}`}
           style={{
             textDecoration: "none",
@@ -135,7 +135,7 @@ export default function ProductoCard({
           >
             {/* real photo when available */}
             {imgOk && (
-              <img
+              <img loading="lazy" decoding="async"
                 src={`/tienda/${producto.slug}.webp`}
                 alt={producto.nombre}
                 onError={() => setImgOk(false)}

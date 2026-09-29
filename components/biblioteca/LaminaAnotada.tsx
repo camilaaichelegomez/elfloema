@@ -96,7 +96,7 @@ export function LaminaAnotada({
         <div style={{ position: "relative", width: "100%", aspectRatio: "1 / 1" }}>
           {hayImagen ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <img loading="lazy" decoding="async"
               ref={imgRef}
               src={src}
               alt={titulo}

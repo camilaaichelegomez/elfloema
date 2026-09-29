@@ -47,7 +47,7 @@ export default async function MiCatalogoImprimirPage() {
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
         <div className="no-print" style={{ marginBottom: "1.2rem" }}>
-          <Link
+          <Link prefetch={false}
             href="/lab/catalogo"
             style={{
               fontFamily: "var(--font-cinzel), serif",

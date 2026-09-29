@@ -9,7 +9,10 @@ export const metadata = {
   description: "Catálogo de El Floema — cosmética botánica elaborada con ciencia.",
 };
 
-export const dynamic = "force-dynamic";
+/* La pagina queda guardada y se entrega al instante, en vez de rearmarse
+   desde Supabase en cada visita. Se rehace sola al minuto, asi que un cambio
+   hecho en el Lab tarda como mucho ese minuto en aparecer aca. */
+export const revalidate = 60;
 
 const GOLD = "#c8a050";
 const GOLD_LIGHT = "#e8c878";

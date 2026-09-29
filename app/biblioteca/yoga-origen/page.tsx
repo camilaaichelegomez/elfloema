@@ -312,7 +312,7 @@ export default function YogaOrigen() {
                     Aquí aparece lo que en la práctica se llama <Dorado>dṛṣṭi</Dorado>: la mirada puesta
                     en un solo lugar. Es dhāraṇā entrando por los ojos, y es lo que hace que una postura
                     de equilibrio deje de ser un forcejeo. Está explicado en{" "}
-                    <Link href="/biblioteca/yoga-practica" style={ENLACE}>
+                    <Link prefetch={false} href="/biblioteca/yoga-practica" style={ENLACE}>
                       la práctica del yoga
                     </Link>
                     .
@@ -500,7 +500,7 @@ export default function YogaOrigen() {
       <Seccion titulo="Y entonces, ¿qué dice la ciencia del yoga?">
         <P>
           Bastante, y no siempre lo que se promete. Está resumido con su grado y su referencia en{" "}
-          <Link href="/biblioteca/yoga-practica" style={ENLACE}>
+          <Link prefetch={false} href="/biblioteca/yoga-practica" style={ENLACE}>
             la página de la práctica
           </Link>{" "}
           y dentro de la app, al lado de cada objetivo. En una línea: <Dorado>el yoga tiene buena
@@ -509,7 +509,7 @@ export default function YogaOrigen() {
           órganos ni alinear energías.
         </P>
         <p style={{ textAlign: "center", marginTop: 24 }}>
-          <Link
+          <Link prefetch={false}
             href="/yoga"
             style={{
               ...ENLACE,

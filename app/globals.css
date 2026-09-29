@@ -2781,8 +2781,8 @@ img {
   margin-top: 0.4rem !important;
 }
 
-/* Hipopresivos: su propio fondo (fondo_hipopresivos_app.webp, cuando exista)
-   y, debajo, el bosque de meditación. Si el archivo todavía no está, el
+/* Hipopresivos: su propio fondo (fondo_hipopresivos_app en webp, png o jpg,
+   cuando exista) y, debajo, el bosque de meditación. Si el archivo todavía no está, el
    navegador descarta esa capa y se ve el bosque. El velo es parejo y oscuro:
    la práctica se mira con el círculo que respira al centro. */
 .hipopresivos-bg {
@@ -2794,6 +2794,8 @@ img {
       rgba(10, 16, 10, 0.9) 100%
     ),
     url('/fondo_hipopresivos_app.webp') center top / cover fixed,
+    url('/fondo_hipopresivos_app.png') center top / cover fixed,
+    url('/fondo_hipopresivos_app.jpg') center top / cover fixed,
     url('/bosque-2.webp') center top / cover fixed,
     var(--bg-primary);
 }

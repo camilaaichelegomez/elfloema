@@ -52,7 +52,7 @@ export default function BibliotecaHipopresivos() {
     <PaginaBiblioteca
       id="hipopresivos"
       titulo="Hipopresivos"
-      fondo="/fondo_hipopresivos.webp"
+      fondo={["/fondo_hipopresivos.webp", "/fondo_hipopresivos.png", "/fondo_hipopresivos.jpg"]}
       bajada="Qué son, qué está probado, qué no, y cuándo no se hacen"
     >
       <Seccion titulo="Qué son">

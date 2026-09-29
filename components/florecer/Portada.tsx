@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { Sena } from "@/components/florecer/senas";
-import { habitosDe, hoy as hoyTexto, leerDatos, tareasDe } from "@/lib/habitos/tipos";
+import { habitosDe, hoy as hoyTexto, leerDatos, sumarDias, tareasDe } from "@/lib/habitos/tipos";
 
 /* La portada de Florecer.
 
@@ -60,6 +60,17 @@ function leerMinutos(clave: string): number | null {
   }
 }
 
+function leerUltimaFuerza(): string | null {
+  try {
+    const raw = localStorage.getItem("floema-fuerza");
+    if (!raw) return null;
+    const g = JSON.parse(raw) as { historial?: { dia: string }[] };
+    return g.historial?.[0]?.dia ?? "";
+  } catch {
+    return null;
+  }
+}
+
 function saludoDe(hora: number) {
   if (hora >= 5 && hora < 12) return "Buenos días";
   if (hora >= 12 && hora < 20) return "Buenas tardes";
@@ -71,10 +82,17 @@ function saludoDe(hora: number) {
    lo primero de esa lista que todavía no está hecho hoy. */
 function elegirSiguiente(
   hora: number,
-  estado: { yogaHoy: boolean; caraHoy: boolean; habitosFaltan: number; habitosTotal: number },
+  estado: {
+    yogaHoy: boolean;
+    caraHoy: boolean;
+    habitosFaltan: number;
+    habitosTotal: number;
+    fuerzaToca: boolean;
+  },
 ): Siguiente | null {
   const minYoga = leerMinutos("floema-yoga");
   const minMedita = leerMinutos("floema-meditacion");
+  const minFuerza = leerMinutos("floema-fuerza");
 
   const yoga: Siguiente | null = estado.yogaHoy
     ? null
@@ -105,6 +123,15 @@ function elegirSiguiente(
         detalle: "Drenaje y yoga facial, paso a paso.",
         boton: "Empezar",
       };
+  const fuerza: Siguiente | null = estado.fuerzaToca
+    ? {
+        href: "/fuerza",
+        sena: "fuerza",
+        titulo: "Tu sesión de fuerza",
+        detalle: minFuerza ? `${minFuerza} minutos, con tu propio cuerpo.` : "Con tu propio cuerpo, sin pesas.",
+        boton: "Empezar",
+      }
+    : null;
   const medita: Siguiente = {
     href: "/meditacion",
     sena: "meditacion",
@@ -125,10 +152,10 @@ function elegirSiguiente(
 
   const orden =
     hora >= 5 && hora < 12
-      ? [yoga, habitos, cara]
+      ? [yoga, fuerza, habitos, cara]
       : hora >= 12 && hora < 18
-        ? [habitos, yoga, cara]
-        : [cara, habitos, yoga];
+        ? [habitos, fuerza, yoga, cara]
+        : [cara, habitos, yoga, fuerza];
   // La meditación no lleva registro del día: se ofrece cuando lo demás está hecho.
   return orden.find(Boolean) ?? primerHabito ?? (hora >= 18 || hora < 5 ? medita : null);
 }
@@ -158,6 +185,12 @@ const SECCIONES = [
     linea: "Sentarse un rato, y toda la teoría de por qué sirve.",
     sena: "meditacion",
   },
+  {
+    href: "/fuerza",
+    titulo: "Fuerza",
+    linea: "Masa muscular con tu propio cuerpo, subiendo de a poco.",
+    sena: "fuerza",
+  },
 ];
 
 export function Portada() {
@@ -178,7 +211,13 @@ export function Portada() {
     const esHoy = (d: string) => d === fecha || d === fechaUtc;
     const hechosHoy = habitos.filter((h) => hechos.includes(h.id)).length;
     const hora = new Date().getHours();
+    /* Fuerza no es de todos los días: toca si no se hizo hoy ni ayer (el
+       músculo crece en el descanso). Solo se propone si ya hay rutina. */
+    const ultimaFuerza = leerUltimaFuerza();
+    const fuerzaToca =
+      ultimaFuerza !== null && ultimaFuerza !== fecha && ultimaFuerza !== sumarDias(fecha, -1);
     const estado = {
+      fuerzaToca,
       yogaHoy: esHoy(yoga.ultimoDia),
       caraHoy: esHoy(cara.ultimoDia),
       habitosFaltan: habitos.length - hechosHoy,

@@ -39,6 +39,7 @@ export function GET() {
       { name: "Ritual facial", url: "/ritual-facial" },
       { name: "Hábitos", url: "/habitos" },
       { name: "Meditación", url: "/meditacion" },
+      { name: "Fuerza", url: "/fuerza" },
     ],
   };
 

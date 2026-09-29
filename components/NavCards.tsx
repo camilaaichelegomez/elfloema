@@ -201,6 +201,20 @@ function IconHabitos() {
   );
 }
 
+/* Una pesa: es lo que se lee de inmediato como fuerza. Que en la sección no
+   haya pesas es otra cosa; el icono tiene que entenderse de un vistazo. */
+function IconFuerza() {
+  return (
+    <svg viewBox="0 0 64 64" width="44" height="44" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 32 L13 32 M51 32 L57 32" />
+      <rect x="13" y="23" width="8" height="18" rx="2.5" />
+      <rect x="43" y="23" width="8" height="18" rx="2.5" />
+      <path d="M21 32 L43 32" />
+      <path d="M32 12 q6 6 0 12 q-6 -6 0 -12" opacity="0.5" />
+    </svg>
+  );
+}
+
 /* Una figura sentada con las piernas cruzadas, del mismo trazo que las otras. */
 function IconMeditacion() {
   return (
@@ -337,6 +351,13 @@ const FLORECER_CARDS = [
     subtitle: "La práctica y la teoría",
     href: "/meditacion",
     Icon: IconMeditacion,
+  },
+  {
+    key: "fuerza-app",
+    label: "Fuerza",
+    subtitle: "Masa muscular en casa",
+    href: "/fuerza",
+    Icon: IconFuerza,
   },
 ];
 

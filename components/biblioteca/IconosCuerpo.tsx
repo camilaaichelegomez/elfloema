@@ -61,6 +61,22 @@ export function IconRostro() {
   );
 }
 
+/* Una pesa, del mismo trazo fino y el mismo dorado que los demás. */
+function IconPesa() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <path d="M3,23 L7,23 M31,23 L35,23" stroke="#c8a050" strokeWidth="0.9" opacity="0.5" strokeLinecap="round" />
+      <rect x="7" y="16" width="5" height="14" rx="1.6" stroke="#c8a050" strokeWidth="0.9" opacity="0.62" />
+      <rect x="26" y="16" width="5" height="14" rx="1.6" stroke="#c8a050" strokeWidth="0.9" opacity="0.62" />
+      <path d="M12,23 L26,23" stroke="#c8a050" strokeWidth="1" opacity="0.6" strokeLinecap="round" />
+      <path d="M19,6 C22,9 22,12 19,14 C16,12 16,9 19,6Z" stroke="#5a7a3a" strokeWidth="0.7" opacity="0.55" fill="none" />
+      <path d="M19,33 L19,40" stroke="#5a7a3a" strokeWidth="0.6" opacity="0.35" strokeLinecap="round" />
+      <path d="M19,40 C16,41 14,40 13,42" stroke="#5a7a3a" strokeWidth="0.6" opacity="0.3" fill="none" />
+      <path d="M19,40 C22,41 24,40 25,42" stroke="#5a7a3a" strokeWidth="0.6" opacity="0.3" fill="none" />
+    </svg>
+  );
+}
+
 /* Una figura sentada con las piernas cruzadas, del mismo trazo y el mismo
    dorado que los demás iconos de la biblioteca. */
 function IconSentada() {
@@ -102,6 +118,14 @@ export const SECCIONES_CUERPO = [
     desc: "Qué es meditar, de dónde viene, las quince técnicas, qué está probado, los mitos y cuándo tener cuidado.",
     href: "/biblioteca/meditacion",
     Icon: IconSentada,
+  },
+  {
+    key: "fuerza",
+    label: "Fuerza y masa muscular",
+    subtitle: "Por qué importa desde los 30",
+    desc: "La masa muscular cae desde los treinta y más rápido en la menopausia. Qué está probado, cuánta dosis hace falta y por qué el propio cuerpo alcanza.",
+    href: "/biblioteca/fuerza",
+    Icon: IconPesa,
   },
   {
     key: "drenaje",

@@ -137,7 +137,7 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   objetivo: "empezar",
   dias: 3,
   minutos: 25,
-  equipo: ["nada", "silla"],
+  equipo: ["nada", "silla", "banda", "mochila"],
   cuidados: [],
   descanso: 90,
   aviso: true,

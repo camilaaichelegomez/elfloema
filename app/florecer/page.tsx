@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Portada } from "@/components/florecer/Portada";
@@ -27,7 +26,6 @@ export default function CuidadoPage() {
     >
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <RegistrarServiceWorker />
-        <BackButton />
 
         <header style={{ margin: "0 0 1.2rem" }}>
           <p style={rotulo}>Cuidado del cuerpo y de los días</p>

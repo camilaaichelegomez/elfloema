@@ -11,13 +11,16 @@ import { Sena } from "@/components/florecer/senas";
    como en cualquier app del teléfono. Queda fija abajo, donde llega el
    pulgar, y deja libre la zona del gesto de inicio del iPhone. */
 
-const PESTANAS = [
+/* Cinco pestañas, que es lo que cabe cómodo bajo el pulgar. Yoga, Fuerza e
+   Hipopresivos van juntas en «Entrenar»: con una pestaña cada una la barra
+   llegaba a siete y los nombres ya no se leían. La pestaña queda encendida
+   también dentro de cada una de las tres. */
+const PESTANAS: { href: string; label: string; sena: string; incluye?: string[] }[] = [
   { href: "/florecer", label: "Hoy", sena: "hoy" },
-  { href: "/yoga", label: "Yoga", sena: "yoga" },
+  { href: "/entrenar", label: "Entrenar", sena: "entrenar", incluye: ["/yoga", "/fuerza", "/hipopresivos"] },
   { href: "/ritual-facial", label: "Rostro", sena: "cara" },
   { href: "/habitos", label: "Hábitos", sena: "habitos" },
   { href: "/meditacion", label: "Meditar", sena: "meditacion" },
-  { href: "/fuerza", label: "Fuerza", sena: "fuerza" },
 ];
 
 export function BarraFlorecer() {
@@ -27,7 +30,7 @@ export function BarraFlorecer() {
     <nav aria-label="Secciones de Florecer" className="barra-florecer">
       <ul>
         {PESTANAS.map((p) => {
-          const activa = pathname.startsWith(p.href);
+          const activa = [p.href, ...(p.incluye ?? [])].some((r) => pathname.startsWith(r));
           return (
             <li key={p.href}>
               <Link prefetch={false} href={p.href} aria-current={activa ? "page" : undefined} data-activa={activa || undefined}>

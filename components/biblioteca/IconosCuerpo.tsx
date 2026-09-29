@@ -94,6 +94,22 @@ function IconSentada() {
   );
 }
 
+/* Una figura de pie con las costillas abiertas y la cintura hundida: es el
+   gesto de la pausa de los hipopresivos. Mismo trazo y mismo dorado. */
+function IconCostillas() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="7" r="4" stroke="#c8a050" strokeWidth="0.9" opacity="0.62" />
+      <path d="M19,11 L19,14" stroke="#c8a050" strokeWidth="0.9" opacity="0.55" strokeLinecap="round" />
+      <path d="M12,15 C8,19 9,24 13,26 C15,28 15,31 13,34" stroke="#c8a050" strokeWidth="0.9" opacity="0.6" fill="none" strokeLinecap="round" />
+      <path d="M26,15 C30,19 29,24 25,26 C23,28 23,31 25,34" stroke="#c8a050" strokeWidth="0.9" opacity="0.6" fill="none" strokeLinecap="round" />
+      <path d="M14,18 C17,20 21,20 24,18 M14,22 C17,24 21,24 24,22" stroke="#5a7a3a" strokeWidth="0.7" opacity="0.5" fill="none" strokeLinecap="round" />
+      <path d="M7,17 L4,15 M31,17 L34,15" stroke="#c8a050" strokeWidth="0.7" opacity="0.4" strokeLinecap="round" />
+      <path d="M13,34 L12,42 M25,34 L26,42" stroke="#c8a050" strokeWidth="0.8" opacity="0.45" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export const SECCIONES_CUERPO = [
   {
     key: "yoga-origen",
@@ -126,6 +142,14 @@ export const SECCIONES_CUERPO = [
     desc: "La masa muscular cae desde los treinta y más rápido en la menopausia. Qué está probado, cuánta dosis hace falta y por qué el propio cuerpo alcanza.",
     href: "/biblioteca/fuerza",
     Icon: IconPesa,
+  },
+  {
+    key: "hipopresivos",
+    label: "Hipopresivos",
+    subtitle: "Respiración, pausa y suelo pélvico",
+    desc: "Qué son, cómo se hacen, qué está probado y qué no (no reemplazan a los ejercicios de suelo pélvico) y cuándo no se hacen.",
+    href: "/biblioteca/hipopresivos",
+    Icon: IconCostillas,
   },
   {
     key: "drenaje",

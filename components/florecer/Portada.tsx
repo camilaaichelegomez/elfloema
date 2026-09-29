@@ -160,12 +160,14 @@ function elegirSiguiente(
   return orden.find(Boolean) ?? primerHabito ?? (hora >= 18 || hora < 5 ? medita : null);
 }
 
+/* Las mismas puertas que la barra de abajo: Yoga, Fuerza e Hipopresivos
+   van juntas en «Entrenar». */
 const SECCIONES = [
   {
-    href: "/yoga",
-    titulo: "Ritual de yoga",
-    linea: "La práctica de hoy, armada para lo que necesites.",
-    sena: "yoga",
+    href: "/entrenar",
+    titulo: "Entrenar",
+    linea: "Yoga, fuerza e hipopresivos: elige qué practicar hoy.",
+    sena: "entrenar",
   },
   {
     href: "/ritual-facial",
@@ -184,12 +186,6 @@ const SECCIONES = [
     titulo: "Meditación",
     linea: "Sentarse un rato, y toda la teoría de por qué sirve.",
     sena: "meditacion",
-  },
-  {
-    href: "/fuerza",
-    titulo: "Fuerza",
-    linea: "Masa muscular con tu propio cuerpo, subiendo de a poco.",
-    sena: "fuerza",
   },
 ];
 

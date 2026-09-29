@@ -35,11 +35,13 @@ export function GET() {
       { src: "/icon-flor-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
+      { name: "Entrenar", url: "/entrenar" },
       { name: "Ritual de yoga", url: "/yoga" },
       { name: "Ritual facial", url: "/ritual-facial" },
       { name: "Hábitos", url: "/habitos" },
       { name: "Meditación", url: "/meditacion" },
       { name: "Fuerza", url: "/fuerza" },
+      { name: "Hipopresivos", url: "/hipopresivos" },
     ],
   };
 

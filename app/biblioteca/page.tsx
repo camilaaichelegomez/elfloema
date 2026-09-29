@@ -313,18 +313,18 @@ export default function BibliotecaPage() {
           ))}
         </div>
 
-        {/* Subgrupo: el cuerpo */}
+        {/* Subgrupo: autocuidado */}
         <div style={{ display: "flex", alignItems: "center", gap: "18px", maxWidth: 1100, margin: "clamp(44px, 7vh, 72px) auto clamp(20px, 3vh, 32px)", padding: "0 clamp(1.25rem, 3vw, 2.5rem)" }}>
           <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(200,160,80,0.5))" }} />
           <h2 style={{ fontFamily: "var(--font-grimoire)", fontSize: "clamp(1.1rem, 2.6vw, 1.6rem)", letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8c070", margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.9)", textAlign: "center" }}>
-            El cuerpo
+            Autocuidado
           </h2>
           <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(200,160,80,0.5))" }} />
         </div>
 
         <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", fontSize: "clamp(0.92rem, 2vw, 1.05rem)", color: "rgba(212,196,160,0.55)", textAlign: "center", maxWidth: 620, margin: "0 auto clamp(20px, 3vh, 32px)", padding: "0 clamp(1.25rem, 3vw, 2.5rem)", lineHeight: 1.7 }}>
-          Yoga y drenaje linfático: de dónde vienen, cómo se hacen y qué está probado. La teoría de lo
-          que las apps te hacen practicar.
+          Yoga, meditación y drenaje linfático: de dónde vienen, cómo se hacen y qué está probado.
+          La teoría de lo que las apps de Florecer te hacen practicar.
         </p>
 
         <div style={{

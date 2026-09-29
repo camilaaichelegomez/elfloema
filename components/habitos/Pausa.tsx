@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { campana, contextoDeAudio } from "@/lib/campana";
 import { MotorMusica, hayAudio, type ModoMusica } from "@/lib/musica-yoga";
 import { PRESENCIA } from "@/lib/habitos/ciencia";
 import { ayuda, botonPri, botonSec, panel, rotulo, titulo } from "./estilos";
@@ -13,25 +14,6 @@ import { ayuda, botonPri, botonSec, panel, rotulo, titulo } from "./estilos";
    Ritual de yoga, generada en vivo; no hay archivos que descargar. */
 
 const MINUTOS = [1, 3, 5, 10];
-
-function campana(ctx: AudioContext, cuando: number) {
-  // Dos parciales y una caída larga: suena a cuenco, no a alarma.
-  for (const [hz, vol, largo] of [
-    [432, 0.22, 6],
-    [648, 0.1, 4.5],
-  ] as [number, number, number][]) {
-    const osc = ctx.createOscillator();
-    const g = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = hz;
-    g.gain.setValueAtTime(0, cuando);
-    g.gain.linearRampToValueAtTime(vol, cuando + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001, cuando + largo);
-    osc.connect(g).connect(ctx.destination);
-    osc.start(cuando);
-    osc.stop(cuando + largo + 0.1);
-  }
-}
 
 export function Pausa({
   modo,
@@ -82,9 +64,7 @@ export function Pausa({
         const motor = new MotorMusica({ modo, volumen, binaural: false, agua: "ninguna" });
         await motor.empezar();
         musica.current = motor;
-        type ConAudio = typeof window & { webkitAudioContext?: typeof AudioContext };
-        const Ctor = window.AudioContext ?? (window as ConAudio).webkitAudioContext;
-        if (Ctor) audio.current ??= new Ctor();
+        audio.current ??= contextoDeAudio();
       } catch {
         /* Si el navegador no deja sonar, la pausa igual corre en silencio. */
       }

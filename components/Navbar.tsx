@@ -37,6 +37,7 @@ const NAV: NavGroup[] = [
       { href: "/yoga", label: "Ritual de yoga", hint: "Tu práctica armada a tu medida" },
       { href: "/ritual-facial", label: "Ritual facial", hint: "Yoga facial y drenaje linfático" },
       { href: "/habitos", label: "Hábitos", hint: "Objetivos, hábitos y tareas del día" },
+      { href: "/meditacion", label: "Meditación", hint: "La práctica y toda la teoría" },
     ],
   },
   { label: "El Floema Lab", href: "/lab" },

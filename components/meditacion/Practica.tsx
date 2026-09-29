@@ -1,5 +1,6 @@
 "use client";
 
+import { Celebracion } from "@/components/florecer/Celebracion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { campana, contextoDeAudio } from "@/lib/campana";
 import { MotorMusica, hayAudio } from "@/lib/musica-yoga";
@@ -229,6 +230,7 @@ export function Practica() {
   return (
     <div style={panel}>
       <h2 style={titulo}>Sentarse un rato</h2>
+      {hecha !== null && <Celebracion tamano={80} />}
       {hecha !== null ? (
         <p style={{ ...ayuda, color: "rgba(168,200,138,0.9)" }}>
           {hecha} {hecha === 1 ? "minuto" : "minutos"} hechos, y anotados en tu calendario. Que la
@@ -250,7 +252,7 @@ export function Practica() {
         if (delGrupo.length === 0) return null;
         return (
           <div key={f} style={{ marginBottom: "0.75rem" }}>
-            <p style={{ ...rotulo, fontSize: "0.52rem", opacity: 0.75, margin: "0 0 0.35rem" }}>
+            <p style={{ ...rotulo, fontSize: "0.66rem", opacity: 0.75, margin: "0 0 0.35rem" }}>
               {NOMBRE_FAMILIA[f]}
             </p>
             <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
@@ -269,7 +271,7 @@ export function Practica() {
                     ...botonSec,
                     padding: "0 0.8rem",
                     minHeight: 40,
-                    fontSize: "0.6rem",
+                    fontSize: "0.7rem",
                     ...(t.id === prefs.tecnica
                       ? { background: "rgba(200,160,80,0.18)", color: "#e8c878" }
                       : null),

@@ -1,5 +1,6 @@
 "use client";
 
+import { Celebracion } from "@/components/florecer/Celebracion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   DATOS_VACIOS,
@@ -192,6 +193,12 @@ export function Habitos() {
     });
     if (!hecho) {
       tono();
+      // Un toque corto en la mano al marcar (solo Android lo hace).
+      try {
+        navigator.vibrate?.(12);
+      } catch {
+        /* sin vibración */
+      }
       setAviso(AL_CUMPLIR[Math.floor(Math.random() * AL_CUMPLIR.length)]);
       setTimeout(() => setAviso(null), 4000);
     }
@@ -254,18 +261,25 @@ export function Habitos() {
         </p>
       )}
 
-      <nav style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", justifyContent: "center" }}>
+      {/* Las seis pestañas en una sola fila que se desliza con el dedo. En dos
+          filas se veían amontonadas y costaba saber cuál estaba abierta. */}
+      <nav className="fila-deslizable" aria-label="Partes de Hábitos">
         {PESTANAS.map((p) => (
           <button
             key={p.id}
             type="button"
-            onClick={() => setPestana(p.id)}
+            onClick={(e) => {
+              setPestana(p.id);
+              e.currentTarget.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+            }}
             aria-current={pestana === p.id}
             style={{
               ...botonSec,
-              minHeight: 38,
-              padding: "0 0.9rem",
-              fontSize: "0.63rem",
+              minHeight: 40,
+              padding: "0 1rem",
+              fontSize: "0.74rem",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
               ...(pestana === p.id ? { background: "rgba(200,160,80,0.18)", color: "#e8c878" } : null),
             }}
           >
@@ -351,6 +365,38 @@ export function Habitos() {
   );
 }
 
+/* El aviso de abajo con «Deshacer». Se va solo a los 6 segundos; mientras
+   está, se puede recuperar lo borrado con un toque. Queda encima de la barra
+   de Florecer, donde llega el pulgar. */
+function AvisoDeshacer({
+  texto,
+  alDeshacer,
+  alCerrar,
+}: {
+  texto: string;
+  alDeshacer: () => void;
+  alCerrar: () => void;
+}) {
+  // El reloj parte con cada aviso nuevo, no con cada vez que se redibuja.
+  const cerrar = useRef(alCerrar);
+  useEffect(() => {
+    cerrar.current = alCerrar;
+  });
+  useEffect(() => {
+    const id = setTimeout(() => cerrar.current(), 6000);
+    return () => clearTimeout(id);
+  }, [texto]);
+
+  return (
+    <div role="status" className="aviso-deshacer">
+      <span style={{ flex: 1, minWidth: 0 }}>{texto}</span>
+      <button type="button" onClick={alDeshacer}>
+        Deshacer
+      </button>
+    </div>
+  );
+}
+
 /* ══ Hoy ═══════════════════════════════════════════════════ */
 
 function Hoy({
@@ -382,11 +428,19 @@ function Hoy({
   /* Ordenar: mientras está encendido, cada hábito muestra su ✕ y tocar la
      fila ya no lo marca. Así no se borra nada sin querer con el dedo. */
   const [ordenando, setOrdenando] = useState(false);
+  const [borrado, setBorrado] = useState<{ habito: Habito; posicion: number; dias: string[] } | null>(null);
   const cumplidos = habitos.filter((h) => hechos.includes(h.id)).length;
 
   return (
     <div style={{ display: "grid", gap: "1rem" }}>
       <div style={panel}>
+        {/* El día completo se celebra con la flor. Sin vibrar: se vería cada
+            vez que se entra, y el pulso ya lo dio el último hábito marcado. */}
+        {habitos.length > 0 && cumplidos === habitos.length && (
+          <div style={{ textAlign: "center" }}>
+            <Celebracion tamano={72} vibrar={false} />
+          </div>
+        )}
         <p style={rotulo}>{fechaLarga(fecha)}</p>
         <h2 style={titulo}>
           {habitos.length === 0
@@ -414,6 +468,7 @@ function Hoy({
                   type="button"
                   onClick={() => (ordenando ? undefined : marcarHabito(h))}
                   aria-pressed={hecho}
+                  data-sin-marca
                   style={{
                     ...tarjeta,
                     width: "100%",
@@ -523,7 +578,14 @@ function Hoy({
                     type="button"
                     aria-label={`Borrar el hábito ${h.nombre}`}
                     onClick={() => {
-                      if (!confirm(`¿Borrar «${h.nombre}»? Se pierde también lo que llevas marcado de él.`)) return;
+                      /* Sin «¿Estás segura?»: se borra al tiro y abajo aparece
+                         «Deshacer» unos segundos. Es más rápido cuando es a
+                         propósito y igual de seguro cuando fue sin querer. */
+                      const posicion = datos.habitos.findIndex((x) => x.id === h.id);
+                      const dias = Object.entries(datos.hechos)
+                        .filter(([, ids]) => ids.includes(h.id))
+                        .map(([dia]) => dia);
+                      setBorrado({ habito: h, posicion, dias });
                       actualizar((d) => ({
                         ...d,
                         habitos: d.habitos.filter((x) => x.id !== h.id),
@@ -570,8 +632,8 @@ function Hoy({
 
         {!nuevoHabito ? (
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.8rem" }}>
-            <button type="button" onClick={() => setNuevoHabito(true)} style={botonLink}>
-              Agregar un hábito
+            <button type="button" onClick={() => setNuevoHabito(true)} style={botonPri}>
+              + Agregar un hábito
             </button>
             {habitos.length > 0 && (
               <button
@@ -658,6 +720,23 @@ function Hoy({
           </p>
         )}
       </div>
+      {borrado && (
+        <AvisoDeshacer
+          texto={`«${borrado.habito.nombre}» borrado`}
+          alDeshacer={() => {
+            const { habito, posicion, dias } = borrado;
+            actualizar((d) => {
+              const lista = d.habitos.filter((x) => x.id !== habito.id);
+              lista.splice(Math.max(0, Math.min(posicion, lista.length)), 0, habito);
+              const hechos = { ...d.hechos };
+              for (const dia of dias) hechos[dia] = [...(hechos[dia] ?? []), habito.id];
+              return { ...d, habitos: lista, hechos };
+            });
+            setBorrado(null);
+          }}
+          alCerrar={() => setBorrado(null)}
+        />
+      )}
     </div>
   );
 }
@@ -695,6 +774,7 @@ function ListaTareas({
                 type="button"
                 onClick={() => marcarTarea(t)}
                 aria-pressed={t.hecha}
+                data-sin-marca
                 aria-label={t.hecha ? "Desmarcar" : "Marcar como hecha"}
                 style={{
                   width: 22,

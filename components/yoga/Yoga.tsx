@@ -1,5 +1,6 @@
 "use client";
 
+import { Celebracion } from "@/components/florecer/Celebracion";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import {
   armarRutina,
@@ -211,7 +212,7 @@ function TiraDeSerie({
               scrollMarginInline: "1rem",
             }}
           >
-            <span style={{ ...rotulo, margin: 0, fontSize: "0.62rem" }}>{i + 1}</span>
+            <span style={{ ...rotulo, margin: 0, fontSize: "0.72rem" }}>{i + 1}</span>
             <FiguraYoga figura={paso.figura} tamano={tamano} estilo={{ display: "block", borderRadius: 4 }} />
             {respira && (
               <span
@@ -1335,7 +1336,7 @@ export function Yoga() {
         )}
         {/* La mirada: el tercer hilo de la práctica, y el que más falta hace
             en los equilibrios. */}
-        <p style={{ ...ayuda, maxWidth: "44ch", margin: "0 auto 0.8rem", color: "rgba(200,160,80,0.75)" }}>
+        <p style={{ ...ayuda, maxWidth: "44ch", margin: "0 auto 0.8rem", color: "rgba(200,160,80,0.85)" }}>
           {miradaDe(pasoActual)}
         </p>
         {pasoActual.cuidado && <p style={avisoTexto}>{pasoActual.cuidado}</p>}
@@ -1456,6 +1457,7 @@ export function Yoga() {
   // ══ Final ════════════════════════════════════════════════════
   return (
     <div ref={cajaRef} style={{ ...panel, textAlign: "center", scrollMarginTop: "5.5rem" }}>
+      <Celebracion />
       <p style={rotulo}>Terminaste</p>
       <h2
         style={{
@@ -1564,17 +1566,17 @@ const paso: CSSProperties = {
 };
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
   margin: "0 0 0.6rem",
 };
 const ayuda: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.92rem",
   lineHeight: 1.6,
-  color: "rgba(217,203,170,0.62)",
+  color: "rgba(217,203,170,0.7)",
   margin: "0 0 1rem",
 };
 const fila: CSSProperties = { display: "flex", gap: "0.5rem", flexWrap: "wrap" };
@@ -1608,7 +1610,7 @@ const filaPaso: CSSProperties = {
 const tiempoFila: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
   fontSize: "0.78rem",
-  color: "rgba(200,160,80,0.75)",
+  color: "rgba(200,160,80,0.85)",
   flexShrink: 0,
 };
 const cajaSerie: CSSProperties = {

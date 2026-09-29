@@ -142,17 +142,17 @@ const caja: CSSProperties = {
 };
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.75)",
+  color: "rgba(200,160,80,0.85)",
   margin: "0 0 0.5rem",
 };
 const ayuda: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.92rem",
   lineHeight: 1.6,
-  color: "rgba(217,203,170,0.62)",
+  color: "rgba(217,203,170,0.7)",
   margin: "0 0 0.9rem",
 };
 const entrada: CSSProperties = {

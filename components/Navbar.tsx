@@ -33,8 +33,7 @@ const NAV: NavGroup[] = [
     label: "Florecer",
     href: "/florecer",
     items: [
-      { href: "/florecer", label: "Florecer", hint: "Las tres, en una app" },
-      { href: "/entrenar", label: "Entrenar", hint: "Yoga, fuerza e hipopresivos" },
+      { href: "/florecer", label: "Florecer", hint: "La app con todo" },
       { href: "/yoga", label: "Ritual de yoga", hint: "Tu práctica armada a tu medida" },
       { href: "/ritual-facial", label: "Ritual facial", hint: "Yoga facial y drenaje linfático" },
       { href: "/habitos", label: "Hábitos", hint: "Objetivos, hábitos y tareas del día" },

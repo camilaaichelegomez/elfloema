@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
+import { BarraFlorecer } from "@/components/florecer/BarraFlorecer";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Desplegable } from "@/components/florecer/Desplegable";
 import { Sincroniza } from "@/components/florecer/Sincroniza";
@@ -41,13 +42,13 @@ export const metadata: Metadata = {
 export default function MeditacionPage() {
   return (
     <main
-      className="meditacion-bg"
+      className="meditacion-bg con-barra-florecer"
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto", minWidth: 0 }}>
         <RegistrarServiceWorker />
         <Sincroniza />
-        <BackButton />
+        <BackButton href="/florecer" />
 
         <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Cuidado de la atención</p>
@@ -183,6 +184,7 @@ export default function MeditacionPage() {
           , junto a la del yoga y la del drenaje.
         </p>
       </div>
+      <BarraFlorecer />
     </main>
   );
 }

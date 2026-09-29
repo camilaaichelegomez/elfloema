@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 /* El aviso de la primera visita.
 
@@ -19,10 +20,16 @@ import Link from "next/link";
    cargar el script, con la casilla desmarcada. */
 
 const CLAVE = "floema-aviso-datos";
+
+/* En las secciones de Florecer hay una barra fija abajo: el aviso se sube
+   para quedar encima de ella y no tapar los botones. */
+const CON_BARRA = ["/florecer", "/yoga", "/ritual-facial", "/habitos", "/meditacion"];
 const UN_ANO = 365 * 24 * 60 * 60 * 1000;
 
 export function AvisoDeDatos() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname() || "";
+  const conBarra = CON_BARRA.some((r) => pathname.startsWith(r));
 
   useEffect(() => {
     try {
@@ -48,6 +55,8 @@ export function AvisoDeDatos() {
 
   if (!visible) return null;
 
+  /* Corto a propósito: en el teléfono el aviso largo tapaba media pantalla,
+     justo encima de lo que había que tocar. Lo completo está en la política. */
   return (
     <div
       role="region"
@@ -56,7 +65,9 @@ export function AvisoDeDatos() {
         position: "fixed",
         left: "clamp(0.75rem, 3vw, 1.5rem)",
         right: "clamp(0.75rem, 3vw, 1.5rem)",
-        bottom: "clamp(0.75rem, 3vw, 1.5rem)",
+        bottom: conBarra
+          ? "calc(72px + env(safe-area-inset-bottom, 0px))"
+          : "clamp(0.75rem, 3vw, 1.5rem)",
         maxWidth: 520,
         marginInline: "auto",
         zIndex: 120,
@@ -64,7 +75,10 @@ export function AvisoDeDatos() {
         border: "1px solid rgba(200,160,80,0.35)",
         borderRadius: 8,
         boxShadow: "0 12px 40px rgba(0,0,0,0.6)",
-        padding: "1rem 1.1rem",
+        padding: "0.6rem 0.7rem 0.6rem 0.9rem",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.7rem",
         animation: "aviso-datos-entra 0.5s ease-out",
       }}
     >
@@ -81,25 +95,24 @@ export function AvisoDeDatos() {
       <p
         style={{
           fontFamily: "var(--font-crimson), serif",
-          fontSize: "0.95rem",
-          lineHeight: 1.7,
+          fontSize: "0.88rem",
+          lineHeight: 1.4,
           color: "#d4c4a0",
-          margin: "0 0 0.8rem",
+          margin: 0,
+          flex: 1,
+          minWidth: 0,
         }}
       >
-        Esta página guarda en tu dispositivo solo lo necesario para funcionar: tu carrito y las
-        preferencias de las rutinas. <strong style={{ color: "#e8c878" }}>No usamos cookies de
-        publicidad ni de seguimiento</strong>, y no compartimos tus datos con nadie.
+        Solo guardamos lo necesario para que funcione.{" "}
+        <strong style={{ color: "#e8c878", fontWeight: 600 }}>Sin publicidad ni seguimiento.</strong>{" "}
+        <Link prefetch={false} href="/privacidad#cookies" onClick={cerrar} style={enlace}>
+          Más
+        </Link>
       </p>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", alignItems: "center" }}>
-        <button type="button" onClick={cerrar} style={boton}>
-          Entendido
-        </button>
-        <Link prefetch={false} href="/privacidad#cookies" onClick={cerrar} style={enlace}>
-          Leer la política
-        </Link>
-      </div>
+      <button type="button" onClick={cerrar} style={boton}>
+        Entendido
+      </button>
     </div>
   );
 }
@@ -113,15 +126,13 @@ const boton = {
   background: "linear-gradient(135deg, #e8c878, #c8a050)",
   border: "none",
   borderRadius: 3,
-  padding: "0.6rem 1.2rem",
+  padding: "0 0.9rem",
+  minHeight: 40,
+  flexShrink: 0,
   cursor: "pointer",
 };
 
 const enlace = {
-  fontFamily: "var(--font-cinzel), serif",
-  fontSize: "0.68rem",
-  letterSpacing: "0.16em",
-  textTransform: "uppercase" as const,
   color: "rgba(212,196,160,0.75)",
   textDecoration: "underline",
   textDecorationColor: "rgba(200,160,80,0.4)",

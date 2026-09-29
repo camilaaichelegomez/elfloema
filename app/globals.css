@@ -2480,6 +2480,80 @@ img {
     var(--bg-primary);
 }
 
+/* Florecer: la barra fija de abajo con las cuatro secciones. El fondo es
+   casi opaco y con desenfoque para que se lea encima de cualquier foto. */
+.barra-florecer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 110;
+  background: rgba(9, 14, 9, 0.97);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(200, 160, 80, 0.22);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.barra-florecer ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.barra-florecer a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 60px;
+  padding: 6px 4px;
+  text-decoration: none;
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(217, 203, 170, 0.6);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.barra-florecer a:hover {
+  color: #d9cbaa;
+}
+
+.barra-florecer a[data-activa] {
+  color: #e8c878;
+}
+
+/* Una rayita dorada arriba marca dónde estás, además del color. */
+.barra-florecer a[data-activa]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 28%;
+  right: 28%;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: #c8a050;
+}
+
+.barra-florecer a:focus-visible {
+  outline: 1px solid #c8a050;
+  outline-offset: -4px;
+  border-radius: 6px;
+}
+
+/* Las páginas de Florecer dejan espacio abajo para que la barra no tape
+   lo último. */
+.con-barra-florecer {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
 /* Florecer: la explicación de abajo de cada sección, plegada hasta que se
    pide. El botón es la línea entera, para que sea fácil de tocar. */
 .florecer-desplegable {

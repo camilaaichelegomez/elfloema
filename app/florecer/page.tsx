@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { BotonInstalar } from "@/components/BotonInstalar";
+import { BarraFlorecer } from "@/components/florecer/BarraFlorecer";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Portada } from "@/components/florecer/Portada";
 import { Cuenta } from "@/components/florecer/Cuenta";
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 export default function CuidadoPage() {
   return (
     <main
-      className="yoga-bg"
+      className="yoga-bg con-barra-florecer"
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -58,6 +59,7 @@ export default function CuidadoPage() {
           aparato. El Floema Lab, el de la producción, es otra app y va aparte.
         </p>
       </div>
+      <BarraFlorecer />
     </main>
   );
 }

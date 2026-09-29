@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BackButton } from "@/components/BackButton";
 import { BotonInstalar } from "@/components/BotonInstalar";
+import { BarraFlorecer } from "@/components/florecer/BarraFlorecer";
 import { RitualFacial } from "@/components/ritual/RitualFacial";
 import { PAUTAS } from "@/lib/ritual-facial";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 export default function RitualFacialPage() {
   return (
     <main
-      className="ritual-bg"
+      className="ritual-bg con-barra-florecer"
       style={{ minHeight: "100vh", padding: "clamp(78px, 9vh, 96px) clamp(16px, 5vw, 64px) 80px" }}
     >
       <div style={{ maxWidth: 940, margin: "0 auto" }}>
@@ -296,6 +297,7 @@ export default function RitualFacialPage() {
           </p>
         </Desplegable>
       </div>
+      <BarraFlorecer />
     </main>
   );
 }

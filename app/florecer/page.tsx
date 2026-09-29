@@ -5,6 +5,8 @@ import { BarraFlorecer } from "@/components/florecer/BarraFlorecer";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Portada } from "@/components/florecer/Portada";
 import { Cuenta } from "@/components/florecer/Cuenta";
+import { Recordatorios } from "@/components/florecer/Recordatorios";
+import { SincronizaAvisos } from "@/components/florecer/SincronizaAvisos";
 
 /* Florecer: la puerta de entrada a las tres secciones del cuerpo.
 
@@ -27,6 +29,7 @@ export default function CuidadoPage() {
     >
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <RegistrarServiceWorker />
+        <SincronizaAvisos />
 
         <header style={{ margin: "0 0 1.2rem" }}>
           <p style={rotulo}>Cuidado del cuerpo y de los días</p>
@@ -49,6 +52,10 @@ export default function CuidadoPage() {
         <BotonInstalar nombre="Florecer" />
 
         <Portada />
+
+        <div style={{ marginTop: "1rem" }}>
+          <Recordatorios />
+        </div>
 
         {/* La cuenta va después de lo del día: arriba quedaba primero que la
             acción principal y competía con ella. */}

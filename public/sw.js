@@ -14,7 +14,7 @@
      inconsistentes, así que es mejor avisar que hace falta conexión.
 */
 
-const VERSION = "floema-v15";
+const VERSION = "floema-v16";
 const SHELL = `${VERSION}-shell`;
 const DATOS = `${VERSION}-datos`;
 
@@ -306,4 +306,48 @@ self.addEventListener("fetch", (event) => {
       })()
     );
   }
+});
+
+/* ── Recordatorios de Florecer ───────────────────────────────
+   Llegan desde el servidor (/api/recordatorios/enviar) aunque la app esté
+   cerrada. Al tocarlos se abre la sección que corresponde; si la app ya
+   estaba abierta, se usa esa ventana en vez de abrir otra. */
+self.addEventListener("push", (event) => {
+  let datos = {};
+  try {
+    datos = event.data ? event.data.json() : {};
+  } catch {
+    datos = { cuerpo: event.data ? event.data.text() : "" };
+  }
+  const titulo = datos.titulo || "Florecer";
+  event.waitUntil(
+    self.registration.showNotification(titulo, {
+      body: datos.cuerpo || "",
+      icon: "/icon-flor-192.png",
+      badge: "/icon-flor-192.png",
+      tag: datos.tag || "florecer",
+      data: { url: datos.url || "/florecer" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  let destino = new URL(event.notification.data?.url || "/florecer", self.location.origin);
+  // Solo se abren páginas del propio sitio, nunca una dirección de afuera.
+  if (destino.origin !== self.location.origin) destino = new URL("/florecer", self.location.origin);
+  destino = destino.href;
+  event.waitUntil(
+    (async () => {
+      const ventanas = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+      for (const v of ventanas) {
+        if (new URL(v.url).origin === self.location.origin && "focus" in v) {
+          await v.focus();
+          if ("navigate" in v) await v.navigate(destino);
+          return;
+        }
+      }
+      await self.clients.openWindow(destino);
+    })()
+  );
 });

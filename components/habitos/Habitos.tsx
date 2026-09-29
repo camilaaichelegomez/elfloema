@@ -1,6 +1,7 @@
 "use client";
 
 import { Celebracion } from "@/components/florecer/Celebracion";
+import { leerAjustes as leerAjustesAvisos } from "@/lib/florecer/avisos";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   DATOS_VACIOS,
@@ -133,9 +134,9 @@ export function Habitos() {
   /* El recordatorio de cada hábito, a su hora.
 
      Revisa cada medio minuto y avisa una sola vez por hábito y por día, solo
-     si toca hoy y todavía no está marcado. Vale la misma advertencia de
-     arriba: con la app cerrada y el teléfono bloqueado, esto no llega; para
-     eso haría falta un servidor que empuje la notificación. */
+     si toca hoy y todavía no está marcado. Esto es lo de la app abierta; con
+     la app cerrada avisa el servidor, si se activaron los recordatorios en
+     la portada de Florecer (lib/florecer/avisos.ts). */
   const avisados = useRef<Set<string>>(new Set());
   useEffect(() => {
     if (!listo) return;
@@ -159,7 +160,13 @@ export function Habitos() {
               ? `${h.nombre} · ${h.cuando}`
               : h.nombre;
         setPresencia(texto);
-        if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+        // Con los recordatorios del servidor encendidos, el aviso ya llega por
+        // ahí: si también saliera desde aquí, llegaría dos veces.
+        if (
+          typeof Notification !== "undefined" &&
+          Notification.permission === "granted" &&
+          !leerAjustesAvisos().activo
+        ) {
           try {
             new Notification("Es la hora", { body: texto, icon: "/icon-192.png", tag: clave });
           } catch {
@@ -1016,8 +1023,8 @@ function FormularioHabito({
           style={{ ...campo, maxWidth: 160 }}
         />
         <span style={{ ...ayuda, margin: 0, fontSize: "0.82rem" }}>
-          Opcional. El aviso llega si tienes la app abierta o en otra pestaña; con el teléfono
-          bloqueado y la app cerrada, una página web no puede despertarlo.
+          Opcional. Te avisa a esa hora, también con la app cerrada si activaste los
+          recordatorios en la portada de Florecer.
         </span>
       </label>
 
@@ -1495,9 +1502,8 @@ function Ajustes({
       <h2 style={titulo}>Recordatorios</h2>
       <p style={ayuda}>
         Mientras tengas la app abierta, cada cierto rato aparece una invitación a parar un momento.
-        Si le das permiso a las notificaciones, también llega cuando estás en otra pestaña. Una
-        página web no puede despertar el teléfono a una hora exacta con la app cerrada, así que eso
-        no te lo prometo.
+        Si le das permiso a las notificaciones, también llega cuando estás en otra pestaña. Los
+        avisos de cada hábito a su hora, con la app cerrada, se activan en la portada de Florecer.
       </p>
 
       <label style={{ display: "flex", gap: "0.6rem", alignItems: "center", marginBottom: "0.8rem" }}>

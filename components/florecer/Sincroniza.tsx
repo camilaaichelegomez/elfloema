@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { recargarSiHaceFalta, sincronizar } from "@/lib/florecer/sincronizar";
+import { SincronizaAvisos } from "@/components/florecer/SincronizaAvisos";
 
 /* Sincroniza en silencio.
 
@@ -25,5 +26,5 @@ export function Sincroniza() {
       document.removeEventListener("visibilitychange", alVolver);
     };
   }, []);
-  return null;
+  return <SincronizaAvisos />;
 }

@@ -260,7 +260,7 @@ export default function YogaPage() {
           <p style={{ ...fuente, marginTop: "2rem", textAlign: "center" }}>
             Los dibujos de cada postura están hechos a mano en la propia página. Lo que muestran es la
             forma: dónde va cada articulación, que es lo que de verdad importa.{" "}
-            <Link prefetch={false} href="/biblioteca" style={{ color: "rgba(200,160,80,0.8)" }}>
+            <Link prefetch={false} href="/biblioteca" style={{ color: "rgba(200,160,80,0.85)" }}>
               Ver la biblioteca
             </Link>
             .
@@ -274,10 +274,10 @@ export default function YogaPage() {
 
 const rotulo = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.26em",
   textTransform: "uppercase" as const,
-  color: "rgba(200,160,80,0.68)",
+  color: "rgba(200,160,80,0.85)",
   margin: 0,
 };
 const titulo2 = {
@@ -313,7 +313,7 @@ const celda = {
 const encabezado = {
   textAlign: "left" as const,
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.58rem",
+  fontSize: "0.68rem",
   letterSpacing: "0.18em",
   textTransform: "uppercase" as const,
   color: "#c8a050",
@@ -325,7 +325,7 @@ const fuente = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.8rem",
   fontStyle: "italic" as const,
-  color: "rgba(217,203,170,0.45)",
+  color: "rgba(217,203,170,0.7)",
   margin: 0,
 };
 
@@ -338,7 +338,7 @@ function insignia(grado: keyof typeof ETIQUETA_GRADO) {
         : "rgba(221,148,100,0.9)";
   return {
     fontFamily: "var(--font-grimoire)",
-    fontSize: "0.54rem",
+    fontSize: "0.66rem",
     letterSpacing: "0.18em",
     textTransform: "uppercase" as const,
     color,

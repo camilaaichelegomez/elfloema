@@ -302,10 +302,10 @@ const texto: CSSProperties = {
 
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.22em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
 };
 
 const campo: CSSProperties = {
@@ -337,7 +337,7 @@ const boton: CSSProperties = {
 const enlace: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.88rem",
-  color: "rgba(200,160,80,0.8)",
+  color: "rgba(200,160,80,0.85)",
   background: "none",
   border: "none",
   cursor: "pointer",

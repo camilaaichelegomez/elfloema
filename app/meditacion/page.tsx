@@ -191,10 +191,10 @@ export default function MeditacionPage() {
 
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
   margin: 0,
 };
 
@@ -238,7 +238,7 @@ const lista: CSSProperties = { listStyle: "none", margin: 0, padding: 0 };
 const numero: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
   fontSize: "0.7rem",
-  color: "rgba(200,160,80,0.75)",
+  color: "rgba(200,160,80,0.85)",
   flexShrink: 0,
   paddingTop: "0.2rem",
   minWidth: "1.1rem",
@@ -248,7 +248,7 @@ const fuente: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.8rem",
   fontStyle: "italic",
-  color: "rgba(217,203,170,0.45)",
+  color: "rgba(217,203,170,0.7)",
   margin: 0,
 };
 
@@ -256,7 +256,7 @@ const enlace: CSSProperties = { color: "rgba(200,160,80,0.85)" };
 
 const insigniaFamilia: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.52rem",
+  fontSize: "0.66rem",
   letterSpacing: "0.16em",
   textTransform: "uppercase",
   color: "rgba(168,200,138,0.8)",

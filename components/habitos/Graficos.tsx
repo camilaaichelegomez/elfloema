@@ -173,7 +173,7 @@ export function Graficos({ datos }: { datos: Datos }) {
                     }}
                   >
                     <span>{h.nombre}</span>
-                    <span style={{ color: "rgba(217,203,170,0.6)", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
+                    <span style={{ color: "rgba(217,203,170,0.7)", fontSize: "0.85rem", whiteSpace: "nowrap" }}>
                       {c.hechos} de {c.tocaron} · {r > 0 ? `${r} seguidos` : "sin racha"}
                     </span>
                   </div>

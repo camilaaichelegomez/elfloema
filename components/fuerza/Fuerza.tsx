@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { Celebracion } from "@/components/florecer/Celebracion";
 import { campana, contextoDeAudio } from "@/lib/campana";
 import {
   AL_TERMINAR,
@@ -472,6 +473,9 @@ export function Fuerza() {
   if (etapa === "fin") {
     return (
       <div style={panel}>
+        <div style={{ textAlign: "center" }}>
+          <Celebracion />
+        </div>
         <h2 style={titulo}>Hecho</h2>
         {subidas.length > 0 ? (
           <>
@@ -544,7 +548,7 @@ function Chip({
         ...botonSec,
         padding: "0 0.9rem",
         minHeight: 42,
-        fontSize: "0.62rem",
+        fontSize: "0.72rem",
         ...(ancho ? { minWidth: 130 } : null),
         ...(activo ? { background: "rgba(200,160,80,0.18)", color: "#e8c878" } : null),
       }}
@@ -559,7 +563,7 @@ const fila: CSSProperties = { display: "flex", gap: "0.45rem", flexWrap: "wrap" 
 const numero: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
   fontSize: "0.7rem",
-  color: "rgba(200,160,80,0.75)",
+  color: "rgba(200,160,80,0.85)",
   flexShrink: 0,
   paddingTop: "0.25rem",
   minWidth: "1.2rem",

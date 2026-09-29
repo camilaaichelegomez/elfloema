@@ -1,5 +1,6 @@
 "use client";
 
+import { Celebracion } from "@/components/florecer/Celebracion";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { llevarLaVista } from "@/lib/llevar-la-vista";
 import Link from "next/link";
@@ -680,7 +681,7 @@ export function RitualFacial() {
                         {p.repeticiones ? ` · ${p.repeticiones}` : ""}
                       </span>
                     </div>
-                    <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.8rem", color: "rgba(200,160,80,0.75)", flexShrink: 0 }}>
+                    <span style={{ fontFamily: "var(--font-grimoire)", fontSize: "0.8rem", color: "rgba(200,160,80,0.85)", flexShrink: 0 }}>
                       {duracion(p)}s
                     </span>
                   </li>
@@ -992,6 +993,7 @@ export function RitualFacial() {
   // ── Final ──────────────────────────────────────────────────
   return (
     <div ref={panelRef} style={{ ...panel, textAlign: "center" }}>
+      <Celebracion />
       <p style={rotulo}>Terminaste</p>
       <h2
         style={{
@@ -1062,17 +1064,17 @@ const paso: CSSProperties = {
 };
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
   margin: "0 0 0.6rem",
 };
 const ayuda: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.92rem",
   lineHeight: 1.6,
-  color: "rgba(217,203,170,0.62)",
+  color: "rgba(217,203,170,0.7)",
   margin: "0 0 1rem",
 };
 const chip: CSSProperties = {

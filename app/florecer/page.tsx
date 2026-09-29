@@ -48,14 +48,16 @@ export default function CuidadoPage() {
 
         <BotonInstalar nombre="Florecer" />
 
-        <div style={{ marginBottom: "1rem" }}>
+        <Portada />
+
+        {/* La cuenta va después de lo del día: arriba quedaba primero que la
+            acción principal y competía con ella. */}
+        <div style={{ marginTop: "1rem" }}>
           <Cuenta />
         </div>
 
-        <Portada />
-
         <p style={{ ...parrafo, marginTop: "1.6rem" }}>
-          Las tres funcionan sin internet una vez instaladas, y lo que respondes se guarda en este
+          Todas funcionan sin internet una vez instaladas, y lo que respondes se guarda en este
           aparato. El Floema Lab, el de la producción, es otra app y va aparte.
         </p>
       </div>
@@ -66,10 +68,10 @@ export default function CuidadoPage() {
 
 const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
   margin: 0,
 };
 

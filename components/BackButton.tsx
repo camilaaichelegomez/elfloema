@@ -8,10 +8,10 @@ export function BackButton({ label = "← Volver al inicio", href = "/" }: { lab
       onClick={() => (href ? router.push(href) : router.back())}
       style={{
         fontFamily: "var(--font-cinzel), serif",
-        fontSize: "0.62rem",
+        fontSize: "0.72rem",
         letterSpacing: "0.28em",
         textTransform: "uppercase",
-        color: "rgba(200, 160, 80, 0.55)",
+        color: "rgba(200, 160, 80, 0.85)",
         background: "none",
         border: "none",
         cursor: "pointer",
@@ -21,8 +21,8 @@ export function BackButton({ label = "← Volver al inicio", href = "/" }: { lab
         alignItems: "center",
         gap: "6px",
       }}
-      onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#c8a050")}
-      onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(200, 160, 80, 0.55)")}
+      onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#e8c878")}
+      onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(200, 160, 80, 0.85)")}
     >
       {label}
     </button>

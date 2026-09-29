@@ -65,7 +65,7 @@ export function Calendario({
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "0.3rem" }}>
         {DIAS.map((d, i) => (
-          <span key={i} style={{ ...rotulo, margin: 0, textAlign: "center", fontSize: "0.55rem" }}>
+          <span key={i} style={{ ...rotulo, margin: 0, textAlign: "center", fontSize: "0.66rem" }}>
             {d}
           </span>
         ))}

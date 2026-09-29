@@ -13,10 +13,10 @@ export const panel: CSSProperties = {
 
 export const rotulo: CSSProperties = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.24em",
   textTransform: "uppercase",
-  color: "rgba(200,160,80,0.7)",
+  color: "rgba(200,160,80,0.85)",
   margin: "0 0 0.6rem",
 };
 
@@ -24,7 +24,7 @@ export const ayuda: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.92rem",
   lineHeight: 1.6,
-  color: "rgba(217,203,170,0.62)",
+  color: "rgba(217,203,170,0.7)",
   margin: "0 0 1rem",
 };
 
@@ -67,7 +67,7 @@ export const botonSec: CSSProperties = {
 export const botonLink: CSSProperties = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.88rem",
-  color: "rgba(200,160,80,0.75)",
+  color: "rgba(200,160,80,0.85)",
   background: "none",
   border: "none",
   padding: "0.3rem 0.2rem",

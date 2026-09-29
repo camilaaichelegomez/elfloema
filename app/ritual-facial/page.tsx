@@ -197,7 +197,7 @@ export default function RitualFacialPage() {
                         style={{
                           textAlign: "left",
                           fontFamily: "var(--font-grimoire)",
-                          fontSize: "0.58rem",
+                          fontSize: "0.68rem",
                           letterSpacing: "0.18em",
                           textTransform: "uppercase",
                           color: "#c8a050",
@@ -239,7 +239,7 @@ export default function RitualFacialPage() {
                 ["Protector solar", "De día, siempre, y es lo último."],
               ].map(([t, d], i) => (
                 <li key={t} style={{ ...tarjeta, padding: "0.8rem 1rem", display: "flex", gap: "0.9rem" }}>
-                  <span style={{ fontFamily: "var(--font-grimoire)", color: "rgba(200,160,80,0.7)", fontSize: "0.8rem" }}>
+                  <span style={{ fontFamily: "var(--font-grimoire)", color: "rgba(200,160,80,0.85)", fontSize: "0.8rem" }}>
                     {i + 1}
                   </span>
                   <span>
@@ -304,10 +304,10 @@ export default function RitualFacialPage() {
 
 const rotulo = {
   fontFamily: "var(--font-grimoire)",
-  fontSize: "0.6rem",
+  fontSize: "0.7rem",
   letterSpacing: "0.26em",
   textTransform: "uppercase" as const,
-  color: "rgba(200,160,80,0.68)",
+  color: "rgba(200,160,80,0.85)",
   margin: 0,
 };
 const titulo2 = {
@@ -344,6 +344,6 @@ const fuente = {
   fontFamily: "var(--font-crimson), serif",
   fontSize: "0.8rem",
   fontStyle: "italic" as const,
-  color: "rgba(217,203,170,0.45)",
+  color: "rgba(217,203,170,0.7)",
   margin: 0,
 };

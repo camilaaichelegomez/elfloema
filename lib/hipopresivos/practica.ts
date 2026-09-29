@@ -61,6 +61,21 @@ export const POSTURAS: Postura[] = [
     figura: "sentada",
   },
   {
+    /* Venus: una de las posturas básicas del método, de pie con los brazos
+       extendidos a lo largo del cuerpo. El detalle fino lo da el dibujo, que
+       Camila genera desde una foto de referencia. */
+    id: "venus",
+    nombre: "De pie, brazos a lo largo (Venus)",
+    nivel: "inicio",
+    pasos: [
+      "De pie, pies paralelos a lo ancho de las caderas, rodillas sueltas.",
+      "Brazos extendidos a lo largo del cuerpo, un poco separados de los costados.",
+      "Crece desde la coronilla y lleva el peso suave hacia la punta de los pies.",
+    ],
+    ojo: "Los hombros no suben ni se van hacia adelante: quedan lejos de las orejas.",
+    figura: "venus",
+  },
+  {
     id: "de_pie",
     nombre: "De pie",
     nivel: "inicio",

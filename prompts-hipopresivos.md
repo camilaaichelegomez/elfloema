@@ -1,6 +1,6 @@
 # Prompts para las imágenes de la sección Hipopresivos
 
-Son 9 posturas y 2 fondos. Cada prompt está **entero**: lo copias, lo pegas y
+Son 10 posturas y 2 fondos. Cada prompt está **entero**: lo copias, lo pegas y
 listo. No hay que agregarle nada.
 
 El estilo es el mismo de Fuerza y de las posturas de yoga —figura plana dorada
@@ -41,6 +41,15 @@ Side view. Lying on her back on the mat, knees bent and feet flat on the floor h
 
 ```
 Three-quarter view from the front. Sitting tall on the front edge of a simple chair, back straight and not touching the backrest, feet flat on the floor, hands resting on the thighs with elbows opened out to the sides, shoulders relaxed down away from the ears. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (chair, cushion) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. Her rib cage is visibly expanded wide to the sides and her belly is hollowed deeply inward and upward under the ribs, as in a hypopressive breath-hold. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
+```
+
+### `venus.webp` — De pie, brazos a lo largo (Venus)
+
+Mejor generarla **a partir de una foto de referencia** (busca *Venus
+hipopresivos*): sube la foto y pega este texto.
+
+```
+Redraw the exact body pose from the attached photo — same position of the arms, elbows, hands, legs and hips, same angle — as a flat vector illustration. Standing, arms extended along the body. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible, generous empty margin, horizontal 4:3 composition. Do not copy the person, the clothes or the room from the photo: only the pose. Absolutely no text, letters, numbers, arrows or watermark.
 ```
 
 ### `de_pie.webp` — De pie

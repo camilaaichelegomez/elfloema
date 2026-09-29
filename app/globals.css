@@ -2827,22 +2827,69 @@ img {
     var(--bg-primary);
 }
 
+/* ── El fondo en el teléfono ────────────────────────────────────────────────
+   En pantalla grande el fondo va «pegado» (background-attachment: fixed): la
+   foto se encuadra contra la ventana y queda quieta mientras el texto sube.
+
+   En el teléfono eso no sirve por dos motivos distintos:
+   - `fixed` obliga a repintar la imagen entera en cada dedo de scroll, y en
+     algunos teléfonos además se encuadra mal o directamente falla.
+   - pero soltarlo a `scroll` es peor: entonces la foto se estira para cubrir
+     TODO el largo de la página. En la biblioteca eso son 375 px de ancho por
+     4825 de alto, o sea la imagen ampliada trece veces: se ve una mancha
+     borrosa en vez de los frascos y las hierbas.
+
+   La salida es no usar background-attachment en absoluto: la foto se pinta en
+   una capa aparte, del tamaño exacto de la pantalla y fija detrás del
+   contenido. Se encuadra bien, se queda quieta y no cuesta repintarla.
+
+   La capa HEREDA la imagen del elemento (`background-image: inherit`), así que
+   cada página sigue declarando su fondo donde ya lo declaraba y no hubo que
+   tocar las veinticinco. Abajo, el elemento deja de pintarla: tamaño 0 para la
+   imagen y color transparente para que la capa se vea. Ojo: no se le puede
+   poner `background-image: none`, porque entonces la capa heredaría «ninguna». */
 @media (max-width: 900px) {
+  /* El color de base va detrás de todo. Como el bloque de la página queda
+     transparente (ver abajo) para que se vea la capa, sin esto no habría nada
+     pintando el fondo y en el instante en que la capa todavía no aparece se
+     vería el blanco del navegador. */
+  html {
+    background-color: var(--bg-primary);
+  }
+
+  .bg-vivo::before,
+  .lab-bg::before,
+  .ritual-bg::before,
+  .habitos-bg::before,
+  .meditacion-bg::before,
+  .fuerza-bg::before,
+  .hipopresivos-bg::before,
+  .yoga-bg::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: inherit;
+    background-color: var(--bg-primary);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+
+  .bg-vivo,
+  .lab-bg,
   .ritual-bg,
   .habitos-bg,
   .meditacion-bg,
   .fuerza-bg,
   .hipopresivos-bg,
   .yoga-bg {
-    background-attachment: scroll;
-  }
-
-  /* El fondo «pegado» obliga al teléfono a repintar la imagen entera en cada
-     dedo de scroll, y se siente lento. En pantalla chica se suelta: el efecto
-     casi no se nota y el desplazamiento queda fluido. Va con !important
-     porque los fondos se escriben en el estilo de cada página. */
-  .bg-vivo,
-  .parchment-bg {
+    /* La imagen sigue declarada (para que la capa la herede) pero no se dibuja
+       acá. El !important es porque estos fondos se escriben en el estilo de
+       cada página. */
+    background-size: 0 0 !important;
+    background-color: transparent !important;
     background-attachment: scroll !important;
   }
 }

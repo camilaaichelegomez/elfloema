@@ -9,9 +9,9 @@
 export type Nivel = "inicio" | "medio" | "avanzado";
 
 export const NIVELES: { id: Nivel; label: string; linea: string; pausa: number }[] = [
-  { id: "inicio", label: "Empezando", linea: "Aprender la técnica. Posturas acostada, sentada y de pie.", pausa: 8 },
-  { id: "medio", label: "Ya me sale", linea: "La costilla se abre bien. Suman cuadrupedia y de rodillas.", pausa: 14 },
-  { id: "avanzado", label: "Con práctica", linea: "Pausas más largas y posturas que piden más equilibrio.", pausa: 20 },
+  { id: "inicio", label: "Empezando", linea: "Aprender la técnica con las ocho básicas, de Venus a Deméter.", pausa: 8 },
+  { id: "medio", label: "Ya me sale", linea: "La costilla se abre bien. Suman Freya, Perséfone, Isis y Selene.", pausa: 14 },
+  { id: "avanzado", label: "Con práctica", linea: "Pausas más largas y Afrodita, con la cadera en el aire.", pausa: 20 },
 ];
 
 export type Postura = {
@@ -23,7 +23,7 @@ export type Postura = {
   pasos: string[];
   /** El error de siempre en esta postura. */
   ojo: string;
-  /** Imagen en public/hipopresivos/<figura>.webp, cuando exista. */
+  /** Imagen en public/hipopresivos/<figura> (webp, png o jpg), cuando exista. */
   figura: string;
 };
 
@@ -35,147 +35,168 @@ export const PAUTAS_COMUNES = [
   "Codos abiertos hacia los lados, sin tensión en las manos.",
 ];
 
+/* Las posturas del método, con sus nombres, tal como vienen en la lámina de
+   posturas hipopresivas que trajo Camila (la de Low Pressure Fitness). El
+   orden es el de la lámina: la secuencia básica va de pie a acostada, que es
+   también como la describen los ensayos. La descripción de cada una sale de
+   lo que muestra la lámina; el detalle fino lo da el dibujo, que Camila
+   genera recortando cada figura de esa misma lámina. */
 export const POSTURAS: Postura[] = [
   {
-    id: "acostada",
-    nombre: "Acostada boca arriba",
-    nivel: "inicio",
-    pasos: [
-      "Boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
-      "Brazos al costado del cuerpo, un poco separados, palmas hacia arriba.",
-      "Empuja suave la coronilla lejos de los pies, como alargándote.",
-    ],
-    ojo: "No despegues la espalda baja ni levantes el mentón. La nuca queda larga.",
-    figura: "acostada",
-  },
-  {
-    id: "sentada",
-    nombre: "Sentada",
-    nivel: "inicio",
-    pasos: [
-      "Sentada en el borde de una silla o en el suelo con las piernas cruzadas.",
-      "Espalda derecha y larga, sin apoyarte en el respaldo.",
-      "Manos sobre los muslos, codos abiertos hacia los lados.",
-    ],
-    ojo: "No te encorves al botar el aire: la espalda sigue larga durante la pausa.",
-    figura: "sentada",
-  },
-  {
-    /* Venus: una de las posturas básicas del método, de pie con los brazos
-       extendidos a lo largo del cuerpo. El detalle fino lo da el dibujo, que
-       Camila genera desde una foto de referencia. */
     id: "venus",
-    nombre: "De pie, brazos a lo largo (Venus)",
+    nombre: "Venus",
     nivel: "inicio",
     pasos: [
-      "De pie, pies paralelos a lo ancho de las caderas, rodillas sueltas.",
-      "Brazos extendidos a lo largo del cuerpo, un poco separados de los costados.",
-      "Crece desde la coronilla y lleva el peso suave hacia la punta de los pies.",
+      "De pie, pies cerca uno del otro, rodillas sueltas.",
+      "Brazos separados del cuerpo, hacia abajo y un poco hacia los lados, codos casi estirados.",
+      "Muñecas dobladas: las palmas miran hacia el suelo, las manos a la altura de las caderas.",
     ],
-    ojo: "Los hombros no suben ni se van hacia adelante: quedan lejos de las orejas.",
+    ojo: "Los hombros no suben con los brazos: quedan lejos de las orejas.",
     figura: "venus",
   },
   {
-    id: "de_pie",
-    nombre: "De pie",
+    id: "atenea",
+    nombre: "Atenea",
     nivel: "inicio",
     pasos: [
-      "Pies paralelos a lo ancho de las caderas, rodillas sueltas, un poco dobladas.",
-      "Lleva el peso hacia la punta de los pies, sin despegar los talones.",
-      "Brazos al costado, codos un poco doblados y abiertos, manos a la altura de las caderas.",
+      "De pie, pies a lo ancho de las caderas, rodillas un poco dobladas.",
+      "Codos doblados y abiertos hacia los lados.",
+      "Manos delante de la pelvis, con los dedos apuntándose entre sí.",
     ],
-    ojo: "Que el peso hacia adelante no te arquee la espalda: el cuerpo se inclina entero, como una tabla.",
-    figura: "de_pie",
+    ojo: "El peso va un poco hacia la punta de los pies, sin arquear la espalda baja.",
+    figura: "atenea",
   },
   {
-    id: "de_pie_brazos",
-    nombre: "De pie, brazos adelante",
+    id: "artemisa",
+    nombre: "Artemisa",
+    nivel: "inicio",
+    pasos: [
+      "De pie, rodillas sueltas.",
+      "Te doblas hacia adelante desde la cadera, con la espalda larga y la cabeza hacia las rodillas.",
+      "Brazos colgando hacia el suelo, manos hacia los tobillos.",
+    ],
+    ojo: "Si tiran mucho las piernas por detrás, dobla más las rodillas en vez de redondear la espalda.",
+    figura: "artemisa",
+  },
+  {
+    id: "aura",
+    nombre: "Aura",
+    nivel: "inicio",
+    pasos: [
+      "De rodillas, rodillas a lo ancho de las caderas, sin sentarte en los talones.",
+      "Tronco largo, un poco inclinado hacia adelante.",
+      "Brazos estirados al frente a la altura de los hombros, muñecas dobladas: las palmas empujan hacia adelante.",
+    ],
+    ojo: "Los hombros bajos aunque los brazos estén arriba. Si te duelen las rodillas, pon una toalla doblada.",
+    figura: "aura",
+  },
+  {
+    id: "maya",
+    nombre: "Maya",
+    nivel: "inicio",
+    pasos: [
+      "En cuatro apoyos: manos en el suelo un poco por delante de los hombros, rodillas bajo las caderas.",
+      "Codos un poco doblados y abiertos hacia los lados.",
+      "Espalda larga, de la coronilla al coxis.",
+    ],
+    ojo: "No dejes caer la guata ni hundir la espalda: queda larga, como una mesa.",
+    figura: "maya",
+  },
+  {
+    id: "gaia",
+    nombre: "Gaia",
+    nivel: "inicio",
+    pasos: [
+      "En cuatro apoyos, con las manos en el suelo.",
+      "Empuja el suelo y redondea la espalda hacia el techo, como un gato.",
+      "Cabeza suelta hacia el suelo, entre los brazos.",
+    ],
+    ojo: "Empuja con las manos para que los hombros no se hundan hacia el suelo.",
+    figura: "gaia",
+  },
+  {
+    id: "hestia",
+    nombre: "Hestia",
+    nivel: "inicio",
+    pasos: [
+      "Sentada en el suelo, piernas estiradas al frente.",
+      "Espalda derecha y larga, sin echarte hacia atrás.",
+      "Brazos estirados al frente a la altura de los hombros.",
+    ],
+    ojo: "Si la espalda se redondea, dobla un poco las rodillas o siéntate sobre un cojín.",
+    figura: "hestia",
+  },
+  {
+    id: "demeter",
+    nombre: "Deméter",
+    nivel: "inicio",
+    pasos: [
+      "Acostada boca arriba, piernas estiradas.",
+      "Brazos por encima de la cabeza, codos doblados y abiertos.",
+      "Nuca larga, mentón un poco hacia adentro.",
+    ],
+    ojo: "La espalda baja se queda apoyada: no la arquees al abrir las costillas.",
+    figura: "demeter",
+  },
+  {
+    id: "freya",
+    nombre: "Freya",
     nivel: "medio",
     pasos: [
-      "Como la postura de pie, con el peso hacia la punta de los pies.",
-      "Brazos adelante a la altura del ombligo, codos abiertos, dedos apuntándose entre sí.",
-      "Empuja suave las palmas hacia adelante, como alejando algo.",
+      "De pie, rodillas sueltas, el peso un poco hacia adelante.",
+      "Brazos levantados por encima de los hombros, codos doblados y abiertos.",
+      "Crece desde la coronilla.",
     ],
-    ojo: "Los hombros no suben con los brazos. Si suben, baja los brazos un poco.",
-    figura: "de_pie_brazos",
+    ojo: "Que los brazos arriba no te hagan arquear la espalda ni subir los hombros.",
+    figura: "freya",
   },
   {
-    /* Afrodita: otra de las posturas acostadas del método. Lo que se sabe
-       con seguridad es que va boca arriba; el detalle fino lo da el dibujo,
-       que Camila genera desde una foto de referencia. */
+    id: "persefone",
+    nombre: "Perséfone",
+    nivel: "medio",
+    pasos: [
+      "Estocada: una pierna adelante con la rodilla doblada, la otra atrás con la rodilla cerca del suelo.",
+      "Tronco derecho y largo.",
+      "Brazos a los costados, codos un poco abiertos.",
+    ],
+    ojo: "La rodilla de adelante queda sobre el tobillo, no se va hacia adentro. Repite con la otra pierna.",
+    figura: "persefone",
+  },
+  {
+    id: "isis",
+    nombre: "Isis",
+    nivel: "medio",
+    pasos: [
+      "De rodillas, te inclinas hacia adelante hasta apoyar las manos en el suelo, lejos, delante de ti.",
+      "Brazos estirados, frente hacia el suelo.",
+      "Caderas altas, sobre las rodillas o un poco más atrás.",
+    ],
+    ojo: "Empuja suave el suelo con las manos para alargar la espalda.",
+    figura: "isis",
+  },
+  {
+    id: "selene",
+    nombre: "Selene",
+    nivel: "medio",
+    pasos: [
+      "Acostada, el cuerpo largo sobre la colchoneta.",
+      "Brazos estirados por encima de la cabeza.",
+      "Te alargas desde las manos hasta los pies.",
+    ],
+    ojo: "Si la espalda baja se despega mucho, dobla un poco las rodillas.",
+    figura: "selene",
+  },
+  {
     id: "afrodita",
-    nombre: "Acostada (Afrodita)",
-    nivel: "medio",
+    nombre: "Afrodita",
+    nivel: "avanzado",
     pasos: [
-      "Boca arriba sobre la colchoneta, como muestra el dibujo.",
-      "Nuca larga, mentón un poco hacia adentro, hombros lejos de las orejas.",
-      "La espalda baja apoyada, sin despegarla durante la pausa.",
+      "Acostada boca arriba, rodillas dobladas y pies apoyados.",
+      "Levanta la cadera del suelo hasta que rodillas, cadera y hombros queden en una línea.",
+      "Brazos estirados por encima de la cabeza, en el suelo.",
     ],
-    ojo: "No levantes la cabeza ni el mentón: el cuello queda largo y suelto.",
+    ojo: "Sube la cadera sin arquear la espalda baja: la línea es recta, no un arco.",
     figura: "afrodita",
-  },
-  {
-    /* La Deméter con elevación de pelvis: la acostada, con la cadera en el
-       aire. Pide más control que la acostada, por eso aparece en el nivel
-       medio. */
-    id: "acostada_cadera_arriba",
-    nombre: "Acostada, cadera arriba",
-    nivel: "medio",
-    pasos: [
-      "Boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
-      "Despega la pelvis del suelo hasta que rodillas, cadera y hombros queden en una línea.",
-      "Brazos al costado del cuerpo, apoyados en el suelo; el peso va en los pies y en los omóplatos.",
-    ],
-    ojo: "Sube la cadera sin arquear la espalda baja ni apretar los glúteos al máximo: la línea es recta, no un arco.",
-    figura: "acostada_cadera_arriba",
-  },
-  {
-    id: "cuadrupedia",
-    nombre: "En cuatro apoyos",
-    nivel: "medio",
-    pasos: [
-      "Manos bajo los hombros, rodillas bajo las caderas.",
-      "Espalda plana, de la coronilla al coxis en una línea.",
-      "Codos un poco doblados y abiertos, empuja el suelo con las manos.",
-    ],
-    ojo: "No dejes caer la guata ni la cabeza: la espalda queda plana, como una mesa.",
-    figura: "cuadrupedia",
-  },
-  {
-    id: "de_rodillas",
-    nombre: "De rodillas",
-    nivel: "medio",
-    pasos: [
-      "De rodillas sobre la colchoneta, rodillas a lo ancho de las caderas.",
-      "Inclina el tronco entero un poco hacia adelante, sin doblar la cadera.",
-      "Brazos a los costados, codos abiertos, manos a la altura de la cintura.",
-    ],
-    ojo: "La inclinación sale de las rodillas, no de la cintura. Si te duelen las rodillas, pon una toalla doblada.",
-    figura: "de_rodillas",
-  },
-  {
-    id: "inclinada",
-    nombre: "De pie, inclinada",
-    nivel: "avanzado",
-    pasos: [
-      "De pie, rodillas dobladas, inclina el tronco hacia adelante doblando la cadera.",
-      "Espalda recta y larga, manos apoyadas sobre los muslos, arriba de las rodillas.",
-      "Codos abiertos hacia los lados.",
-    ],
-    ojo: "La espalda no se redondea. Si se redondea, dobla más las rodillas y sube un poco el tronco.",
-    figura: "inclinada",
-  },
-  {
-    id: "semisentadilla",
-    nombre: "Media sentadilla",
-    nivel: "avanzado",
-    pasos: [
-      "Pies a lo ancho de las caderas, baja como para sentarte en una silla alta.",
-      "Tronco inclinado hacia adelante, espalda larga.",
-      "Brazos adelante a la altura del pecho, codos abiertos.",
-    ],
-    ojo: "Rodillas en la dirección de los pies, sin juntarse hacia adentro.",
-    figura: "semisentadilla",
   },
 ];
 
@@ -325,9 +346,8 @@ export function evaluar(marcadas: string[]): Seguridad {
 export type Sesion = { posturas: Postura[]; pausa: number; sinPausa: boolean; minutos: number };
 
 /** Arma la sesión: cuántas posturas caben en el rato elegido, rotando
-    entre las del nivel para que no sea siempre lo mismo. En el nivel de
-    inicio, la primera postura es siempre acostada: es donde mejor se aprende
-    a abrir las costillas. */
+    entre las del nivel para que no sea siempre lo mismo, y siempre en el
+    orden de la lámina (de pie primero, acostada al final). */
 export function armarSesion(g: Guardado): Sesion {
   const { nivel, minutos } = g.prefs;
   const pausa = NIVELES.find((n) => n.id === nivel)!.pausa;
@@ -336,13 +356,14 @@ export function armarSesion(g: Guardado): Sesion {
 
   const disponibles = posturasHasta(nivel);
   const elegidas: Postura[] = [];
-  if (nivel === "inicio") elegidas.push(disponibles[0]);
-  for (let i = 0; elegidas.length < Math.min(cuantas, disponibles.length); i++) {
-    const p = disponibles[(g.vuelta + i) % disponibles.length];
+  const paso = Math.max(1, Math.min(cuantas, disponibles.length));
+  for (let i = 0; elegidas.length < paso; i++) {
+    const p = disponibles[(g.vuelta * paso + i) % disponibles.length];
     if (!elegidas.includes(p)) elegidas.push(p);
   }
-  // Si el rato alcanza para más posturas que las que hay, se repiten desde el inicio.
-  while (elegidas.length < cuantas) elegidas.push(elegidas[elegidas.length % disponibles.length]);
+  elegidas.sort((a, b) => POSTURAS.indexOf(a) - POSTURAS.indexOf(b));
+  // Si el rato alcanza para más posturas que las que hay, se repite la secuencia.
+  while (elegidas.length < cuantas) elegidas.push(elegidas[elegidas.length % paso]);
 
   return { posturas: elegidas, pausa, sinPausa, minutos };
 }

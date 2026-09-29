@@ -7,6 +7,7 @@ import { BotonInstalar } from "@/components/BotonInstalar";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 import { Desplegable } from "@/components/florecer/Desplegable";
 import { Sincroniza } from "@/components/florecer/Sincroniza";
+import { FiguraFuerza } from "@/components/fuerza/FiguraFuerza";
 import { Fuerza } from "@/components/fuerza/Fuerza";
 import { CALENTAMIENTO, TOTAL_EJERCICIOS } from "@/lib/fuerza/armar";
 import { EJERCICIOS, escalera } from "@/lib/fuerza/ejercicios";
@@ -91,6 +92,9 @@ export default function FuerzaPage() {
                         <span style={numero}>{i + 1}</span>
                         <span style={{ ...texto, margin: 0, color: "#e8c878", fontSize: "1.02rem" }}>{e.nombre}</span>
                         {e.tambien && <span style={fuente}>{e.tambien}</span>}
+                      </div>
+                      <div style={{ marginTop: "0.6rem" }}>
+                        <FiguraFuerza figura={e.figura} nombre={e.nombre} alto={150} />
                       </div>
                       <p style={{ ...texto, margin: "0.4rem 0 0.4rem" }}>{e.que}</p>
                       <p style={{ ...texto, margin: 0, opacity: 0.75, fontSize: "0.92rem" }}>

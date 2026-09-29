@@ -13,6 +13,7 @@ import {
   type Sesion,
 } from "@/lib/fuerza/armar";
 import { escalera } from "@/lib/fuerza/ejercicios";
+import { FiguraFuerza } from "./FiguraFuerza";
 import {
   CUIDADOS,
   NOMBRE_EQUIPO,
@@ -388,6 +389,8 @@ export function Fuerza() {
           Peldaño {peldano} de {chain.length}
           {e.tambien ? ` · ${e.tambien}` : ""} · serie {seriesHechas + 1} de {paso.series}
         </p>
+
+        <FiguraFuerza figura={e.figura} nombre={e.nombre} alto={210} />
 
         <ol style={{ listStyle: "none", margin: "0 0 1rem", padding: 0 }}>
           {e.pasos.map((t, i) => (

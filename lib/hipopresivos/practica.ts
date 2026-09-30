@@ -23,6 +23,9 @@ export type Postura = {
   pasos: string[];
   /** El error de siempre en esta postura. */
   ojo: string;
+  /** Lo que cambia en la pausa sin aire, si algo cambia (p. ej. subir los
+      brazos). Se dice y se muestra justo en ese momento. */
+  enPausa?: string;
   /** Imagen en public/hipopresivos/<figura> (webp, png o jpg), cuando exista. */
   figura: string;
 };
@@ -60,10 +63,11 @@ export const POSTURAS: Postura[] = [
     nivel: "inicio",
     pasos: [
       "De pie, pies a lo ancho de las caderas, rodillas un poco dobladas.",
-      "Codos doblados y abiertos hacia los lados.",
-      "Manos delante de la pelvis, con los dedos apuntándose entre sí.",
+      "Partes con los brazos abajo, a los costados del cuerpo.",
+      "En la pausa sin aire, subes los brazos estirados al frente, hasta la altura de los hombros.",
     ],
     ojo: "El peso va un poco hacia la punta de los pies, sin arquear la espalda baja.",
+    enPausa: "Sube los brazos al frente, hasta los hombros.",
     figura: "atenea",
   },
   {

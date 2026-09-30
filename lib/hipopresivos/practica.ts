@@ -210,7 +210,7 @@ export const POSTURAS: Postura[] = [
     nombre: "Afrodita",
     nivel: "avanzado",
     pasos: [
-      "Acostada boca arriba, rodillas dobladas y pies apoyados.",
+      "Acostada boca arriba, rodillas dobladas, solo los talones apoyados en el suelo y las puntas de los pies hacia el techo.",
       "Levanta la cadera del suelo hasta que rodillas, cadera y hombros queden en una línea.",
       "Brazos estirados por encima de la cabeza, en el suelo.",
     ],

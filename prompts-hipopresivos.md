@@ -55,7 +55,7 @@ Manda las dos imágenes y el prompt de este documento, y guarda el dibujo en
 | `aura` | Aura: de rodillas, brazos al frente | Empezando |
 | `maya` | Maya: en cuatro apoyos, sobre los antebrazos | Empezando |
 | `gaia` | Gaia: en cuatro apoyos, espalda redondeada | Empezando |
-| `hestia` | Hestia: sentada, piernas estiradas, brazos al frente | Empezando |
+| `hestia` | Hestia: sentada, rodillas dobladas, brazos al frente | Empezando |
 | `demeter` | Deméter: acostada boca arriba, brazos arriba | Empezando |
 | `freya` | Freya: de pie, brazos sobre la cabeza | Ya me sale |
 | `persefone` | Perséfone: estocada baja | Ya me sale |
@@ -100,12 +100,12 @@ Pose: the FIRST attached image is a simple mannequin showing the exact pose; kee
 Style: copy the SECOND attached image exactly. Same flat vector illustration, same woman (hair in a low bun, no facial features, sports top and leggings), same two flat tones: light gold for the arm and leg nearest to us, darker bronze for the far arm and leg. Same very dark forest-green background (#0d1a0d), same pale sage-green exercise mat under her, same size of the figure in the frame. Her top and leggings are the same gold and bronze tones as her skin areas, never black or grey. The figure fills about two thirds of the width, never cut off at the edges. No outlines, no gradients, no shadows, no muscle lines. Anatomically correct: two arms, two legs, five fingers on each hand, every joint bending the natural way, nothing floating. Horizontal 4:3, the whole body visible with empty margin all around. Turn the mannequin of the FIRST image into this woman: keep its pose exactly, do not copy its stick shapes. Absolutely no text, letters, numbers, arrows or watermark.
 ```
 
-### `hestia` — Hestia: Sentada, piernas estiradas, brazos al frente
+### `hestia` — Hestia: Sentada, rodillas dobladas, talones en el suelo, brazos al frente
 
 Adjunta: `maniquies-hipopresivos/hestia.png` + `public/hipopresivos/maya.webp`
 
 ```
-Pose: the FIRST attached image is a simple mannequin showing the exact pose; keep the exact position and angle of every limb, the torso and the head, seen exactly from the side, facing right: she sits on the mat with both legs straight and together in front of her, the feet flexed with the toes pointing up. The torso is upright and tall, vertical, not leaning back. Both arms are stretched straight forward at shoulder height, parallel to the legs; the wrists are bent back so the palms face forward and the fingertips point up. Shoulders low, long neck, looking straight ahead.
+Pose: the FIRST attached image is a simple mannequin showing the exact pose; keep the exact position and angle of every limb, the torso and the head, seen exactly from the side, facing right: she sits on the mat with the knees bent and pointing up, the heels resting on the mat in front of her and the toes pointing up. The torso is upright and tall, vertical, not leaning back. Both arms reach forward with the elbows softly bent; the wrists are bent back so the palms face forward and the fingertips point up, as if gently pushing a wall. Shoulders low, long neck, looking straight ahead.
 
 Style: copy the SECOND attached image exactly. Same flat vector illustration, same woman (hair in a low bun, no facial features, sports top and leggings), same two flat tones: light gold for the arm and leg nearest to us, darker bronze for the far arm and leg. Same very dark forest-green background (#0d1a0d), same pale sage-green exercise mat under her, same size of the figure in the frame. Her top and leggings are the same gold and bronze tones as her skin areas, never black or grey. The figure fills about two thirds of the width, never cut off at the edges. No outlines, no gradients, no shadows, no muscle lines. Anatomically correct: two arms, two legs, five fingers on each hand, every joint bending the natural way, nothing floating. Horizontal 4:3, the whole body visible with empty margin all around. Turn the mannequin of the FIRST image into this woman: keep its pose exactly, do not copy its stick shapes. Absolutely no text, letters, numbers, arrows or watermark.
 ```

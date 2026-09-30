@@ -123,11 +123,11 @@ export const POSTURAS: Postura[] = [
     nombre: "Hestia",
     nivel: "inicio",
     pasos: [
-      "Sentada en el suelo, piernas estiradas al frente.",
+      "Sentada en el suelo, rodillas dobladas y talones apoyados en el suelo.",
       "Espalda derecha y larga, sin echarte hacia atrás.",
-      "Brazos estirados al frente a la altura de los hombros.",
+      "Brazos al frente con los codos un poco doblados, palmas mirando hacia adelante.",
     ],
-    ojo: "Si la espalda se redondea, dobla un poco las rodillas o siéntate sobre un cojín.",
+    ojo: "Si la espalda se redondea, acerca un poco los talones o siéntate sobre un cojín.",
     figura: "hestia",
   },
   {

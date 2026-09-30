@@ -191,6 +191,21 @@ export const POSTURAS: Postura[] = [
     figura: "selene",
   },
   {
+    /* Otra versión de Afrodita, la que Camila practica y dibujó: la cadera
+       arriba como la de la lámina, con los brazos como muestra su dibujo.
+       Usa el nombre de archivo que ya tenía. */
+    id: "afrodita_variante",
+    nombre: "Afrodita, variante",
+    nivel: "medio",
+    pasos: [
+      "Acostada boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
+      "Levanta la cadera del suelo hasta que rodillas, cadera y hombros queden en una línea.",
+      "Brazos como muestra el dibujo.",
+    ],
+    ojo: "Sube la cadera sin arquear la espalda baja: la línea es recta, no un arco.",
+    figura: "acostada_cadera_arriba",
+  },
+  {
     id: "afrodita",
     nombre: "Afrodita",
     nivel: "avanzado",

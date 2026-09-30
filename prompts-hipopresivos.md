@@ -1,6 +1,6 @@
 # Imágenes de la sección Hipopresivos
 
-Son **13 posturas y 2 fondos**. Las posturas son las de la lámina de posturas
+Son **14 posturas y 2 fondos**. Las posturas son las de la lámina de posturas
 hipopresivas (Low Pressure Fitness), con sus nombres. La mejor forma de que
 el dibujo salga fiel es **recortar cada figura de la lámina** y dársela a la
 IA como foto de referencia.
@@ -33,6 +33,7 @@ En cuanto el archivo existe, el dibujo **aparece solo** en la app.
 | `isis` | Isis: de rodillas, inclinada con los brazos adelante | Ya me sale |
 | `selene` | Selene: acostada, brazos estirados sobre la cabeza | Ya me sale |
 | `afrodita` | Afrodita: acostada, cadera arriba, brazos sobre la cabeza | Con práctica |
+| `acostada_cadera_arriba` | Afrodita, variante: cadera arriba (la que dibujó Camila) | Ya me sale |
 
 Todo en minúscula y sin tildes (`demeter`, `persefone`).
 

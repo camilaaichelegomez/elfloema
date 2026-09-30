@@ -178,7 +178,9 @@ export function Hipopresivos() {
     } else if (p.fase === "exhala" && p.respiracion && p.respiracion > 1) {
       return;
     } else {
-      decir(FRASE[p.fase], { velocidad: 0.9 });
+      // En la pausa, si la postura mueve algo (Atenea sube los brazos), se dice ahí.
+      const extra = p.fase === "pausa" && p.postura.enPausa ? ` ${p.postura.enPausa}` : "";
+      decir(`${FRASE[p.fase]}.${extra}`, { velocidad: 0.9 });
     }
   }, [iActual, pasos, decir]);
 
@@ -291,6 +293,11 @@ export function Hipopresivos() {
             </p>
             {p.fase === "pausa" ? (
               <p style={{ ...ayuda, maxWidth: "36ch", margin: "0 auto 1rem" }}>
+                {p.postura.enPausa && (
+                  <strong style={{ display: "block", color: "#f2dc9c", marginBottom: "0.3rem" }}>
+                    {p.postura.enPausa}
+                  </strong>
+                )}
                 Como si fueras a tomar aire, sin dejarlo entrar. El ombligo se va solo hacia adentro.
               </p>
             ) : (

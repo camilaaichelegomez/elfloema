@@ -23,6 +23,9 @@ export type Postura = {
   pasos: string[];
   /** El error de siempre en esta postura. */
   ojo: string;
+  /** Lo que cambia en la pausa sin aire, si algo cambia (p. ej. subir los
+      brazos). Se dice y se muestra justo en ese momento. */
+  enPausa?: string;
   /** Imagen en public/hipopresivos/<figura> (webp, png o jpg), cuando exista. */
   figura: string;
 };
@@ -60,10 +63,11 @@ export const POSTURAS: Postura[] = [
     nivel: "inicio",
     pasos: [
       "De pie, pies a lo ancho de las caderas, rodillas un poco dobladas.",
-      "Codos doblados y abiertos hacia los lados.",
-      "Manos delante de la pelvis, con los dedos apuntándose entre sí.",
+      "Partes con los brazos abajo, a los costados del cuerpo.",
+      "En la pausa sin aire, subes los brazos estirados al frente, hasta la altura de los hombros.",
     ],
     ojo: "El peso va un poco hacia la punta de los pies, sin arquear la espalda baja.",
+    enPausa: "Sube los brazos al frente, hasta los hombros.",
     figura: "atenea",
   },
   {
@@ -185,6 +189,21 @@ export const POSTURAS: Postura[] = [
     ],
     ojo: "Si la espalda baja se despega mucho, dobla un poco las rodillas.",
     figura: "selene",
+  },
+  {
+    /* Otra versión de Afrodita, la que Camila practica y dibujó: la cadera
+       arriba como la de la lámina, con los brazos como muestra su dibujo.
+       Usa el nombre de archivo que ya tenía. */
+    id: "afrodita_variante",
+    nombre: "Afrodita, variante",
+    nivel: "medio",
+    pasos: [
+      "Acostada boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
+      "Levanta la cadera del suelo hasta que rodillas, cadera y hombros queden en una línea.",
+      "Brazos como muestra el dibujo.",
+    ],
+    ojo: "Sube la cadera sin arquear la espalda baja: la línea es recta, no un arco.",
+    figura: "acostada_cadera_arriba",
   },
   {
     id: "afrodita",

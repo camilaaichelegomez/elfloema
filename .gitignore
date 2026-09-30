@@ -124,3 +124,6 @@ public/yoga/posturas/*.png
 
 # Originales de las ilustraciones de yoga (no se suben: la web usa los webp)
 posturas-originales/
+
+# Dibujos generados que ya no se usan: se guardan por si acaso, no se suben.
+public/fuerza/_descartados/

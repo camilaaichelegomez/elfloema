@@ -83,9 +83,11 @@ const TODAS_LAS_POSTURAS: Postura[] = [
     nombre: "Artemisa",
     nivel: "inicio",
     pasos: [
-      "De pie, pies a lo ancho de las caderas, rodillas un poco dobladas.",
-      "Te inclinas hacia adelante desde la cadera, hasta que el tronco quede casi horizontal.",
-      "Manos apoyadas sobre los muslos, justo encima de las rodillas, con los codos abiertos. La cabeza cae suelta.",
+      "Pies: a lo ancho de las caderas, talones bien apoyados.",
+      "Piernas: rodillas un poco dobladas.",
+      "Tronco: te inclinas hacia adelante desde la cadera, con la espalda larga, hasta quedar casi horizontal.",
+      "Brazos: manos apoyadas sobre los muslos, justo encima de las rodillas, codos abiertos hacia los lados.",
+      "Cabeza: suelta, mirando hacia las rodillas.",
     ],
     ojo: "Si tiran mucho las piernas por detrás, dobla más las rodillas. Los talones no se despegan del suelo.",
     figura: "artemisa",
@@ -95,9 +97,11 @@ const TODAS_LAS_POSTURAS: Postura[] = [
     nombre: "Aura",
     nivel: "inicio",
     pasos: [
-      "De rodillas, rodillas a lo ancho de las caderas, sin sentarte en los talones.",
-      "Tronco largo, un poco inclinado hacia adelante.",
-      "Brazos estirados al frente a la altura de los hombros, muñecas dobladas: las palmas empujan hacia adelante.",
+      "Piernas: de rodillas, rodillas a lo ancho de las caderas, empeines o dedos de los pies apoyados atrás.",
+      "Cadera: justo encima de las rodillas, sin sentarte en los talones: los muslos quedan derechos.",
+      "Tronco: derecho y largo, creciendo desde la coronilla.",
+      "Brazos: estirados al frente a la altura de los hombros, paralelos al suelo, palmas mirando hacia adelante.",
+      "Cabeza: mirada al frente, mentón un poco hacia adentro.",
     ],
     ojo: "Los hombros bajos aunque los brazos estén arriba. Si te duelen las rodillas, pon una toalla doblada.",
     figura: "aura",
@@ -120,9 +124,10 @@ const TODAS_LAS_POSTURAS: Postura[] = [
     nombre: "Gaia",
     nivel: "inicio",
     pasos: [
-      "En cuatro apoyos, manos en el suelo más abiertas que los hombros, codos doblados y abiertos hacia los lados.",
-      "Empuja el suelo y redondea la espalda hacia el techo, como un gato.",
-      "Cabeza suelta hacia el suelo, entre los brazos.",
+      "Piernas: de rodillas, rodillas debajo de las caderas, dedos de los pies doblados y apoyados.",
+      "Brazos: manos en el suelo, un poco más abiertas que los hombros, codos un poco doblados y abiertos hacia los lados.",
+      "Tronco: empujas el suelo con las manos y redondeas toda la espalda hacia el techo, como un gato.",
+      "Cabeza: suelta hacia el suelo, entre los brazos.",
     ],
     ojo: "Empuja con las manos para que los hombros no se hundan hacia el suelo.",
     figura: "gaia",
@@ -132,9 +137,11 @@ const TODAS_LAS_POSTURAS: Postura[] = [
     nombre: "Hestia",
     nivel: "inicio",
     pasos: [
-      "Sentada en el suelo, rodillas dobladas y talones apoyados en el suelo.",
-      "Espalda derecha y larga, sin echarte hacia atrás.",
-      "Brazos al frente con los codos un poco doblados, palmas mirando hacia adelante.",
+      "Piernas: sentada en el suelo, piernas al frente con las rodillas un poco dobladas.",
+      "Pies: talones apoyados en el suelo, puntas de los pies hacia el techo.",
+      "Tronco: espalda derecha y larga, sin echarte hacia atrás.",
+      "Brazos: al frente a la altura de los hombros, codos un poco doblados, palmas mirando hacia adelante.",
+      "Cabeza: mirada al frente, nuca larga.",
     ],
     ojo: "Si la espalda se redondea, acerca un poco los talones o siéntate sobre un cojín.",
     figura: "hestia",
@@ -222,9 +229,10 @@ const TODAS_LAS_POSTURAS: Postura[] = [
     nombre: "Afrodita",
     nivel: "avanzado",
     pasos: [
-      "Acostada boca arriba, rodillas dobladas, solo los talones apoyados en el suelo y las puntas de los pies hacia el techo.",
-      "Levanta la cadera del suelo hasta que rodillas, cadera y hombros queden en una línea.",
-      "Brazos estirados por encima de la cabeza, en el suelo.",
+      "Tronco: acostada boca arriba, hombros y cabeza apoyados en la colchoneta.",
+      "Piernas y pies: rodillas dobladas, pies a lo ancho de las caderas, con los talones bien apoyados en el suelo.",
+      "Cadera: la levantas del suelo hasta que rodillas, cadera y hombros queden en una línea.",
+      "Brazos: estirados por encima de la cabeza, apoyados en el suelo.",
     ],
     ojo: "Sube la cadera sin arquear la espalda baja: la línea es recta, no un arco.",
     figura: "afrodita",
@@ -232,7 +240,10 @@ const TODAS_LAS_POSTURAS: Postura[] = [
 ];
 
 /* Las figuras que ya tienen dibujo en public/hipopresivos/. */
-const CON_DIBUJO = new Set(["venus", "atenea", "maya", "demeter", "acostada_cadera_arriba"]);
+const CON_DIBUJO = new Set([
+  "venus", "atenea", "artemisa", "aura", "maya", "gaia", "hestia", "demeter",
+  "acostada_cadera_arriba", "afrodita",
+]);
 
 export const POSTURAS = TODAS_LAS_POSTURAS.filter((p) => CON_DIBUJO.has(p.figura));
 

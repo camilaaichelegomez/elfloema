@@ -28,15 +28,8 @@ export const TERMINO_EN_INGLES: Record<string, string> = {
   pica_pies_altos: "feet elevated pike push up",
 
   remo_banda: "seated resistance band row",
-  remo_toalla: "towel row door",
   remo_mochila: "backpack bent over row",
   remo_mochila_una_mano: "one arm row form",
-
-  jalon_banda: "kneeling resistance band lat pulldown",
-  colgarse: "dead hang bar",
-  dominada_negativa: "negative pull up",
-  dominada_banda: "band assisted pull up",
-  dominada: "pull up form",
 
   sentadilla_silla: "sit to stand chair squat",
   sentadilla: "bodyweight squat form",

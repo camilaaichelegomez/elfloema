@@ -99,7 +99,7 @@ export const PRUEBAS: Prueba[] = [
     dice:
       "Un programa progresivo de flexiones produjo aumentos de grosor muscular y de fuerza comparables a los del press de banca con barra en el mismo periodo. Y la literatura de cargas bajas muestra que, llevando las series cerca del fallo, la hipertrofia es parecida con mucho o con poco peso.",
     matiz:
-      "El estudio de las flexiones fue corto y con pocos participantes. Y la calistenia tiene un techo real: para seguir progresando hay que ir cambiando de peldaño, y para algunos patrones —tirar hacia abajo, sobre todo— hace falta al menos una barra o una banda.",
+      "El estudio de las flexiones fue corto y con pocos participantes. Y la calistenia tiene un techo real: para seguir progresando hay que ir cambiando de peldaño, y el tirón por encima de la cabeza —el de las dominadas— no se puede entrenar en casa sin montar una barra. Acá se cubre la espalda tirando hacia el cuerpo, que trabaja lo mismo salvo ese ángulo.",
     fuente:
       "Kotarsky et al. (2018), Effect of progressive calisthenic push-up training on muscle strength and thickness, Journal of Strength and Conditioning Research 32(3):651-659",
     carpeta: "fuerza/calistenia",

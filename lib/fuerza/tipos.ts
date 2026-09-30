@@ -12,7 +12,6 @@ export type Patron =
   | "empuje-horizontal"
   | "empuje-vertical"
   | "traccion-horizontal"
-  | "traccion-vertical"
   | "sentadilla"
   | "bisagra"
   | "zancada"
@@ -25,7 +24,6 @@ export const NOMBRE_PATRON: Record<Patron, string> = {
   "empuje-horizontal": "Empuje hacia adelante",
   "empuje-vertical": "Empuje hacia arriba",
   "traccion-horizontal": "Tirar hacia el cuerpo",
-  "traccion-vertical": "Tirar hacia abajo",
   sentadilla: "Sentadilla",
   bisagra: "Cadera y glúteo",
   zancada: "Una pierna",
@@ -39,8 +37,7 @@ export const NOMBRE_PATRON: Record<Patron, string> = {
 export const MUSCULOS_PATRON: Record<Patron, string> = {
   "empuje-horizontal": "pecho, hombro de adelante y tríceps",
   "empuje-vertical": "hombros y tríceps",
-  "traccion-horizontal": "espalda media, bíceps y la parte de atrás del hombro",
-  "traccion-vertical": "dorsales y bíceps",
+  "traccion-horizontal": "dorsales, espalda media, bíceps y la parte de atrás del hombro",
   sentadilla: "cuádriceps y glúteos",
   bisagra: "glúteos, isquiotibiales y espalda baja",
   zancada: "cada pierna por separado, y el equilibrio",
@@ -56,7 +53,6 @@ export type Equipo =
   | "mesa"
   | "banda"
   | "mochila"
-  | "barra"
   | "escalon";
 
 export const NOMBRE_EQUIPO: Record<Equipo, string> = {
@@ -65,7 +61,6 @@ export const NOMBRE_EQUIPO: Record<Equipo, string> = {
   mesa: "Una mesa firme o una encimera",
   banda: "Una banda elástica",
   mochila: "Una mochila con peso",
-  barra: "Una barra de dominadas",
   escalon: "Un escalón o un cajón",
 };
 

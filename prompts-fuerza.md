@@ -1,6 +1,6 @@
 # Prompts para los dibujos de la sección Fuerza
 
-Son 48 ejercicios más un fondo. Cada prompt está **entero**: lo copias, lo
+Son 42 ejercicios más un fondo. Cada prompt está **entero**: lo copias, lo
 pegas y listo. No hay que agregarle nada.
 
 El estilo es el mismo de las posturas de yoga que ya generaste —figura plana
@@ -23,7 +23,7 @@ y en la lista de escaleras. Mientras no exista, no se ve nada roto.
 Si te salen en png o jpg, no las conviertas: déjalas todas en una carpeta y me
 dices, yo las paso a webp con el nombre correcto.
 
-**Por dónde empezar**, si no quieres hacer las 48 de una: `flexion_pared`,
+**Por dónde empezar**, si no quieres hacer las 42 de una: `flexion_pared`,
 `sentadilla_silla`, `puente`, `bicho_muerto`, `remo_banda`, `zancada_estatica`,
 `plancha_rodillas` y `talones`. Con esas ocho queda cubierta casi cualquier
 primera sesión.
@@ -157,15 +157,6 @@ sirve para pedirle el dibujo a otra IA.
 Side view. Seated band row: sitting on the mat with both legs straight out in front, a long resistance band looped around the soles of her feet, both hands pulling the ends back to her ribs, elbows drawn behind her, chest open, back long. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
 ```
 
-### `remo_toalla.webp` — Remo con toalla en la puerta
-
-Se llama **towel row door**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Side view. Towel row on a closed door: she stands facing a closed door holding one end of a long towel in each hand, the towel passed around the door handle, feet close to the door and body leaning back in one straight line from head to heels with the arms straight, then pulling her chest toward the door with the elbows drawn back. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
 ### `remo_mochila.webp` — Remo inclinada con mochila
 
 Se llama **backpack bent over row**. Con ese nombre lo encuentras en YouTube, y
@@ -182,55 +173,6 @@ sirve para pedirle el dibujo a otra IA.
 
 ```
 Side view. One-arm row: one hand and one knee resting on the seat of a chair with the other foot on the floor, back flat and parallel to the ground like a table, the free arm pulling a loaded backpack up from the floor to her hip with the elbow close to her body. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
----
-
-## Tirar hacia abajo
-
-### `jalon_banda.webp` — Jalón con banda
-
-Se llama **kneeling resistance band lat pulldown**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Side view. Kneeling band pulldown: kneeling on the mat, a long resistance band anchored above her at the top of a door frame, both arms starting overhead and pulling down, elbows drawn toward her ribs, torso upright. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `colgarse.webp` — Colgarse de la barra
-
-Se llama **dead hang bar**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Front view. Dead hang from a simple horizontal pull-up bar: both hands on the bar shoulder-width apart with palms facing forward, arms completely straight, body still and relaxed, shoulders pulled down away from the ears, feet off the floor. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `dominada_negativa.webp` — Dominada negativa
-
-Se llama **negative pull up**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Front view. Top of a pull-up, about to lower slowly: chin just above a horizontal bar, elbows bent and pointing down, body still, a low chair on the floor beneath her feet. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `dominada_banda.webp` — Dominada con banda
-
-Se llama **band assisted pull up**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Front view. Assisted pull-up: a resistance band looped over the horizontal bar with one knee resting in the loop, both hands on the bar with palms forward, arms bent, pulling up. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
-```
-
-### `dominada.webp` — Dominada
-
-Se llama **pull up form**. Con ese nombre lo encuentras en YouTube, y
-sirve para pedirle el dibujo a otra IA.
-
-```
-Front view. Pull-up mid-rep: both hands on a horizontal bar shoulder-width apart with palms forward, chin level with the bar, elbows drawn down toward the ribs, legs still and slightly crossed. Flat vector illustration. A single adult woman drawn in solid warm gold and tan, two flat tones only: light gold for the near arm and leg, darker bronze for the far arm and leg. No outlines, no gradients, no shading, no muscle definition. Simple hair bun, no facial features. Very dark forest-green background (#0d1a0d). Any prop (wall, chair, table, step, bar, band, backpack) drawn as a simple flat shape in muted sage green or dull bronze, clearly simpler than the figure. Pale sage-green exercise mat under her wherever she touches the floor. Whole body visible from head to feet, generous empty margin all around, horizontal 4:3 composition. VERY IMPORTANT: absolutely no text, no letters, no words, no numbers, no arrows, no labels and no watermark anywhere in the image.
 ```
 
 ---

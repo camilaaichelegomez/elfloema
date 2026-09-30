@@ -99,9 +99,9 @@ export const POSTURAS: Postura[] = [
     nombre: "Maya",
     nivel: "inicio",
     pasos: [
-      "En cuatro apoyos: manos en el suelo un poco por delante de los hombros, rodillas bajo las caderas.",
-      "Codos un poco doblados y abiertos hacia los lados.",
-      "Espalda larga, de la coronilla al coxis.",
+      "En cuatro apoyos: rodillas bajo las caderas, dedos de los pies apoyados.",
+      "Codos doblados, con los antebrazos y las manos apoyados en el suelo delante de ti.",
+      "Espalda larga, de la coronilla al coxis, cabeza suelta mirando al suelo.",
     ],
     ojo: "No dejes caer la guata ni hundir la espalda: queda larga, como una mesa.",
     figura: "maya",
@@ -135,8 +135,8 @@ export const POSTURAS: Postura[] = [
     nombre: "Deméter",
     nivel: "inicio",
     pasos: [
-      "Acostada boca arriba, piernas estiradas.",
-      "Brazos por encima de la cabeza, codos doblados y abiertos.",
+      "Acostada boca arriba, rodillas dobladas y pies apoyados a lo ancho de las caderas.",
+      "Brazos estirados hacia el techo, sobre los hombros.",
       "Nuca larga, mentón un poco hacia adentro.",
     ],
     ojo: "La espalda baja se queda apoyada: no la arquees al abrir las costillas.",

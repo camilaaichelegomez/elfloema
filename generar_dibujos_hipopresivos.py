@@ -4,19 +4,16 @@ Genera los dibujos de las posturas de Hipopresivos con Gemini
 public/hipopresivos/<postura>.webp.
 
 A diferencia de los de Fuerza, cada dibujo se pide con DOS imágenes además
-del prompt: la figura de la lámina (la postura) y uno de los dibujos que ya
-quedaron bien (el estilo). Con solo palabras la IA inventa la postura.
+del prompt: un maniquí con la postura exacta (maniquies-hipopresivos/) y uno
+de los dibujos que ya quedaron bien (el estilo). Con solo palabras la IA inventa la postura.
 
 Los prompts y qué imágenes adjuntar se leen de prompts-hipopresivos.md:
 
     ### `artemisa` — Artemisa: ...
-    Adjunta: `referencias-hipopresivos/artemisa.jpg` + `public/hipopresivos/atenea.webp`
+    Adjunta: `maniquies-hipopresivos/artemisa.png` + `public/hipopresivos/atenea.webp`
     ```
     prompt
     ```
-
-Las figuras de la lámina van en referencias-hipopresivos/ (no se suben a
-GitHub: son fotos de la lámina, no nuestras).
 
 Lee GEMINI_API_KEY de .env.local.
 

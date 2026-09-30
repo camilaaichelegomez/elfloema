@@ -358,7 +358,7 @@ export function Hipopresivos() {
           <div style={{ ...tarjeta, maxWidth: 420, margin: "0 auto 1.2rem" }}>
             <p style={{ ...ayuda, margin: "0 0 0.7rem", color: "#e8c878" }}>
               Llevas ocho sesiones en este nivel. Si la costilla se abre bien, puedes subir a «
-              {nivelSig.label}»: pausas de {nivelSig.pausa} segundos y posturas nuevas.
+              {nivelSig.label}»: pausas de {nivelSig.pausa} segundos.
             </p>
             <button type="button" style={botonPri} onClick={() => { guardarPrefs({ nivel: nivelSig.id }); setEtapa("listo"); }}>
               Subir de nivel

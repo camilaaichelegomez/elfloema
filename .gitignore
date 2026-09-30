@@ -127,3 +127,7 @@ posturas-originales/
 
 # Dibujos generados que ya no se usan: se guardan por si acaso, no se suben.
 public/fuerza/_descartados/
+
+# Figuras recortadas de la lámina de Low Pressure Fitness: referencia para
+# generar los dibujos, no son nuestras y no se publican.
+referencias-hipopresivos/

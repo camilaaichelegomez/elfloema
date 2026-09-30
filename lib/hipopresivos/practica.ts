@@ -75,11 +75,11 @@ export const POSTURAS: Postura[] = [
     nombre: "Artemisa",
     nivel: "inicio",
     pasos: [
-      "De pie, rodillas sueltas.",
-      "Te doblas hacia adelante desde la cadera, con la espalda larga y la cabeza hacia las rodillas.",
-      "Brazos colgando hacia el suelo, manos hacia los tobillos.",
+      "De pie, pies a lo ancho de las caderas, rodillas un poco dobladas.",
+      "Te inclinas hacia adelante desde la cadera, hasta que el tronco quede casi horizontal.",
+      "Manos apoyadas sobre los muslos, justo encima de las rodillas, con los codos abiertos. La cabeza cae suelta.",
     ],
-    ojo: "Si tiran mucho las piernas por detrás, dobla más las rodillas en vez de redondear la espalda.",
+    ojo: "Si tiran mucho las piernas por detrás, dobla más las rodillas. Los talones no se despegan del suelo.",
     figura: "artemisa",
   },
   {
@@ -159,9 +159,9 @@ export const POSTURAS: Postura[] = [
     nombre: "Perséfone",
     nivel: "medio",
     pasos: [
-      "Estocada: una pierna adelante con la rodilla doblada, la otra atrás con la rodilla cerca del suelo.",
-      "Tronco derecho y largo.",
-      "Brazos a los costados, codos un poco abiertos.",
+      "Estocada baja: una pierna adelante con la rodilla doblada en ángulo recto; la otra atrás, con la rodilla apoyada en el suelo y los dedos del pie doblados.",
+      "Tronco derecho y largo, sobre la cadera.",
+      "Manos en la cintura, codos hacia atrás.",
     ],
     ojo: "La rodilla de adelante queda sobre el tobillo, no se va hacia adentro. Repite con la otra pierna.",
     figura: "persefone",
@@ -183,11 +183,11 @@ export const POSTURAS: Postura[] = [
     nombre: "Selene",
     nivel: "medio",
     pasos: [
-      "Acostada, el cuerpo largo sobre la colchoneta.",
-      "Brazos estirados por encima de la cabeza.",
+      "Acostada de lado, el cuerpo en una línea larga, piernas estiradas una sobre la otra.",
+      "Brazos estirados por encima de la cabeza: el de abajo sobre el suelo, el de arriba en arco, hasta que las manos se encuentren.",
       "Te alargas desde las manos hasta los pies.",
     ],
-    ojo: "Si la espalda baja se despega mucho, dobla un poco las rodillas.",
+    ojo: "La cabeza descansa sobre el brazo de abajo. Repite del otro lado.",
     figura: "selene",
   },
   {

@@ -111,7 +111,7 @@ export const POSTURAS: Postura[] = [
     nombre: "Gaia",
     nivel: "inicio",
     pasos: [
-      "En cuatro apoyos, con las manos en el suelo.",
+      "En cuatro apoyos, manos en el suelo más abiertas que los hombros, codos doblados y abiertos hacia los lados.",
       "Empuja el suelo y redondea la espalda hacia el techo, como un gato.",
       "Cabeza suelta hacia el suelo, entre los brazos.",
     ],

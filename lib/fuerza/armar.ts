@@ -31,7 +31,7 @@ const PLANTILLAS: Record<2 | 3 | 4, { nombre: string; patrones: Patron[] }[]> = 
     },
     {
       nombre: "Sesión B",
-      patrones: ["bisagra", "traccion-vertical", "empuje-vertical", "zancada", "core-lateral", "pantorrilla"],
+      patrones: ["bisagra", "traccion-horizontal", "empuje-vertical", "zancada", "core-lateral", "pantorrilla"],
     },
   ],
   3: [
@@ -41,7 +41,7 @@ const PLANTILLAS: Record<2 | 3 | 4, { nombre: string; patrones: Patron[] }[]> = 
     },
     {
       nombre: "Sesión B",
-      patrones: ["bisagra", "traccion-vertical", "empuje-vertical", "core-lateral", "pantorrilla"],
+      patrones: ["bisagra", "traccion-horizontal", "empuje-vertical", "core-lateral", "pantorrilla"],
     },
     {
       nombre: "Sesión C",
@@ -59,7 +59,7 @@ const PLANTILLAS: Record<2 | 3 | 4, { nombre: string; patrones: Patron[] }[]> = 
     },
     {
       nombre: "Torso B",
-      patrones: ["traccion-vertical", "empuje-horizontal", "traccion-horizontal", "escapulas", "core-lateral"],
+      patrones: ["traccion-horizontal", "empuje-vertical", "empuje-horizontal", "escapulas", "core-lateral"],
     },
     {
       nombre: "Piernas B",
@@ -76,7 +76,7 @@ const PLANTILLAS: Record<2 | 3 | 4, { nombre: string; patrones: Patron[] }[]> = 
 const EXCLUIR: Record<Cuidado, string[]> = {
   munecas: ["flexion-completa", "flexion-declinada", "flexion-diamante", "pica-suelo", "pica-pies-altos", "plancha-toque", "rodillo"],
   rodillas: ["pistol-silla", "sentadilla-bulgara", "zancada-estatica", "curl-nordico"],
-  hombros: ["pica-pies-altos", "flexion-declinada", "dominada", "flexion-diamante"],
+  hombros: ["pica-pies-altos", "flexion-declinada", "flexion-diamante"],
   espalda: ["rodillo", "curl-nordico", "sentadilla-mochila"],
   "suelo-pelvico": ["rodillo", "plancha-toque", "subida-escalon-peso", "curl-nordico"],
   posparto: ["rodillo", "plancha", "plancha-toque", "curl-nordico", "flexion-declinada"],
@@ -212,9 +212,6 @@ function porQueFalta(patron: Patron, prefs: Preferencias) {
   if (porCuidado) return "Sale por lo que pediste cuidar.";
   const equipos = new Set<Equipo>();
   for (const e of todos) for (const q of e.equipo) if (!prefs.equipo.includes(q)) equipos.add(q);
-  if (patron === "traccion-vertical") {
-    return "Hace falta una barra de dominadas o una banda elástica. Es el patrón que más cuesta reemplazar en casa, y el que más falta hace para la espalda.";
-  }
   return `Hace falta ${[...equipos].join(" o ")}.`;
 }
 

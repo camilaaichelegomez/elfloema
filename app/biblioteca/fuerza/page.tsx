@@ -138,8 +138,10 @@ export default function BibliotecaFuerza() {
         </P>
         <P>
           Y los límites, que también son reales: para la fuerza máxima pura el peso pesado sigue
-          ganando, el hueso responde sobre todo a cargas altas, y hay un patrón —tirar hacia abajo,
-          el de las dominadas— que en casa necesita al menos una barra o una banda.
+          ganando, el hueso responde sobre todo a cargas altas, y el tirón por encima de la cabeza
+          —el de las dominadas— no se entrena en casa sin montar una barra. Esta sección no lo
+          incluye a propósito: colgarse de algo improvisado en una puerta no es seguro. La espalda
+          se cubre <Dorado>tirando hacia el cuerpo</Dorado>, que trabaja lo mismo salvo ese ángulo.
         </P>
         <SubLabel>Los patrones, y qué trabaja cada uno</SubLabel>
         <MiniTable

@@ -47,7 +47,7 @@ import { ayuda, botonLink, botonPri, botonSec, panel, rotulo, tarjeta, titulo } 
 
 type Etapa = "cargando" | "preguntas" | "listo" | "sesion" | "fin";
 
-const EQUIPOS: Equipo[] = ["nada", "silla", "mesa", "escalon", "banda", "mochila", "barra"];
+const EQUIPOS: Equipo[] = ["nada", "silla", "mesa", "escalon", "banda", "mochila"];
 
 export function Fuerza() {
   const [etapa, setEtapa] = useState<Etapa>("cargando");

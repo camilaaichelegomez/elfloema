@@ -17,11 +17,11 @@ export default function Home() {
       <ParallaxHero />
       <div id="contenido" style={{ scrollMarginTop: "72px" }} />
       <AgentesIA />
+      <CuerpoSection />
       <PlantasMedicinalesSection />
       <KnowledgeCards />
       <NavCards />
       <FlorecerSection />
-      <CuerpoSection />
       <GrimorioSection />
       <CartProvider>
         <LaBotica />

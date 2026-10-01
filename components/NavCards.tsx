@@ -395,7 +395,7 @@ export function NavCards() {
 /* El cuerpo: yoga y drenaje. Las tarjetas salen de la misma lista que usa la
    Biblioteca, para que no se desincronicen. */
 export function CuerpoSection() {
-  return <CardsSection titulo="El cuerpo" items={SECCIONES_CUERPO} />;
+  return <CardsSection titulo="La teoría del autocuidado" items={SECCIONES_CUERPO} />;
 }
 
 export function GrimorioSection() {

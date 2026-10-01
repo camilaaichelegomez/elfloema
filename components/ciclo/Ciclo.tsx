@@ -34,7 +34,7 @@ import {
 
 /* La sección Ciclo de Florecer.
 
-   Arriba, lo de hoy: en qué día y fase vas, cuándo llega la próxima regla
+   Arriba, lo de hoy: en qué día y fase vas, cuándo llega la próxima menstruación
    y un botón para anotar. Debajo, el calendario del mes para anotar o
    corregir cualquier día. Después, los consejos del día, lo que se repite
    en tu registro y las señales que conviene conversar. Lo demás, plegado.
@@ -110,7 +110,7 @@ export function Ciclo() {
               </h2>
               <p style={linea}>
                 {est.atraso
-                  ? `La regla viene ${est.atraso} ${est.atraso === 1 ? "día" : "días"} más tarde que tu promedio.`
+                  ? `La menstruación viene ${est.atraso} ${est.atraso === 1 ? "día" : "días"} más tarde que tu promedio.`
                   : est.proximaRegla
                     ? `Próxima regla: alrededor del ${fechaCorta(est.proximaRegla)} (en ${diasEntre(fecha, est.proximaRegla)} días).`
                     : null}
@@ -126,14 +126,14 @@ export function Ciclo() {
           <>
             <h2 id="ciclo-hoy" style={titulo}>
               {conFases
-                ? "Anota tu última regla"
+                ? "Anota tu última menstruación"
                 : datos.etapa === "posmenopausia"
                   ? "Tu registro"
                   : "Tu registro, sin fases"}
             </h2>
             <p style={linea}>
               {conFases
-                ? "Marca el primer día de tu última regla en el calendario de abajo, y desde ahí te digo en qué fase vas."
+                ? "Marca el primer día de tu última menstruación en el calendario de abajo, y desde ahí te digo en qué fase vas."
                 : datos.etapa === "posmenopausia"
                   ? "Ya no hay ciclo que calcular. Puedes anotar cómo te sientes, y si alguna vez hay sangrado, anótalo: se consulta."
                   : "En esta etapa no hay fases propias que calcular. Puedes anotar sangrados y cómo te sientes."}
@@ -155,7 +155,7 @@ export function Ciclo() {
               document.getElementById("ciclo-anotar")?.scrollIntoView({ behavior: "smooth", block: "start" });
             }}
           >
-            {enRegla && mancha(hoyDia) ? "Anotar cómo va hoy" : "Me llegó la regla hoy"}
+            {enRegla && mancha(hoyDia) ? "Anotar cómo va hoy" : "Me llegó la menstruación hoy"}
           </button>
         )}
       </section>
@@ -296,7 +296,7 @@ export function Ciclo() {
                 <li key={c.inicio} style={{ ...item, display: "flex", justifyContent: "space-between", gap: "1rem" }}>
                   <span>Desde el {fechaCorta(c.inicio)}</span>
                   <span style={{ color: "#e8c878" }}>
-                    {c.largo} días{r ? ` · regla de ${r.dias}` : ""}
+                    {c.largo} días{r ? ` · menstruación de ${r.dias}` : ""}
                   </span>
                 </li>
               );
@@ -318,7 +318,7 @@ export function Ciclo() {
       <Desplegable titulo="Cómo calcula la app">
         <p style={linea}>
           El largo de tu ciclo es el promedio de tus últimos ciclos anotados (hasta seis), y solo lo uso desde
-          el tercero. La ovulación la ubico unos 14 días antes de la regla siguiente, porque la segunda mitad
+          el tercero. La ovulación la ubico unos 14 días antes de la menstruación siguiente, porque la segunda mitad
           del ciclo es la estable: la que varía es la primera.
         </p>
         <p style={linea}>
@@ -561,7 +561,7 @@ function Calendario({
             fechaCorta(t),
             flujo ? `sangrado ${FLUJOS.find((f) => f.id === flujo)?.label.toLowerCase()}` : null,
             d?.sintomas?.length ? `${d.sintomas.length} síntomas` : null,
-            prev === "regla" ? "regla prevista" : prev === "ovulacion" ? "ovulación estimada" : null,
+            prev === "regla" ? "menstruación prevista" : prev === "ovulacion" ? "ovulación estimada" : null,
             t === fecha ? "hoy" : null,
           ]
             .filter(Boolean)
@@ -611,7 +611,7 @@ function Calendario({
       </div>
       <p style={{ ...linea, fontSize: "0.82rem", opacity: 0.7, margin: "0.7rem 0 0" }}>
         Toca un día para anotarlo. Relleno: sangrado. Punto: síntomas o nota.
-        {conFases ? " Borde punteado: regla prevista (rojizo) y ovulación estimada (dorado)." : ""}
+        {conFases ? " Borde punteado: menstruación prevista (rojizo) y ovulación estimada (dorado)." : ""}
       </p>
     </div>
   );

@@ -5,7 +5,7 @@
    para una app sin mediciones del cuerpo:
    · El largo del ciclo se estima con el promedio de los últimos ciclos, y
      solo se confía desde el tercero (con menos, se parte de 28 y se dice).
-   · La ovulación se ubica unos 14 días antes de la regla siguiente, no el
+   · La ovulación se ubica unos 14 días antes de la menstruación siguiente, no el
      día 14: la fase lútea es la estable; la folicular es la que varía.
    · Es una estimación, y se dice siempre. No sirve como anticonceptivo.
 
@@ -89,16 +89,16 @@ export const FLUJOS: { id: Flujo; label: string }[] = [
 ];
 
 export const ETAPAS: { id: Etapa; label: string; linea: string }[] = [
-  { id: "adolescente", label: "Mis primeros años de regla", linea: "Menos de tres o cuatro años desde la primera regla." },
-  { id: "reproductiva", label: "Ciclos regulares", linea: "La regla llega más o menos cada mes." },
+  { id: "adolescente", label: "Mis primeros años de menstruación", linea: "Menos de tres o cuatro años desde la primera menstruación." },
+  { id: "reproductiva", label: "Ciclos regulares", linea: "La menstruación llega más o menos cada mes." },
   {
     id: "perimenopausia",
     label: "Perimenopausia",
-    linea: "Desde los 40 y tantos: la regla empezó a cambiar de ritmo, o hay bochornos.",
+    linea: "Desde los 40 y tantos: la menstruación empezó a cambiar de ritmo, o hay bochornos.",
   },
-  { id: "posmenopausia", label: "Posmenopausia", linea: "Pasó un año o más desde la última regla." },
+  { id: "posmenopausia", label: "Posmenopausia", linea: "Pasó un año o más desde la última menstruación." },
   { id: "anticonceptivo", label: "Uso anticonceptivo hormonal", linea: "Pastillas, anillo, parche, implante, inyección o DIU hormonal." },
-  { id: "embarazo", label: "Embarazo o lactancia", linea: "La regla está en pausa." },
+  { id: "embarazo", label: "Embarazo o lactancia", linea: "La menstruación está en pausa." },
 ];
 
 /** La etapa que se sugiere por la edad. Es solo un punto de partida: la
@@ -133,15 +133,15 @@ export const SINTOMAS: { id: string; label: string }[] = [
 
 const NOMBRE_SINTOMA = Object.fromEntries(SINTOMAS.map((s) => [s.id, s.label]));
 
-/* ── Reglas y ciclos ───────────────────────────────────── */
+/* ── Menstruaciones y ciclos ───────────────────────────────────── */
 
 export const sangra = (d?: Dia) => !!d?.flujo && d.flujo !== "manchado" && d.flujo !== "nada";
 export const mancha = (d?: Dia) => !!d?.flujo && d.flujo !== "nada";
 
 export type Regla = { inicio: string; fin: string; dias: number; abundantes: number };
 
-/** Las reglas registradas: días de sangrado seguidos (se perdona un día
-    sin anotar en medio). El manchado solo no abre una regla. */
+/** Las menstruaciones registradas: días de sangrado seguidos (se perdona un día
+    sin anotar en medio). El manchado solo no abre una menstruación. */
 export function reglas(datos: DatosCiclo): Regla[] {
   const dias = Object.keys(datos.dias)
     .filter((t) => sangra(datos.dias[t]))
@@ -160,14 +160,14 @@ export function reglas(datos: DatosCiclo): Regla[] {
   return salida;
 }
 
-/** Largo de cada ciclo completo: de un inicio de regla al siguiente. */
+/** Largo de cada ciclo completo: de un inicio de menstruación al siguiente. */
 export function ciclos(datos: DatosCiclo) {
   const r = reglas(datos);
   return r.slice(1).map((x, i) => ({ inicio: r[i].inicio, largo: diasEntre(r[i].inicio, x.inicio) }));
 }
 
 /** Promedio de los últimos seis ciclos razonables (15 a 60 días: lo que
-    queda fuera suele ser una regla que no se anotó). Con menos de tres, no
+    queda fuera suele ser una menstruación que no se anotó). Con menos de tres, no
     hay promedio confiable. */
 export function largoPromedio(datos: DatosCiclo): number | null {
   const validos = ciclos(datos)
@@ -183,7 +183,7 @@ export function largoPromedio(datos: DatosCiclo): number | null {
 export type Fase = "menstrual" | "folicular" | "ovulatoria" | "lutea";
 
 export const NOMBRE_FASE: Record<Fase, string> = {
-  menstrual: "Regla",
+  menstrual: "Menstruación",
   folicular: "Fase folicular",
   ovulatoria: "Cerca de la ovulación",
   lutea: "Fase lútea",
@@ -196,7 +196,7 @@ export function sinFases(etapa?: Etapa) {
 }
 
 export type Estado = {
-  /** No hay ninguna regla anotada todavía. */
+  /** No hay ninguna menstruación anotada todavía. */
   sinDatos: boolean;
   diaDelCiclo?: number;
   fase?: Fase;
@@ -211,8 +211,8 @@ export type Estado = {
   ultimaRegla?: Regla;
 };
 
-/** El día del ciclo (1 = primer día de regla) en que se estima la
-    ovulación: unos 14 días antes de la regla siguiente. */
+/** El día del ciclo (1 = primer día de menstruación) en que se estima la
+    ovulación: unos 14 días antes de la menstruación siguiente. */
 export function diaOvulacion(largo: number) {
   return Math.max(8, largo - 13);
 }
@@ -236,7 +236,7 @@ export function estadoDe(datos: DatosCiclo, fecha = hoy()): Estado {
   const dia = diasEntre(ultima.inicio, fecha) + 1;
   const proxima = sumarDias(ultima.inicio, largo);
   const atraso = dia > largo ? dia - largo : 0;
-  /* Si solo se anotó el primer día, se supone que la regla sigue hasta el
+  /* Si solo se anotó el primer día, se supone que la menstruación sigue hasta el
      quinto, salvo que se haya anotado un día sin sangrado después. */
   const anotadoSinSangre = Object.keys(datos.dias).some((t) => t > ultima.fin && t <= fecha && !sangra(datos.dias[t]));
   const enRegla = ultima.fin >= fecha || (dia <= 5 && !anotadoSinSangre);
@@ -252,8 +252,8 @@ export function estadoDe(datos: DatosCiclo, fecha = hoy()): Estado {
   };
 }
 
-/** Para el calendario: qué se espera cada día (regla prevista o ventana
-    de ovulación), a partir de la última regla anotada. */
+/** Para el calendario: qué se espera cada día (menstruación prevista o ventana
+    de ovulación), a partir de la última menstruación anotada. */
 export function previsto(datos: DatosCiclo, fecha: string): "regla" | "ovulacion" | null {
   const est = estadoDe(datos);
   if (!est.ultimaRegla || !est.proximaRegla) return null;
@@ -282,7 +282,7 @@ export function senales(datos: DatosCiclo, fecha = hoy()): Senal[] {
     if (reciente)
       s.push({
         titulo: "Anotaste sangrado después de la menopausia",
-        detalle: "Cualquier sangrado después de un año sin regla se consulta, aunque sea poco. Casi siempre es algo benigno, pero hay que mirarlo.",
+        detalle: "Cualquier sangrado después de un año sin menstruación se consulta, aunque sea poco. Casi siempre es algo benigno, pero hay que mirarlo.",
       });
     return s;
   }
@@ -292,11 +292,11 @@ export function senales(datos: DatosCiclo, fecha = hoy()): Senal[] {
     const sin = diasEntre(ultima.inicio, fecha);
     if (sin >= 90)
       s.push({
-        titulo: `Llevas ${sin} días sin regla`,
+        titulo: `Llevas ${sin} días sin menstruación`,
         detalle:
           etapa === "perimenopausia"
-            ? "En la perimenopausia pueden pasar meses sin regla. Igual conviene conversarlo, y descartar un embarazo si es posible."
-            : "Tres meses sin regla se consultan, después de descartar un embarazo. Las causas más comunes (estrés, comer poco para lo que gastas, tiroides, SOP) tienen solución.",
+            ? "En la perimenopausia pueden pasar meses sin menstruación. Igual conviene conversarlo, y descartar un embarazo si es posible."
+            : "Tres meses sin menstruación se consultan, después de descartar un embarazo. Las causas más comunes (estrés, comer poco para lo que gastas, tiroides, SOP) tienen solución.",
       });
   }
 
@@ -323,8 +323,8 @@ export function senales(datos: DatosCiclo, fecha = hoy()): Senal[] {
   const larga = ultimas.find((x) => x.dias > (etapa === "adolescente" ? 7 : 8));
   if (larga)
     s.push({
-      titulo: `Una regla duró ${larga.dias} días`,
-      detalle: "Una regla de más de 8 días (7 en los primeros años) se consulta, sobre todo si se repite o si es abundante.",
+      titulo: `Una menstruación duró ${larga.dias} días`,
+      detalle: "Una menstruación de más de 8 días (7 en los primeros años) se consulta, sobre todo si se repite o si es abundante.",
     });
   if (ultimas.some((x) => x.abundantes >= 3))
     s.push({
@@ -339,12 +339,12 @@ export function senales(datos: DatosCiclo, fecha = hoy()): Senal[] {
   if (ciclosCon("dolor_fuerte") >= 2)
     s.push({
       titulo: "El dolor te frena en más de un ciclo",
-      detalle: "Una regla que te hace faltar a tus cosas no es lo normal. Puede haber endometriosis u otra causa, y tiene tratamiento: anótalo y consúltalo.",
+      detalle: "Una menstruación que te hace faltar a tus cosas no es lo normal. Puede haber endometriosis u otra causa, y tiene tratamiento: anótalo y consúltalo.",
     });
   if (etapa !== "anticonceptivo" && (ciclosCon("animo") >= 2 || ciclosCon("ansiedad") >= 2))
     s.push({
       titulo: "El ánimo cambia en varios ciclos",
-      detalle: "Si el ánimo antes de la regla te cambia la vida, existen tratamientos eficaces. Lleva este registro a la consulta: es justo lo que piden para diagnosticarlo. Si alguna vez piensas en hacerte daño, busca ayuda de inmediato.",
+      detalle: "Si el ánimo antes de la menstruación te cambia la vida, existen tratamientos eficaces. Lleva este registro a la consulta: es justo lo que piden para diagnosticarlo. Si alguna vez piensas en hacerte daño, busca ayuda de inmediato.",
     });
 
   return s;
@@ -352,8 +352,8 @@ export function senales(datos: DatosCiclo, fecha = hoy()): Senal[] {
 
 /* ── Lo que se repite ──────────────────────────────────── */
 
-/** La fase en que cayó un día pasado, mirando la regla anterior y la
-    siguiente. Sin regla siguiente, se usa el largo estimado. */
+/** La fase en que cayó un día pasado, mirando la menstruación anterior y la
+    siguiente. Sin menstruación siguiente, se usa el largo estimado. */
 function faseHistorica(t: string, r: Regla[], largo: number): Fase | null {
   const i = r.findIndex((x) => x.inicio > t) - 1;
   const idx = i === -2 ? r.length - 1 : i;
@@ -381,10 +381,10 @@ export function loQueSeRepite(datos: DatosCiclo): string[] {
     }
   }
   const DONDE: Record<Fase, string> = {
-    menstrual: "durante la regla",
+    menstrual: "durante la menstruación",
     folicular: "en la fase folicular",
     ovulatoria: "cerca de la ovulación",
-    lutea: "en la fase lútea, antes de la regla",
+    lutea: "en la fase lútea, antes de la menstruación",
   };
   return Object.entries(cuenta)
     .map(([id, porFase]) => {
@@ -408,20 +408,20 @@ export const CONSEJO_SINTOMA: Record<string, string> = {
   mamas: "Un sostén firme ayuda con las mamas sensibles. Si notas un nudo o una zona que duele siempre igual, se consulta.",
   hinchazon: "La hinchazón de los días previos es retención de líquido: caminar, tomar agua y comer menos sal y ultraprocesados suele aliviar.",
   cabeza: "Si el dolor de cabeza te da siempre en los mismos días del ciclo, anótalo: la jaqueca menstrual es frecuente y tiene tratamiento específico.",
-  acne: "Antes de la regla la piel produce más sebo. Limpieza suave y sin apretar. Si el acné es fuerte y tus ciclos son irregulares, consulta.",
+  acne: "Antes de la menstruación la piel produce más sebo. Limpieza suave y sin apretar. Si el acné es fuerte y tus ciclos son irregulares, consulta.",
   cansancio:
-    "Si tu regla es abundante, el cansancio puede ser falta de hierro: legumbres, carnes, hojas verdes con algo de vitamina C, y un examen si no se pasa.",
+    "Si tu menstruación es abundante, el cansancio puede ser falta de hierro: legumbres, carnes, hojas verdes con algo de vitamina C, y un examen si no se pasa.",
   irritable:
     "Moverte, dormir bien y el calcio de la comida ayudan con los síntomas premenstruales. Si te cambian la vida cada mes, existen tratamientos eficaces.",
   animo:
     "Moverte, dormir bien y el calcio de la comida ayudan con el ánimo premenstrual. Si se repite y te pesa, consúltalo: hay tratamientos eficaces. Si piensas en hacerte daño, busca ayuda de inmediato.",
   ansiedad:
-    "Moverte, respirar lento y dormir bien ayudan. Si la ansiedad aparece cada mes antes de la regla y te pesa, consúltalo: tiene tratamiento.",
+    "Moverte, respirar lento y dormir bien ayudan. Si la ansiedad aparece cada mes antes de la menstruación y te pesa, consúltalo: tiene tratamiento.",
   antojos:
-    "Antes de la regla el cuerpo puede gastar un poco más: comer algo más es normal. Proteína y fibra en cada comida ayudan a que el hambre sea más pareja.",
+    "Antes de la menstruación el cuerpo puede gastar un poco más: comer algo más es normal. Proteína y fibra en cada comida ayudan a que el hambre sea más pareja.",
   insomnio:
     "En la fase lútea la progesterona sube la temperatura: una pieza fresca y un horario fijo ayudan. Menos alcohol y menos café en la tarde.",
-  digestion: "Las mismas sustancias que dan los cólicos también mueven el intestino durante la regla: es común. Comidas simples, agua y fibra.",
+  digestion: "Las mismas sustancias que dan los cólicos también mueven el intestino durante la menstruación: es común. Comidas simples, agua y fibra.",
   bochornos:
     "Para los bochornos: ropa en capas, pieza fresca y menos alcohol. Si te quitan el sueño o la calma, hay tratamientos eficaces, con y sin hormonas.",
   sequedad: "La sequedad vaginal tiene tratamiento: lubricantes, hidratantes vaginales o estrógeno local en dosis muy bajas. No hay que aguantarla.",
@@ -431,36 +431,36 @@ export const CONSEJO_SINTOMA: Record<string, string> = {
 export function consejoFase(est: Estado): string | null {
   if (est.sinDatos || !est.fase || !est.diaDelCiclo) return null;
   if (est.atraso)
-    return `La regla viene ${est.atraso} ${est.atraso === 1 ? "día" : "días"} más tarde que tu promedio. Un ciclo más largo de vez en cuando es normal (estrés, viajes, enfermedad). Si pudieras estar embarazada, haz un test.`;
+    return `La menstruación viene ${est.atraso} ${est.atraso === 1 ? "día" : "días"} más tarde que tu promedio. Un ciclo más largo de vez en cuando es normal (estrés, viajes, enfermedad). Si pudieras estar embarazada, haz un test.`;
   switch (est.fase) {
     case "menstrual":
-      return "Estás en la regla: las hormonas están en su punto más bajo. Si sangras mucho, suma hierro y vitamina C a tus comidas. Moverte suave y el calor alivian los cólicos.";
+      return "Estás en tu menstruación: las hormonas están en su punto más bajo. Si sangras mucho, suma hierro y vitamina C a tus comidas. Moverte suave y el calor alivian los cólicos.";
     case "folicular":
       return "Fase folicular: el estradiol va subiendo. Muchas se sienten con más energía; si no es tu caso, también es normal.";
     case "ovulatoria":
-      return "Se acerca la ovulación, según tus reglas pasadas (puede variar varios días). Es cuando el flujo se vuelve claro y elástico. Este cálculo no sirve como anticonceptivo.";
+      return "Se acerca la ovulación, según tus menstruaciones pasadas (puede variar varios días). Es cuando el flujo se vuelve claro y elástico. Este cálculo no sirve como anticonceptivo.";
     case "lutea":
       return est.diaDelCiclo >= est.largo - 5
-        ? "Se acerca la regla. Si sueles tener síntomas premenstruales, ayudan moverte, dormir bien y el calcio de la comida (lácteos, tofu, sardinas, almendras)."
+        ? "Se acerca la menstruación. Si sueles tener síntomas premenstruales, ayudan moverte, dormir bien y el calcio de la comida (lácteos, tofu, sardinas, almendras)."
         : "Fase lútea: manda la progesterona. Puedes tener algo más de hambre y de calor; es normal.";
   }
 }
 
 export const CONSEJO_ETAPA: Record<Etapa, string[]> = {
   adolescente: [
-    "En los primeros años es normal que la regla llegue cada 21 a 45 días: el cuerpo todavía está aprendiendo.",
+    "En los primeros años es normal que la menstruación llegue cada 21 a 45 días: el cuerpo todavía está aprendiendo.",
     "Come suficiente para crecer y moverte, con hierro y calcio todos los días.",
-    "Anotar tus reglas desde ahora es la mejor forma de saber qué es normal para ti.",
+    "Anotar tus menstruaciones desde ahora es la mejor forma de saber qué es normal para ti.",
   ],
   reproductiva: [
-    "Hierro suficiente mientras tengas regla: 18 mg al día. Si sangras mucho, pide que te midan la ferritina.",
+    "Hierro suficiente mientras menstrúes: 18 mg al día. Si sangras mucho, pide que te midan la ferritina.",
     "Ejercicio regular y buen sueño ayudan con el dolor y los síntomas premenstruales.",
     "Si piensas en un embarazo, el ácido fólico se empieza antes.",
   ],
   perimenopausia: [
     "Fuerza dos o tres veces por semana: es lo que más cuida el músculo y el hueso que empiezan a perderse.",
     "Proteína en cada comida, calcio y vitamina D. Menos alcohol: empeora los bochornos y el sueño.",
-    "En esta etapa la regla es impredecible: las fechas que da la app son orientativas. Los cambios de ritmo dicen en qué parte de la transición estás.",
+    "En esta etapa la menstruación es impredecible: las fechas que da la app son orientativas. Los cambios de ritmo dicen en qué parte de la transición estás.",
   ],
   posmenopausia: [
     "Fuerza, caminar rápido o subir escaleras, y equilibrio: protegen el hueso y previenen caídas.",
@@ -468,11 +468,11 @@ export const CONSEJO_ETAPA: Record<Etapa, string[]> = {
     "La sequedad vaginal y las molestias urinarias tienen tratamiento: no hay que aguantarlas.",
   ],
   anticonceptivo: [
-    "Con anticonceptivos hormonales no hay fases propias: el sangrado de la semana de descanso no es una regla. Puedes anotar sangrados y síntomas igual.",
+    "Con anticonceptivos hormonales no hay fases propias: el sangrado de la semana de descanso no es una menstruación. Puedes anotar sangrados y síntomas igual.",
     "Si tienes sangrados inesperados que no se pasan en tres meses, o síntomas nuevos, coméntalo con quien te los indicó.",
   ],
   embarazo: [
-    "Durante el embarazo y la lactancia la regla se pausa: la app no calcula fases. Puedes anotar cómo te sientes.",
+    "Durante el embarazo y la lactancia la menstruación se pausa: la app no calcula fases. Puedes anotar cómo te sientes.",
     "Cualquier sangrado en el embarazo se consulta.",
   ],
 };

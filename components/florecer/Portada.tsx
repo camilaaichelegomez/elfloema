@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { Sena } from "@/components/florecer/senas";
+import { estadoDe, leerCiclo, NOMBRE_FASE, sinFases } from "@/lib/ciclo/registro";
 import { habitosDe, hoy as hoyTexto, leerDatos, sumarDias, tareasDe } from "@/lib/habitos/tipos";
 
 /* La portada de Florecer.
@@ -34,6 +35,8 @@ type Resumen = {
   rachaYoga: number;
   yogaHoy: boolean;
   caraHoy: boolean;
+  /** «Día 12 · Fase folicular», si hay ciclo anotado. */
+  ciclo: string | null;
 };
 
 function leerRacha(clave: string) {
@@ -184,7 +187,7 @@ const SECCIONES = [
   {
     href: "/ciclo",
     titulo: "Ciclo",
-    linea: "Tu regla y cómo te sientes, la fase de hoy y qué ayuda.",
+    linea: "Tu menstruación y cómo te sientes, la fase de hoy y qué ayuda.",
     sena: "ciclo",
   },
   {
@@ -225,7 +228,14 @@ export function Portada() {
       habitosFaltan: habitos.length - hechosHoy,
       habitosTotal: habitos.length,
     };
+    const datosCiclo = leerCiclo();
+    const est = sinFases(datosCiclo.etapa) || !datosCiclo.etapa ? null : estadoDe(datosCiclo, fecha);
+    const ciclo =
+      est?.diaDelCiclo && est.fase
+        ? `Día ${est.diaDelCiclo} del ciclo · ${NOMBRE_FASE[est.fase]}${est.atraso ? ` (${est.atraso} de atraso)` : ""}`
+        : null;
     setResumen({
+      ciclo,
       siguiente: elegirSiguiente(hora, estado),
       saludo: saludoDe(hora),
       habitosHechos: hechosHoy,
@@ -295,6 +305,13 @@ export function Portada() {
                   : "La práctica de yoga te espera."}
             </li>
             {resumen.caraHoy && <li style={linea}>El ritual facial de hoy está hecho.</li>}
+            {resumen.ciclo && (
+              <li style={linea}>
+                <Link prefetch={false} href="/ciclo" style={{ color: "#e8c878", textDecorationColor: "rgba(200,160,80,0.5)" }}>
+                  {resumen.ciclo}
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       )}

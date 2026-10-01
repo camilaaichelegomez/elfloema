@@ -2499,9 +2499,9 @@ img {
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  max-width: 620px;
+  max-width: 640px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .barra-florecer a {
@@ -2511,11 +2511,11 @@ img {
   justify-content: center;
   gap: 3px;
   min-height: 60px;
-  padding: 6px 4px;
+  padding: 6px 2px;
   text-decoration: none;
   font-family: var(--font-cinzel), serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
+  font-size: 0.58rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: rgba(217, 203, 170, 0.78);
   position: relative;
@@ -2526,8 +2526,8 @@ img {
 @media (max-width: 380px) {
   .barra-florecer a {
     font-size: 0.5rem;
-    letter-spacing: 0.02em;
-    padding: 6px 2px;
+    letter-spacing: 0;
+    padding: 6px 1px;
   }
 }
 

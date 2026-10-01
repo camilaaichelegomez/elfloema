@@ -79,7 +79,7 @@ export const SENAS: Record<string, ReactNode> = {
     </>
   ),
   /* Ciclo: una luna que crece alrededor de una gota, donde empieza la
-     regla. */
+     menstruación. */
   ciclo: (
     <>
       <circle cx="31" cy="34" r="20" opacity="0.5" />

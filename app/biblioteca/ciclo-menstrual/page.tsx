@@ -111,7 +111,7 @@ export default function BibliotecaCiclo() {
         <P>
           Las hormonas no solo cambian dentro de cada mes: cambian, y mucho, de una etapa de la vida a otra.
           Las etapas siguen el sistema STRAW+10, el que usan los especialistas para ubicar a una mujer en su
-          vida reproductiva. Para casi todas, el mejor indicador no es un examen: es el ritmo de la regla.
+          vida reproductiva. Para casi todas, el mejor indicador no es un examen: es el ritmo de la menstruación.
         </P>
         {ETAPAS_DE_LA_VIDA.map((e) => (
           <div key={e.etapa} style={{ marginBottom: 20 }}>
@@ -267,8 +267,8 @@ export default function BibliotecaCiclo() {
       <Seccion titulo="Y ahora">
         <GreenBox>
           <P style={{ margin: 0 }}>
-            En la app puedes anotar tus reglas y cómo te sientes cada día. Te dice en qué fase estás, cuándo
-            esperar la próxima regla y qué ayuda según tu etapa, y te avisa si algo de tu registro merece una
+            En la app puedes anotar tus menstruaciones y cómo te sientes cada día. Te dice en qué fase estás, cuándo
+            esperar la próxima menstruación y qué ayuda según tu etapa, y te avisa si algo de tu registro merece una
             consulta. Todo queda guardado solo en tu teléfono.{" "}
             <Link prefetch={false} href="/ciclo" style={ENLACE}>
               Ir a la app

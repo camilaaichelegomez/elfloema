@@ -17,8 +17,8 @@ export const EN_UNA_LINEA =
   "El ciclo es una conversación entre el cerebro y los ovarios que se repite cada tres a cinco semanas. Conocerlo ayuda a entender el cuerpo y a notar a tiempo cuando algo cambia, pero no hay que «sincronizar» la vida con él.";
 
 export const QUE_ES = [
-  "Cada ciclo empieza el primer día de la regla y termina el día antes de la siguiente. En ese tiempo, el hipotálamo (en el cerebro) le habla a la hipófisis, la hipófisis le habla a los ovarios con dos hormonas, FSH y LH, y los ovarios contestan con estrógenos y progesterona. Lo que contestan los ovarios regula, a su vez, lo que manda el cerebro: es un circuito que se ajusta solo.",
-  "El propósito del ciclo es madurar un óvulo, liberarlo y preparar el útero por si hay embarazo. Si no lo hay, las hormonas caen, el revestimiento del útero se desprende y empieza la regla. Pero sus efectos llegan mucho más allá del útero: los estrógenos cuidan los huesos, los vasos sanguíneos, la piel y el cerebro.",
+  "Cada ciclo empieza el primer día de la menstruación y termina el día antes de la siguiente. En ese tiempo, el hipotálamo (en el cerebro) le habla a la hipófisis, la hipófisis le habla a los ovarios con dos hormonas, FSH y LH, y los ovarios contestan con estrógenos y progesterona. Lo que contestan los ovarios regula, a su vez, lo que manda el cerebro: es un circuito que se ajusta solo.",
+  "El propósito del ciclo es madurar un óvulo, liberarlo y preparar el útero por si hay embarazo. Si no lo hay, las hormonas caen, el revestimiento del útero se desprende y empieza la menstruación. Pero sus efectos llegan mucho más allá del útero: los estrógenos cuidan los huesos, los vasos sanguíneos, la piel y el cerebro.",
   "Por eso el Colegio Americano de Ginecología (ACOG) pide mirar el ciclo como un signo vital, igual que la presión o el pulso: cuando cambia mucho, suele estar diciendo algo de la salud general.",
 ];
 
@@ -38,14 +38,14 @@ export const FASES: {
     nombre: "Menstruación",
     cuando: "Del día 1 a los días 3 a 8",
     hormonas:
-      "Estrógenos y progesterona están en su punto más bajo. Justo antes y al inicio de la regla sube la FSH, que despierta a un grupo de folículos en los ovarios.",
+      "Estrógenos y progesterona están en su punto más bajo. Justo antes y al inicio de la menstruación sube la FSH, que despierta a un grupo de folículos en los ovarios.",
     cuerpo:
       "El útero se contrae para desprender su revestimiento, con la ayuda de unas sustancias llamadas prostaglandinas: son las que dan los cólicos. Es normal sentir más cansancio, sobre todo si el sangrado es abundante.",
   },
   {
     id: "folicular",
     nombre: "Fase folicular",
-    cuando: "Desde la regla hasta la ovulación (dura lo que más varía entre una mujer y otra)",
+    cuando: "Desde la menstruación hasta la ovulación (dura lo que más varía entre una mujer y otra)",
     hormonas:
       "Un folículo se adelanta a los demás y fabrica cada vez más estradiol, el estrógeno principal. El estradiol engrosa el revestimiento del útero y vuelve el flujo vaginal más claro y elástico a medida que se acerca la ovulación.",
     cuerpo:
@@ -54,7 +54,7 @@ export const FASES: {
   {
     id: "ovulatoria",
     nombre: "Ovulación",
-    cuando: "Unos 12 a 14 días antes de la regla siguiente, no el día 14 del ciclo",
+    cuando: "Unos 12 a 14 días antes de la menstruación siguiente, no el día 14 del ciclo",
     hormonas:
       "Cuando el estradiol llega a su máximo, el cerebro responde con una subida brusca de LH (y algo de FSH). Unas 24 a 36 horas después, el folículo suelta el óvulo. La testosterona también sube un poco por estos días.",
     cuerpo:
@@ -63,9 +63,9 @@ export const FASES: {
   {
     id: "lutea",
     nombre: "Fase lútea",
-    cuando: "Desde la ovulación hasta la regla: unos 12 a 14 días, bastante estable",
+    cuando: "Desde la ovulación hasta la menstruación: unos 12 a 14 días, bastante estable",
     hormonas:
-      "El folículo vacío se transforma en el cuerpo lúteo y fabrica progesterona, que llega a su máximo a mitad de esta fase; el estradiol hace un segundo pico más bajo. Si no hay embarazo, el cuerpo lúteo se apaga a los 10 a 14 días, las dos hormonas caen y viene la regla.",
+      "El folículo vacío se transforma en el cuerpo lúteo y fabrica progesterona, que llega a su máximo a mitad de esta fase; el estradiol hace un segundo pico más bajo. Si no hay embarazo, el cuerpo lúteo se apaga a los 10 a 14 días, las dos hormonas caen y viene la menstruación.",
     cuerpo:
       "La progesterona sube la temperatura del cuerpo unas décimas y puede dar algo más de hambre. En los últimos días, con la caída de las hormonas, aparecen los síntomas premenstruales en quienes los tienen.",
   },
@@ -74,7 +74,7 @@ export const FASES: {
 /* Los números de lo normal: FIGO para la edad adulta y ACOG para la
    adolescencia. */
 export const LO_NORMAL: { que: string; adulta: string; adolescente: string }[] = [
-  { que: "Cada cuánto llega la regla", adulta: "Cada 24 a 38 días", adolescente: "Cada 21 a 45 días" },
+  { que: "Cada cuánto llega la menstruación", adulta: "Cada 24 a 38 días", adolescente: "Cada 21 a 45 días" },
   { que: "Cuántos días dura", adulta: "Hasta 8 días", adolescente: "Hasta 7 días" },
   {
     que: "Cuánto cambia de un ciclo a otro",
@@ -99,12 +99,12 @@ export const DATOS_DEL_CICLO = [
 
 export const ETAPAS_DE_LA_VIDA: { etapa: string; edad: string; hormonas: string; que_se_nota: string }[] = [
   {
-    etapa: "Pubertad y primeros años de regla",
-    edad: "La primera regla llega en promedio a los 12 o 13 años",
+    etapa: "Pubertad y primeros años de menstruación",
+    edad: "La primera menstruación llega en promedio a los 12 o 13 años",
     hormonas:
       "El cerebro está aprendiendo a dar la señal de la ovulación. Los primeros años muchos ciclos no ovulan, y sin ovulación no hay progesterona.",
     que_se_nota:
-      "Ciclos irregulares, de 21 a 45 días, que se ordenan en dos a tres años: al tercer año, entre seis y ocho de cada diez ciclos duran de 21 a 34 días. No llegar a la primera regla a los 15 años merece consulta.",
+      "Ciclos irregulares, de 21 a 45 días, que se ordenan en dos a tres años: al tercer año, entre seis y ocho de cada diez ciclos duran de 21 a 34 días. No llegar a la primera menstruación a los 15 años merece consulta.",
   },
   {
     etapa: "Edad reproductiva",
@@ -120,7 +120,7 @@ export const ETAPAS_DE_LA_VIDA: { etapa: string; edad: string; hormonas: string;
     hormonas:
       "Quedan menos folículos: baja la hormona antimülleriana (AMH) y la inhibina B. La FSH empieza a subir para compensar.",
     que_se_nota:
-      "Ciclos un poco más cortos, a veces regla más abundante o más escasa. Todavía regulares.",
+      "Ciclos un poco más cortos, a veces menstruación más abundante o más escasa. Todavía regulares.",
   },
   {
     etapa: "Perimenopausia (la transición)",
@@ -128,14 +128,14 @@ export const ETAPAS_DE_LA_VIDA: { etapa: string; edad: string; hormonas: string;
     hormonas:
       "No es que los estrógenos bajen de a poco: suben y bajan bruscamente. En cerca de un tercio de los ciclos hay un pico de estradiol fuera de lugar, en plena fase lútea. La progesterona baja porque se ovula menos.",
     que_se_nota:
-      "Primero, ciclos que cambian siete días o más respecto de lo habitual; después, saltos de 60 días o más sin regla. Aparecen bochornos, sudores de noche, peor sueño, cambios de ánimo y reglas a veces muy abundantes.",
+      "Primero, ciclos que cambian siete días o más respecto de lo habitual; después, saltos de 60 días o más sin menstruación. Aparecen bochornos, sudores de noche, peor sueño, cambios de ánimo y menstruaciones a veces muy abundantes.",
   },
   {
     etapa: "Menopausia",
-    edad: "Se confirma tras 12 meses sin regla; la edad promedio ronda los 50 a 51",
+    edad: "Se confirma tras 12 meses sin menstruación; la edad promedio ronda los 50 a 51",
     hormonas:
       "Los ovarios dejan de ovular y de fabricar estradiol en cantidad. La FSH queda alta. Antes de los 40 se llama insuficiencia ovárica prematura, y siempre se consulta.",
-    que_se_nota: "La regla se acaba. Los síntomas de la transición pueden seguir un tiempo.",
+    que_se_nota: "La menstruación se acaba. Los síntomas de la transición pueden seguir un tiempo.",
   },
   {
     etapa: "Posmenopausia",
@@ -143,7 +143,7 @@ export const ETAPAS_DE_LA_VIDA: { etapa: string; edad: string; hormonas: string;
     hormonas:
       "Estrógenos bajos y estables. El cuerpo sigue fabricando pequeñas cantidades a partir de otras hormonas, sobre todo en el tejido graso.",
     que_se_nota:
-      "En los primeros cinco a diez años se pierde hueso más rápido (hasta un 2 % al año), cambia el riesgo cardiovascular y pueden aparecer sequedad vaginal y molestias urinarias, que tienen tratamiento. Cualquier sangrado después de un año sin regla se consulta.",
+      "En los primeros cinco a diez años se pierde hueso más rápido (hasta un 2 % al año), cambia el riesgo cardiovascular y pueden aparecer sequedad vaginal y molestias urinarias, que tienen tratamiento. Cualquier sangrado después de un año sin menstruación se consulta.",
   },
 ];
 
@@ -158,7 +158,7 @@ export const DESORDENES: { nombre: string; senales: string; que_es: string; que_
   {
     nombre: "Síntomas premenstruales (SPM) y trastorno disfórico premenstrual (TDPM)",
     senales:
-      "Hinchazón, mamas sensibles, irritabilidad, tristeza, ansiedad o antojos en los días antes de la regla, que se van cuando empieza o a los pocos días.",
+      "Hinchazón, mamas sensibles, irritabilidad, tristeza, ansiedad o antojos en los días antes de la menstruación, que se van cuando empieza o a los pocos días.",
     que_es:
       "Casi todas notan algo; entre dos y cuatro de cada diez tienen síntomas que molestan de verdad, y alrededor de 3 de cada 100 tienen la forma severa (TDPM), con un ánimo que cambia la vida. No es que las hormonas estén «altas» o «bajas»: el cerebro de algunas mujeres reacciona más a los cambios normales.",
     que_hacer:
@@ -166,18 +166,18 @@ export const DESORDENES: { nombre: string; senales: string; que_es: string; que_
     fuente: "ACOG, guía clínica de trastornos premenstruales, 2023; metaanálisis de prevalencia de TDPM, 2024.",
   },
   {
-    nombre: "Regla dolorosa (dismenorrea)",
-    senales: "Cólicos en el bajo vientre que empiezan con la regla y duran uno a tres días.",
+    nombre: "Menstruación dolorosa (dismenorrea)",
+    senales: "Cólicos en el bajo vientre que empiezan con la menstruación y duran uno a tres días.",
     que_es:
       "El dolor común viene de las prostaglandinas, que hacen contraerse al útero. Si el dolor no se calma con los remedios habituales, te hace faltar a tus cosas, empeora con los años o aparece también al tener relaciones o ir al baño, puede haber endometriosis: afecta a 1 de cada 10 mujeres y suele tardar años en diagnosticarse.",
     que_hacer:
-      "Calor local, ejercicio regular (no solo esos días) y antiinflamatorios como el ibuprofeno, que bloquean las prostaglandinas, si te los puedes tomar. El jengibre alivió el dolor más que un placebo en varios ensayos. Si el dolor no cede o te limita, consulta: no es normal que la regla te deje en cama.",
+      "Calor local, ejercicio regular (no solo esos días) y antiinflamatorios como el ibuprofeno, que bloquean las prostaglandinas, si te los puedes tomar. El jengibre alivió el dolor más que un placebo en varios ensayos. Si el dolor no cede o te limita, consulta: no es normal que la menstruación te deje en cama.",
     fuente: "Revisión Cochrane de ejercicio para la dismenorrea, 2019; metaanálisis de jengibre, 2021; OMS, endometriosis.",
   },
   {
     nombre: "Sangrado abundante",
     senales:
-      "Cambiar la toalla o el tampón cada una o dos horas, coágulos grandes, tener que levantarte de noche a cambiarte, regla de más de 8 días, cansancio y ahogo.",
+      "Cambiar la toalla o el tampón cada una o dos horas, coágulos grandes, tener que levantarte de noche a cambiarte, menstruación de más de 8 días, cansancio y ahogo.",
     que_es:
       "Le pasa a una de cada cuatro o cinco mujeres en algún momento, y es la causa más común de falta de hierro y anemia en mujeres jóvenes. Puede venir de miomas, pólipos, problemas de coagulación, de la tiroides o de ciclos sin ovulación (frecuentes en la adolescencia y la perimenopausia).",
     que_hacer:
@@ -186,16 +186,16 @@ export const DESORDENES: { nombre: string; senales: string; que_es: string; que_
   },
   {
     nombre: "Ciclos irregulares o que desaparecen",
-    senales: "Reglas cada menos de 24 días o cada más de 38, que varían mucho, o que dejan de llegar tres meses o más.",
+    senales: "Menstruaciones cada menos de 24 días o cada más de 38, que varían mucho, o que dejan de llegar tres meses o más.",
     que_es:
       "Lo primero es descartar un embarazo. Después, las causas más comunes son: el síndrome de ovario poliquístico (SOP), que afecta a 1 de cada 8 a 10 mujeres y junta ciclos irregulares con exceso de hormonas masculinas (acné, vello) o con ovarios poliquísticos; la amenorrea hipotalámica, cuando el cerebro «apaga» el ciclo por comer poco para lo que se gasta, mucho ejercicio o estrés; la tiroides; y la prolactina alta.",
     que_hacer:
-      "Consultar para encontrar la causa, porque cada una se trata distinto. En el SOP, el estilo de vida (moverse, comer bien, dormir) es la base del tratamiento, sin una dieta especial. En la amenorrea hipotalámica, lo que la revierte es comer lo suficiente y bajar la carga, y no basta con tomar anticonceptivos para «que vuelva la regla».",
+      "Consultar para encontrar la causa, porque cada una se trata distinto. En el SOP, el estilo de vida (moverse, comer bien, dormir) es la base del tratamiento, sin una dieta especial. En la amenorrea hipotalámica, lo que la revierte es comer lo suficiente y bajar la carga, y no basta con tomar anticonceptivos para «que vuelva la menstruación».",
     fuente: "Guía internacional de SOP, 2023; Endocrine Society, guía de amenorrea hipotalámica funcional, 2017.",
   },
   {
     nombre: "Los síntomas de la perimenopausia",
-    senales: "Bochornos, sudores de noche, insomnio, cambios de ánimo, niebla mental, reglas impredecibles, a partir de los 40.",
+    senales: "Bochornos, sudores de noche, insomnio, cambios de ánimo, niebla mental, menstruaciones impredecibles, a partir de los 40.",
     que_es:
       "Son la respuesta del cuerpo a los vaivenes de estradiol, no una enfermedad. Duran en promedio varios años, y en algunas mujeres más de una década.",
     que_hacer:
@@ -210,14 +210,14 @@ export const AYUDAS: { tema: string; grado: Grado; dice: string; matiz: string; 
   {
     tema: "Comer lo suficiente",
     grado: "probado",
-    dice: "El ciclo necesita energía. Cuando lo que se come no alcanza para lo que se gasta (por dieta, ejercicio intenso o estrés), el cerebro baja la señal a los ovarios y la regla se desordena o se va.",
-    matiz: "Pasa también con un peso «normal». Una regla que desaparece no es señal de buen estado físico: es una alarma, y a la larga debilita los huesos.",
+    dice: "El ciclo necesita energía. Cuando lo que se come no alcanza para lo que se gasta (por dieta, ejercicio intenso o estrés), el cerebro baja la señal a los ovarios y la menstruación se desordena o se va.",
+    matiz: "Pasa también con un peso «normal». Una menstruación que desaparece no es señal de buen estado físico: es una alarma, y a la larga debilita los huesos.",
     fuente: "Endocrine Society, guía de amenorrea hipotalámica funcional, 2017.",
   },
   {
     tema: "Hierro",
     grado: "probado",
-    dice: "Mientras hay regla, el cuerpo necesita 18 mg de hierro al día (después de los 51, 8 mg). Está en carnes, legumbres, hojas verdes y semillas; el de origen vegetal se absorbe mejor junto a vitamina C (cítricos, pimentón) y peor junto al té o el café.",
+    dice: "Mientras hay menstruación, el cuerpo necesita 18 mg de hierro al día (después de los 51, 8 mg). Está en carnes, legumbres, hojas verdes y semillas; el de origen vegetal se absorbe mejor junto a vitamina C (cítricos, pimentón) y peor junto al té o el café.",
     matiz: "No tomes suplementos de hierro sin un examen: el exceso también hace daño. Si sangras mucho, pide que te midan la ferritina.",
     fuente: "Institutos Nacionales de Salud de EE. UU. (NIH), hoja informativa de hierro.",
   },
@@ -238,7 +238,7 @@ export const AYUDAS: { tema: string; grado: Grado; dice: string; matiz: string; 
   {
     tema: "Calor y jengibre para los cólicos",
     grado: "prometedor",
-    dice: "El calor local alivia los cólicos. El jengibre en polvo, en los primeros días de regla, alivió el dolor más que un placebo y de forma parecida a los antiinflamatorios.",
+    dice: "El calor local alivia los cólicos. El jengibre en polvo, en los primeros días de menstruación, alivió el dolor más que un placebo y de forma parecida a los antiinflamatorios.",
     matiz: "Los estudios del jengibre son pocos y con dosis distintas (en general de 750 a 2.000 mg al día los primeros tres días).",
     fuente: "Metaanálisis de jengibre en dismenorrea primaria, 2021.",
   },
@@ -271,14 +271,14 @@ export const POR_ETAPA: { etapa: string; consejos: string[] }[] = [
     etapa: "Adolescencia",
     consejos: [
       "Comer suficiente para crecer y moverse: el hueso que se gana ahora es el que se tiene después.",
-      "Hierro y calcio todos los días, sobre todo si la regla es abundante.",
-      "Anotar las reglas desde el principio: es la mejor forma de saber qué es normal para ti.",
+      "Hierro y calcio todos los días, sobre todo si la menstruación es abundante.",
+      "Anotar las menstruaciones desde el principio: es la mejor forma de saber qué es normal para ti.",
     ],
   },
   {
     etapa: "Edad reproductiva",
     consejos: [
-      "Hierro suficiente mientras haya regla, y examen si sangras mucho.",
+      "Hierro suficiente mientras haya menstruación, y examen si sangras mucho.",
       "Ejercicio regular y buen sueño: ayudan con el dolor y los síntomas premenstruales.",
       "Si piensas en un embarazo, el ácido fólico se empieza antes, no cuando ya estás embarazada.",
     ],
@@ -289,7 +289,7 @@ export const POR_ETAPA: { etapa: string; consejos: string[] }[] = [
       "Entrenamiento de fuerza dos o tres veces por semana: es lo que más cuida el músculo y el hueso que empiezan a perderse.",
       "Proteína suficiente en cada comida, calcio y vitamina D.",
       "Dormir y limitar el alcohol, que empeora los bochornos y el sueño.",
-      "Llevar el calendario: los cambios de ritmo de la regla son el mejor indicador de en qué parte de la transición estás.",
+      "Llevar el calendario: los cambios de ritmo de la menstruación son el mejor indicador de en qué parte de la transición estás.",
     ],
   },
   {
@@ -349,15 +349,15 @@ export const DISRUPTORES_QUE_HACER = [
 /* ── Cuándo consultar ──────────────────────────────────── */
 
 export const CONSULTAR = [
-  "No llega la primera regla a los 15 años.",
-  "La regla no llega en tres meses o más (y no hay embarazo), o tus ciclos duran menos de 21 días o más de 45.",
+  "No llega la primera menstruación a los 15 años.",
+  "La menstruación no llega en tres meses o más (y no hay embarazo), o tus ciclos duran menos de 21 días o más de 45.",
   "Sangras más de 8 días, empapas una toalla o tampón cada una o dos horas, o tienes coágulos grandes.",
-  "Sangras entre reglas o después de tener relaciones.",
+  "Sangras entre menstruaciones o después de tener relaciones.",
   "El dolor no se calma con los remedios habituales o te hace faltar a tus cosas.",
-  "El ánimo antes de la regla cambia tanto que afecta tu vida o tus relaciones, o tienes pensamientos de hacerte daño.",
+  "El ánimo antes de la menstruación cambia tanto que afecta tu vida o tus relaciones, o tienes pensamientos de hacerte daño.",
   "Tienes acné fuerte o vello en la cara o el pecho junto con ciclos irregulares.",
-  "Te falta la regla y has bajado de peso, comes poco o entrenas mucho.",
-  "Cualquier sangrado después de un año sin regla.",
+  "Te falta la menstruación y has bajado de peso, comes poco o entrenas mucho.",
+  "Cualquier sangrado después de un año sin menstruación.",
   "La menopausia llega antes de los 40.",
 ];
 
@@ -367,7 +367,7 @@ export const MITOS: { mito: string; realidad: string }[] = [
   {
     mito: "La ovulación es el día 14",
     realidad:
-      "Solo en una minoría. La ovulación ocurre unos 12 a 14 días antes de la regla siguiente, y como la primera mitad del ciclo varía tanto, cae en días muy distintos. Por eso los calendarios no sirven como anticonceptivo.",
+      "Solo en una minoría. La ovulación ocurre unos 12 a 14 días antes de la menstruación siguiente, y como la primera mitad del ciclo varía tanto, cae en días muy distintos. Por eso los calendarios no sirven como anticonceptivo.",
   },
   {
     mito: "Un examen de hormonas dice si estás «desbalanceada»",
@@ -390,33 +390,33 @@ export const MITOS: { mito: string; realidad: string }[] = [
       "No es un diagnóstico reconocido por ninguna sociedad de endocrinología, y una revisión sistemática concluyó que no existe como enfermedad. El cansancio es real y merece estudio, pero por otras causas: anemia, tiroides, sueño, ánimo.",
   },
   {
-    mito: "La regla «limpia» o «desintoxica» el cuerpo",
+    mito: "La menstruación «limpia» o «desintoxica» el cuerpo",
     realidad:
       "La sangre menstrual es sangre y tejido del útero, no toxinas. Tampoco hay que «limpiar el hígado» para equilibrar los estrógenos: el hígado ya lo hace solo.",
   },
   {
     mito: "Si tomo anticonceptivos tengo fases",
     realidad:
-      "Los anticonceptivos hormonales combinados frenan la ovulación: no hay fase folicular ni lútea propias. El sangrado de la semana de descanso es un sangrado por suspensión, no una regla. Por eso la app no calcula fases en ese caso.",
+      "Los anticonceptivos hormonales combinados frenan la ovulación: no hay fase folicular ni lútea propias. El sangrado de la semana de descanso es un sangrado por suspensión, no una menstruación. Por eso la app no calcula fases en ese caso.",
   },
 ];
 
 export const PREGUNTAS: { p: string; r: string }[] = [
   {
     p: "¿Puedo usar la app para no quedar embarazada?",
-    r: "No. La app estima la ovulación a partir de tus reglas pasadas, y la ovulación cambia de un ciclo a otro. Los métodos de conciencia de la fertilidad que funcionan miden cosas como la temperatura o el moco cervical todos los días, y se aprenden con alguien capacitado.",
+    r: "No. La app estima la ovulación a partir de tus menstruaciones pasadas, y la ovulación cambia de un ciclo a otro. Los métodos de conciencia de la fertilidad que funcionan miden cosas como la temperatura o el moco cervical todos los días, y se aprenden con alguien capacitado.",
   },
   {
     p: "¿Cuántos ciclos hacen falta para que las predicciones sirvan?",
     r: "Al menos tres. Con menos, la app usa 28 días como punto de partida y lo dice. Mientras más ciclos registres, mejor conoce tu patrón; aun así, es una estimación.",
   },
   {
-    p: "¿Mi regla es abundante?",
+    p: "¿Mi menstruación es abundante?",
     r: "Si interfiere con tu vida, sí: si te levantas de noche a cambiarte, si necesitas doble protección, si manchas la ropa o te hace faltar a tus cosas. No hace falta medir mililitros.",
   },
   {
     p: "Tengo 45 y mis ciclos están raros. ¿Es la perimenopausia?",
-    r: "Es lo más probable, sobre todo si el ritmo cambia siete días o más respecto de lo tuyo. Pero un sangrado muy abundante, entre reglas o después de las relaciones se consulta igual, a cualquier edad.",
+    r: "Es lo más probable, sobre todo si el ritmo cambia siete días o más respecto de lo tuyo. Pero un sangrado muy abundante, entre menstruaciones o después de las relaciones se consulta igual, a cualquier edad.",
   },
   {
     p: "¿Dónde quedan mis datos?",

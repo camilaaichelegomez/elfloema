@@ -6,7 +6,7 @@ import { BotonInstalar } from "@/components/BotonInstalar";
 import { Ciclo } from "@/components/ciclo/Ciclo";
 import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker";
 
-/* Ciclo dentro de Florecer: el calendario de la regla y de cómo te
+/* Ciclo dentro de Florecer: el calendario de la menstruación y de cómo te
    sientes, la fase de hoy y los consejos según la etapa.
 
    No lleva <Sincroniza />: son datos de salud y se quedan en el teléfono.
@@ -15,7 +15,7 @@ import { RegistrarServiceWorker } from "@/components/lab/RegistrarServiceWorker"
 export const metadata: Metadata = {
   title: "Ciclo — El Floema",
   description:
-    "Anota tu regla y cómo te sientes, mira en qué fase vas y recibe consejos según tu etapa. Todo se guarda solo en tu teléfono.",
+    "Anota tu menstruación y cómo te sientes, mira en qué fase vas y recibe consejos según tu etapa. Todo se guarda solo en tu teléfono.",
   manifest: "/florecer/manifest.webmanifest",
   icons: { apple: "/icon-flor-180.png" },
 };
@@ -33,7 +33,7 @@ export default function CicloPage() {
         <header style={{ margin: "0 0 1.1rem" }}>
           <p style={rotulo}>Hormonas y ciclo</p>
           <h1 style={h1}>Ciclo</h1>
-          <p style={texto}>Tu regla y cómo te sientes, día a día. Se guarda solo en este teléfono.</p>
+          <p style={texto}>Tu menstruación y cómo te sientes, día a día. Se guarda solo en este teléfono.</p>
         </header>
 
         <BotonInstalar nombre="Florecer" />

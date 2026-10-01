@@ -21,6 +21,8 @@ export type Pedido = {
   sucursal: string | null;
   comentarios: string | null;
   despachado: boolean;
+  seguimiento: string | null;
+  empresa_envio: string | null;
   creado: string;
   pagado: string | null;
 };
@@ -35,6 +37,9 @@ export function PedidosManager({ inicial }: { inicial: Pedido[] }) {
   const [pedidos, setPedidos] = useState(inicial);
   const [error, setError] = useState<string | null>(null);
 
+  /* Volver atrás es solo un cambio de estado: va directo a la base, como
+     antes. Lo que no puede ir por acá es despachar, porque manda el correo a
+     la clienta y la clave de Resend no puede andar en el navegador. */
   async function marcar(p: Pedido, despachado: boolean) {
     setError(null);
     setPedidos((xs) => xs.map((x) => (x.id === p.id ? { ...x, despachado } : x)));
@@ -43,6 +48,28 @@ export function PedidosManager({ inicial }: { inicial: Pedido[] }) {
       setPedidos((xs) => xs.map((x) => (x.id === p.id ? { ...x, despachado: !despachado } : x)));
       setError(`No se pudo guardar: ${err.message}`);
     }
+  }
+
+  /* Marcar como despachado Y avisarle a la clienta, en un solo gesto: el
+     correo que recibió al comprar le prometió este aviso. */
+  async function despachar(p: Pedido, seguimiento: string, empresa: string) {
+    setError(null);
+    const res = await fetch("/api/lab/despachar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: p.id, seguimiento, empresa }),
+    });
+    const r = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      setError(r.error ?? "No se pudo despachar.");
+      return { ok: false as const };
+    }
+    setPedidos((xs) =>
+      xs.map((x) =>
+        x.id === p.id ? { ...x, despachado: true, seguimiento: seguimiento || null, empresa_envio: empresa || null } : x
+      )
+    );
+    return { ok: true as const, correo: r.correo as { ok: boolean; causa?: string } };
   }
 
   const porEnviar = pedidos.filter((p) => p.estado === "pagado" && !p.despachado);
@@ -63,7 +90,7 @@ export function PedidosManager({ inicial }: { inicial: Pedido[] }) {
 
       <Grupo titulo={`Por despachar (${porEnviar.length})`} vacio="Nada pendiente. Todo va en camino. 🌿">
         {porEnviar.map((p) => (
-          <Tarjeta key={p.id} p={p} onMarcar={marcar} />
+          <Tarjeta key={p.id} p={p} onMarcar={marcar} onDespachar={despachar} />
         ))}
       </Grupo>
 
@@ -107,7 +134,15 @@ const ETIQUETA: Record<Pedido["estado"], string> = {
   anulado: "Anulado",
 };
 
-function Tarjeta({ p, onMarcar }: { p: Pedido; onMarcar?: (p: Pedido, v: boolean) => void }) {
+function Tarjeta({
+  p,
+  onMarcar,
+  onDespachar,
+}: {
+  p: Pedido;
+  onMarcar?: (p: Pedido, v: boolean) => void;
+  onDespachar?: (p: Pedido, seguimiento: string, empresa: string) => Promise<{ ok: boolean; correo?: { ok: boolean; causa?: string } }>;
+}) {
   const destino = p.metodo_envio === "sucursal" ? `Sucursal Correos: ${p.sucursal ?? "—"}` : p.direccion ?? "—";
   return (
     <article style={{ ...tarjeta, opacity: p.estado === "pagado" ? 1 : 0.7 }}>
@@ -146,12 +181,84 @@ function Tarjeta({ p, onMarcar }: { p: Pedido; onMarcar?: (p: Pedido, v: boolean
         )}
       </dl>
 
-      {onMarcar && (
-        <button type="button" onClick={() => onMarcar(p, !p.despachado)} style={p.despachado ? botonSec : boton}>
-          {p.despachado ? "Volver a «por despachar»" : "Marcar como despachado ✓"}
-        </button>
+      {p.despachado && p.seguimiento && (
+        <p style={{ ...nota, fontStyle: "normal", marginTop: "0.9rem", fontSize: "0.9rem" }}>
+          Seguimiento <strong style={{ color: GOLD }}>{p.seguimiento}</strong>
+          {p.empresa_envio ? ` · ${p.empresa_envio}` : ""} · ya se le avisó por correo.
+        </p>
+      )}
+
+      {onDespachar && !p.despachado ? (
+        <Despacho p={p} onDespachar={onDespachar} />
+      ) : (
+        onMarcar && (
+          <button type="button" onClick={() => onMarcar(p, !p.despachado)} style={p.despachado ? botonSec : boton}>
+            {p.despachado ? "Volver a «por despachar»" : "Marcar como despachado ✓"}
+          </button>
+        )
       )}
     </article>
+  );
+}
+
+/* El paso de despachar: pegar el número de seguimiento y listo. El correo a
+   la clienta sale desde acá, porque es justo lo que se le prometió cuando
+   compró. Se puede despachar sin número —a veces no hay—, pero entonces se
+   avisa que no se mandó nada, para que no quede la duda. */
+function Despacho({
+  p,
+  onDespachar,
+}: {
+  p: Pedido;
+  onDespachar: (p: Pedido, seguimiento: string, empresa: string) => Promise<{ ok: boolean; correo?: { ok: boolean; causa?: string } }>;
+}) {
+  const [seguimiento, setSeguimiento] = useState("");
+  const [empresa, setEmpresa] = useState("");
+  const [mandando, setMandando] = useState(false);
+  const [resultado, setResultado] = useState<{ ok: boolean; causa?: string } | null>(null);
+
+  async function enviar() {
+    setMandando(true);
+    const r = await onDespachar(p, seguimiento.trim(), empresa.trim());
+    setMandando(false);
+    if (r.ok && r.correo) setResultado(r.correo);
+  }
+
+  if (resultado) {
+    return (
+      <p style={{ ...nota, fontStyle: "normal", marginTop: "1rem", fontSize: "0.9rem", color: resultado.ok ? "#9fc98a" : "#e0a04a" }}>
+        {resultado.ok
+          ? `Despachado. Le avisamos a ${p.email ?? "la clienta"} con el seguimiento.`
+          : `Quedó marcado como despachado, pero el correo no salió: ${resultado.causa}`}
+      </p>
+    );
+  }
+
+  return (
+    <div style={{ marginTop: "1rem", borderTop: "1px solid rgba(200,160,80,0.18)", paddingTop: "0.9rem" }}>
+      <p style={{ ...nota, fontStyle: "normal", margin: "0 0 0.6rem", fontSize: "0.85rem" }}>
+        Al despachar, se le manda el seguimiento a {p.email ?? "la clienta"}.
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+        <input
+          value={seguimiento}
+          onChange={(e) => setSeguimiento(e.target.value)}
+          placeholder="Número de seguimiento"
+          aria-label={`Número de seguimiento del pedido ${p.orden}`}
+          style={{ ...campo, flex: "2 1 11rem" }}
+        />
+        <input
+          value={empresa}
+          onChange={(e) => setEmpresa(e.target.value)}
+          placeholder="Empresa (opcional)"
+          aria-label={`Empresa de envío del pedido ${p.orden}`}
+          style={{ ...campo, flex: "1 1 8rem" }}
+        />
+      </div>
+      <button type="button" onClick={enviar} disabled={mandando} style={boton}>
+        {mandando ? "Mandando…" : "Despachado · avisar a la clienta ✓"}
+      </button>
+    </div>
   );
 }
 
@@ -183,6 +290,17 @@ const insignia: CSSProperties = {
 const dt: CSSProperties = { opacity: 0.6 };
 const dd: CSSProperties = { margin: 0, overflowWrap: "anywhere" };
 const enlace: CSSProperties = { color: CREAM, textDecorationColor: "rgba(200,160,80,0.5)" };
+const campo: CSSProperties = {
+  fontFamily: "var(--font-body)",
+  fontSize: "0.95rem",
+  color: CREAM,
+  background: "rgba(6,10,6,0.6)",
+  border: "1px solid rgba(200,160,80,0.3)",
+  borderRadius: 4,
+  padding: "0.6rem 0.7rem",
+  minHeight: 44,
+  minWidth: 0,
+};
 const boton: CSSProperties = {
   marginTop: "1rem",
   fontFamily: "var(--font-cinzel), serif",

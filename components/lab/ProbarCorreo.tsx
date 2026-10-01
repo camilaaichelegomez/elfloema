@@ -10,11 +10,18 @@ export function ProbarCorreo() {
   const [estado, setEstado] = useState<"quieto" | "mandando" | "listo" | "falla">("quieto");
   const [causa, setCausa] = useState<string | null>(null);
 
-  async function probar() {
+  const [cual, setCual] = useState<string | null>(null);
+
+  async function probar(tipo: string) {
     setEstado("mandando");
+    setCual(tipo);
     setCausa(null);
     try {
-      const res = await fetch("/api/lab/probar-correo", { method: "POST" });
+      const res = await fetch("/api/lab/probar-correo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tipo }),
+      });
       const r = await res.json();
       if (r.ok) {
         setEstado("listo");
@@ -32,13 +39,28 @@ export function ProbarCorreo() {
     <section style={caja}>
       <p style={titulo}>El aviso por correo</p>
       <p style={nota}>
-        Cuando alguien pague en la tienda te llega un correo con qué compró y a dónde mandarlo. Acá
-        podés comprobar que funciona sin tener que comprar nada.
+        La tienda manda tres correos: uno a vos cuando entra un pedido, y dos a la clienta —la
+        confirmación al pagar y el aviso con el seguimiento cuando sale. Acá te los podés mandar a vos
+        misma para verlos, sin comprar nada.
       </p>
 
-      <button type="button" onClick={probar} disabled={estado === "mandando"} style={boton}>
-        {estado === "mandando" ? "Mandando…" : "Mandarme un correo de prueba"}
-      </button>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+        {[
+          ["venta", "El aviso que me llega a mí"],
+          ["confirmacion", "La confirmación que recibe la clienta"],
+          ["envio", "El aviso de envío con seguimiento"],
+        ].map(([tipo, texto]) => (
+          <button
+            key={tipo}
+            type="button"
+            onClick={() => probar(tipo)}
+            disabled={estado === "mandando"}
+            style={boton}
+          >
+            {estado === "mandando" && cual === tipo ? "Mandando…" : texto}
+          </button>
+        ))}
+      </div>
 
       {estado === "listo" && (
         <p style={{ ...nota, color: "#9fc98a", fontStyle: "normal", marginTop: "0.9rem" }}>

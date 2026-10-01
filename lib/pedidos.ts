@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { estadoPago, NOMBRE_ESTADO } from "@/lib/flow";
 import { estadoPagoMP } from "@/lib/mercadopago";
-import { avisarVenta } from "@/lib/correo";
+import { avisarVenta, confirmarPedido } from "@/lib/correo";
 
 /* Los pedidos de la tienda, guardados en la tabla `pedidos` de Supabase.
 
@@ -127,9 +127,17 @@ async function anotarEstado(
       .eq("orden", orden);
 
     /* Recién cuando pasa a pagado, y una sola vez: la condición de arriba ya
-       impide repetirlo si Mercado Pago manda el aviso dos veces. El correo no
-       puede voltear la venta, así que sus errores quedan en los registros. */
-    if (estado === "pagado") await avisarVenta(pedido);
+       impide repetirlo si Mercado Pago manda el aviso dos veces. Los correos
+       no pueden voltear la venta, así que sus errores quedan en los registros.
+
+       Son dos: el aviso para Camila (qué se vendió y a dónde mandarlo) y el
+       acuse de recibo para la clienta. El segundo promete que el pedido sale
+       en tres días hábiles y que va a llegar otro correo con el seguimiento;
+       ese segundo correo sale del Lab al marcar el pedido como despachado. */
+    if (estado === "pagado") {
+      await avisarVenta(pedido);
+      await confirmarPedido(pedido);
+    }
   }
 
   return { orden, estado: pedido?.estado === "pagado" ? "pagado" : estado };

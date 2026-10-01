@@ -40,6 +40,7 @@ const NAV: NavGroup[] = [
       { href: "/meditacion", label: "Meditación", hint: "La práctica y toda la teoría" },
       { href: "/fuerza", label: "Fuerza", hint: "Masa muscular con tu propio cuerpo" },
       { href: "/hipopresivos", label: "Hipopresivos", hint: "Respiración y pausa, guiadas" },
+      { href: "/ciclo", label: "Ciclo", hint: "Tu menstruación, tus síntomas y tu fase" },
     ],
   },
   { label: "El Floema Lab", href: "/lab" },

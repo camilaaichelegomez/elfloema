@@ -323,8 +323,8 @@ export default function BibliotecaPage() {
         </div>
 
         <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", fontSize: "clamp(0.92rem, 2vw, 1.05rem)", color: "rgba(212,196,160,0.55)", textAlign: "center", maxWidth: 620, margin: "0 auto clamp(20px, 3vh, 32px)", padding: "0 clamp(1.25rem, 3vw, 2.5rem)", lineHeight: 1.7 }}>
-          Yoga, meditación, fuerza, hipopresivos y drenaje linfático: de dónde vienen, cómo se hacen y qué está
-          probado. La teoría de lo que las apps de Florecer te hacen practicar.
+          Yoga, meditación, fuerza, hipopresivos, el ciclo menstrual y drenaje linfático: de dónde vienen, cómo
+          funcionan y qué está probado. La teoría de lo que las apps de Florecer te hacen practicar.
         </p>
 
         <div style={{

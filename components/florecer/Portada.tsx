@@ -182,6 +182,12 @@ const SECCIONES = [
     sena: "habitos",
   },
   {
+    href: "/ciclo",
+    titulo: "Ciclo",
+    linea: "Tu regla y cómo te sientes, la fase de hoy y qué ayuda.",
+    sena: "ciclo",
+  },
+  {
     href: "/meditacion",
     titulo: "Meditación",
     linea: "Sentarse un rato, y toda la teoría de por qué sirve.",

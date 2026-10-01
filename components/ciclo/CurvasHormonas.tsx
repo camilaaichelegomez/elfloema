@@ -49,7 +49,7 @@ const CURVAS = [
 ];
 
 const FASES = [
-  { nombre: "Regla", desde: 1, hasta: 5 },
+  { nombre: "Menstruación", desde: 1, hasta: 5 },
   { nombre: "Folicular", desde: 5, hasta: 13 },
   { nombre: "Ovulación", desde: 13, hasta: 15.5 },
   { nombre: "Lútea", desde: 15.5, hasta: 28 },
@@ -72,7 +72,7 @@ export function CurvasHormonas() {
         viewBox={`0 0 ${ANCHO} ${ALTO}`}
         width="100%"
         role="img"
-        aria-label="Esquema de un ciclo de 28 días: el estradiol sube en la fase folicular y llega a su máximo justo antes de la ovulación; ahí se dispara la LH y sube algo la FSH; después de la ovulación sube la progesterona, que llega a su máximo a mitad de la fase lútea, y todo cae antes de la regla."
+        aria-label="Esquema de un ciclo de 28 días: el estradiol sube en la fase folicular y llega a su máximo justo antes de la ovulación; ahí se dispara la LH y sube algo la FSH; después de la ovulación sube la progesterona, que llega a su máximo a mitad de la fase lútea, y todo cae antes de la menstruación."
         style={{ display: "block", maxWidth: "100%" }}
       >
         {/* Las fases, como bandas suaves detrás de las curvas. */}

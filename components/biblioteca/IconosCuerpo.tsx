@@ -111,7 +111,7 @@ function IconCostillas() {
 }
 
 /* Un ciclo: un círculo con las cuatro fases marcadas y una gota en lo alto,
-   donde empieza la regla. Mismo trazo y mismo dorado. */
+   donde empieza la menstruación. Mismo trazo y mismo dorado. */
 function IconCiclo() {
   return (
     <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">

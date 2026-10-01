@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { Desplegable } from "@/components/florecer/Desplegable";
 import {
   CONSEJO_ETAPA,
@@ -69,6 +69,12 @@ export function Ciclo() {
      menstruación ese día: así se puede anotar días después, de un toque por
      día, sin pasar por el formulario. */
   const [modo, setModo] = useState<"menstruacion" | "anotar">("menstruacion");
+  /* El botón «Guardar» confirma lo que ya se guarda solo (y guarda la nota,
+     que si no se guarda al salir del cuadro). «Borrar este día» pide un
+     segundo toque. */
+  const [guardado, setGuardado] = useState(false);
+  const [borrandoDia, setBorrandoDia] = useState(false);
+  const notaRef = useRef<HTMLTextAreaElement>(null);
 
   if (!datos) return <div style={{ minHeight: 320 }} aria-busy="true" />;
 
@@ -183,6 +189,8 @@ export function Ciclo() {
           elegir={(t) => {
             setElegido(t);
             setBorrando(false);
+            setBorrandoDia(false);
+            setGuardado(false);
             if (modo === "menstruacion") {
               const f = datos.dias[t]?.flujo;
               cambiarDia(t, { flujo: f && f !== "nada" ? undefined : "medio" });
@@ -241,6 +249,7 @@ export function Ciclo() {
         <label style={{ display: "block", marginTop: "0.9rem" }}>
           <span style={subrotulo}>Nota</span>
           <textarea
+            ref={notaRef}
             key={elegido}
             defaultValue={datos.dias[elegido]?.nota ?? ""}
             onBlur={(e) => cambiarDia(elegido, { nota: e.target.value })}
@@ -250,8 +259,45 @@ export function Ciclo() {
             style={nota}
           />
         </label>
+        <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", marginTop: "0.9rem" }}>
+          <button
+            type="button"
+            data-sin-marca
+            style={{ ...botonPri, marginTop: 0, flex: "1 1 160px", width: "auto" }}
+            onClick={() => {
+              cambiarDia(elegido, { nota: notaRef.current?.value ?? "" });
+              setGuardado(true);
+              setBorrandoDia(false);
+              window.setTimeout(() => setGuardado(false), 2500);
+            }}
+          >
+            {guardado ? "Guardado ✓" : "Guardar"}
+          </button>
+          {datos.dias[elegido] &&
+            (borrandoDia ? (
+              <button
+                type="button"
+                style={{ ...botonSec, flex: "1 1 160px", borderColor: "rgba(221,148,100,0.7)", color: "#e8a07a" }}
+                onClick={() => {
+                  const dias = { ...datos.dias };
+                  delete dias[elegido];
+                  guardar({ ...datos, dias });
+                  if (notaRef.current) notaRef.current.value = "";
+                  setBorrandoDia(false);
+                }}
+              >
+                Sí, borrar este día
+              </button>
+            ) : (
+              <button type="button" style={{ ...botonSec, flex: "1 1 160px" }} onClick={() => setBorrandoDia(true)}>
+                Borrar este día
+              </button>
+            ))}
+        </div>
         <p style={{ ...linea, fontSize: "0.85rem", opacity: 0.65, marginTop: "0.5rem" }}>
-          Se guarda solo, en este teléfono.
+          {borrandoDia
+            ? "Se borra todo lo anotado ese día: menstruación, síntomas y nota."
+            : "Lo que marcas se guarda al tiro, en este teléfono. Para borrar un síntoma o la menstruación de un día, tócalo de nuevo."}
         </p>
       </section>
 

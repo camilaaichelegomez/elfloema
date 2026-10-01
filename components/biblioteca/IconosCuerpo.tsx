@@ -110,6 +110,20 @@ function IconCostillas() {
   );
 }
 
+/* Un ciclo: un círculo con las cuatro fases marcadas y una gota en lo alto,
+   donde empieza la regla. Mismo trazo y mismo dorado. */
+function IconCiclo() {
+  return (
+    <svg width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+      <circle cx="19" cy="25" r="13" stroke="#c8a050" strokeWidth="0.9" opacity="0.6" />
+      <path d="M19,12 L19,16 M32,25 L28,25 M19,38 L19,34 M6,25 L10,25" stroke="#c8a050" strokeWidth="0.8" opacity="0.5" strokeLinecap="round" />
+      <path d="M19,3 C16,7 15,9 15,10.5 C15,12.7 16.8,14 19,14 C21.2,14 23,12.7 23,10.5 C23,9 22,7 19,3 Z" stroke="#c8a050" strokeWidth="0.9" opacity="0.65" />
+      <path d="M26,16 C30,19 31,23 30,27" stroke="#5a7a3a" strokeWidth="0.7" opacity="0.5" fill="none" strokeLinecap="round" />
+      <circle cx="19" cy="25" r="3" stroke="#c8a050" strokeWidth="0.7" opacity="0.4" />
+    </svg>
+  );
+}
+
 export const SECCIONES_CUERPO = [
   {
     key: "yoga-origen",
@@ -150,6 +164,14 @@ export const SECCIONES_CUERPO = [
     desc: "Qué son, cómo se hacen, qué está probado y qué no (no reemplazan a los ejercicios de suelo pélvico) y cuándo no se hacen.",
     href: "/biblioteca/hipopresivos",
     Icon: IconCostillas,
+  },
+  {
+    key: "ciclo",
+    label: "El ciclo menstrual",
+    subtitle: "Hormonas, etapas y señales",
+    desc: "Cómo cambian las hormonas en cada fase y a lo largo de la vida, qué es normal, qué ayuda, los disruptores endocrinos y cuándo consultar.",
+    href: "/biblioteca/ciclo-menstrual",
+    Icon: IconCiclo,
   },
   {
     key: "drenaje",

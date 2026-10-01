@@ -78,6 +78,15 @@ export const SENAS: Record<string, ReactNode> = {
       <path d="M21 45 L20 58 M41 45 L42 58" />
     </>
   ),
+  /* Ciclo: una luna que crece alrededor de una gota, donde empieza la
+     regla. */
+  ciclo: (
+    <>
+      <circle cx="31" cy="34" r="20" opacity="0.5" />
+      <path d="M31 14 a20 20 0 0 1 0 40" />
+      <path d="M31 24 q-6 8 -6 12 a6 6 0 0 0 12 0 q0 -4 -6 -12" />
+    </>
+  ),
   habitos: (
     <>
       <rect x="14" y="12" width="12" height="12" rx="2" />

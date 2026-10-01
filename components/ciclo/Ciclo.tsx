@@ -65,6 +65,10 @@ export function Ciclo() {
   const [elegido, setElegido] = useState(fecha);
   const [mes, setMes] = useState(() => fecha.slice(0, 7));
   const [borrando, setBorrando] = useState(false);
+  /* Qué hace tocar un día del calendario. Por defecto, marca o desmarca la
+     menstruación ese día: así se puede anotar días después, de un toque por
+     día, sin pasar por el formulario. */
+  const [modo, setModo] = useState<"menstruacion" | "anotar">("menstruacion");
 
   if (!datos) return <div style={{ minHeight: 320 }} aria-busy="true" />;
 
@@ -162,6 +166,15 @@ export function Ciclo() {
 
       {/* ── Calendario ───────────────────── */}
       <section style={panel} aria-label="Calendario">
+        <p style={{ ...subrotulo, marginTop: 0 }}>Al tocar un día</p>
+        <div style={{ ...chips, marginBottom: "0.9rem" }}>
+          <button type="button" style={chip} aria-pressed={modo === "menstruacion"} onClick={() => setModo("menstruacion")}>
+            Marcar menstruación
+          </button>
+          <button type="button" style={chip} aria-pressed={modo === "anotar"} onClick={() => setModo("anotar")}>
+            Anotar síntomas
+          </button>
+        </div>
         <Calendario
           datos={datos}
           mes={mes}
@@ -170,7 +183,14 @@ export function Ciclo() {
           elegir={(t) => {
             setElegido(t);
             setBorrando(false);
+            if (modo === "menstruacion") {
+              const f = datos.dias[t]?.flujo;
+              cambiarDia(t, { flujo: f && f !== "nada" ? undefined : "medio" });
+            } else {
+              document.getElementById("ciclo-anotar")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
           }}
+          modo={modo}
           conFases={conFases}
         />
       </section>
@@ -482,6 +502,7 @@ function Calendario({
   setMes,
   elegido,
   elegir,
+  modo,
   conFases,
 }: {
   datos: DatosCiclo;
@@ -489,6 +510,7 @@ function Calendario({
   setMes: (m: string) => void;
   elegido: string;
   elegir: (t: string) => void;
+  modo: "menstruacion" | "anotar";
   conFases: boolean;
 }) {
   const fecha = hoy();
@@ -610,7 +632,10 @@ function Calendario({
         })}
       </div>
       <p style={{ ...linea, fontSize: "0.82rem", opacity: 0.7, margin: "0.7rem 0 0" }}>
-        Toca un día para anotarlo. Relleno: sangrado. Punto: síntomas o nota.
+        {modo === "menstruacion"
+          ? "Toca cada día que tuviste menstruación para marcarlo; tócalo de nuevo para quitarlo. Puedes ir a meses anteriores con las flechas. Abajo puedes cambiar la cantidad."
+          : "Toca un día para anotar cómo te sentiste."}{" "}
+        Relleno: menstruación. Punto: síntomas o nota.
         {conFases ? " Borde punteado: menstruación prevista (rojizo) y ovulación estimada (dorado)." : ""}
       </p>
     </div>

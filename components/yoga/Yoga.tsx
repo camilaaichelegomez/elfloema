@@ -547,7 +547,15 @@ export function Yoga() {
       ? [...recientes.current, r.pasos.map((x) => x.id)].slice(-2)
       : [r.pasos.map((x) => x.id)];
     if (otra) {
-      setAviso("Otra práctica, con posturas distintas ✓");
+      /* Se dice qué cambió, con nombres: si solo se cambia la lista, en el
+         teléfono no se nota y parece que el botón no hizo nada. */
+      const antes = new Set(rutina?.pasos.map((x) => x.id) ?? []);
+      const nuevas = [...new Map(r.pasos.filter((x) => !antes.has(x.id)).map((x) => [x.id, x.nombre])).values()];
+      setAviso(
+        nuevas.length === 0
+          ? "Con tus preferencias de hoy no hay más posturas distintas. Prueba cambiar los objetivos o los minutos."
+          : `Práctica nueva: ${nuevas.length} ${nuevas.length === 1 ? "postura distinta" : "posturas distintas"} (${nuevas.slice(0, 4).join(", ")}${nuevas.length > 4 ? "…" : ""}).`
+      );
       cajaRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     setRutina(r);
@@ -1139,7 +1147,7 @@ export function Yoga() {
           </div>
           <div style={{ display: "flex", gap: "0.8rem" }}>
             <button type="button" onClick={() => armar(prefs, true)} style={botonLink}>
-              Armar otra
+              Armar otra ↻
             </button>
             <button
               type="button"
@@ -1154,7 +1162,24 @@ export function Yoga() {
           </div>
         </div>
 
-        {aviso && <p style={{ ...ayuda, marginTop: "0.7rem", marginBottom: 0, color: "#a8c88a" }}>{aviso}</p>}
+        {aviso && (
+          <p
+            key={aviso}
+            role="status"
+            className="aviso-yoga"
+            style={{
+              ...ayuda,
+              margin: "0.8rem 0 0",
+              padding: "0.7rem 0.9rem",
+              border: "1px solid rgba(232,200,120,0.6)",
+              borderRadius: 8,
+              background: "rgba(200,160,80,0.14)",
+              color: "#f0dca8",
+            }}
+          >
+            {aviso}
+          </p>
+        )}
 
         {/* En qué escalón va la progresión. Se dice en palabras, no con una
             barra de experiencia: esto no es un juego. */}

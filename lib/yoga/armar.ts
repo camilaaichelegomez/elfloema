@@ -388,9 +388,14 @@ type Elegido =
   | { tipo: "paso"; paso: Paso; segundos: number }
   | { tipo: "secuencia"; sec: Secuencia; vueltas: number };
 
-export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>): Rutina {
+/** `evitar`: posturas y series de las prácticas recién armadas. Pesan menos,
+    para que «Armar otra» traiga algo distinto en vez de lo mismo. Lo que
+    entra sí o sí (la base) no se toca. */
+export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>, evitar?: Set<string>): Rutina {
   const quitadas = quitadasPorCuidado(prefs);
   const deChakras = posturasDeChakras(prefs.chakras ?? []);
+  const valor = (c: Parameters<typeof puntaje>[0]) =>
+    puntaje(c, prefs, deChakras, vistas) - (evitar?.has(c.id) ? 5 : 0);
   const disponibles = CATALOGO.filter((p) => !p.soloEnSecuencia && pasaElFiltro(p, prefs));
 
   const objetivoSegundos = prefs.minutos * 60;
@@ -428,7 +433,7 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
         secuenciaDisponible(s, prefs) &&
         respondeALoPedido(s, prefs, deChakras) &&
         !s.pasos.some((id) => usados.has(id) && !POR_ID.get(id)?.base)
-    ).sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas));
+    ).sort((a, b) => valor(b) - valor(a));
 
     /* Una serie puede pasarse de su fase, porque repetir es su gracia. Pero
        el saludo al sol se pasaba tanto que se comía un tercio de la clase:
@@ -470,7 +475,7 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
     let puestas = (porFaseElegido.get(fase) ?? []).filter((e) => e.tipo === "paso").length;
     const candidatos = disponibles
       .filter((p) => p.fase === fase && !usados.has(p.id))
-      .sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas));
+      .sort((a, b) => valor(b) - valor(a));
 
     for (const paso of candidatos) {
       if (puestas >= tope) break;
@@ -520,7 +525,7 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
       if (yaPuestas >= (MAX_POR_FASE[fase] ?? 99)) continue;
       const siguiente = disponibles
         .filter((p) => p.fase === fase && !usados.has(p.id))
-        .sort((a, b) => puntaje(b, prefs, deChakras, vistas) - puntaje(a, prefs, deChakras, vistas))
+        .sort((a, b) => valor(b) - valor(a))
         .find((p) => conLado(p, minimoDe(p)) <= resto);
       if (!siguiente) continue;
       usados.add(siguiente.id);

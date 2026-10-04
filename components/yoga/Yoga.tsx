@@ -29,6 +29,7 @@ import {
   mmss,
   type Cuidado,
   type Estilo,
+  type Momento,
   type Objetivo,
   type Preferencias,
   type Prop,
@@ -84,7 +85,21 @@ type Guardado = {
   /** Cuántas veces se practicó cada postura. Con eso la app evita repetir
       siempre lo mismo y puede traer algo nuevo cuando hay constancia. */
   vistas?: Record<string, number>;
+  /** Las preferencias guardadas para cada momento del día: la práctica de
+      la mañana y la de la noche no son la misma. */
+  porMomento?: Partial<Record<Momento, Preferencias>>;
 };
+
+/** El momento del día según la hora: así, al abrir, se carga la práctica
+    que corresponde. */
+const PARA_MOMENTO: Record<Momento, string> = { manana: "la mañana", dia: "la media jornada", noche: "la noche" };
+
+function momentoAhora(): Momento {
+  const h = new Date().getHours();
+  if (h >= 5 && h < 12) return "manana";
+  if (h >= 12 && h < 18) return "dia";
+  return "noche";
+}
 
 const hoy = () => new Date().toISOString().slice(0, 10);
 const ayer = () => {
@@ -108,7 +123,9 @@ function leerGuardado(): Guardado | null {
 
 function guardar(g: Guardado) {
   try {
-    localStorage.setItem(CLAVE, JSON.stringify(g));
+    // Lo guardado por momento no se pierde cuando se guarda otra cosa.
+    const previo = g.porMomento ? null : leerGuardado();
+    localStorage.setItem(CLAVE, JSON.stringify(previo?.porMomento ? { ...g, porMomento: previo.porMomento } : g));
   } catch {
     /* Modo privado o almacenamiento lleno: la práctica funciona igual, solo
        que hay que volver a responder la próxima vez. */
@@ -253,6 +270,10 @@ export function Yoga() {
   const [racha, setRacha] = useState(0);
   const [historial, setHistorial] = useState<Sesion[]>([]);
   const [vistas, setVistas] = useState<Record<string, number>>({});
+  const [porMomento, setPorMomento] = useState<Partial<Record<Momento, Preferencias>>>({});
+  /* Las posturas de las últimas prácticas armadas: «Armar otra» las evita. */
+  const recientes = useRef<string[][]>([]);
+  const [aviso, setAviso] = useState<string | null>(null);
 
   const [indice, setIndice] = useState(0);
   const [restante, setRestante] = useState(0);
@@ -295,7 +316,14 @@ export function Yoga() {
   useEffect(() => {
     const g = leerGuardado();
     if (g) {
-      setPrefs(g.prefs);
+      const ahora = momentoAhora();
+      const guardadas = g.porMomento?.[ahora];
+      const p = guardadas
+        ? { ...PREFERENCIAS_POR_DEFECTO, ...guardadas }
+        : { ...g.prefs, momento: ahora };
+      g.prefs = p;
+      setPorMomento(g.porMomento ?? {});
+      setPrefs(p);
       setRacha(g.ultimoDia === hoy() || g.ultimoDia === ayer() ? g.racha : 0);
       setHistorial(g.historial ?? []);
       setVistas(g.vistas ?? {});
@@ -304,6 +332,7 @@ export function Yoga() {
           { ...g.prefs, impulso: impulsoPorConstancia((g.historial ?? []).map((x) => x.dia)) },
           g.vistas
         );
+        recientes.current = [r.pasos.map((x) => x.id)];
         setRutina(r);
         setRestante(r.pasos[0]?.duracion ?? 0);
         setEtapa("rutina");
@@ -478,14 +507,25 @@ export function Yoga() {
   const guardarPrefs = useCallback((p: Preferencias) => {
     setPrefs(p);
     const g = leerGuardado();
+    const nuevas = { ...(g?.porMomento ?? {}), [p.momento]: p };
+    setPorMomento(nuevas);
     guardar({
       prefs: p,
       racha: g?.racha ?? 0,
       ultimoDia: g?.ultimoDia ?? "",
       historial: g?.historial ?? [],
       vistas: g?.vistas ?? {},
+      porMomento: nuevas,
     });
+    setAviso(`Guardado para ${PARA_MOMENTO[p.momento]} ✓. Se carga sola a esa hora.`);
   }, []);
+
+  /** Cambiar de momento trae lo guardado para ese momento, si hay. */
+  function elegirMomento(m: Momento) {
+    const guardadas = porMomento[m];
+    setPrefs(guardadas ? { ...PREFERENCIAS_POR_DEFECTO, ...guardadas } : { ...prefs, momento: m });
+    setAviso(null);
+  }
 
   /** Qué agua suena. Quien guardó antes de que existiera no tiene ninguna. */
   function agua(p: Preferencias): Agua {
@@ -496,11 +536,20 @@ export function Yoga() {
     return lista.includes(valor) ? lista.filter((x) => x !== valor) : [...lista, valor];
   }
 
-  function armar(p: Preferencias = prefs) {
+  function armar(p: Preferencias = prefs, otra = false) {
+    const evitar = otra ? new Set(recientes.current.flat()) : undefined;
     const r = armarRutina(
       { ...p, impulso: impulsoPorConstancia(historial.map((x) => x.dia)) },
-      vistas
+      vistas,
+      evitar
     );
+    recientes.current = otra
+      ? [...recientes.current, r.pasos.map((x) => x.id)].slice(-2)
+      : [r.pasos.map((x) => x.id)];
+    if (otra) {
+      setAviso("Otra práctica, con posturas distintas ✓");
+      cajaRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     setRutina(r);
     setIndice(0);
     setRestante(r.pasos[0]?.duracion ?? 0);
@@ -1023,11 +1072,12 @@ export function Yoga() {
             <button
               key={m.id}
               type="button"
-              onClick={() => setPrefs({ ...prefs, momento: m.id })}
+              onClick={() => elegirMomento(m.id)}
               aria-pressed={prefs.momento === m.id}
               style={{ ...chip, ...(prefs.momento === m.id ? chipActivo : null), padding: "0.45rem 0.7rem" }}
             >
               {m.label}
+              {porMomento[m.id] ? " ★" : ""}
             </button>
           ))}
         </div>
@@ -1050,9 +1100,14 @@ export function Yoga() {
             Armar la práctica
           </button>
           <button type="button" onClick={() => guardarPrefs(prefs)} style={botonSec}>
-            Guardar estos cambios
+            Guardar para {PARA_MOMENTO[prefs.momento]}
           </button>
         </div>
+        {aviso && <p style={{ ...ayuda, marginTop: "0.6rem", color: "#a8c88a" }}>{aviso}</p>}
+        <p style={{ ...ayuda, marginTop: "0.6rem" }}>
+          Puedes guardar una práctica distinta para la mañana, la media jornada y la noche: al abrir la app se
+          carga la que corresponde a la hora. La ★ marca los momentos que ya tienen la suya.
+        </p>
 
         <button type="button" onClick={() => setEtapa("preferencias")} style={{ ...botonLink, marginTop: "1rem" }}>
           Cambiar todas mis preferencias
@@ -1075,20 +1130,31 @@ export function Yoga() {
       <div ref={cajaRef} style={{ ...panel, scrollMarginTop: "5.5rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", flexWrap: "wrap" }}>
           <div>
-            <p style={{ ...paso, marginBottom: "0.2rem" }}>Tu práctica</p>
+            <p style={{ ...paso, marginBottom: "0.2rem" }}>
+              Tu práctica · {MOMENTOS.find((m) => m.id === prefs.momento)?.label.toLowerCase()}
+            </p>
             <p style={{ ...ayuda, margin: 0 }}>
               {rutina.pasos.length} pasos · {mmss(rutina.segundos)}
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.8rem" }}>
-            <button type="button" onClick={() => armar()} style={botonLink}>
+            <button type="button" onClick={() => armar(prefs, true)} style={botonLink}>
               Armar otra
             </button>
-            <button type="button" onClick={() => setEtapa("resumen")} style={botonLink}>
+            <button
+              type="button"
+              onClick={() => {
+                setAviso(null);
+                setEtapa("resumen");
+              }}
+              style={botonLink}
+            >
               Cambiar
             </button>
           </div>
         </div>
+
+        {aviso && <p style={{ ...ayuda, marginTop: "0.7rem", marginBottom: 0, color: "#a8c88a" }}>{aviso}</p>}
 
         {/* En qué escalón va la progresión. Se dice en palabras, no con una
             barra de experiencia: esto no es un juego. */}

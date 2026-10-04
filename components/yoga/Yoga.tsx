@@ -641,13 +641,13 @@ export function Yoga() {
 
         <Pregunta
           n={3}
-          titulo="¿A qué hora practicas normalmente?"
-          nota="De mañana pesa el movimiento; de noche, todo baja hacia el suelo."
+          titulo="¿Para qué momento es esta práctica?"
+          nota="De mañana pesa el movimiento; de noche, todo baja hacia el suelo. Puedes responder una vez para cada momento: cada una queda guardada aparte."
         >
           <Chips
             opciones={MOMENTOS}
             activo={(m) => prefs.momento === m.id}
-            onClick={(m) => setPrefs({ ...prefs, momento: m.id })}
+            onClick={(m) => elegirMomento(m.id)}
           />
         </Pregunta>
 
@@ -1011,7 +1011,7 @@ export function Yoga() {
           disabled={prefs.objetivos.length === 0}
           style={{ ...botonPri, width: "100%", opacity: prefs.objetivos.length === 0 ? 0.45 : 1 }}
         >
-          Guardar y armar mi práctica
+          Guardar para {PARA_MOMENTO[prefs.momento]} y armar
         </button>
         {prefs.objetivos.length === 0 && (
           <p style={{ ...ayuda, marginTop: "0.7rem" }}>Marca al menos una cosa que quieras trabajar.</p>
@@ -1059,22 +1059,10 @@ export function Yoga() {
 
         <p style={rotulo}>¿Hoy cambió algo?</p>
         <p style={{ ...ayuda, marginBottom: "0.6rem" }}>
-          Lo que toques acá vale solo para esta práctica, salvo que lo guardes.
+          Elige el momento y ajusta lo que quieras. Vale solo para hoy, salvo que lo guardes: así puedes
+          tener una práctica para la mañana y otra para la noche.
         </p>
-
-        <div style={{ ...fila, marginBottom: "0.7rem" }}>
-          {MINUTOS.map((m) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => setPrefs({ ...prefs, minutos: m })}
-              aria-pressed={prefs.minutos === m}
-              style={{ ...chip, ...(prefs.minutos === m ? chipActivo : null), minWidth: 74, padding: "0.45rem 0.7rem" }}
-            >
-              {m} min
-            </button>
-          ))}
-        </div>
+        <p style={{ ...rotulo, fontSize: "0.6rem", margin: "0.4rem 0 0.4rem" }}>El momento</p>
         <div style={{ ...fila, marginBottom: "0.7rem" }}>
           {MOMENTOS.map((m) => (
             <button
@@ -1086,6 +1074,35 @@ export function Yoga() {
             >
               {m.label}
               {porMomento[m.id] ? " ★" : ""}
+            </button>
+          ))}
+        </div>
+        <p style={{ ...rotulo, fontSize: "0.6rem", margin: "0.4rem 0 0.4rem" }}>Qué quieres trabajar</p>
+        <div style={{ ...fila, marginBottom: "0.7rem" }}>
+          {OBJETIVOS.map((o) => (
+            <button
+              key={o.id}
+              type="button"
+              onClick={() => setPrefs({ ...prefs, objetivos: alternar(prefs.objetivos, o.id) })}
+              aria-pressed={prefs.objetivos.includes(o.id)}
+              style={{ ...chip, ...(prefs.objetivos.includes(o.id) ? chipActivo : null), padding: "0.45rem 0.7rem" }}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+        <p style={{ ...rotulo, fontSize: "0.6rem", margin: "0.4rem 0 0.4rem" }}>Minutos e intensidad</p>
+
+        <div style={{ ...fila, marginBottom: "0.7rem" }}>
+          {MINUTOS.map((m) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setPrefs({ ...prefs, minutos: m })}
+              aria-pressed={prefs.minutos === m}
+              style={{ ...chip, ...(prefs.minutos === m ? chipActivo : null), minWidth: 74, padding: "0.45rem 0.7rem" }}
+            >
+              {m} min
             </button>
           ))}
         </div>
@@ -1107,7 +1124,12 @@ export function Yoga() {
           <button type="button" onClick={() => armar()} style={{ ...botonPri, flex: "1 1 220px" }}>
             Armar la práctica
           </button>
-          <button type="button" onClick={() => guardarPrefs(prefs)} style={botonSec}>
+          <button
+            type="button"
+            onClick={() => guardarPrefs(prefs)}
+            disabled={prefs.objetivos.length === 0}
+            style={{ ...botonSec, opacity: prefs.objetivos.length === 0 ? 0.45 : 1 }}
+          >
             Guardar para {PARA_MOMENTO[prefs.momento]}
           </button>
         </div>

@@ -124,6 +124,30 @@ function IconCiclo() {
   );
 }
 
+/* Siete centros ensartados en un eje: el esquema, reducido a lo mínimo. */
+function IconChakras() {
+  return (
+    <svg viewBox="0 0 38 48" width="38" height="48" fill="none" aria-hidden="true">
+      <path d="M19,8 L19,40" stroke="#c8a050" strokeWidth="0.8" opacity="0.4" strokeDasharray="2 2.5" />
+      {[
+        [8, "#7a4a8a"],
+        [13.3, "#4a4a8c"],
+        [18.6, "#4a7c8c"],
+        [23.9, "#5a7a3a"],
+        [29.2, "#c8a050"],
+        [34.5, "#c9742e"],
+        [39.8, "#b03a2e"],
+      ].map(([y, color]) => (
+        <g key={y as number}>
+          <circle cx="19" cy={y as number} r="3.1" fill={color as string} opacity="0.26" />
+          <circle cx="19" cy={y as number} r="1.7" fill={color as string} opacity="0.85" />
+        </g>
+      ))}
+      <path d="M12,44 C15,41 23,41 26,44" stroke="#c8a050" strokeWidth="0.8" opacity="0.4" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export const SECCIONES_CUERPO = [
   {
     key: "yoga-origen",
@@ -180,6 +204,14 @@ export const SECCIONES_CUERPO = [
     desc: "Cómo se mueve la linfa en todo el cuerpo, el bombeo de ganglios, saltar, y qué dicen los estudios.",
     href: "/biblioteca/drenaje-linfatico",
     Icon: IconLinfa,
+  },
+  {
+    key: "chakras",
+    label: "Los chakras",
+    subtitle: "La tradición, entera y honesta",
+    desc: "Los siete, uno por uno: dónde van, qué se le atribuye a cada uno, de dónde vienen de verdad y qué de lo que se repite es invención del siglo XX.",
+    href: "/biblioteca/chakras",
+    Icon: IconChakras,
   },
   {
     key: "cara",

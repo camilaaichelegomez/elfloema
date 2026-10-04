@@ -760,28 +760,37 @@ export function Yoga() {
                   aria-pressed={activo}
                   style={{
                     ...chip,
-                    display: "flex",
-                    gap: "0.7rem",
-                    alignItems: "baseline",
+                    display: "block",
+                    textAlign: "left",
+                    padding: "0.7rem 0.9rem",
                     ...(activo ? chipActivo : null),
                   }}
                 >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      background: c.color,
-                      flexShrink: 0,
-                      alignSelf: "center",
-                    }}
-                  />
-                  <span style={{ minWidth: 92, color: activo ? "#e8c878" : "#d4c4a0" }}>
-                    {c.nombre}
+                  {/* Dónde está, qué se le atribuye y qué se trabaja de
+                      verdad: con las tres cosas se elige bien. */}
+                  <span style={{ display: "flex", gap: "0.6rem", alignItems: "baseline", flexWrap: "wrap" }}>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: "50%",
+                        background: c.color,
+                        flexShrink: 0,
+                        alignSelf: "center",
+                      }}
+                    />
+                    <span style={{ color: activo ? "#e8c878" : "#e2d4b0", fontSize: "1rem" }}>
+                      {c.nombre} <span style={{ opacity: 0.6, fontSize: "0.82rem" }}>· {c.sanscrito}</span>
+                    </span>
+                    <span style={{ fontSize: "0.82rem", opacity: 0.65 }}>{c.donde}</span>
                   </span>
-                  <span style={{ fontSize: "0.82rem", opacity: 0.62 }}>
-                    {activo ? c.enElCuerpo : c.donde}
+                  <span style={{ display: "block", fontSize: "0.86rem", lineHeight: 1.5, marginTop: "0.35rem", opacity: 0.9 }}>
+                    <span style={{ color: "#c8a050" }}>Se le atribuye:</span>{" "}
+                    {c.tradicion.replace(/^Se le atribuye lo relacionado con /, "")}
+                  </span>
+                  <span style={{ display: "block", fontSize: "0.86rem", lineHeight: 1.5, marginTop: "0.2rem", opacity: 0.9 }}>
+                    <span style={{ color: "#a8c88a" }}>En tu cuerpo:</span> {c.enElCuerpo}
                   </span>
                 </button>
               );

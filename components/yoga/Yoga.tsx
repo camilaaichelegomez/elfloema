@@ -984,6 +984,58 @@ export function Yoga() {
 
         <Pregunta
           n={13}
+          titulo="¿Qué saludo al sol?"
+          nota="Hay tres. El clásico baja al suelo por el saludo de ocho puntos y la cobra. El A cambia eso por plancha, chaturanga y perro arriba. El B agrega la silla y el guerrero uno a cada lado, y es el más largo."
+        >
+          <div style={fila}>
+            {(
+              [
+                ["auto", "El que elija la app", "Según lo que pediste"],
+                ["sol-clasico", "Clásico", "Ocho puntos y cobra"],
+                ["sol-a", "Saludo A", "Con chaturanga"],
+                ["sol-b", "Saludo B", "Con silla y guerrero"],
+                ["no", "Ninguno", "Sin saludos al sol"],
+              ] as [NonNullable<Preferencias["saludo"]>, string, string][]
+            ).map(([id, label, detalle]) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setPrefs({ ...prefs, saludo: id })}
+                aria-pressed={(prefs.saludo ?? "auto") === id}
+                style={{ ...chip, ...((prefs.saludo ?? "auto") === id ? chipActivo : null) }}
+              >
+                <span style={{ fontSize: "0.94rem", display: "block" }}>{label}</span>
+                <span style={{ fontSize: "0.79rem", opacity: 0.62, display: "block" }}>{detalle}</span>
+              </button>
+            ))}
+          </div>
+
+          {(prefs.saludo ?? "auto") !== "no" && (
+            <div style={{ marginTop: "0.9rem" }}>
+              <p style={{ ...ayuda, margin: "0 0 0.4rem" }}>¿Cuántas vueltas?</p>
+              <div style={fila}>
+                {([0, 1, 2, 3, 4, 5] as number[]).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setPrefs({ ...prefs, vueltasSaludo: v })}
+                    aria-pressed={(prefs.vueltasSaludo ?? 0) === v}
+                    style={{
+                      ...chip,
+                      ...((prefs.vueltasSaludo ?? 0) === v ? chipActivo : null),
+                      minWidth: v === 0 ? 150 : 70,
+                    }}
+                  >
+                    {v === 0 ? "Las que quepan" : v}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </Pregunta>
+
+        <Pregunta
+          n={14}
           titulo="¿Quieres que la práctica vaya subiendo?"
           nota="Con la constancia, la app elige posturas algo más exigentes, sostiene un poco más cada una y trae cosas que no has hecho. Sube lento: un mes practicando tres veces por semana para llegar al tope."
         >

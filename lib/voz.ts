@@ -20,6 +20,11 @@ import { useCallback, useEffect, useRef } from "react";
    Nota de iOS: Safari no deja hablar hasta que la persona toca algo. Por eso
    `desbloquear` se llama desde el botón de empezar, no desde el temporizador. */
 
+/* Más lento que el ajuste de fábrica. Una instrucción de yoga dicha al
+   ritmo de una noticia no se puede seguir: hay que alcanzar a colocar el
+   cuerpo mientras se escucha. */
+export const VELOCIDAD_POR_DEFECTO = 0.85;
+
 type Opciones = {
   /** Más bajo que 1 = más lento. La guía de una práctica va lenta. */
   velocidad?: number;
@@ -99,7 +104,7 @@ export function usarVoz(activa: boolean, nombreElegido?: string) {
   }, []);
 
   const decir = useCallback(
-    (texto: string, { velocidad = 0.92, enCola = false }: Opciones = {}) => {
+    (texto: string, { velocidad = VELOCIDAD_POR_DEFECTO, enCola = false }: Opciones = {}) => {
       if (!activa || !texto) return;
       if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
       const turno = ++turnoRef.current;
@@ -109,7 +114,11 @@ export function usarVoz(activa: boolean, nombreElegido?: string) {
           if (vozRef.current) frase.voice = vozRef.current;
           frase.lang = vozRef.current?.lang ?? "es-ES";
           frase.rate = velocidad;
-          frase.pitch = 1;
+          /* Un poco más grave y un poco más baja que el ajuste de fábrica:
+             la voz del navegador a volumen y tono plenos suena a locutor de
+             aeropuerto, y esto es alguien guiando una práctica. */
+          frase.pitch = 0.96;
+          frase.volume = 0.9;
           /* Avisa cuándo empieza y termina de hablar, para que la música de
              fondo baje mientras tanto y la instrucción se entienda. */
           frase.onstart = () => window.dispatchEvent(new Event("floema-voz-inicio"));

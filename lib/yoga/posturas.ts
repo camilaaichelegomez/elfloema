@@ -153,11 +153,11 @@ export const POSTURAS: Paso[] = [
     mejoraCon: ["manta"],
     evita: ["munecas", "rodillas"],
     prioridad: 3,
+    /* Un solo dibujo: los dos que había mostraban la cadera yendo hacia los
+       talones, que es otro ejercicio. Acá la cadera dibuja círculos sin
+       moverse de sitio, y eso lo explica el texto mejor que una segunda
+       figura equivocada. */
     figura: "cuadrupedia",
-    formas: [
-      { figura: "cuadrupedia", texto: "Adelante: hombros sobre las manos" },
-      { figura: "cadera_atras", texto: "Atrás: la cadera hacia los talones" },
-    ],
   },
   {
     id: "cal-aguja",

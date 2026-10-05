@@ -172,18 +172,18 @@ export function Hipopresivos() {
     const p = pasos[iActual];
     if (!p) return;
     if (p.fase === "acomodarse") {
-      decir(guionDeLaPostura(p.postura), { velocidad: 0.95 });
+      decir(guionDeLaPostura(p.postura), { velocidad: 0.86 });
     } else if (p.fase === "exhala" && p.respiracion === 2) {
       // La segunda ya se entiende sola: basta el círculo.
       return;
     } else if (p.fase === "inhala" && p.respiracion === 2) {
-      decir("Otra igual de profunda", { velocidad: 0.9 });
+      decir("Otra igual de profunda", { velocidad: 0.84 });
     } else if (p.fase === "inhala" && p.respiracion === 3) {
-      decir("La tercera: toma aire profundo", { velocidad: 0.9 });
+      decir("La tercera: toma aire profundo", { velocidad: 0.84 });
     } else {
       // En la pausa, si la postura mueve algo (Atenea sube los brazos), se dice ahí.
       const extra = p.fase === "pausa" && p.postura.enPausa ? ` ${p.postura.enPausa}` : "";
-      decir(`${FRASE[p.fase]}.${extra}`, { velocidad: 0.9 });
+      decir(`${FRASE[p.fase]}.${extra}`, { velocidad: 0.84 });
     }
   }, [iActual, pasos, decir]);
 

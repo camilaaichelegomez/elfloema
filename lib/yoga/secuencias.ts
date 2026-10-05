@@ -71,15 +71,18 @@ export const SECUENCIAS: Secuencia[] = [
       "pie-pinza",
       "sal-brazos-arriba",
     ],
-    // Un movimiento por respiración, salvo el perro, que se sostiene.
-    segundos: [5, 5, 5, 6, 5, 4, 5, 18, 6, 5, 8],
+    /* Un movimiento por respiración, salvo el perro, que se sostiene cinco.
+       La plancha dura dos segundos porque no es una respiración propia: se
+       pasa por ella bajando al saludo de ocho puntos, en la misma
+       exhalación. */
+    segundos: [5, 5, 5, 6, 2, 6, 5, 35, 6, 5, 8],
     guion: [
       "De pie, manos juntas al pecho. Siente los dos pies en el suelo.",
       "Inhala: sube los brazos y estírate todo lo que puedas.",
       "Exhala: baja las manos a los pies y suelta la cabeza.",
       "Inhala: lleva la pierna {pierna} atrás, en estocada, y abre el pecho.",
-      "Exhala: la pierna {otra} atrás. Plancha: el cuerpo en una línea.",
-      "Exhala: rodillas al suelo, y baja el pecho y el mentón entre las manos.",
+      "Exhala: la pierna {otra} atrás, a la plancha.",
+      "Sin tomar aire, en la misma exhalación: rodillas al suelo, y el pecho y el mentón entre las manos.",
       "Inhala: desliza el pecho adelante y sube a la cobra.",
       "Exhala: perro mirando hacia abajo. Quédate cinco respiraciones.",
       "Inhala: pie {pierna} entre las manos, otra vez en estocada.",
@@ -87,7 +90,7 @@ export const SECUENCIAS: Secuencia[] = [
       "Inhala: sube con la espalda larga, brazos arriba. Exhala: manos al pecho.",
     ],
     vueltas: 3,
-    vueltasMin: 2,
+    vueltasMin: 1,
     vueltasMax: 6,
     estilos: ["hatha", "vinyasa"],
     objetivos: ["energia", "flexibilidad", "postura", "fuerza"],
@@ -118,7 +121,8 @@ export const SECUENCIAS: Secuencia[] = [
       "pie-pinza",
       "sal-brazos-arriba",
     ],
-    segundos: [5, 5, 5, 4, 4, 4, 4, 25, 5, 5, 8],
+    // El perro son cinco respiraciones: no bajan de treinta segundos.
+    segundos: [5, 5, 5, 4, 4, 4, 4, 35, 5, 5, 8],
     guion: [
       "De pie, manos juntas al pecho, los dos pies firmes.",
       "Inhala: manos arriba, estírate lo más que puedas.",
@@ -133,7 +137,7 @@ export const SECUENCIAS: Secuencia[] = [
       "Inhala: sube con la espalda larga, manos arriba. Exhala: manos al pecho.",
     ],
     vueltas: 3,
-    vueltasMin: 2,
+    vueltasMin: 1,
     vueltasMax: 5,
     estilos: ["vinyasa", "ashtanga"],
     objetivos: ["energia", "fuerza", "flexibilidad"],
@@ -172,7 +176,8 @@ export const SECUENCIAS: Secuencia[] = [
       "pie-pinza",
       "pie-silla",
     ],
-    segundos: [5, 6, 5, 4, 4, 4, 6, 8, 4, 4, 6, 8, 4, 4, 20, 4, 5, 6],
+    // Los perros de en medio son de paso; el ultimo son cinco respiraciones.
+    segundos: [5, 6, 5, 4, 4, 4, 6, 8, 4, 4, 6, 8, 4, 4, 35, 4, 5, 6],
     guion: [
       "De pie, manos al pecho. Una respiración aquí.",
       "Inhala: dobla las rodillas y sube los brazos. La silla.",
@@ -194,7 +199,7 @@ export const SECUENCIAS: Secuencia[] = [
       "Inhala: dobla las rodillas y sube los brazos. Exhala: manos al pecho.",
     ],
     vueltas: 3,
-    vueltasMin: 2,
+    vueltasMin: 1,
     vueltasMax: 5,
     estilos: ["ashtanga", "vinyasa"],
     objetivos: ["energia", "fuerza", "piernas", "flexibilidad"],
@@ -213,7 +218,8 @@ export const SECUENCIAS: Secuencia[] = [
     nombre: "Despertar la columna",
     fase: "calentamiento",
     pasos: ["cal-gato-vaca", "cal-cadera-circulos", "cal-gato-equilibrio"],
-    segundos: [40, 35, 40],
+    // El último va por lado: treinta segundos cada uno y cinco para cambiar.
+    segundos: [40, 35, 65],
     vueltas: 2,
     vueltasMin: 1,
     vueltasMax: 3,

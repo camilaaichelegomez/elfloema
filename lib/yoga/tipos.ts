@@ -466,6 +466,10 @@ export type Preferencias = {
   /** Música de fondo generada en vivo. "auto" elige según la práctica: de
       noche o para calmarse, relajar; para energía o fuerza, activar. */
   musica: "auto" | "relajar" | "activar" | "no";
+  /** Qué saludo al sol. «auto» lo elige la app; «no» lo deja fuera. */
+  saludo?: "auto" | "no" | "sol-clasico" | "sol-a" | "sol-b";
+  /** Cuántas vueltas del saludo. 0 o sin poner: las que decida la app. */
+  vueltasSaludo?: number;
   /** Pulsos binaurales debajo de la música. Solo existen con audífonos y su
       evidencia es mixta: van apagados por defecto. */
   binaural: boolean;
@@ -499,6 +503,8 @@ export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   sonido: true,
   voz: true,
   musica: "auto",
+  saludo: "auto",
+  vueltasSaludo: 0,
   binaural: false,
   volumenMusica: 0.7,
   progresion: true,

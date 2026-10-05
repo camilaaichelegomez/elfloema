@@ -292,7 +292,7 @@ export const ACOMODARSE = 10;
 export function segundosDeVoz(texto: string) {
   const palabras = texto.trim().split(/\s+/).filter(Boolean).length;
   const pausas = (texto.match(/[.,;:]/g) ?? []).length;
-  return palabras / 2 + pausas * 0.3;
+  return palabras / 1.85 + pausas * 0.3;
 }
 
 /** Lo que se dice al entrar en una postura. */

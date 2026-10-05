@@ -426,8 +426,18 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
     let cupo = Math.round((peso / sumaPesos) * libre);
     if (cupo <= 0) continue;
 
+    /* Si pidió no hacer saludos al sol, esta fase no lleva serie ni nada
+       que la reemplace: el tiempo se reparte entre las demás. */
+    if (fase === "saludos" && prefs.saludo === "no") continue;
+
+    /* El saludo elegido a mano manda sobre el que escogería la app, siempre
+       que sea uno que pueda hacer: los filtros de seguridad —embarazo,
+       muñecas, presión— no se saltan por haberlo pedido. */
+    const saludoPedido =
+      fase === "saludos" && prefs.saludo && prefs.saludo !== "auto" ? prefs.saludo : null;
+
     /* 1. La secuencia primero: es el esqueleto de la fase. */
-    const seriesPosibles = SECUENCIAS.filter(
+    let seriesPosibles = SECUENCIAS.filter(
       (s) =>
         s.fase === fase &&
         secuenciaDisponible(s, prefs) &&
@@ -435,12 +445,21 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
         !s.pasos.some((id) => usados.has(id) && !POR_ID.get(id)?.base)
     ).sort((a, b) => valor(b) - valor(a));
 
+    if (saludoPedido) {
+      const soloEse = SECUENCIAS.filter((s) => s.id === saludoPedido && secuenciaDisponible(s, prefs));
+      // Si el que pidió no se puede hacer hoy, se queda la elección de la app.
+      if (soloEse.length > 0) seriesPosibles = soloEse;
+    }
+
     /* Una serie puede pasarse de su fase, porque repetir es su gracia. Pero
        el saludo al sol se pasaba tanto que se comía un tercio de la clase:
        ahí el margen es chico. */
     const cupoSerie = Math.round(cupo * (fase === "saludos" ? 1.12 : 1.45));
     for (const sec of seriesPosibles) {
-      if (costoSecuencia(sec, sec.vueltasMin) > cupoSerie) continue;
+      const aMano = saludoPedido === sec.id;
+      // Lo pedido a mano entra aunque se pase del rato de su fase: el resto
+      // de la práctica se encoge para dejarle sitio.
+      if (!aMano && costoSecuencia(sec, sec.vueltasMin) > cupoSerie) continue;
       // Cuántas vueltas caben: se parte de las que pide la serie y se sube si
       // sobra tiempo, porque repetir es la gracia.
       let vueltas = sec.vueltasMin;
@@ -453,6 +472,10 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
       // Si después de eso todavía sobra sitio, se suman vueltas: repetir es
       // justamente la gracia de una serie.
       while (vueltas < sec.vueltasMax && costoSecuencia(sec, vueltas + 1) <= cupoSerie) vueltas++;
+      // Y si pidió un número de vueltas, ese manda.
+      if (fase === "saludos" && prefs.vueltasSaludo) {
+        vueltas = Math.max(1, Math.min(sec.vueltasMax, prefs.vueltasSaludo));
+      }
       meter(fase, { tipo: "secuencia", sec, vueltas });
       for (const id of sec.pasos) {
         const dentro = POR_ID.get(id);
@@ -617,7 +640,10 @@ export function armarRutina(prefs: Preferencias, vistas?: Record<string, number>
 export function segundosDeVoz(texto: string) {
   const palabras = texto.trim().split(/\s+/).length;
   const pausas = (texto.match(/[.:,;]/g) ?? []).length;
-  return palabras / 2 + pausas * 0.3;
+  /* Algo menos de dos palabras por segundo: es lo que da la voz del
+     navegador a la velocidad a la que la dejamos, que es más lenta que la
+     de fábrica para poder seguir la instrucción con el cuerpo. */
+  return palabras / 1.85 + pausas * 0.3;
 }
 
 /* Un paso de serie dura lo que tarda la voz más un respiro para moverse.
@@ -644,6 +670,10 @@ function reservaDeAvisos(pasos: PasoRutina[]) {
   total += pasos.filter((p) => p.porLado && !p.secuencia).length * 5;
   return total;
 }
+
+/* Lo mínimo que se le da a cada lado de una postura por lado. Menos que
+   esto no alcanza para colocarse y respirar tres veces. */
+const MINIMO_POR_LADO = 30;
 
 function agregarAvisos(pasos: PasoRutina[]) {
   const avisar = (p: PasoRutina, texto: string) => {
@@ -675,14 +705,21 @@ function agregarAvisos(pasos: PasoRutina[]) {
     }
   }
 
-  // Posturas sueltas por lado: cinco segundos para cambiar, aparte.
+  /* Posturas por lado: la mitad del rato para cada lado y cinco segundos
+     para cambiar, con su aviso.
+
+     También dentro de una serie. Antes esto solo valía para las posturas
+     sueltas, así que un paso por lado metido en una serie —brazo y pierna
+     opuestos, por ejemplo— corría de corrido y nunca avisaba el cambio: un
+     lado se quedaba sin hacer.
+
+     No se parten las que ya van por lado por otra vía: cuando la serie
+     entera se repite a cada lado, cada paso suyo ya tiene su lado puesto. */
   for (const p of pasos) {
-    if (p.porLado && !p.secuencia) {
-      // Duración par: los dos lados iguales y en segundos enteros.
-      p.duracion = Math.round(p.duracion / 2) * 2;
-      p.transicion = 5;
-      p.duracion += 5;
-    }
+    if (!p.porLado || p.secuencia?.lado) continue;
+    const porLado = Math.max(MINIMO_POR_LADO, Math.round(p.duracion / 2));
+    p.transicion = 5;
+    p.duracion = porLado * 2 + p.transicion;
   }
 }
 

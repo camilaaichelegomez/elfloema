@@ -5,7 +5,8 @@ import { Celebracion } from "@/components/florecer/Celebracion";
 import { campana, contextoDeAudio } from "@/lib/campana";
 import { usarVoz } from "@/lib/voz";
 import {
-  ACOMODARSE,
+  guionDeLaPostura,
+  segundosParaAcomodarse,
   CONDICIONES,
   NIVELES,
   PAUTAS_COMUNES,
@@ -57,7 +58,7 @@ const CONSEJO_ESPERAR: Record<string, string> = {
 function pasosDe(posturas: Postura[], pausa: number, sinPausa: boolean): Paso[] {
   const pasos: Paso[] = [];
   posturas.forEach((postura, iPostura) => {
-    pasos.push({ postura, iPostura, rep: 0, fase: "acomodarse", segundos: ACOMODARSE });
+    pasos.push({ postura, iPostura, rep: 0, fase: "acomodarse", segundos: segundosParaAcomodarse(postura) });
     for (let rep = 1; rep <= REPETICIONES; rep++) {
       for (const t of tramosDeRepeticion(pausa, sinPausa)) {
         pasos.push({ postura, iPostura, rep, fase: t.fase, segundos: t.segundos, respiracion: t.respiracion });
@@ -68,11 +69,11 @@ function pasosDe(posturas: Postura[], pausa: number, sinPausa: boolean): Paso[] 
 }
 
 const FRASE: Record<Fase, string> = {
-  inhala: "Toma aire",
-  exhala: "Bota el aire",
-  vacia: "Bota todo el aire",
-  pausa: "Sin aire. Abre las costillas",
-  suelta: "Suelta, y respira tranquila",
+  inhala: "Toma aire profundo por la nariz",
+  exhala: "Y bótalo todo por la boca, con fuerza",
+  vacia: "Ahora bota todo el aire por la boca, con fuerza, hasta el final",
+  pausa: "Sin aire: hunde el estómago y abre las costillas. Aguanta hasta que ya no puedas",
+  suelta: "Suelta y respira normal. Tómate tu tiempo",
 };
 
 export function Hipopresivos() {
@@ -171,12 +172,14 @@ export function Hipopresivos() {
     const p = pasos[iActual];
     if (!p) return;
     if (p.fase === "acomodarse") {
-      decir(`${p.postura.nombre}. ${p.postura.pasos.join(" ")}`, { velocidad: 0.95 });
-    } else if (p.fase === "inhala" && p.respiracion && p.respiracion > 1) {
-      // Las respiraciones de en medio van en silencio: el círculo marca el ritmo.
+      decir(guionDeLaPostura(p.postura), { velocidad: 0.95 });
+    } else if (p.fase === "exhala" && p.respiracion === 2) {
+      // La segunda ya se entiende sola: basta el círculo.
       return;
-    } else if (p.fase === "exhala" && p.respiracion && p.respiracion > 1) {
-      return;
+    } else if (p.fase === "inhala" && p.respiracion === 2) {
+      decir("Otra igual de profunda", { velocidad: 0.9 });
+    } else if (p.fase === "inhala" && p.respiracion === 3) {
+      decir("La tercera: toma aire profundo", { velocidad: 0.9 });
     } else {
       // En la pausa, si la postura mueve algo (Atenea sube los brazos), se dice ahí.
       const extra = p.fase === "pausa" && p.postura.enPausa ? ` ${p.postura.enPausa}` : "";
@@ -284,9 +287,25 @@ export function Hipopresivos() {
               ))}
             </ol>
             <p style={{ ...ayuda, color: "#e8c878" }}>Acomódate: empezamos en {reloj.restante}</p>
+            {/* La instrucción entera tarda lo que tarda. Quien ya se la sabe
+                no tiene por qué esperarla: este botón salta a respirar. */}
+            <button
+              type="button"
+              onClick={() => {
+                callar();
+                const sig = reloj.i + 1;
+                if (sig < pasos.length) setReloj({ i: sig, restante: pasos[sig].segundos });
+              }}
+              style={{ ...botonSec, marginBottom: "0.9rem" }}
+            >
+              Ya estoy lista
+            </button>
           </>
         ) : (
           <>
+            {/* El dibujo se queda mientras se respira: sin él hay que
+                acordarse de memoria de cómo iba la postura. */}
+            <FiguraHipopresivo figura={p.postura.figura} nombre={p.postura.nombre} alto={150} />
             <Respiracion fase={p.fase} segundos={p.segundos} restante={reloj.restante} />
             <p aria-live="polite" style={faseTexto}>
               {TEXTO_FASE[p.fase]}
@@ -404,7 +423,7 @@ export function Hipopresivos() {
       <p style={ayuda}>
         {sesion.sinPausa
           ? "Tres respiraciones lentas y una exhalación larga, tres veces por postura."
-          : `Tres respiraciones y una pausa de ${sesion.pausa} segundos con las costillas abiertas, tres veces por postura.`}
+          : `Dos respiraciones profundas y, en la tercera, botas todo el aire y haces la apnea: hundes el estómago y abres las costillas, aguantando lo que aguantes. Tres veces por postura.`}
       </p>
 
       <ol style={{ listStyle: "none", margin: "0 0 1.2rem", padding: 0, display: "grid", gap: "0.45rem" }}>

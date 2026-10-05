@@ -259,21 +259,52 @@ export function posturasHasta(nivel: Nivel) {
 export type Fase = "inhala" | "exhala" | "vacia" | "pausa" | "suelta";
 
 export const TEXTO_FASE: Record<Fase, string> = {
-  inhala: "Toma aire a las costillas",
-  exhala: "Bota el aire lento",
-  vacia: "Bota todo, hasta el final",
-  pausa: "Sin aire: abre las costillas",
-  suelta: "Suelta y respira tranquila",
+  inhala: "Toma aire profundo por la nariz",
+  exhala: "Bótalo todo por la boca, con fuerza",
+  vacia: "Bota todo el aire, hasta el final",
+  pausa: "Sin aire: hunde el estómago y abre las costillas",
+  suelta: "Respira normal",
 };
 
-export const INHALA = 3;
+export const INHALA = 4;
 export const EXHALA = 5;
-export const VACIA = 5;
-export const SUELTA = 12;
+export const VACIA = 6;
 export const RESPIRACIONES = 3;
 export const REPETICIONES = 3;
-/** Tiempo para acomodarse en la postura antes de empezar las respiraciones. */
+
+/* La apnea y la vuelta a respirar, juntas, no bajan de treinta segundos: es
+   el rato que pidió Camila para que quepa aguantar lo que se aguante y
+   después recuperar el aire con calma, sin que la app apure. */
+export const MINIMO_APNEA_Y_VUELTA = 30;
+export const SUELTA_MINIMA = 12;
+
+export function segundosDeSoltar(pausa: number) {
+  return Math.max(SUELTA_MINIMA, MINIMO_APNEA_Y_VUELTA - pausa);
+}
+
+/** Mínimo para acomodarse, cuando la postura casi no tiene instrucción. */
 export const ACOMODARSE = 10;
+
+/* Lo que tarda una voz en leer un texto: unas dos palabras por segundo, más
+   un respiro en cada punto. La misma cuenta del Ritual de yoga. Sin esto, el
+   tramo para acomodarse se acababa antes de que la voz terminara de explicar
+   la postura, y la instrucción se cortaba a la mitad. */
+export function segundosDeVoz(texto: string) {
+  const palabras = texto.trim().split(/\s+/).filter(Boolean).length;
+  const pausas = (texto.match(/[.,;:]/g) ?? []).length;
+  return palabras / 2 + pausas * 0.3;
+}
+
+/** Lo que se dice al entrar en una postura. */
+export function guionDeLaPostura(p: { nombre: string; pasos: string[] }) {
+  return `${p.nombre}. ${p.pasos.join(" ")}`;
+}
+
+/** Cuánto dura el tramo de acomodarse: lo que tarde en decirse la postura
+    entera, más un respiro para colocarse. */
+export function segundosParaAcomodarse(p: { nombre: string; pasos: string[] }) {
+  return Math.max(ACOMODARSE, Math.ceil(segundosDeVoz(guionDeLaPostura(p)) + 4));
+}
 
 export type Tramo = { fase: Fase; segundos: number; respiracion?: number };
 
@@ -287,13 +318,14 @@ export function tramosDeRepeticion(pausa: number, sinPausa: boolean): Tramo[] {
     t.push({ fase: r === RESPIRACIONES ? "vacia" : "exhala", segundos: r === RESPIRACIONES ? VACIA : EXHALA, respiracion: r });
   }
   if (!sinPausa) t.push({ fase: "pausa", segundos: pausa });
-  t.push({ fase: "suelta", segundos: SUELTA });
+  t.push({ fase: "suelta", segundos: sinPausa ? SUELTA_MINIMA : segundosDeSoltar(pausa) });
   return t;
 }
 
-export function segundosPorPostura(pausa: number, sinPausa: boolean) {
+export function segundosPorPostura(pausa: number, sinPausa: boolean, postura?: { nombre: string; pasos: string[] }) {
   const rep = tramosDeRepeticion(pausa, sinPausa).reduce((s, t) => s + t.segundos, 0);
-  return ACOMODARSE + rep * REPETICIONES;
+  const acomodarse = postura ? segundosParaAcomodarse(postura) : ACOMODARSE + 14;
+  return acomodarse + rep * REPETICIONES;
 }
 
 /* ── Guardado ───────────────────────────────────────────────── */
@@ -399,9 +431,23 @@ export function armarSesion(g: Guardado): Sesion {
   const { nivel, minutos } = g.prefs;
   const pausa = NIVELES.find((n) => n.id === nivel)!.pausa;
   const sinPausa = g.seguridad.sinPausa;
-  const cuantas = Math.max(1, Math.floor((minutos * 60) / segundosPorPostura(pausa, sinPausa)));
-
   const disponibles = posturasHasta(nivel);
+
+  /* Cuántas caben en el rato elegido. Se cuenta postura por postura y no con
+     un promedio, porque lo que tarda cada una depende de lo larga que sea su
+     instrucción: Venus se explica en cuarenta segundos y Maya en veinte. */
+  const tope = minutos * 60;
+  let gastado = 0;
+  let cuantas = 0;
+  for (let i = 0; i < 40; i++) {
+    const p = disponibles[(g.vuelta + i) % disponibles.length];
+    const c = segundosPorPostura(pausa, sinPausa, p);
+    if (cuantas > 0 && gastado + c > tope) break;
+    gastado += c;
+    cuantas++;
+  }
+  cuantas = Math.max(1, cuantas);
+
   const elegidas: Postura[] = [];
   const paso = Math.max(1, Math.min(cuantas, disponibles.length));
   for (let i = 0; elegidas.length < paso; i++) {

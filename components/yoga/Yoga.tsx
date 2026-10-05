@@ -1603,11 +1603,61 @@ export function Yoga() {
               max={1}
               step={0.05}
               value={prefs.volumenMusica}
-              onChange={(e) => setPrefs({ ...prefs, volumenMusica: Number(e.target.value) })}
+              onChange={(e) => guardarPrefs({ ...prefs, volumenMusica: Number(e.target.value) })}
               aria-label="Volumen de la música"
               style={{ flex: 1, accentColor: "#c8a050" }}
             />
           </label>
+        )}
+
+        {/* Qué suena, en plena práctica. Antes esto solo se podía elegir al
+            responder las preguntas, y recién con el cuerpo en el mat una sabe
+            si quiere algo que empuje o algo que baje. El cambio entra al tiro
+            en la música que ya está sonando. */}
+        {musicaRef.current && !musicaCallada && (
+          <div style={{ margin: "0.7rem auto 0", maxWidth: 320 }}>
+            <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap", justifyContent: "center" }}>
+              {(
+                [
+                  ["relajar", "Relajar"],
+                  ["activar", "Activar"],
+                ] as [ModoMusica, string][]
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => {
+                    guardarPrefs({ ...prefs, musica: id });
+                    musicaRef.current?.cambiarModo(id);
+                  }}
+                  aria-pressed={prefs.musica === id}
+                  style={{ ...chipChico, ...(prefs.musica === id ? chipActivo : null) }}
+                >
+                  {label}
+                </button>
+              ))}
+              {(
+                [
+                  ["ninguna", "Sin agua"],
+                  ["mar", "Mar"],
+                  ["rio", "Río"],
+                ] as [Agua, string][]
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => {
+                    guardarPrefs({ ...prefs, agua: id });
+                    musicaRef.current?.ajustarAgua(id);
+                  }}
+                  aria-pressed={agua(prefs) === id}
+                  style={{ ...chipChico, ...(agua(prefs) === id ? chipActivo : null) }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         <button
@@ -1766,6 +1816,16 @@ const chip: CSSProperties = {
   minHeight: 44,
   cursor: "pointer",
 };
+/* El mismo chip, en chico: los de elegir música en plena práctica tienen que
+   caber en una fila sin empujar los botones de pausa fuera de la pantalla. */
+const chipChico: CSSProperties = {
+  ...chip,
+  fontSize: "0.82rem",
+  textAlign: "center",
+  padding: "0 0.7rem",
+  minHeight: 38,
+};
+
 const chipActivo: CSSProperties = {
   borderColor: "#e8c878",
   background: "rgba(200,160,80,0.16)",

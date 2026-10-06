@@ -115,8 +115,35 @@ export const CUIDADOS: { id: Cuidado; label: string }[] = [
   { id: "embarazo", label: "Embarazo" },
 ];
 
+/* En qué enfocarse. No cambia que la rutina sea de cuerpo entero: lo que
+   hace es que esos movimientos salgan en todas las sesiones y con dos
+   ejercicios en vez de uno. Más series a la semana en ese músculo es
+   exactamente lo que muestra la curva dosis-respuesta. */
+export type Enfoque = "todo" | "gluteos" | "piernas" | "brazos" | "espalda" | "centro";
+
+export const ENFOQUES: { id: Enfoque; label: string; linea: string }[] = [
+  { id: "todo", label: "Todo parejo", linea: "El cuerpo entero, sin favoritos." },
+  { id: "gluteos", label: "Glúteos", linea: "Cadera y una pierna en todas las sesiones." },
+  { id: "piernas", label: "Piernas", linea: "Sentadilla, zancada y pantorrilla." },
+  { id: "brazos", label: "Brazos y hombros", linea: "Empujar hacia adelante y hacia arriba." },
+  { id: "espalda", label: "Espalda", linea: "Tirar y lo que sostiene el omóplato." },
+  { id: "centro", label: "Centro", linea: "Abdomen profundo y costados." },
+];
+
+/** Qué patrones toca cada enfoque. */
+export const PATRONES_DEL_ENFOQUE: Record<Enfoque, Patron[]> = {
+  todo: [],
+  gluteos: ["bisagra", "zancada"],
+  piernas: ["sentadilla", "zancada", "pantorrilla"],
+  brazos: ["empuje-horizontal", "empuje-vertical"],
+  espalda: ["traccion-horizontal", "escapulas"],
+  centro: ["core-antiextension", "core-lateral"],
+};
+
 export type Preferencias = {
   objetivo: Objetivo;
+  /** En qué enfocarse. Sin poner: todo parejo. */
+  enfoque?: Enfoque;
   /** Sesiones por semana. Dos ya sirven; tres es el punto dulce. */
   dias: 2 | 3 | 4;
   /** Minutos por sesión. */
@@ -130,6 +157,7 @@ export type Preferencias = {
 
 export const PREFERENCIAS_POR_DEFECTO: Preferencias = {
   objetivo: "empezar",
+  enfoque: "todo",
   dias: 3,
   minutos: 25,
   equipo: ["nada", "silla", "banda", "mochila"],

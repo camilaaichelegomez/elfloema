@@ -1,5 +1,6 @@
 import { EJERCICIOS, escalera } from "./ejercicios";
 import {
+  PATRONES_DEL_ENFOQUE,
   type Cuidado,
   type Ejercicio,
   type Equipo,
@@ -168,9 +169,22 @@ export function armarSesion(g: Guardado): Sesion {
   const plantillas = PLANTILLAS[prefs.dias];
   const plantilla = plantillas[g.vuelta % plantillas.length];
 
+  /* Lo elegido va primero y en todas las sesiones: primero porque se entrena
+     mejor con el cuerpo fresco, y en todas porque lo que hace crecer un
+     músculo son las series de la semana, no las de un día. */
+  const delEnfoque = PATRONES_DEL_ENFOQUE[prefs.enfoque ?? "todo"];
+  const resto = plantilla.patrones.filter((p) => !delEnfoque.includes(p));
+
+  /* Con enfoque entran dos movimientos más, así que en una sesión corta el
+     final de la lista se cae por tiempo. Para que no sea siempre el mismo el
+     que se pierde —el centro iba último en las tres plantillas y no aparecía
+     nunca—, el resto arranca en un punto distinto cada sesión. */
+  const giro = delEnfoque.length > 0 && resto.length > 0 ? g.vuelta % resto.length : 0;
+  const patrones = [...delEnfoque, ...resto.slice(giro), ...resto.slice(0, giro)];
+
   const faltantes: Sesion["faltantes"] = [];
   const elegidos: { e: Ejercicio; patron: Patron }[] = [];
-  for (const patron of plantilla.patrones) {
+  for (const patron of patrones) {
     const e = elegir(patron, prefs, niveles);
     if (!e) {
       faltantes.push({ patron, porQue: porQueFalta(patron, prefs) });
@@ -198,7 +212,9 @@ export function armarSesion(g: Guardado): Sesion {
   for (const { e, patron } of elegidos) {
     const n = Math.min(series, e.series);
     const c = costo(e, prefs.descanso, n);
-    if (pasos.length >= 3 && usado + c > tope) continue;
+    // Lo que se pidió enfocar no se recorta por tiempo: para eso se pidió.
+    const esDelEnfoque = delEnfoque.includes(patron);
+    if (!esDelEnfoque && pasos.length >= 3 && usado + c > tope) continue;
     usado += c;
     pasos.push({ ejercicio: e, patron, series: n, repes: e.repes });
   }

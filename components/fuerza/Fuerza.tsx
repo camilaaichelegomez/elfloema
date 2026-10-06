@@ -18,6 +18,7 @@ import {
   CUIDADOS,
   NOMBRE_EQUIPO,
   NOMBRE_PATRON,
+  ENFOQUES,
   OBJETIVOS,
   PREFERENCIAS_POR_DEFECTO,
   guardarFuerza,
@@ -197,7 +198,7 @@ export function Fuerza() {
       <div style={panel}>
         <h2 style={titulo}>Armemos tu rutina</h2>
         <p style={ayuda}>
-          Cinco preguntas, una sola vez. De ahí en adelante, al entrar ya está la sesión del día
+          Seis preguntas, una sola vez. De ahí en adelante, al entrar ya está la sesión del día
           lista y subiendo sola cuando te queda corta.
         </p>
 
@@ -219,7 +220,29 @@ export function Fuerza() {
           </p>
         </Pregunta>
 
-        <Pregunta n={2} t="¿Cuántos días a la semana?" nota="Con dos ya se construye músculo. Tres es el punto dulce.">
+        <Pregunta
+          n={2}
+          t="¿Quieres enfocarte en algo?"
+          nota="La rutina sigue siendo de cuerpo entero. Lo que elijas sale en todas las sesiones, primero y con dos movimientos en vez de uno."
+        >
+          <div style={fila}>
+            {ENFOQUES.map((e) => (
+              <Chip
+                key={e.id}
+                activo={(prefs.enfoque ?? "todo") === e.id}
+                onClick={() => setPrefs({ ...prefs, enfoque: e.id })}
+                ancho
+              >
+                {e.label}
+              </Chip>
+            ))}
+          </div>
+          <p style={{ ...ayuda, margin: "0.5rem 0 0" }}>
+            {ENFOQUES.find((e) => e.id === (prefs.enfoque ?? "todo"))?.linea}
+          </p>
+        </Pregunta>
+
+        <Pregunta n={3} t="¿Cuántos días a la semana?" nota="Con dos ya se construye músculo. Tres es el punto dulce.">
           <div style={fila}>
             {([2, 3, 4] as const).map((d) => (
               <Chip key={d} activo={prefs.dias === d} onClick={() => setPrefs({ ...prefs, dias: d })}>
@@ -229,7 +252,7 @@ export function Fuerza() {
           </div>
         </Pregunta>
 
-        <Pregunta n={3} t="¿Cuánto rato tienes?" nota="Quince minutos exigentes valen más que una hora que no haces.">
+        <Pregunta n={4} t="¿Cuánto rato tienes?" nota="Quince minutos exigentes valen más que una hora que no haces.">
           <div style={fila}>
             {([15, 25, 35, 45] as const).map((m) => (
               <Chip key={m} activo={prefs.minutos === m} onClick={() => setPrefs({ ...prefs, minutos: m })}>
@@ -239,7 +262,7 @@ export function Fuerza() {
           </div>
         </Pregunta>
 
-        <Pregunta n={4} t="¿Qué tienes en casa?" nota="Marca todo lo que haya. Con el suelo y una silla ya hay rutina.">
+        <Pregunta n={5} t="¿Qué tienes en casa?" nota="Marca todo lo que haya. Con el suelo y una silla ya hay rutina.">
           <div style={fila}>
             {EQUIPOS.map((q) => (
               <Chip
@@ -261,7 +284,7 @@ export function Fuerza() {
           </div>
         </Pregunta>
 
-        <Pregunta n={5} t="¿Hay algo que cuidar?" nota="Si no hay nada, sigue de largo.">
+        <Pregunta n={6} t="¿Hay algo que cuidar?" nota="Si no hay nada, sigue de largo.">
           <div style={fila}>
             {CUIDADOS.map((c) => (
               <Chip

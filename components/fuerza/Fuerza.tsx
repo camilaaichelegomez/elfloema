@@ -6,7 +6,6 @@ import { campana, contextoDeAudio } from "@/lib/campana";
 import {
   AL_TERMINAR,
   AVISOS_CUIDADO,
-  CALENTAMIENTO,
   armarSesion,
   siguientePeldano,
   subeDePeldano,
@@ -57,6 +56,11 @@ export function Fuerza() {
   const [sesion, setSesion] = useState<Sesion | null>(null);
 
   const [iEj, setIEj] = useState(0);
+  /* En qué movimiento del calentamiento va, o null si ya se está entrenando.
+     El calentamiento corre solo: cada movimiento tiene su rato y pasa al
+     siguiente sin que haya que tocar nada. */
+  const [iCalor, setICalor] = useState<number | null>(null);
+  const [restaCalor, setRestaCalor] = useState(0);
   const [hecho, setHecho] = useState<Record<string, SerieHecha[]>>({});
   const [valor, setValor] = useState(0);
   const [descanso, setDescanso] = useState<number | null>(null);
@@ -110,6 +114,26 @@ export function Fuerza() {
     return () => clearTimeout(id);
   }, [aguante, prefs.aviso, sonar]);
 
+  /* El reloj del calentamiento: baja de a un segundo y pasa al movimiento
+     siguiente. Al acabarse el último, empieza la sesión. */
+  useEffect(() => {
+    if (iCalor === null || !sesion) return;
+    if (restaCalor <= 0) {
+      const sig = iCalor + 1;
+      if (sig < sesion.calentamiento.length) {
+        if (prefs.aviso) sonar();
+        setICalor(sig);
+        setRestaCalor(sesion.calentamiento[sig].segundos);
+      } else {
+        if (prefs.aviso) sonar();
+        setICalor(null);
+      }
+      return;
+    }
+    const id = setTimeout(() => setRestaCalor((r) => r - 1), 1000);
+    return () => clearTimeout(id);
+  }, [iCalor, restaCalor, sesion, prefs.aviso, sonar]);
+
   const guardarPrefs = (p: Preferencias) => {
     const nuevo: Guardado = { ...(g ?? { niveles: {}, historial: [], vuelta: 0, prefs: p }), prefs: p };
     setG(nuevo);
@@ -128,6 +152,12 @@ export function Fuerza() {
     setValor(primero ? primero.repes[1] : 0);
     setAguante(null);
     setDescanso(null);
+    if (sesion.calentamiento.length > 0) {
+      setICalor(0);
+      setRestaCalor(sesion.calentamiento[0].segundos);
+    } else {
+      setICalor(null);
+    }
     setEtapa("sesion");
   };
 
@@ -254,7 +284,7 @@ export function Fuerza() {
 
         <Pregunta n={4} t="¿Cuánto rato tienes?" nota="Quince minutos exigentes valen más que una hora que no haces.">
           <div style={fila}>
-            {([15, 25, 35, 45] as const).map((m) => (
+            {([15, 25, 35, 45, 60] as const).map((m) => (
               <Chip key={m} activo={prefs.minutos === m} onClick={() => setPrefs({ ...prefs, minutos: m })}>
                 {m} min
               </Chip>
@@ -324,6 +354,14 @@ export function Fuerza() {
       <div style={panel}>
         <p style={rotulo}>{sesion.nombre} · unos {sesion.minutos} minutos</p>
         <h2 style={titulo}>La sesión de hoy</h2>
+
+        {sesion.calentamiento.length > 0 && (
+          <p style={{ ...ayuda, marginBottom: "0.9rem" }}>
+            Empieza calentando: {sesion.calentamiento.length} movimientos, unos{" "}
+            {Math.round(sesion.calentamiento.reduce((a, m) => a + m.segundos, 0) / 60)} minutos. Los
+            pasa la app sola.
+          </p>
+        )}
 
         <ol style={{ listStyle: "none", margin: "0 0 1.2rem", padding: 0, display: "grid", gap: "0.6rem" }}>
           {sesion.pasos.map((p, i) => (
@@ -398,6 +436,37 @@ export function Fuerza() {
           <button type="button" onClick={() => setDescanso(null)} style={botonSec}>
             Seguir ahora
           </button>
+        </div>
+      );
+    }
+
+    if (iCalor !== null) {
+      const m = sesion.calentamiento[iCalor];
+      return (
+        <div style={{ ...panel, textAlign: "center" }}>
+          <p style={rotulo}>
+            Calentando · {iCalor + 1} de {sesion.calentamiento.length}
+          </p>
+          <h2 style={{ ...titulo, marginBottom: "0.6rem" }}>{m.nombre}</h2>
+          <p
+            style={{
+              fontFamily: "var(--font-grimoire)",
+              fontSize: "2.6rem",
+              color: "#e8c878",
+              margin: "0 0 0.6rem",
+            }}
+          >
+            {restaCalor}
+          </p>
+          <p style={{ ...ayuda, maxWidth: "34ch", margin: "0 auto 1.2rem", fontSize: "1rem" }}>{m.que}</p>
+          <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", justifyContent: "center" }}>
+            <button type="button" onClick={() => setRestaCalor(0)} style={botonSec}>
+              Siguiente
+            </button>
+            <button type="button" onClick={() => setICalor(null)} style={botonLink}>
+              Saltar el calentamiento
+            </button>
+          </div>
         </div>
       );
     }
@@ -614,5 +683,3 @@ const botonRedondo: CSSProperties = {
   cursor: "pointer",
   lineHeight: 1,
 };
-
-export const CALENTAMIENTO_TEXTOS = CALENTAMIENTO;

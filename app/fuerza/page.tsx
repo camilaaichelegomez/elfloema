@@ -9,7 +9,8 @@ import { Desplegable } from "@/components/florecer/Desplegable";
 import { Sincroniza } from "@/components/florecer/Sincroniza";
 import { FiguraFuerza } from "@/components/fuerza/FiguraFuerza";
 import { Fuerza } from "@/components/fuerza/Fuerza";
-import { CALENTAMIENTO, TOTAL_EJERCICIOS } from "@/lib/fuerza/armar";
+import { TOTAL_EJERCICIOS } from "@/lib/fuerza/armar";
+import { MOVIMIENTOS } from "@/lib/fuerza/calentamiento";
 import { EJERCICIOS, escalera } from "@/lib/fuerza/ejercicios";
 import { COMO_SUBIR, DONDE_QUEDA, EN_UNA_LINEA, LA_DOSIS, PROTEINA, SEGURIDAD } from "@/lib/fuerza/ciencia";
 import { MUSCULOS_PATRON, NOMBRE_EQUIPO, NOMBRE_PATRON, type Patron } from "@/lib/fuerza/tipos";
@@ -58,16 +59,24 @@ export default function FuerzaPage() {
         <Fuerza />
 
         <Desplegable titulo="Antes de empezar: el calentamiento">
-          <ol style={lista}>
-            {CALENTAMIENTO.map((c, i) => (
-              <li key={c.slice(0, 18)} style={{ ...texto, display: "flex", gap: "0.7rem", margin: "0 0 0.6rem" }}>
-                <span style={numero}>{i + 1}</span>
-                <span style={{ flex: 1, minWidth: 0 }}>{c}</span>
-              </li>
+          <p style={{ ...texto, maxWidth: "66ch" }}>
+            La app los pasa sola antes de cada sesión, cronometrados, y elige cuáles según lo que
+            vayas a entrenar ese día: si hay flexiones calienta muñecas y hombros, si hay
+            sentadillas, caderas y rodillas.
+          </p>
+          <div style={{ display: "grid", gap: "0.55rem" }}>
+            {MOVIMIENTOS.map((m) => (
+              <article key={m.id} style={tarjeta}>
+                <div style={{ display: "flex", gap: "0.6rem", alignItems: "baseline", flexWrap: "wrap" }}>
+                  <span style={{ ...texto, margin: 0, color: "#e8c878", fontSize: "1.02rem" }}>{m.nombre}</span>
+                  <span style={fuente}>{m.segundos} segundos</span>
+                </div>
+                <p style={{ ...texto, margin: "0.35rem 0 0" }}>{m.que}</p>
+              </article>
             ))}
-          </ol>
-          <p style={{ ...texto, marginBottom: 0 }}>
-            Cuatro o cinco minutos. No hace falta estirar antes: estirar en frío no previene
+          </div>
+          <p style={{ ...texto, margin: "1rem 0 0" }}>
+            Tres minutos. Todo es movimiento, no estiramiento sostenido: estirar en frío no previene
             lesiones, y estirar fuerte justo antes baja un poco la fuerza de ese día.
           </p>
         </Desplegable>

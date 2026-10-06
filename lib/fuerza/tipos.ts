@@ -147,7 +147,7 @@ export type Preferencias = {
   /** Sesiones por semana. Dos ya sirven; tres es el punto dulce. */
   dias: 2 | 3 | 4;
   /** Minutos por sesión. */
-  minutos: 15 | 25 | 35 | 45;
+  minutos: 15 | 25 | 35 | 45 | 60;
   equipo: Equipo[];
   cuidados: Cuidado[];
   /** El descanso entre series, en segundos. */

@@ -249,13 +249,27 @@ export async function revisarCorreo(): Promise<{ ok: boolean; causa?: string }> 
       headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
     });
 
-    if (res.status === 401) {
-      return {
-        ok: false,
-        causa: "Resend no reconoce la clave. Puede estar mal pegada, borrada, o ser de otra cuenta distinta a la que tiene el dominio verificado.",
-      };
-    }
     if (!res.ok) {
+      const detalle = (await res.text().catch(() => "")).toLowerCase();
+
+      /* Una clave de tipo «Sending access» puede enviar pero NO consultar la
+         cuenta, asi que esta llamada le da 401. Eso NO significa que la clave
+         este mala: significa que es de las limitadas, que es justo lo que se
+         recomienda usar. Confundir las dos cosas mando a buscar el problema al
+         lugar equivocado una vez; de ahi este caso aparte. */
+      if (detalle.includes("restricted")) {
+        return {
+          ok: true,
+          causa: "La clave sirve para enviar (es de tipo «Sending access»). Desde acá no se puede comprobar el dominio porque esa clave no tiene permiso para consultar la cuenta: la prueba de verdad son los botones del Lab.",
+        };
+      }
+
+      if (res.status === 401) {
+        return {
+          ok: false,
+          causa: "Resend no reconoce la clave. Puede estar mal pegada, borrada, o ser de otra cuenta distinta a la que tiene el dominio verificado.",
+        };
+      }
       return { ok: false, causa: `Resend contesto ${res.status} al revisar la cuenta.` };
     }
 

@@ -114,8 +114,14 @@ async function mandar(
     return {
       ok: false,
       causa:
-        res.status === 401 || res.status === 403
-          ? "Resend no acepta la clave. Puede estar incompleta, mal pegada o borrada."
+        /* 401 y 403 son cosas distintas y conviene no confundirlas: una vez
+           el mensaje dijo «la clave esta mal» cuando el problema real era que
+           la clave pertenecia a OTRA cuenta de Resend, en la que el dominio no
+           estaba verificado. Buscar en el lugar equivocado cuesta horas. */
+        res.status === 401
+          ? "Resend no reconoce la clave. Puede estar incompleta, mal pegada, borrada, o ser de otra cuenta de Resend distinta a la que tiene el dominio verificado."
+          : res.status === 403
+            ? "La clave es valida pero no tiene permiso para esto. Suele pasar cuando el remitente (CORREO_REMITENTE) usa un dominio que no esta verificado en ESA misma cuenta de Resend, o cuando la clave quedo limitada a otro dominio."
           : m.includes("testing emails") || m.includes("own email address")
             ? "Con el remitente prestado (onboarding@resend.dev) Resend solo deja escribirle a la dirección dueña de la cuenta. Para escribirle a las clientas hay que verificar elfloema.cl en Resend."
             : m.includes("domain") || m.includes("from")
@@ -221,4 +227,61 @@ export async function avisarEnvio(p: PedidoParaAviso, seguimiento: string, empre
       queda registrado cuando el paquete pasa por su primer punto.
     </p>`;
   return mandar(p.email ?? "", `Tu pedido ${p.orden} va en camino · El Floema`, marco("Tu pedido va en camino", dentro), "aviso de envio");
+}
+
+/* ── Comprobar de verdad, sin mandar nada ──────────────────────────────────
+   Antes esto solo miraba si las variables existian, y eso resulto enganoso:
+   dijo «ok» durante dias mientras la clave era de otra cuenta de Resend. Un
+   chequeo que dice que si cuando no, es peor que no tener chequeo.
+
+   Ahora le pregunta a Resend: valida la clave y, si hay un remitente propio,
+   confirma que ese dominio este verificado en LA MISMA cuenta de esa clave,
+   que es justo el desajuste que nos costo encontrar. */
+export async function revisarCorreo(): Promise<{ ok: boolean; causa?: string }> {
+  if (!correoConfigurado()) {
+    return { ok: false, causa: "Faltan RESEND_API_KEY y CORREO_AVISOS en Vercel." };
+  }
+
+  const dominio = (process.env.CORREO_REMITENTE ?? "").match(/@([^>\s]+)/)?.[1];
+
+  try {
+    const res = await fetch("https://api.resend.com/domains", {
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+    });
+
+    if (res.status === 401) {
+      return {
+        ok: false,
+        causa: "Resend no reconoce la clave. Puede estar mal pegada, borrada, o ser de otra cuenta distinta a la que tiene el dominio verificado.",
+      };
+    }
+    if (!res.ok) {
+      return { ok: false, causa: `Resend contesto ${res.status} al revisar la cuenta.` };
+    }
+
+    /* Sin remitente propio se usa el prestado de Resend, que solo puede
+       escribirle a la duena de la cuenta. Sirve para avisarle a Camila, pero
+       no para escribirle a una clienta. */
+    if (!dominio) {
+      return {
+        ok: true,
+        causa: "Anda, pero sin CORREO_REMITENTE propio: solo se le puede escribir a la dueña de la cuenta, no a las clientas.",
+      };
+    }
+
+    const { data } = (await res.json()) as { data?: { name: string; status: string }[] };
+    const suyo = (data ?? []).find((d) => d.name === dominio);
+    if (!suyo) {
+      return {
+        ok: false,
+        causa: `El remitente usa ${dominio}, pero ese dominio no existe en la cuenta de Resend de esta clave.`,
+      };
+    }
+    if (suyo.status !== "verified") {
+      return { ok: false, causa: `El dominio ${dominio} está en Resend pero su estado es «${suyo.status}», no «verified».` };
+    }
+    return { ok: true };
+  } catch {
+    return { ok: false, causa: "No se pudo contactar a Resend para revisar. Puede ser un tropiezo de red." };
+  }
 }

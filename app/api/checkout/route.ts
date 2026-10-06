@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { getProductos } from "@/lib/productos-db";
 import { crearPago, flowConfigurado } from "@/lib/flow";
-import { correoConfigurado } from "@/lib/correo";
+import { revisarCorreo } from "@/lib/correo";
 import { crearPreferencia, mercadoPagoConfigurado } from "@/lib/mercadopago";
 import {
   anotarOrdenFlow,
@@ -60,11 +60,10 @@ export async function GET(req: Request) {
   if (new URL(req.url).searchParams.get("probar") !== "1") {
     return NextResponse.json(base);
   }
-  /* El aviso por correo: solo dice si las dos variables estan puestas, nunca
-     su valor. Sirve para saber que llegaron sin esperar una venta de verdad. */
-  const correo = correoConfigurado()
-    ? { ok: true }
-    : { ok: false, causa: "Faltan RESEND_API_KEY y CORREO_AVISOS en Vercel. Sin ellas la tienda vende igual, pero el aviso no llega." };
+  /* El aviso por correo. Le pregunta a Resend de verdad: que la clave sirva y
+     que el dominio del remitente este verificado en esa misma cuenta. Nunca
+     devuelve valores, solo si anda y por que no. */
+  const correo = await revisarCorreo();
 
   if (!pedidosConfigurado()) {
     return NextResponse.json({

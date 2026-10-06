@@ -1,3 +1,4 @@
+import { armarCalentamiento, segundosDeCalentamiento, type Movimiento } from "./calentamiento";
 import { EJERCICIOS, escalera } from "./ejercicios";
 import {
   PATRONES_DEL_ENFOQUE,
@@ -146,18 +147,13 @@ export type PasoSesion = {
 
 export type Sesion = {
   nombre: string;
+  /** Los movimientos para calentar, elegidos según lo que viene. */
+  calentamiento: Movimiento[];
   pasos: PasoSesion[];
   minutos: number;
   /** Patrones que se quedaron fuera por falta de equipo. */
   faltantes: { patron: Patron; porQue: string }[];
 };
-
-export const CALENTAMIENTO = [
-  "Dos minutos de moverte: caminar rápido por la casa, subir y bajar un escalón, o saltar suave si te acomoda.",
-  "Diez círculos de brazos hacia atrás y diez de cadera hacia cada lado.",
-  "Diez sentadillas sin peso y diez puentes de glúteo, despacio.",
-  "La primera serie de cada ejercicio hazla más suave: eso es el calentamiento de verdad.",
-];
 
 export const AL_TERMINAR = [
   "Estira lo que quedó cargado, sin buscar nada heroico: treinta segundos por sitio.",
@@ -219,7 +215,21 @@ export function armarSesion(g: Guardado): Sesion {
     pasos.push({ ejercicio: e, patron, series: n, repes: e.repes });
   }
 
-  return { nombre: plantilla.nombre, pasos, minutos: Math.round(usado + 4), faltantes };
+  /* El calentamiento se arma con los patrones que de verdad quedaron en la
+     sesión, no con los que se pidieron: no tiene sentido calentar muñecas
+     para una flexión que al final no entró. */
+  const calentamiento = armarCalentamiento(
+    pasos.map((p) => p.patron),
+    g.vuelta
+  );
+
+  return {
+    nombre: plantilla.nombre,
+    calentamiento,
+    pasos,
+    minutos: Math.round(usado + segundosDeCalentamiento(calentamiento) / 60),
+    faltantes,
+  };
 }
 
 function porQueFalta(patron: Patron, prefs: Preferencias) {

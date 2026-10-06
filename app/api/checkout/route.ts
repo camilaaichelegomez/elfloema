@@ -30,11 +30,33 @@ import {
 
 /** Que se puede usar hoy. Si falta la clave de Supabase no hay ninguna, porque
  *  sin guardar el pedido no sabriamos a donde despachar. */
+/* Esconder una pasarela sin desarmarla.
+
+   Camila prefiere cobrar por Flow, pero no quiere borrar lo de Mercado Pago:
+   si Flow le falla, quiere poder volver en un minuto. Borrar la clave de
+   Vercel significaria ir a buscarla de nuevo; esta variable es un interruptor.
+
+   En Vercel:  PASARELAS_OCULTAS = mercadopago
+   (varias van separadas por coma; vaciar la variable las devuelve a todas)
+
+   Importante: esto solo esconde el BOTON del checkout. Los avisos de pago
+   siguen entrando por /api/mercadopago/aviso, asi que un pago que ya estaba
+   en curso cuando se escondio igual se confirma y se guarda. */
+function ocultas(): Set<string> {
+  return new Set(
+    (process.env.PASARELAS_OCULTAS ?? "")
+      .split(",")
+      .map((p) => p.trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
 function disponibles(): Pasarela[] {
   if (!pedidosConfigurado()) return [];
+  const fuera = ocultas();
   const lista: Pasarela[] = [];
-  if (flowConfigurado()) lista.push("flow");
-  if (mercadoPagoConfigurado()) lista.push("mercadopago");
+  if (flowConfigurado() && !fuera.has("flow")) lista.push("flow");
+  if (mercadoPagoConfigurado() && !fuera.has("mercadopago")) lista.push("mercadopago");
   return lista;
 }
 
@@ -45,7 +67,7 @@ function falta(): string[] {
   const pendientes: string[] = [];
   if (!pedidosConfigurado()) pendientes.push("SUPABASE_SECRET_KEY");
   if (!flowConfigurado() && !mercadoPagoConfigurado()) {
-    pendientes.push("MP_ACCESS_TOKEN (o las dos claves de Flow)");
+    pendientes.push("FLOW_API_KEY y FLOW_SECRET_KEY (o MP_ACCESS_TOKEN)");
   }
   return pendientes;
 }
@@ -65,14 +87,24 @@ export async function GET(req: Request) {
      devuelve valores, solo si anda y por que no. */
   const correo = await revisarCorreo();
 
+  /* Las escondidas a proposito se nombran, para que «no aparece Mercado Pago»
+     se lea como una decision y no como una falla. */
+  const escondidas = [...ocultas()];
+
   if (!pedidosConfigurado()) {
     return NextResponse.json({
       ...base,
       guardar: { ok: false, causa: "Falta SUPABASE_SECRET_KEY en Vercel." },
       correo,
+      ...(escondidas.length ? { escondidas } : {}),
     });
   }
-  return NextResponse.json({ ...base, guardar: await probarGuardado(), correo });
+  return NextResponse.json({
+    ...base,
+    guardar: await probarGuardado(),
+    correo,
+    ...(escondidas.length ? { escondidas } : {}),
+  });
 }
 
 type Pedido = { slug: string; cantidad: number };

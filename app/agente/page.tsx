@@ -59,18 +59,18 @@ export default function AgentePage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask", {
+      const res = await fetch("/api/agentes/naturopata", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
 
       const data = await res.json();
-      if (!res.ok) console.error("/ask error:", res.status, data);
+      if (!res.ok) console.error("/api/agentes/naturopata error:", res.status, data);
       const answer = data.response ?? data.error ?? "No se pudo obtener respuesta.";
       setMessages((prev) => [...prev, { role: "model", content: answer }]);
     } catch (err) {
-      console.error("/ask fetch error:", err);
+      console.error("/api/agentes/naturopata fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "model", content: "Hubo un error de conexión. Por favor intenta de nuevo." },

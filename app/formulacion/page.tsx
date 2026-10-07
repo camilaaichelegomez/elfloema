@@ -59,18 +59,18 @@ export default function FormulacionPage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask-formulacion", {
+      const res = await fetch("/api/agentes/formulacion", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
 
       const data = await res.json();
-      if (!res.ok) console.error("/ask-formulacion error:", res.status, data);
+      if (!res.ok) console.error("/api/agentes/formulacion error:", res.status, data);
       const answer = data.response ?? data.error ?? "No se pudo obtener respuesta.";
       setMessages((prev) => [...prev, { role: "model", content: answer }]);
     } catch (err) {
-      console.error("/ask-formulacion fetch error:", err);
+      console.error("/api/agentes/formulacion fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "model", content: "Hubo un error de conexión. Por favor intenta de nuevo." },

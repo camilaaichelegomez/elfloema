@@ -59,18 +59,18 @@ export default function BotanicoPage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask-botanico", {
+      const res = await fetch("/api/agentes/botanico", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
 
       const data = await res.json();
-      if (!res.ok) console.error("/ask-botanico error:", res.status, data);
+      if (!res.ok) console.error("/api/agentes/botanico error:", res.status, data);
       const answer = data.response ?? data.error ?? "No se pudo obtener respuesta.";
       setMessages((prev) => [...prev, { role: "model", content: answer }]);
     } catch (err) {
-      console.error("/ask-botanico fetch error:", err);
+      console.error("/api/agentes/botanico fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "model", content: "Hubo un error de conexión. Por favor intenta de nuevo." },

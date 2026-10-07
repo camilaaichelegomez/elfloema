@@ -59,18 +59,18 @@ export default function BellezaPage() {
         }
       }
 
-      const res = await fetch("https://el-floema-agente.onrender.com/ask-belleza", {
+      const res = await fetch("/api/agentes/belleza", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, history }),
       });
 
       const data = await res.json();
-      if (!res.ok) console.error("/ask-belleza error:", res.status, data);
+      if (!res.ok) console.error("/api/agentes/belleza error:", res.status, data);
       const answer = data.response ?? data.error ?? "No se pudo obtener respuesta.";
       setMessages((prev) => [...prev, { role: "model", content: answer }]);
     } catch (err) {
-      console.error("/ask-belleza fetch error:", err);
+      console.error("/api/agentes/belleza fetch error:", err);
       setMessages((prev) => [
         ...prev,
         { role: "model", content: "Hubo un error de conexión. Por favor intenta de nuevo." },

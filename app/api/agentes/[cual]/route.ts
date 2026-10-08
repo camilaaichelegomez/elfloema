@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { PERSONALIDADES, responder, type Agente, type Turno } from "@/lib/agentes";
+import {
+  PERSONALIDADES,
+  papelesQueCalzan,
+  responder,
+  type Agente,
+  type Turno,
+} from "@/lib/agentes";
 
 /* Una sola ruta para los cuatro agentes: /api/agentes/naturopata, /botanico,
    /belleza y /formulacion.
@@ -12,6 +18,25 @@ export const maxDuration = 60;
 
 function esAgente(x: string): x is Agente {
   return x in PERSONALIDADES;
+}
+
+/* Con ?probar=<pregunta> dice qué papers encontraría esa búsqueda, sin
+   preguntarle nada al modelo. Devuelve títulos de papers propios, que no son
+   secretos, y nunca el contenido de ninguna llave. Sirve para afinar la
+   búsqueda mirando en vez de adivinando. */
+export async function GET(req: Request, { params }: { params: Promise<{ cual: string }> }) {
+  const { cual } = await params;
+  if (!esAgente(cual)) {
+    return NextResponse.json({ error: "Ese asistente no existe." }, { status: 404 });
+  }
+  const pregunta = new URL(req.url).searchParams.get("probar");
+  if (!pregunta) {
+    return NextResponse.json({
+      agente: PERSONALIDADES[cual].nombre,
+      como: "Agregá ?probar=tu+pregunta para ver qué papers encontraría.",
+    });
+  }
+  return NextResponse.json(await papelesQueCalzan(cual, pregunta.slice(0, 400)));
 }
 
 export async function POST(req: Request, { params }: { params: Promise<{ cual: string }> }) {

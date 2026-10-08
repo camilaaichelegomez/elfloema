@@ -144,6 +144,38 @@ type Paper = {
   snippet: string | null;
 };
 
+/* Qué papers encuentra una pregunta. Está aparte de `biblioteca()` para poder
+   mirarlo desde fuera sin mandarle nada al modelo: afinar una búsqueda a ciegas
+   es adivinar, y ya perdimos tiempo así una vez. */
+export async function papelesQueCalzan(
+  cual: Agente,
+  pregunta: string
+): Promise<{ tabla: string; palabras: string[]; cuantos: number; titulos: string[]; causa?: string }> {
+  const palabras = palabrasClave(pregunta);
+  const db = admin();
+  if (!db) {
+    return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: "Falta SUPABASE_SECRET_KEY: sin ella no se pueden leer las bibliotecas." };
+  }
+  if (palabras.length === 0) {
+    return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: "La pregunta no dejó ninguna palabra con la que buscar." };
+  }
+  try {
+    const filtro = palabras
+      .flatMap((w) => [`title.ilike.%${w}%`, `snippet.ilike.%${w}%`, `plant_key.ilike.%${w}%`])
+      .join(",");
+    const { data, error } = await db.from(TABLA[cual]).select("title").or(filtro).limit(6);
+    if (error) return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: error.message };
+    return {
+      tabla: TABLA[cual],
+      palabras,
+      cuantos: data?.length ?? 0,
+      titulos: (data ?? []).map((d) => (d as { title: string | null }).title ?? "(sin título)"),
+    };
+  } catch (e) {
+    return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: String(e) };
+  }
+}
+
 async function biblioteca(cual: Agente, pregunta: string): Promise<string> {
   const db = admin();
   if (!db) return "";

@@ -144,6 +144,47 @@ type Paper = {
   snippet: string | null;
 };
 
+/* Busca en tres tandas, de la más certera a la más vaga, y se queda con las
+   primeras seis sin repetir.
+
+   El orden importa y se descubrió mirando los resultados: los papers están en
+   inglés, pero `plant_key` está en español. Entonces «matico» encuentra por
+   planta justo los papers de Piper aduncum —los correctos—, mientras que una
+   palabra como «heridas» aparece suelta en el extracto de cualquier paper. Si
+   se busca todo junto en una sola tanda, esos papers de relleno empujan afuera
+   a los buenos. Por planta primero, entonces; el extracto solo para rellenar
+   si quedó espacio. */
+type ClienteSupabase = { from: (t: string) => any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+async function buscarPorRelevancia(
+  db: ClienteSupabase,
+  tabla: string,
+  palabras: string[]
+): Promise<Paper[]> {
+  const COLUMNAS = "title, authors, year, journal, doi, snippet";
+  const tandas = [
+    palabras.map((w) => `plant_key.ilike.%${w}%`), //  la planta: lo más certero
+    palabras.map((w) => `title.ilike.%${w}%`), //      el título: bastante bueno
+    palabras.map((w) => `snippet.ilike.%${w}%`), //    el extracto: relleno
+  ];
+
+  const elegidos: Paper[] = [];
+  const vistos = new Set<string>();
+
+  for (const tanda of tandas) {
+    if (elegidos.length >= 6) break;
+    const { data } = await db.from(tabla).select(COLUMNAS).or(tanda.join(",")).limit(6);
+    for (const p of (data ?? []) as Paper[]) {
+      const clave = (p.doi ?? p.title ?? "").trim().toLowerCase();
+      if (!clave || vistos.has(clave)) continue;
+      vistos.add(clave);
+      elegidos.push(p);
+      if (elegidos.length >= 6) break;
+    }
+  }
+  return elegidos;
+}
+
 /* Qué papers encuentra una pregunta. Está aparte de `biblioteca()` para poder
    mirarlo desde fuera sin mandarle nada al modelo: afinar una búsqueda a ciegas
    es adivinar, y ya perdimos tiempo así una vez. */
@@ -160,16 +201,12 @@ export async function papelesQueCalzan(
     return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: "La pregunta no dejó ninguna palabra con la que buscar." };
   }
   try {
-    const filtro = palabras
-      .flatMap((w) => [`title.ilike.%${w}%`, `snippet.ilike.%${w}%`, `plant_key.ilike.%${w}%`])
-      .join(",");
-    const { data, error } = await db.from(TABLA[cual]).select("title").or(filtro).limit(6);
-    if (error) return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: error.message };
+    const data = await buscarPorRelevancia(db, TABLA[cual], palabras);
     return {
       tabla: TABLA[cual],
       palabras,
-      cuantos: data?.length ?? 0,
-      titulos: (data ?? []).map((d) => (d as { title: string | null }).title ?? "(sin título)"),
+      cuantos: data.length,
+      titulos: data.map((d) => d.title ?? "(sin título)"),
     };
   } catch (e) {
     return { tabla: TABLA[cual], palabras, cuantos: 0, titulos: [], causa: String(e) };
@@ -184,19 +221,8 @@ async function biblioteca(cual: Agente, pregunta: string): Promise<string> {
   if (palabras.length === 0) return "";
 
   try {
-    /* Cada palabra puede estar en el título, el extracto o el nombre de la
-       planta; basta con que calce en alguno. */
-    const filtro = palabras
-      .flatMap((w) => [`title.ilike.%${w}%`, `snippet.ilike.%${w}%`, `plant_key.ilike.%${w}%`])
-      .join(",");
-
-    const { data } = await db
-      .from(TABLA[cual])
-      .select("title, authors, year, journal, doi, snippet")
-      .or(filtro)
-      .limit(6);
-
-    if (!data || data.length === 0) return "";
+    const data = await buscarPorRelevancia(db, TABLA[cual], palabras);
+    if (data.length === 0) return "";
 
     const refs = (data as Paper[]).map((a, i) => {
       const primerAutor = a.authors ? a.authors.split(/[,;]/)[0].trim() : "";
@@ -206,9 +232,12 @@ async function biblioteca(cual: Agente, pregunta: string): Promise<string> {
     });
 
     return (
-      "\n\nPAPERS DE LA BIBLIOTECA DE EL FLOEMA. Esto es lo único que puedes afirmar como ciencia. " +
-      "Cuando uses uno, cítalo con [1], [2] etc. en el texto, y al cerrar nombra autor y año. " +
-      "Si lo que te preguntan no está en estos papers, dilo con franqueza en vez de completarlo de memoria:\n" +
+      "\n\nPAPERS DE LA BIBLIOTECA DE EL FLOEMA. Esto es lo único que puedes afirmar como ciencia.\n" +
+      "- Vienen en inglés: explicá lo que dicen en español, con tus palabras.\n" +
+      "- Cuando uses uno, citalo con [1], [2] etc. en el texto, y al cerrar nombrá autor y año.\n" +
+      "- Puede que algunos no tengan nada que ver con la pregunta: ignorá esos, no los fuerces.\n" +
+      "- Si NINGUNO responde lo que te preguntan, decilo con franqueza («no tengo un estudio en mi " +
+      "biblioteca sobre eso»). Nunca inventes un estudio ni digas «un estudio reciente» sin tenerlo acá:\n" +
       refs.join("\n")
     );
   } catch {

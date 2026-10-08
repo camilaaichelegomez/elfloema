@@ -235,6 +235,9 @@ async function biblioteca(cual: Agente, pregunta: string): Promise<string> {
       "\n\nPAPERS DE LA BIBLIOTECA DE EL FLOEMA. Esto es lo único que puedes afirmar como ciencia.\n" +
       "- Vienen en inglés: explicá lo que dicen en español, con tus palabras.\n" +
       "- Cuando uses uno, citalo con [1], [2] etc. en el texto, y al cerrar nombrá autor y año.\n" +
+      "- Un paper sobre la MISMA especie cuenta, aunque la nombre en latín y no por su nombre común " +
+      "(Piper aduncum es el matico, Luma apiculata el arrayán, Aristotelia chilensis el maqui). Usalo " +
+      "para lo que de verdad estudió, sin estirarlo a otra cosa.\n" +
       "- Puede que algunos no tengan nada que ver con la pregunta: ignorá esos, no los fuerces.\n" +
       "- Si NINGUNO responde lo que te preguntan, decilo con franqueza («no tengo un estudio en mi " +
       "biblioteca sobre eso»). Nunca inventes un estudio ni digas «un estudio reciente» sin tenerlo acá:\n" +

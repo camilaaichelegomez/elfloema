@@ -1,5 +1,19 @@
 import Groq from "groq-sdk";
+import { createClient } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
+
+/* Las bibliotecas tienen RLS puesto, así que la llave pública no las puede
+   leer —por eso parecían vacías cuando las consulté desde afuera—. Se leen
+   desde el servidor con la llave secreta, que nunca sale de Vercel. Es solo
+   lectura de material propio: papers con autor, año y DOI. */
+function admin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SECRET_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
 
 /* Los cuatro agentes públicos de la página: Naturópata, Botánico, Belleza y
    Formulación.
@@ -80,21 +94,90 @@ Trabajas en porcentajes y explicas qué hace cada ingrediente en la fórmula, no
   },
 };
 
-/* ── La biblioteca ─────────────────────────────────────────────────────────
-   Busca por palabras en la tabla `biblioteca`. Si la tabla no existe o no hay
-   nada que calce, el agente responde igual, solo sin referencias. */
-async function biblioteca(pregunta: string): Promise<string> {
+/* ── La biblioteca de cada agente ─────────────────────────────────────────
+   Cada agente tiene su propia tabla de papers, con título, autores, año,
+   revista, DOI y un extracto. Eso es lo que hacía buenos a los agentes: no
+   opinan, citan.
+
+   El servidor viejo buscaba por significado, con embeddings. Eso necesita
+   correr un modelo que en Vercel no corre, así que acá se busca por palabras:
+   se sacan las palabras con contenido de la pregunta y se buscan en el título,
+   el extracto y la planta. Encuentra menos cuando la pregunta usa sinónimos,
+   pero lo que encuentra es real y viene con su cita. */
+
+const TABLA: Record<Agente, string> = {
+  naturopata: "articulos_botanicos",
+  botanico: "articulos_botanicos",
+  belleza: "articulos_belleza",
+  formulacion: "articulos_formulacion",
+};
+
+/* Palabras que no sirven para buscar porque aparecen en cualquier pregunta. */
+const VACIAS = new Set(
+  (
+    "que cual como cuando donde por para con sin una unos unas los las del de la el en y o a " +
+    "es son ser esta estan tiene tienen puedo puede sirve sirven me te se lo le su sus mi mis " +
+    "sobre entre hasta desde muy mas menos tambien pero si no hay hacer uso usar sobre bueno"
+  ).split(" ")
+);
+
+function palabrasClave(pregunta: string): string[] {
+  return [
+    ...new Set(
+      pregunta
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .replace(/[^a-z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter((w) => w.length > 3 && !VACIAS.has(w))
+    ),
+  ].slice(0, 5);
+}
+
+type Paper = {
+  title: string | null;
+  authors: string | null;
+  year: number | null;
+  journal: string | null;
+  doi: string | null;
+  snippet: string | null;
+};
+
+async function biblioteca(cual: Agente, pregunta: string): Promise<string> {
+  const db = admin();
+  if (!db) return "";
+
+  const palabras = palabrasClave(pregunta);
+  if (palabras.length === 0) return "";
+
   try {
-    const { data } = await supabase
-      .from("biblioteca")
-      .select("fuente, texto")
-      .textSearch("tsv", pregunta.slice(0, 400), { type: "websearch", config: "spanish" })
-      .limit(5);
+    /* Cada palabra puede estar en el título, el extracto o el nombre de la
+       planta; basta con que calce en alguno. */
+    const filtro = palabras
+      .flatMap((w) => [`title.ilike.%${w}%`, `snippet.ilike.%${w}%`, `plant_key.ilike.%${w}%`])
+      .join(",");
+
+    const { data } = await db
+      .from(TABLA[cual])
+      .select("title, authors, year, journal, doi, snippet")
+      .or(filtro)
+      .limit(6);
+
     if (!data || data.length === 0) return "";
+
+    const refs = (data as Paper[]).map((a, i) => {
+      const primerAutor = a.authors ? a.authors.split(/[,;]/)[0].trim() : "";
+      const cita = [primerAutor, a.year, a.journal].filter(Boolean).join(", ");
+      const doi = a.doi ? ` · doi:${a.doi}` : "";
+      return `[${i + 1}] ${a.title ?? "(sin título)"}${cita ? ` — ${cita}` : ""}${doi}\n    ${(a.snippet ?? "").slice(0, 700)}`;
+    });
+
     return (
-      "\n\nREFERENCIAS DE LA BIBLIOTECA (fuente confiable: basa en esto lo que afirmes; " +
-      'no inventes propiedades que no aparezcan acá. Los claims de tradición dilos como "se le atribuye"):\n' +
-      data.map((f) => `- [${f.fuente}] ${f.texto}`).join("\n")
+      "\n\nPAPERS DE LA BIBLIOTECA DE EL FLOEMA. Esto es lo único que puedes afirmar como ciencia. " +
+      "Cuando uses uno, cítalo con [1], [2] etc. en el texto, y al cerrar nombra autor y año. " +
+      "Si lo que te preguntan no está en estos papers, dilo con franqueza en vez de completarlo de memoria:\n" +
+      refs.join("\n")
     );
   } catch {
     return "";
@@ -142,7 +225,10 @@ export async function responder(
   }
 
   const p = PERSONALIDADES[cual];
-  const [refs, cat] = await Promise.all([biblioteca(pregunta), p.conCatalogo ? catalogo() : ""]);
+  const [refs, cat] = await Promise.all([
+    biblioteca(cual, pregunta),
+    p.conCatalogo ? catalogo() : "",
+  ]);
 
   /* Solo los últimos turnos: la conversación entera encarece y despista. */
   const recientes = historial.slice(-6);

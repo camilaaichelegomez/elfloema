@@ -1,5 +1,6 @@
 import Groq from "groq-sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient as crearClienteAdmin } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase-server";
 import { resumenBases } from "@/lib/bases-cosmetica";
 
@@ -97,7 +98,20 @@ export async function POST(request: NextRequest) {
   const consulta = mensajes[mensajes.length - 1].content.slice(0, 400);
   let contextoBiblioteca = "";
   try {
-    const { data: fuentes } = await supabase
+    /* La tabla `biblioteca` tiene RLS puesto, así que la llave pública no la
+       puede leer: este asistente estuvo meses respondiendo sin ella sin que se
+       notara, porque el catch de abajo se traga el caso silenciosamente. Se
+       lee con la llave de servidor, que nunca sale de Vercel. */
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const secreta = process.env.SUPABASE_SECRET_KEY;
+    const db =
+      url && secreta
+        ? crearClienteAdmin(url, secreta, {
+            auth: { persistSession: false, autoRefreshToken: false },
+          })
+        : supabase;
+
+    const { data: fuentes } = await db
       .from("biblioteca")
       .select("fuente, texto")
       .textSearch("tsv", consulta, { type: "websearch", config: "spanish" })

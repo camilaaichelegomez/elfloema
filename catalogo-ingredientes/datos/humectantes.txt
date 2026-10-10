@@ -1,0 +1,25 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Glycerin|Glicerina vegetal|Humectante;Disolvente|El humectante universal: atrae agua hacia la piel. Subproducto de la saponificación, es barata y estable.|2-10% (hasta 20% en ciertos productos)|Sobre ~10% puede sentirse pegajosa. En ambientes muy secos conviene combinarla con un oclusivo
+Propanediol|Propanodiol|Humectante;Disolvente;Potenciador de conservante|Humectante y solvente de origen vegetal (de maíz). Mejora la sensación en piel y potencia la acción de los conservantes.|1-10%|
+Butylene Glycol|Butilenglicol|Humectante;Disolvente|Humectante y solvente ligero, muy usado en sérums. Tacto no pegajoso.|1-10%|No es de origen natural, salvo la versión bio
+Propylene Glycol|Propilenglicol|Humectante;Disolvente|Humectante y solvente clásico, de eficacia comprobada.|1-10%|Puede irritar o sensibilizar en piel sensible; no es natural
+Pentylene Glycol|Pentilenglicol|Humectante;Potenciador de conservante|Humectante que también aumenta la eficacia de los conservantes. Existe de origen vegetal.|1-5%|
+Sorbitol|Sorbitol|Humectante|Humectante de origen vegetal, algo más ligero que la glicerina.|2-10%|
+Xylitol|Xilitol|Humectante;Antimicrobiano|Alcohol de azúcar que humecta la piel y deja sensación fresca. Se usa como humectante de apoyo junto a la glicerina.|1-5%|
+Erythritol|Eritritol|Humectante;Refrescante|Alcohol de azúcar que humecta y da sensación fresca al disolverse.|1-5%|
+Trehalose|Trehalosa|Humectante;Protector|Azúcar que protege las células de la deshidratación y del estrés. Se usa en sérums hidratantes.|1-5%|
+Sodium PCA|PCA sódico|Humectante|Parte del factor natural de humectación (NMF) de la piel. Humectante muy eficaz y de buen tacto.|0.5-5%|
+Urea|Urea|Humectante;Queratolítico|Compuesto del factor natural de humectación. A baja dosis hidrata; a dosis altas (sobre ~10%) suaviza callosidades y exfolia.|2-5% hidratante; 10-40% queratolítico|Concentraciones altas pueden arder en piel con heridas. En agua se descompone con calor y pH extremo
+Hydroxyethyl Urea|Hidroxietil urea|Humectante|Humectante derivado de urea, más estable y de tacto menos pegajoso.|2-10%|
+Sodium Lactate|Lactato de sodio|Humectante;Regulador de pH|Sal del ácido láctico. Parte del NMF y, junto al ácido láctico, forma un tampón que estabiliza el pH.|1-5%|
+Betaine|Betaína|Humectante;Calmante|Obtenida de la remolacha. Humectante suave que además reduce la irritación que causan los tensioactivos.|1-5%|
+Sodium Hyaluronate|Ácido hialurónico (hialuronato de sodio)|Humectante;Acondicionador de piel|Polisacárido que retiene mucha agua. Según su peso molecular, actúa en superficie (alto) o penetra más (bajo).|0.1-2%|Dispersar en agua o glicerina para evitar grumos
+Hyaluronic Acid|Ácido hialurónico (forma ácida)|Humectante|Forma ácida del hialurónico, menos usada que su sal.|0.1-2%|
+Panthenol|Pantenol (provitamina B5)|Humectante;Calmante;Regenerador|Se convierte en ácido pantoténico en la piel. Humectante, cicatrizante y calmante; excelente en pieles sensibles y para el cabello.|0.5-5%|La versión líquida al 75% pesa más: ajusta la dosis
+Allantoin|Alantoína|Calmante;Cicatrizante;Queratolítico|Compuesto originalmente aislado de la consuelda. Queratolítico suave, calmante y favorecedor de la regeneración.|0.1-0.5%|Poco soluble en frío: disolver en agua caliente
+Mel|Miel|Humectante;Antimicrobiano|Humectante natural por su alta concentración de azúcares. Aporta suavidad; en concentraciones muy altas es antimicrobiana.|1-5%|En fórmulas con agua necesita conservante. Puede dar alergia en personas sensibles a los productos de las abejas
+Aloe Barbadensis Leaf Juice Powder|Aloe vera en polvo (200x)|Humectante;Calmante|Gel de aloe deshidratado y concentrado. Se reconstituye en agua para hacer gel.|0.5-2% del polvo|Reconstituir con conservante; el gel fresco se contamina rápido
+Glucose|Glucosa|Humectante|Azúcar simple que humecta y que sirve de base a algunos limpiadores suaves.|1-5%|
+Polyglyceryl-6 Caprylate|Caprilato de poliglicerilo-6|Humectante;Emulsionante|Éster de poliglicerina de origen vegetal; humecta y mejora la tolerancia de otros tensioactivos.|1-5%|
+Algin|Ácido algínico|Humectante;Gelificante|Extraído de algas pardas. Forma geles con efecto humectante.|0.5-2%|
+Sodium Carboxymethyl Betaglucan|Betaglucano|Humectante;Calmante;Antioxidante|Polisacárido de avena o levadura. Hidrata, calma y mejora la elasticidad; muy usado en piel sensible.|0.1-1%|

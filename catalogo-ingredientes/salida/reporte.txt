@@ -1,0 +1,17 @@
+Ingredientes: 509
+  Aceites vegetales: 40
+  Activos cosméticos: 46
+  Extractos botánicos: 131
+  Conservantes, antioxidantes y pH: 27
+  Emulsionantes: 20
+  Aceites esenciales: 56
+  Espesantes y gelificantes: 30
+  Hidrolatos y aguas: 26
+  Humectantes e hidratantes: 24
+  Mantecas, ceras y emolientes: 35
+  Arcillas, minerales y pigmentos: 37
+  Otros ingredientes: 13
+  Tensioactivos y limpiadores: 24
+Con rango de uso: 420
+Con precauciones: 362
+Avisos: 0

@@ -1,0 +1,14 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Parfum|Fragancia (perfume)|Fragancia|Mezcla de aromas sintéticos o naturales. Los aceites esenciales no se declaran como "Parfum", sino por su nombre, pero sí hay que declarar los alérgenos.|Según el producto|Los 26 alérgenos de fragancia deben declararse sobre cierto umbral en la UE|Declarar alérgenos sobre 0.001% (se dejan) o 0.01% (se enjuagan)
+Sodium Borate|Bórax (borato de sodio)|Regulador de pH;Emulsionante|Sal mineral usada en cremas antiguas con cera de abeja: reacciona con ella y forma un emulsionante.|Según la receta|Está restringido o prohibido en cosmética en varios países, sobre todo en productos para niños y en piel con heridas. Revisa tu normativa antes de usarlo|Restringido en la UE
+Sodium Carbonate|Carbonato de sodio (soda ash)|Regulador de pH|Base más débil que la soda cáustica. Sube el pH de sales y jabones en polvo.|Según la receta|Irritante en polvo. Alcaliniza
+Sodium Sesquicarbonate|Sesquicarbonato de sodio|Regulador de pH|Sal alcalina intermedia entre el bicarbonato y el carbonato.|Según la receta|Alcaliniza
+Glyceryl Laurate|Laurato de glicerilo|Antimicrobiano;Emoliente|Éster de glicerina y ácido láurico, con acción antimicrobiana suave. Se usa en desodorantes y como booster de conservantes.|0.5-2%|
+Cetyl Hydroxyethylcellulose|Cetil hidroxietilcelulosa|Espesante;Estabilizante|Espesante celulósico modificado que estabiliza emulsiones y da cuerpo a geles.|0.3-1%|
+Beeswax Absolute|Cera de abeja absoluta|Fragancia|Extracto con aroma a miel de la cera de abeja. Se usa en perfumería natural.|0.1-1%|Alérgeno en personas sensibles a los productos de las abejas
+Alcohol Denat.|Alcohol desnaturalizado|Disolvente;Astringente|Etanol con sustancias que lo hacen no apto para beber. Se usa como disolvente y astringente.|5-50%|Reseca; no es adecuado para tinturas de uso interno
+Sodium Magnesium Silicate|Silicato de sodio y magnesio (arcilla sintética)|Espesante;Suspensor|Arcilla sintética que forma geles transparentes y suspende partículas.|0.5-3%|
+Polyquaternium-10|Polyquaternium-10|Acondicionador capilar;Antiestático|Polímero catiónico derivado de la celulosa; acondiciona y reduce la electricidad estática. No es natural.|0.1-1%|Incompatible con aniónicos fuertes
+Guar Hydroxypropyltrimonium Chloride|Guar catiónico|Acondicionador capilar|Guar modificada con carga positiva. Acondiciona y desenreda sin siliconas.|0.1-0.5%|Incompatible con aniónicos fuertes
+Glycol Distearate|Diestearato de glicol|Estructurante|Cera que da nacarado a champús y geles.|1-3%|
+Cocos Nucifera Husk Powder|Fibra de coco (cáscara molida)|Exfoliante;Abrasivo suave|Fibra de la cáscara del coco molida, usada como exfoliante físico.|5-20%|

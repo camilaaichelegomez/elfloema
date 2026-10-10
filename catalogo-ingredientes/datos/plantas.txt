@@ -1,0 +1,91 @@
+# slug (de lib/plantas-data.ts) | INCI sugerido | parte usada | funciones;separadas | precaución extra (opcional)
+# El INCI de varias plantas nativas no está oficialmente en CosIng: es el sugerido (género + especie + parte).
+matico|Piper Aduncum Leaf Extract|hoja|Astringente;Cicatrizante;Antimicrobiano|ATENCIÓN con la especie: en Chile "matico" suele ser Buddleja globosa (ver su fila aparte). Piper aduncum es el matico amazónico. Confirma cuál es la tuya antes de usar los estudios
+pitra|Myrceugenia Exsucca Leaf Extract|hoja|Astringente;Antimicrobiano
+arrayan|Luma Apiculata Leaf Extract|hoja|Astringente;Antioxidante
+maqui|Aristotelia Chilensis Fruit Extract|fruto|Antioxidante;Colorante|Los pigmentos (antocianinas) cambian de color con el pH y pueden teñir
+triwe|Laureliopsis Philippiana Leaf Extract|hoja|Astringente;Antimicrobiano|ATENCIÓN con la especie: en tus etiquetas el triwe figura como Laurelia sempervirens; esta ficha dice Laureliopsis philippiana (tepa). Confirma la especie con un botánico o con la guía de campo
+chilco|Fuchsia Magellanica Leaf Extract|hoja y flor|Astringente;Calmante
+milenrama|Achillea Millefolium Extract|sumidad florida|Astringente;Cicatrizante;Antiinflamatorio
+boldo|Peumus Boldus Leaf Extract|hoja|Antioxidante;Astringente|Contiene alcaloides (boldina) y ascaridol en el aceite esencial: no usar el aceite esencial
+bailahuen|Haplopappus Baylahuen Extract|hoja y flor|Antiinflamatorio;Antimicrobiano
+canelo|Drimys Winteri Bark Extract|corteza y hoja|Antimicrobiano;Astringente;Antiinflamatorio
+llanten|Plantago Major Leaf Extract|hoja|Calmante;Cicatrizante;Astringente
+paico|Chenopodium Ambrosioides Extract|hoja y sumidad|Antimicrobiano|Contiene ascaridol, tóxico: no usar aceite esencial ni uso interno. En cosmética, solo extractos externos y con prudencia
+rosa-mosqueta|Rosa Rubiginosa Fruit Extract|escaramujo (fruto)|Antioxidante;Regenerador|El aceite de la semilla está en la categoría Aceites vegetales
+manzanilla|Chamomilla Recutita Flower Extract|flor|Calmante;Antiinflamatorio
+cola-de-caballo|Equisetum Arvense Extract|tallo estéril|Astringente;Fortalecedor capilar
+melisa|Melissa Officinalis Leaf Extract|hoja|Calmante;Antimicrobiano
+menta|Mentha Piperita Leaf Extract|hoja|Refrescante;Antipruriginoso
+romero|Rosmarinus Officinalis Leaf Extract|hoja|Antioxidante;Estimulante
+tomillo|Thymus Vulgaris Extract|hoja y flor|Antimicrobiano;Antioxidante
+oregano|Origanum Vulgare Leaf Extract|hoja|Antimicrobiano;Antioxidante
+ortiga|Urtica Dioica Leaf Extract|hoja|Astringente;Seborregulador;Fortalecedor capilar
+diente-de-leon|Taraxacum Officinale Extract|hoja y raíz|Antioxidante;Calmante
+calendula|Calendula Officinalis Flower Extract|flor|Calmante;Antiinflamatorio;Cicatrizante|Probar en el antebrazo antes de usar si eres sensible a las asteráceas
+hiperico|Hypericum Perforatum Extract|sumidad florida|Calmante;Antiinflamatorio|Fotosensibilizante: evita el sol tras aplicarlo. Interactúa con medicamentos si se usa por vía interna
+sauce-blanco|Salix Alba Bark Extract|corteza|Astringente;Queratolítico|Contiene salicina (precursor de salicilatos): evitar si hay alergia a la aspirina o a los salicilatos
+sauco|Sambucus Nigra Flower Extract|flor|Astringente;Calmante
+valeriana|Valeriana Officinalis Root Extract|raíz|Calmante|Olor fuerte y desagradable
+lavanda|Lavandula Angustifolia Flower Extract|flor|Calmante;Antimicrobiano
+aloe-vera|Aloe Barbadensis Leaf Juice|hoja (gel)|Humectante;Calmante;Cicatrizante|El látex amarillo de la corteza es irritante: usar solo el gel interior
+hamamelis|Hamamelis Virginiana Leaf Extract|hoja y corteza|Astringente;Tonificante|Los comerciales traen alcohol: puede resecar
+arnica|Arnica Montana Flower Extract|flor|Antiinflamatorio|Solo sobre piel íntegra. Puede sensibilizar; evitar en heridas abiertas
+hinojo|Foeniculum Vulgare Fruit Extract|fruto (semilla)|Calmante;Descongestionante
+anis|Pimpinella Anisum Fruit Extract|fruto (semilla)|Antimicrobiano
+cardo-mariano|Silybum Marianum Seed Extract|semilla (fruto)|Antioxidante
+equinacea|Echinacea Purpurea Extract|hierba y raíz|Calmante;Antimicrobiano
+jengibre|Zingiber Officinale Root Extract|rizoma|Estimulante;Antioxidante
+curcuma|Curcuma Longa Root Extract|rizoma|Antioxidante;Colorante|Mancha piel, telas y lavamanos
+quillay|Quillaja Saponaria Bark Extract|corteza|Espumante;Tensioactivo limpiador|Irrita los ojos y mucosas
+pichi-romero|Fabiana Imbricata Extract|ramas y hojas|Antimicrobiano
+quinchamali|Quinchamalium Chilense Extract|planta entera|Astringente
+canchalagua|Centaurium Cachanlahuen Extract|sumidad florida|Tonificante
+radal|Lomatia Hirsuta Leaf Extract|hoja|Astringente
+ulmo|Eucryphia Cordifolia Extract|corteza y hoja|Astringente;Antimicrobiano
+maiten|Maytenus Boaria Leaf Extract|hoja|Calmante;Astringente
+peumo|Cryptocarya Alba Leaf Extract|hoja|Astringente
+culen|Otholobium Glandulosum Leaf Extract|hoja|Antimicrobiano|Pertenece a un grupo (Psoralea s.l.) con especies fotosensibilizantes por psoralenos; no está verificado en esta especie. Prueba de parche y evita el sol
+nalca|Gunnera Tinctoria Leaf Extract|hoja|Astringente;Antiinflamatorio
+ajo|Allium Sativum Bulb Extract|bulbo|Antimicrobiano|Irritante sobre la piel; olor persistente
+cebolla|Allium Cepa Bulb Extract|bulbo|Antimicrobiano|Puede irritar piel y ojos
+cilantro|Coriandrum Sativum Extract|hoja y fruto|Antioxidante
+canela|Cinnamomum Zeylanicum Bark Extract|corteza|Antimicrobiano;Estimulante|Contiene cinamaldehído, sensibilizante: dosis bajas y prueba de parche
+pimienta-negra|Piper Nigrum Fruit Extract|fruto|Estimulante|Efecto rubefaciente: puede enrojecer y arder en piel sensible
+te-verde|Camellia Sinensis Leaf Extract|hoja|Antioxidante;Astringente
+ginkgo|Ginkgo Biloba Leaf Extract|hoja|Antioxidante
+ginseng|Panax Ginseng Root Extract|raíz|Antioxidante;Estimulante
+ashwagandha|Withania Somnifera Root Extract|raíz|Antioxidante|Solanácea: uso tópico con prueba de parche
+regaliz|Glycyrrhiza Glabra Root Extract|raíz|Calmante;Aclarante;Antiinflamatorio
+albahaca|Ocimum Basilicum Leaf Extract|hoja|Antimicrobiano;Antioxidante
+salvia|Salvia Officinalis Leaf Extract|hoja|Astringente;Antimicrobiano|Contiene tuyona: no usar el aceite esencial en embarazo
+ruda|Ruta Graveolens Extract|hoja|Antimicrobiano|FOTOSENSIBILIZANTE (furocumarinas) y puede causar quemaduras con el sol. Uso cosmético no recomendado
+malva|Malva Sylvestris Flower Extract|flor y hoja|Calmante;Humectante
+borraja|Borago Officinalis Flower Extract|flor|Calmante|Las hojas contienen alcaloides pirrolizidínicos: no usar la planta entera de forma prolongada
+cedron|Aloysia Citrodora Leaf Extract|hoja|Calmante;Antioxidante
+poleo|Mentha Pulegium Extract|hoja|Antimicrobiano|Contiene pulegona (tóxica): no usar aceite esencial y evitar en embarazo
+hierba-buena|Mentha Spicata Leaf Extract|hoja|Refrescante
+tilo|Tilia Platyphyllos Flower Extract|flor|Calmante;Humectante
+rosa|Rosa Damascena Flower Extract|flor|Tonificante;Calmante
+marcela|Achyrocline Satureioides Flower Extract|flor|Calmante;Antioxidante|Tu ficha de vira-vira repite esta misma especie (Achyrocline satureioides); el vira-vira chileno suele ser otra planta (Pseudognaphalium viravira). Verifica
+molle|Schinus Molle Fruit Extract|fruto y hoja|Antimicrobiano|Anacardiácea: puede dar alergia de contacto
+palqui|Cestrum Parqui Leaf Extract|hoja|Antimicrobiano|TÓXICO. Solanácea con saponinas y alcaloides; no usar en infusiones ni en preparados caseros. Se incluye solo para que se reconozca y se evite
+perejil|Petroselinum Crispum Extract|hoja y semilla|Antioxidante|Contiene furocumarinas: puede fotosensibilizar en uso concentrado
+apio|Apium Graveolens Extract|semilla|Calmante|Contiene furocumarinas: puede fotosensibilizar
+lino|Linum Usitatissimum Seed Extract|semilla|Humectante;Formador de película;Gelificante|El gel se descompone en pocos días: refrigerar o conservar
+hibisco|Hibiscus Sabdariffa Flower Extract|flor (cáliz)|Antioxidante;Colorante;Astringente
+moringa|Moringa Oleifera Leaf Extract|hoja|Antioxidante|El aceite de la semilla está en Aceites vegetales
+espirulina|Spirulina Platensis Extract|microalga|Antioxidante;Colorante|Puede teñir de verde-azul
+bardana|Arctium Lappa Root Extract|raíz|Calmante;Antimicrobiano
+murta|Ugni Molinae Fruit Extract|fruto|Antioxidante
+calafate|Berberis Microphylla Fruit Extract|fruto|Antioxidante;Colorante
+michay|Berberis Darwinii Extract|raíz y corteza|Antimicrobiano|Contiene berberina, un alcaloide: evitar en embarazo
+avellano-chileno|Gevuina Avellana Leaf Extract|hoja y semilla|Emoliente|El aceite de la semilla está en Aceites vegetales. Evitar si hay alergia a frutos secos
+natre|Solanum Ligustrinum Leaf Extract|hoja|Calmante|Solanácea: puede contener alcaloides. Uso tradicional externo; hacer prueba de parche
+vira-vira|Achyrocline Satureioides Extract|flor y hoja|Calmante|Tu ficha repite la especie de la marcela; verifica la especie real antes de usarla
+centella-asiatica|Centella Asiatica Extract|hoja|Cicatrizante;Calmante;Regenerador
+avena|Avena Sativa Kernel Extract|grano|Calmante;Humectante|En productos con agua se contamina con facilidad: necesita conservante
+ajenjo|Artemisia Absinthium Extract|hoja|Antimicrobiano|Contiene tuyona (neurotóxica): no usar aceite esencial ni uso interno prolongado
+verbena|Verbena Officinalis Extract|sumidad|Astringente;Calmante
+consuelda|Symphytum Officinale Root Extract|raíz y hoja|Cicatrizante;Calmante|Contiene alcaloides pirrolizidínicos: solo sobre piel íntegra y sin uso prolongado
+yerba-mate|Ilex Paraguariensis Leaf Extract|hoja|Antioxidante;Estimulante

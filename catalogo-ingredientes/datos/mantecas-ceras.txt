@@ -1,0 +1,36 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Butyrospermum Parkii Butter|Manteca de karité|Emoliente;Estructurante;Nutritivo|Grasa sólida de las nueces del árbol africano del karité. Sus ácidos oleico y esteárico la hacen cremosa y nutritiva; su fracción insaponificable (triterpenos, tocoferoles, esteroles) aporta efecto calmante y antioxidante.|3-10% en cremas; 20-50% en bálsamos|Si se enfría lento puede granularse: enfría rápido o recalienta. La sin refinar huele ahumado
+Theobroma Cacao Seed Butter|Manteca de cacao|Emoliente;Estructurante;Oclusivo|Grasa dura y quebradiza, rica en ácidos esteárico, oleico y palmítico. Funde cerca de los 34 °C. Da dureza y brillo a bálsamos y labiales.|2-10% en cremas; 10-30% en bálsamos|En piel muy grasa puede sentirse pesada en el rostro
+Mangifera Indica Seed Butter|Manteca de mango|Emoliente;Estructurante|Manteca suave y poco pegajosa, rica en ácidos esteárico y oleico. Más ligera que el karité, con muy buen deslizamiento.|3-10% en cremas; 10-30% en bálsamos|
+Coffea Arabica Seed Butter|Manteca (aceite) de café verde|Emoliente;Antioxidante|Grasa de granos de café sin tostar, con ácidos linoleico y palmítico, esteroles y tocoferoles. Emoliente de tacto seco. Se le atribuye efecto tonificante; la evidencia clínica es limitada.|2-10%|
+Garcinia Indica Seed Butter|Manteca de kokum|Emoliente;Estructurante|Manteca dura y poco grasosa, rica en ácidos esteárico y oleico. Muy estable; sirve en barras y bálsamos.|3-20%|
+Shorea Robusta Seed Butter|Manteca de sal|Emoliente;Estructurante|Manteca firme, parecida a la de cacao y al karité, rica en ácido esteárico.|3-20%|
+Theobroma Grandiflorum Seed Butter|Manteca de cupuaçu|Emoliente;Humectante|Manteca amazónica de buena capacidad de retener agua y de tacto suave.|3-10%|
+Astrocaryum Murumuru Seed Butter|Manteca de murumuru|Emoliente;Estructurante|Manteca amazónica rica en ácido láurico y mirístico; algo dura y de tacto seco. Se usa en cabello y piel.|3-10%|
+Tallow|Sebo bovino purificado (tallow)|Emoliente;Oclusivo;Estructurante|Grasa bovina purificada, con ácidos oleico (~45%), palmítico y esteárico; composición parecida a la barrera lipídica de la piel. Sólida a temperatura ambiente; funde a 40-45 °C. Base de ungüentos y bálsamos.|10-100% según el producto|Sin agua no necesita conservante; con agua sí. El de animales pasturados suele ser más rico en vitaminas liposolubles
+Lanolin|Lanolina|Emoliente;Oclusivo|Grasa natural de la lana de oveja. Emoliente y oclusiva muy eficaz: retiene la humedad de la piel.|2-10%|No es vegana. Puede sensibilizar; usa grado cosmético purificado
+Cera Alba|Cera de abeja|Estructurante;Emulsionante;Oclusivo|Cera de abejas blanqueada o natural. Da cuerpo y protege la piel con una película permeable; coemulsionante débil con bórax o cera emulsionante.|2-10% en cremas; 10-25% en bálsamos|No es vegana. Algunas personas reaccionan a los productos de las abejas
+Euphorbia Cerifera Wax|Cera de candelilla|Estructurante;Formador de película|Cera vegetal dura y brillante de un arbusto del desierto mexicano. Alternativa vegana a la cera de abeja.|50% de la cantidad de cera de abeja que reemplaza|Punto de fusión 68-73 °C
+Copernicia Cerifera Wax|Cera de carnauba|Estructurante;Brillo|La cera vegetal más dura (fusión ~80-86 °C), de palmas de Brasil. Da dureza y brillo espejo.|1-5% en barras y labiales|Sube mucho el punto de fusión de la mezcla
+Helianthus Annuus Seed Wax|Cera de girasol|Estructurante|Cera vegetal ligera, usada como alternativa vegana a la de abeja.|1-8%|
+Oryza Sativa Bran Wax|Cera de salvado de arroz|Estructurante|Cera vegetal de punto de fusión medio-alto. Usada en barras, labiales y bálsamos.|1-8%|
+Hydrogenated Soybean Oil|Cera de soya|Estructurante|Aceite de soya hidrogenado, sólido y de textura cerosa. Da cuerpo a velas, bálsamos y cremas.|5-20% en bálsamos|Evitar si hay alergia a la soya
+Stearic Acid|Ácido esteárico|Estructurante;Coemulsionante|Ácido graso saturado (C18) de origen vegetal. Da cuerpo y nacarado a las cremas y forma emulsiones con una base (por ejemplo, con trietanolamina o cera emulsionante).|1-10%|
+Palmitic Acid|Ácido palmítico|Estructurante|Ácido graso saturado (C16) de aceite de palma o coco. Se usa como espesante y estructurante.|1-5%|Revisa que el origen del aceite de palma sea sostenible
+Cetyl Alcohol|Alcohol cetílico|Coemulsionante;Espesante;Emoliente|Alcohol graso sólido de origen vegetal (no es alcohol etílico): no reseca. Da cuerpo y tacto sedoso a cremas y acondicionadores.|2-6%|
+Stearyl Alcohol|Alcohol estearílico|Coemulsionante;Espesante;Emoliente|Alcohol graso sólido, primo del cetílico pero más cerúleo. Da estructura y cuerpo a cremas y acondicionadores.|2-5%|
+Cetearyl Alcohol|Alcohol cetearílico|Coemulsionante;Espesante|Mezcla de alcohol cetílico y estearílico. Coemulsionante y espesante de referencia en cremas y acondicionadores.|3-8%|
+Behenyl Alcohol|Alcohol behenílico|Espesante;Estructurante|Alcohol graso de cadena larga (C22). Da cuerpo rico y un tacto aterciopelado; base de los acondicionadores.|1-5%|
+Glyceryl Stearate|Monoestearato de glicerina (GMS)|Coemulsionante;Estructurante;Emoliente|Coemulsionante no iónico de origen vegetal. Refuerza la emulsión y da cuerpo y suavidad.|2-5%|
+Glyceryl Oleate|Oleato de glicerilo|Emoliente;Coemulsionante|Emoliente y coemulsionante suave de origen vegetal.|1-5%|
+Cetyl Palmitate|Palmitato de cetilo|Estructurante;Emoliente|Éster ceroso (parecido al espermaceti) de origen vegetal. Da cuerpo y suavidad a cremas y barras.|1-5%|
+Cetyl Esters|Ésteres de cetilo|Estructurante;Emoliente|Mezcla de ésteres cerosos vegetales usados como sustituto del espermaceti.|1-5%|
+Isopropyl Myristate|Miristato de isopropilo|Emoliente;Disolvente|Éster ligero que da tacto seco y mejora la extensión. Se absorbe rápido.|1-10%|Puede ser comedogénico en piel propensa al acné
+Isopropyl Palmitate|Palmitato de isopropilo|Emoliente|Éster ligero de tacto sedoso, parecido al miristato.|1-10%|Puede ser comedogénico
+Coco-Caprylate/Caprate|Caprilato/caprato de coco|Emoliente|Éster ligero derivado del coco, de absorción rápida y tacto seco. Alternativa natural a las siliconas.|2-15%|
+Dicaprylyl Carbonate|Carbonato de dicaprililo|Emoliente|Emoliente ligero y seco derivado de aceites vegetales. Muy buena extensión.|2-15%|
+C15-19 Alkane|Alcano vegetal (C15-19)|Emoliente|Hidrocarburos ligeros de origen vegetal, usados como alternativa natural a las siliconas en el tacto seco.|2-10%|
+Hydrolyzed Jojoba Esters|Ésteres de jojoba hidrolizados|Emoliente;Estructurante|Cera de jojoba procesada, en perlas o polvo. Se usa en exfoliantes suaves y barras.|1-10%|
+Glyceryl Caprylate|Caprilato de glicerilo|Emoliente;Potenciador de conservante|Éster de glicerina y ácido caprílico. Emoliente que también refuerza la acción de los conservantes.|0.3-1%|
+Cholesterol|Colesterol|Acondicionador de piel;Emoliente|Lípido de la barrera cutánea. En cosmética restaura la barrera junto a ceramidas y ácidos grasos (proporción aproximada 1:1:1).|0.5-2%|
+Phytosphingosine|Fitoesfingosina|Acondicionador de piel;Antimicrobiano|Lípido parecido a las esfingosinas de la barrera cutánea. Se usa en piel con tendencia a acné y barrera dañada.|0.1-0.5%|

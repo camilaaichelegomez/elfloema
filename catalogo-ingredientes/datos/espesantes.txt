@@ -1,0 +1,31 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Xanthan Gum|Goma xantana|Espesante;Gelificante;Suspensor|Espesante de origen fermentado para fases acuosas. Da textura de gel sin nada de grasa y ayuda a suspender polvos y estabilizar emulsiones.|0.2-0.5% ligero cuerpo; 0.5-1% gel firme|Pasarse da textura "mocosa". Dispersar primero en glicerina o en seco para evitar grumos
+Cyamopsis Tetragonoloba Gum|Goma guar|Espesante;Acondicionador capilar|Espesante de origen vegetal (semilla de guar). Da cuerpo a geles y tónicos y acondiciona el cabello.|0.2-1%|Dispersar primero en glicerina para evitar grumos
+Hydroxypropyl Guar|Hidroxipropil guar|Espesante;Acondicionador capilar|Guar modificada, más soluble y estable. Usada para espesar y acondicionar en champús.|0.2-1%|
+Cellulose Gum|Goma de celulosa (CMC)|Espesante;Estabilizante|Derivado de la celulosa que espesa agua en frío. Da cuerpo a geles y dentífricos.|0.3-2%|
+Hydroxyethylcellulose|Hidroxietilcelulosa|Espesante;Gelificante|Espesante semi-natural derivado de la celulosa. Forma geles transparentes y estables.|0.5-1.5%|
+Chondrus Crispus Powder|Carragenina (musgo irlandés)|Espesante;Gelificante|Espesante y gelificante extraído de algas rojas. Da geles suaves y elásticos.|0.2-1%|
+Gelidium Amansii Extract|Agar-agar|Gelificante|Gelificante de algas: da geles firmes y opacos que se forman al enfriar.|0.5-2%; se disuelve a ~90 °C|
+Sclerotium Gum|Goma sclerotium|Espesante;Estabilizante|Goma de origen fermentado, de buena estabilidad en un rango amplio de pH y de sal.|0.2-1%|
+Pectin|Pectina|Gelificante;Espesante|Polisacárido de frutas (cítricos, manzana). Forma geles en medio ácido.|0.5-3%|
+Acacia Senegal Gum|Goma arábiga|Espesante;Formador de película;Emulsionante|Exudado del árbol Acacia senegal. Espesa, forma película y estabiliza emulsiones; se usa en microencapsulación.|1-10%|
+Ceratonia Siliqua Gum|Goma de algarrobo|Espesante|Espesante de la semilla de algarrobo, de buena estabilidad. Usado en geles y cremas.|0.2-1%|
+Caesalpinia Spinosa Gum|Goma tara|Espesante|Espesante de la vaina del árbol tara (Perú, Chile). Da cuerpo y buen tacto en geles.|0.2-1%|
+Sodium Alginate|Alginato de sodio|Gelificante;Espesante|Polisacárido de algas pardas. Gelifica con calcio; se usa en mascarillas de algas, geles y microesferas.|0.5-2%|
+Silica|Sílice (dióxido de silicio)|Absorbente;Matificante;Suspensor|Polvo muy fino y poroso. Absorbe sebo, da efecto mate y suspende polvos. La coloidal espesa aceites.|1-5% como matificante|No inhalar el polvo
+Hectorite|Hectorita|Espesante;Suspensor|Arcilla espesante que da cuerpo a aceites y suspende polvos en emulsiones. Muy usada en cosmética mineral.|0.5-3%|
+Magnesium Aluminum Silicate|Silicato de magnesio y aluminio (Veegum)|Espesante;Suspensor;Estabilizante|Arcilla mineral que espesa y estabiliza emulsiones; mejora el tacto.|0.5-3%|
+Bentonite|Bentonita|Espesante;Absorbente|Arcilla que se hincha mucho al mojarse y es muy absorbente. Forma pastas espesas y cremosas.|1-3% espesante; 10-100% en mascarillas|
+Sodium Chloride|Sal (cloruro de sodio)|Espesante;Exfoliante|En tensioactivos aniónicos y betaínas espesa la mezcla. En polvo grueso se usa como exfoliante.|0.5-3% como espesante|Demasiada sal vuelve a adelgazar el producto
+Manihot Esculenta Starch|Almidón de tapioca (mandioca)|Absorbente;Agente de carga|Almidón sedoso que absorbe humedad. Usado en polvos, desodorantes y para matificar.|5-20% en polvos|Húmedo favorece el crecimiento de microorganismos
+Zea Mays Starch|Almidón de maíz|Absorbente;Agente de carga|Almidón que absorbe humedad y da tacto sedoso. Usado en polvos y desodorantes.|5-20% en polvos|Húmedo favorece microorganismos; en axilas húmedas puede alimentar levaduras
+Maranta Arundinacea Root Powder|Arrowroot (almidón de maranta)|Absorbente;Agente de carga|Almidón fino de tacto sedoso, parecido al de maíz pero más suave.|5-20% en polvos|Húmedo favorece microorganismos
+Oryza Sativa Starch|Almidón de arroz|Absorbente;Matificante|Almidón muy fino, de efecto mate y tacto sedoso.|5-20%|Húmedo favorece microorganismos
+Hydrolyzed Corn Starch|MaízCare (biopolímero de maíz)|Formador de película;Matificante;Reafirmante|Biopolímero derivado del maíz que forma una película fina y flexible sobre la piel o el cabello. Da efecto tensor inmediato y visual mate o soft-focus; en cabello sella la cutícula y da brillo.|1-3% (según la ficha del proveedor)|El efecto es de película: se va al lavar y no cambia la estructura de la piel
+Maltodextrin|Maltodextrina|Agente de carga;Vehículo|Polisacárido de maíz o tapioca. Se usa como soporte de polvos y en microencapsulación.|Según el uso|
+Cyclodextrin|Ciclodextrina|Absorbente;Vehículo|Moléculas en forma de anillo que atrapan olores y moléculas liposolubles. Se usan para encapsular fragancias y activos.|0.5-5%|
+Pullulan|Pululano|Formador de película|Polisacárido fermentado que forma películas transparentes. Se usa en mascarillas peel-off y para tensar visualmente.|0.5-3%|
+Hydroxypropyl Starch Phosphate|Almidón modificado (hidroxipropil fosfato de almidón)|Espesante;Estabilizante|Almidón modificado que espesa y estabiliza emulsiones, con tacto sedoso.|1-4%|
+Sodium Polyacrylate|Poliacrilato de sodio|Espesante;Absorbente|Polímero sintético superabsorbente. Aparece como espesante en geles y polvos.|0.5-2%|No es de origen natural
+Carbomer|Carbómero|Gelificante;Espesante|Polímero sintético para geles transparentes, que se activa al neutralizar con una base.|0.2-1%|No es de origen natural. Requiere neutralización con base
+Inulin|Inulina|Acondicionador de piel;Humectante;Prebiótico|Fructano de raíces (achicoria, agave). En cosmética funciona como prebiótico de la microbiota de la piel y como humectante.|0.5-3%|En fórmulas con agua sin conservante puede fermentar

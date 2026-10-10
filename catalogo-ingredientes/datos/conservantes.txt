@@ -1,0 +1,28 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Benzyl Alcohol (and) Dehydroacetic Acid|Cosgard (alcohol bencílico + ácido dehidroacético)|Conservante|Conservante de amplio espectro aceptado en cosmética natural. Combina alcohol bencílico y ácido dehidroacético. Es el que usas en tus cremas y sérums.|0.5-1% (según la ficha del proveedor, hasta 1.5%); eficaz a pH menor de 6|Agregar en la fase fría, por debajo de ~50 °C|UE: alcohol bencílico máx. 1% y ácido dehidroacético máx. 0.6% (como ácido)
+Phenoxyethanol|Fenoxietanol|Conservante|Conservante de amplio espectro muy usado, estable en un rango amplio de pH. Suele combinarse con etilhexilglicerina.|0.5-1%|No es "natural"; puede irritar en piel muy sensible|UE: máx. 1%
+Ethylhexylglycerin|Etilhexilglicerina|Potenciador de conservante;Acondicionador de piel|Refuerza a otros conservantes y suaviza la piel; por sí sola no basta como conservante.|0.3-1%|
+Sodium Benzoate|Benzoato de sodio|Conservante|Sal del ácido benzoico. Actúa solo con el pH ácido, y funciona mejor contra hongos y levaduras.|0.3-0.5%; requiere pH menor de 5|Combinar con sorbato de potasio para ampliar el espectro|UE: 0.5% (como ácido) en productos que se dejan; 2.5% en los que se enjuagan
+Potassium Sorbate|Sorbato de potasio|Conservante|Conservante que actúa sobre todo contra hongos y levaduras. Suele combinarse con el benzoato.|0.3-0.6%; requiere pH menor de 6||UE: máx. 0.6% (como ácido sórbico)
+Sorbic Acid|Ácido sórbico|Conservante|Forma ácida del sorbato. Actúa contra hongos y levaduras a pH ácido.|0.1-0.5%|Requiere pH ácido|UE: máx. 0.6%
+Benzoic Acid|Ácido benzoico|Conservante|Forma ácida del benzoato. Actúa a pH ácido contra hongos y levaduras.|0.1-0.5%|Requiere pH ácido|UE: 0.5% en productos que se dejan
+Dehydroacetic Acid|Ácido dehidroacético|Conservante|Conservante que actúa contra hongos y bacterias a pH ácido; aparece sobre todo en mezclas comerciales.|0.2-0.6%|Requiere pH menor de 6|UE: máx. 0.6%
+Sodium Dehydroacetate|Dehidroacetato de sodio|Conservante|Sal soluble del ácido dehidroacético.|0.2-0.6%|Requiere pH menor de 6.5|UE: máx. 0.6% (como ácido)
+Caprylhydroxamic Acid|Ácido caprilhidroxámico|Conservante;Quelante|Conservante y quelante de baja irritación, de origen vegetal, usado en mezclas "naturales".|0.3-1%|Funciona mejor combinado con glicoles y a pH 4-6
+Caprylyl Glycol|Caprililglicol|Potenciador de conservante;Humectante|Humectante que refuerza la acción de otros conservantes y mejora el tacto.|0.3-1%|
+1,2-Hexanediol|1,2-Hexanodiol|Potenciador de conservante;Humectante|Humectante y diol que refuerza conservantes con muy baja irritación.|0.5-2%|
+Sodium Levulinate|Levulinato de sodio|Potenciador de conservante|Sal del ácido levulínico (derivado de azúcares). Se usa en mezclas conservantes de origen natural.|0.5-1.5%|Eficacia mejor a pH menor de 5.5
+Sodium Anisate|Anisato de sodio|Potenciador de conservante|Sal del ácido anísico. Se usa junto al levulinato en mezclas "naturales".|0.3-1%|
+Radish Root Ferment Filtrate|Filtrado de fermento de rábano (Leucidal)|Antimicrobiano|Péptido antimicrobiano obtenido por fermentación del rábano con Leuconostoc. Aceptado en cosmética natural como conservante parcial.|2-4%|Eficacia limitada: suele complementarse
+Alcohol|Alcohol etílico (alcohol de cereal 96°)|Disolvente;Antimicrobiano|Solvente de tinturas y aporta conservación: para que actúe como conservante debe rondar el 20% o más del producto final.|Según el producto|Reseca y puede irritar la piel sensible
+Disodium EDTA|EDTA disódico|Quelante|Captura metales que aceleran el enranciamiento y la degradación del color. Mejora la eficacia de los conservantes.|0.05-0.2%|
+Sodium Phytate|Fitato de sodio|Quelante|Quelante de origen vegetal (del ácido fítico del salvado).|0.1-0.5%|
+Tetrasodium Glutamate Diacetate|GLDA|Quelante|Quelante biodegradable, de origen vegetal, que reemplaza al EDTA.|0.1-0.5%|
+Ascorbyl Palmitate|Palmitato de ascorbilo|Antioxidante|Vitamina C liposoluble. Protege los aceites del enranciamiento, sobre todo con vitamina E.|0.01-0.2%|
+Citric Acid|Ácido cítrico|Regulador de pH;Quelante|Ajusta el pH hacia abajo y actúa como quelante suave que protege el producto del enranciamiento.|0.1-0.5%|Disolver en agua antes de agregar
+Sodium Citrate|Citrato de sodio|Regulador de pH;Quelante|Sal del ácido cítrico. Con el ácido cítrico forma un tampón que estabiliza el pH.|0.1-1%|
+Sodium Hydroxide|Hidróxido de sodio (soda cáustica)|Regulador de pH|Base fuerte. En cosmética se usa en solución diluida (por ejemplo al 10%) para subir el pH, y en pocas gotas. También es el álcali de la saponificación.|Gotas en solución diluida|CORROSIVO: guantes y gafas; añadir siempre la soda al agua, nunca al revés
+Potassium Hydroxide|Hidróxido de potasio|Regulador de pH|Base fuerte, equivalente al hidróxido de sodio. Se usa para jabones blandos o líquidos.|Según la receta|CORROSIVO: guantes y gafas
+Sodium Bicarbonate|Bicarbonato de sodio|Regulador de pH;Desodorante;Abrasivo suave|Base débil (pH ~8.3). Neutraliza olores y se usa como abrasivo suave.|1-10%|Alcaliniza: irrita la piel en uso frecuente, sobre todo axilas y rostro
+Procide PF130|Procide PF130 (nombre comercial)|Quelante;Potenciador de conservante|Producto comercial que aparece en tu inventario como quelante o refuerzo del conservante. Su composición no está verificada aquí.|Según la ficha del proveedor|Revisa la ficha técnica del proveedor antes de usarlo
+Arginine|Arginina|Regulador de pH|Aminoácido básico que se usa para neutralizar ácidos en geles y subir el pH con suavidad.|0.1-1%|

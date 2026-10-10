@@ -1,0 +1,21 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Behentrimonium Methosulfate|BTMS (metosulfato de behentrimonio)|Emulsionante;Acondicionador capilar|Emulsionante catiónico y acondicionador. Se une a la carga negativa del cabello dañado, suaviza y reduce el frizz. El BTMS-50 viene mezclado con alcohol cetílico al 50%.|3-6% en acondicionadores líquidos; 40-60% en sólidos|Incompatible con tensioactivos aniónicos (SCI, SLSA, SCS, SLS): nunca mezclar directamente
+Behentrimonium Chloride|Cloruro de behentrimonio|Emulsionante;Acondicionador capilar|Emulsionante catiónico, parecido al BTMS pero en forma de cloruro. Acondicionador y desenredante.|2-5%|Incompatible con aniónicos. Más irritante que el BTMS
+Cetrimonium Chloride|Cloruro de cetrimonio|Acondicionador capilar;Antiestático|Tensioactivo catiónico de cadena más corta que el BTMS. Acondiciona y desenreda; más ligero.|1-4%|Incompatible con aniónicos. Puede irritar los ojos
+Stearamidopropyl Dimethylamine|Estearamidopropil dimetilamina|Emulsionante;Acondicionador capilar|Emulsionante catiónico que actúa al neutralizarse con un ácido (por ejemplo, láctico). Usado en acondicionadores.|1-5%|Necesita pH ácido para activarse
+Cetearyl Olivate|Oleato de cetearilo (Olivem 1000)|Emulsionante|Emulsionante no iónico de origen vegetal (de aceite de oliva), junto con Sorbitan Olivate. Forma emulsiones aceite en agua estables, de tacto fresco.|3-8%|Revisa la ficha del proveedor para las proporciones
+Sorbitan Olivate|Olivato de sorbitán|Coemulsionante|Parte del sistema Olivem 1000, con Cetearyl Olivate. Coemulsionante derivado del aceite de oliva.|Con su pareja, según la ficha|
+Cetearyl Alcohol (and) Polysorbate 60|Cera emulsionante NF|Emulsionante;Estructurante|Cera con el sistema emulsionante integrado. La vía más simple para hacer una crema aceite en agua estable: se funde con la fase oleosa y se une a la acuosa.|3-8% según la consistencia|Aparece en el rótulo como los dos ingredientes
+Glyceryl Stearate SE|Estearato de glicerilo autoemulsionable|Emulsionante;Estructurante|Monoestearato de glicerilo con jabón integrado para que emulsione solo. Da cuerpo y suavidad.|2-8%|Sube el pH de la emulsión
+Polyglyceryl-3 Methylglucose Distearate|Distearato de poliglicerilo-3 metilglucosa|Emulsionante|Emulsionante de origen vegetal con muy buen tacto y estabilidad. Se usa en cremas ligeras.|2-5%|
+Cetearyl Glucoside|Glucósido de cetearilo|Emulsionante;Estructurante|Emulsionante de origen vegetal (azúcares y grasas); suele venderse mezclado con alcohol cetearílico (Montanov 68). Forma cristales líquidos estables.|3-6%|
+Sucrose Stearate|Estearato de sacarosa|Emulsionante|Emulsionante suave derivado del azúcar y del ácido esteárico.|1-5%|
+Lecithin|Lecitina|Emulsionante;Humectante|Fosfolípidos de soya o girasol. Emulsionante natural nutritivo; base de los liposomas.|0.5-5%|Evitar si hay alergia a la soya
+Hydrogenated Lecithin|Lecitina hidrogenada|Emulsionante;Acondicionador de piel|Lecitina más estable a la oxidación. Forma liposomas y refuerza la barrera cutánea.|0.5-3%|
+Polysorbate 20|Polisorbato 20 (Tween 20)|Solubilizante;Tensioactivo limpiador|Tensioactivo no iónico. Solubiliza aceites esenciales en bases acuosas; sin él flotan o dejan turbios los tónicos.|1-4 partes por cada parte de aceite esencial|
+Polysorbate 80|Polisorbato 80 (Tween 80)|Emulsionante;Solubilizante|Tensioactivo no iónico. Permite que un aceite desmaquillante se vuelva lechoso al contacto con agua y se enjuague.|1-10% según el uso|
+Sorbitan Oleate|Oleato de sorbitán|Emulsionante|Emulsionante agua en aceite de HLB bajo (se usa con polisorbatos para ajustar el sistema).|1-5%|
+Sorbitan Stearate|Estearato de sorbitán|Emulsionante|Emulsionante no iónico de HLB bajo, usado con polisorbatos.|1-5%|
+Polyglyceryl-4 Caprate|Caprato de poliglicerilo-4|Emulsionante;Solubilizante|Emulsionante de origen vegetal, útil para solubilizar aceites esenciales y para limpiadores.|1-5%|
+Sodium Stearoyl Lactylate|Estearoil lactilato de sodio|Emulsionante|Emulsionante aniónico suave de origen vegetal.|0.5-3%|
+Glyceryl Stearate Citrate|Citrato estearato de glicerilo|Emulsionante|Emulsionante aniónico suave de origen vegetal (de glicerina, ácido esteárico y ácido cítrico).|1-5%|

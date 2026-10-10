@@ -1,0 +1,27 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Aqua|Agua destilada|Disolvente|Base de casi toda cosmética con fase acuosa. Debe ser destilada, desmineralizada o hervida y enfriada para no aportar minerales ni microorganismos.|c.s. hasta 100%|Sin conservante se contamina en días|
+Laurus Nobilis Leaf Water|Hidrolato de laurel|Tonificante;Antimicrobiano;Vehículo|Agua aromática de la destilación de hojas de laurel. Base cálida y especiada para limpiadores, tónicos y sérums. Es la base acuosa de varios de tus productos.|Hasta 100% de la fase acuosa|Los hidrolatos puros se contaminan: refrigerar y agregar conservante si se mezclan en un producto|
+Laurelia Sempervirens Leaf Water|Hidrolato de triwe (trihue)|Tonificante;Antimicrobiano;Vehículo|Agua aromática de la destilación del triwe, especie del bosque del sur de Chile. Aroma verde y especiado. La estás produciendo en cantidad.|Hasta 100% de la fase acuosa|Confirma la especie (Laurelia sempervirens o Laureliopsis philippiana) antes de rotular. Sin conservante dura semanas|
+Rosa Damascena Flower Water|Hidrolato de rosa|Tonificante;Calmante|Tónico suave y aromático. De tradición se usa en piel seca, sensible o madura.|Hasta 100% de la fase acuosa|Refrigerar; conservar|
+Lavandula Angustifolia Flower Water|Hidrolato de lavanda|Calmante;Tonificante|Calmante y refrescante, con el aroma suave de la lavanda. Muy versátil en tónicos y sprays.|Hasta 100% de la fase acuosa|Refrigerar; conservar|
+Chamomilla Recutita Flower Water|Hidrolato de manzanilla|Calmante|Calmante para piel sensible o enrojecida y para el contorno de ojos.|Hasta 100% de la fase acuosa|Alergia cruzada con asteráceas|
+Hamamelis Virginiana Leaf Water|Hamamelis (agua)|Astringente;Tonificante|Rico en taninos, es astringente y tonificante. El comercial suele traer alcohol.|Hasta 100% de la fase acuosa|Puede resecar en pieles sensibles|
+Citrus Aurantium Amara Flower Water|Agua de azahar|Tonificante;Fragancia|Agua floral de flor de naranjo amargo, de aroma delicado. Se usa en tónicos y perfumería suave.|Hasta 100% de la fase acuosa|Refrigerar|
+Mentha Piperita Leaf Water|Hidrolato de menta|Refrescante;Tonificante|Agua aromática de menta, refrescante.|Hasta 100% de la fase acuosa|Evitar cerca de la cara de bebés|
+Rosmarinus Officinalis Leaf Water|Hidrolato de romero|Tonificante;Estimulante|Agua aromática del romero. De tradición se usa en tónicos capilares y de piel grasa.|Hasta 100% de la fase acuosa|Refrigerar|
+Melissa Officinalis Leaf Water|Hidrolato de melisa (toronjil)|Calmante|Agua aromática de melisa, suave y de aroma limonado.|Hasta 100% de la fase acuosa|Refrigerar|
+Calendula Officinalis Flower Water|Hidrolato de caléndula|Calmante|Agua aromática de caléndula, suave para piel sensible y atópica.|Hasta 100% de la fase acuosa|Alergia cruzada con asteráceas|
+Eucalyptus Globulus Leaf Water|Hidrolato de eucalipto|Refrescante;Antimicrobiano|Agua aromática del eucalipto, de aroma fresco.|Hasta 100% de la fase acuosa|No usar cerca de la cara de niños pequeños|
+Foeniculum Vulgare Fruit Water|Hidrolato de hinojo|Calmante;Descongestionante|Agua aromática del hinojo, suave. Se usa en tónicos para contorno de ojos y piel cansada.|Hasta 100% de la fase acuosa|Evitar en embarazo y lactancia por vía interna|
+Pelargonium Graveolens Flower Water|Hidrolato de geranio|Tonificante;Calmante|Agua aromática del geranio, equilibrante de la piel mixta según el uso tradicional.|Hasta 100% de la fase acuosa|
+Thymus Vulgaris Water|Hidrolato de tomillo|Antimicrobiano;Tonificante|Agua aromática de tomillo; se usa en tónicos para piel con imperfecciones.|Hasta 100% de la fase acuosa|
+Salvia Officinalis Leaf Water|Hidrolato de salvia|Astringente|Agua aromática de salvia. Al ser un hidrolato, la tuyona está en cantidades mucho menores que en el aceite esencial.|Hasta 100% de la fase acuosa|Evitar en embarazo|
+Ocimum Basilicum Water|Hidrolato de albahaca|Tonificante|Agua aromática de albahaca.|Hasta 100% de la fase acuosa|
+Sambucus Nigra Flower Water|Hidrolato de saúco|Calmante;Astringente|Agua aromática de la flor del saúco; de tradición se usa para refrescar y suavizar la piel.|Hasta 100% de la fase acuosa|
+Tilia Platyphyllos Flower Water|Hidrolato de tilo|Calmante|Agua aromática de flor de tilo; suave y calmante.|Hasta 100% de la fase acuosa|
+Mentha Spicata Water|Hidrolato de hierbabuena|Refrescante|Agua aromática de hierbabuena, más suave que la de menta piperita.|Hasta 100% de la fase acuosa|
+Aloysia Citrodora Leaf Water|Hidrolato de cedrón (hierba luisa)|Calmante;Fragancia|Agua aromática de cedrón, de aroma limonado delicado.|Hasta 100% de la fase acuosa|
+Luma Apiculata Leaf Water|Hidrolato de arrayán|Astringente;Tonificante|Agua aromática de hojas de arrayán, nativo del sur de Chile y Argentina.|Hasta 100% de la fase acuosa|Refrigerar y conservar
+Drimys Winteri Leaf Water|Hidrolato de canelo|Tonificante;Antimicrobiano|Agua aromática de hojas de canelo (foye), el árbol sagrado mapuche.|Hasta 100% de la fase acuosa|Refrigerar y conservar
+Cocos Nucifera Fruit Juice|Agua de coco|Humectante|Líquido del interior del coco, con azúcares y minerales. Se usa como base hidratante suave.|Hasta 100% de la fase acuosa|Se contamina rápidamente: conservar
+Maris Aqua|Agua de mar|Mineral;Tonificante|Agua de mar filtrada o isotónica. Se usa en sprays corporales y capilares por su aporte mineral.|Hasta 100% de la fase acuosa|Puede resecar si se usa pura

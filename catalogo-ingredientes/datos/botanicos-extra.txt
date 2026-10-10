@@ -1,0 +1,43 @@
+# INCI | Español | Funciones | Qué es | Rango de uso | Precauciones | Restricción
+Buddleja Globosa Leaf Extract|Matico (chileno, Buddleja globosa)|Cicatrizante;Astringente;Antiinflamatorio|Arbusto del sur de Chile (Scrophulariaceae) de hojas rugosas y blanquecinas por debajo. Es el matico de uso tradicional chileno para heridas. Hay estudios preliminares con sus extractos (verbascósido, flavonoides) que muestran actividad cicatrizante y antiinflamatoria.|1-5% de extracto o tintura|OJO: no es el mismo que Piper aduncum (matico amazónico). En tu biblioteca hay pocos artículos sobre Buddleja globosa: la evidencia es limitada
+Laurelia Sempervirens Leaf Extract|Triwe (trihue, Laurelia sempervirens)|Astringente;Antimicrobiano|Árbol del bosque valdiviano, de hojas aromáticas. Es la especie que aparece en tus etiquetas como triwe.|1-5% de extracto|Confirma la especie: tu ficha de planta dice Laureliopsis philippiana. Evidencia limitada
+Laurus Nobilis Leaf Extract|Laurel (extracto de hoja)|Antioxidante;Antimicrobiano|Hojas del laurel mediterráneo. Contienen aceite esencial (cineol, linalool) y flavonoides.|1-5%|Puede sensibilizar
+Cucumis Sativus Fruit Extract|Pepino (extracto)|Calmante;Refrescante;Humectante|Fruto con mucho agua y potasio; de uso tradicional para refrescar y calmar.|1-10%|Necesita conservante
+Vitis Vinifera Seed Extract|Extracto de semilla de uva|Antioxidante|Rico en proantocianidinas (OPC), antioxidantes potentes en laboratorio.|0.1-1%|Colorea el producto
+Vitis Vinifera Leaf Extract|Extracto de hoja de vid|Astringente;Antioxidante|Hojas de vid, con taninos y flavonoides. Se usan en cosmética para circulación y para piel grasa.|1-5%|
+Punica Granatum Fruit Extract|Granada (extracto de fruto)|Antioxidante|Rico en ácido elágico y punicalaginas, antioxidantes potentes en laboratorio.|0.5-3%|Puede teñir
+Vaccinium Myrtillus Fruit Extract|Arándano (extracto)|Antioxidante;Colorante|Rico en antocianinas, antioxidantes.|0.5-3%|Cambia de color con el pH
+Vaccinium Macrocarpon Fruit Extract|Arándano rojo (cranberry)|Antioxidante;Astringente|Rico en proantocianidinas y ácidos orgánicos.|0.5-3%|
+Carica Papaya Fruit Extract|Papaya (papaína)|Exfoliante;Queratolítico|Contiene la enzima papaína, que descompone proteínas y exfolia suavemente la piel.|1-5%|Puede sensibilizar; evitar en alergia al látex
+Ananas Comosus Fruit Extract|Piña (bromelina)|Exfoliante;Queratolítico|Contiene bromelina, enzima que descompone proteínas y exfolia suavemente.|1-5%|Puede irritar piel sensible
+Eucalyptus Globulus Leaf Extract|Eucalipto (extracto de hoja)|Antimicrobiano;Astringente|Hojas del eucalipto con cineol y taninos.|1-5%|
+Juniperus Communis Fruit Extract|Enebro (extracto de fruto)|Astringente|Frutos del enebro, usados tradicionalmente en productos para piel grasa y circulación.|1-3%|Evitar en embarazo
+Hedera Helix Leaf Extract|Hiedra (extracto)|Tonificante|Hojas de hiedra con saponinas; se usa en productos anticelulíticos.|1-5%|Puede sensibilizar
+Aesculus Hippocastanum Seed Extract|Castaño de Indias|Astringente;Descongestionante|Contiene escina; usado en productos para piernas cansadas.|1-5%|Evitar en piel con heridas
+Ruscus Aculeatus Root Extract|Rusco|Descongestionante;Tonificante|Contiene ruscogeninas; usado en productos para circulación y contorno de ojos.|1-5%|
+Portulaca Oleracea Extract|Verdolaga (extracto)|Calmante;Antioxidante|Planta comestible, rica en omega-3 y antioxidantes; de uso en pieles sensibles.|1-5%|
+Scutellaria Baicalensis Root Extract|Escutelaria (extracto de raíz)|Antioxidante;Calmante|Raíz rica en baicaleína, flavonoide estudiado como antioxidante y antiinflamatorio.|0.1-2%|
+Coffea Arabica Seed Extract|Café verde (extracto)|Antioxidante;Descongestionante|Semillas sin tostar, con ácido clorogénico y cafeína.|0.5-3%|Puede teñir de marrón
+Syzygium Aromaticum Flower Extract|Clavo de olor (extracto)|Antimicrobiano;Antioxidante|Botones florales del clavo, ricos en eugenol y taninos.|0.1-1%|Eugenol: sensibilizante
+Opuntia Ficus-Indica Stem Extract|Tuna (nopal)|Humectante;Calmante|Cladodio de la tuna, con mucílagos humectantes.|1-10%|Necesita conservante
+Hordeum Vulgare Extract|Cebada (extracto)|Calmante;Humectante|Extracto de cebada, con betaglucanos y polisacáridos humectantes.|1-5%|
+Sophora Japonica Flower Extract|Sophora japonica|Antioxidante|Rico en rutina, flavonoide antioxidante que protege los capilares.|0.1-2%|
+Lonicera Japonica Flower Extract|Madreselva japonesa|Calmante;Antimicrobiano|Flor de uso tradicional en Asia para calmar la piel.|1-5%|
+Epilobium Angustifolium Extract|Epilobio|Calmante;Seborregulador|Hierba con oenoteína B; se estudia por su acción calmante y su efecto sobre el sebo.|1-5%|
+Saponaria Officinalis Root Extract|Jabonera (extracto de raíz)|Espumante;Tensioactivo limpiador|Raíz rica en saponinas, tradicional para lavar.|Según el preparado|Irrita los ojos
+Chenopodium Quinoa Seed Extract|Quinoa (extracto)|Humectante;Acondicionador capilar|Semilla andina rica en proteínas y saponinas. Se usa en cabello.|1-5%|Las saponinas del grano sin lavar irritan
+Rosa Canina Fruit Extract|Escaramujo (rosa canina)|Antioxidante|Fruto de la rosa silvestre, rico en vitamina C y carotenoides.|1-5%|
+Fucus Vesiculosus Extract|Fucus (alga parda)|Humectante;Tonificante|Alga parda rica en alginatos y yodo. Se usa en productos corporales y de contorno.|1-5%|Contiene yodo: puede afectar a personas con problemas tiroideos
+Laminaria Digitata Extract|Laminaria (alga parda)|Humectante;Nutritivo|Alga parda con alginatos, minerales y antioxidantes.|1-5%|Contiene yodo
+Ascophyllum Nodosum Extract|Ascophyllum (alga parda)|Humectante;Antioxidante|Alga parda rica en polisacáridos, polifenoles y minerales.|1-5%|Contiene yodo
+Macrocystis Pyrifera Extract|Huiro (alga parda)|Humectante;Nutritivo|Alga parda gigante de las costas del Pacífico sur.|1-5%|Contiene yodo
+Durvillaea Antarctica Extract|Cochayuyo (alga parda)|Humectante;Nutritivo|Alga parda comestible de las costas chilenas, rica en alginatos y fibra. INCI sugerido.|1-5%|Contiene yodo
+Chlorella Vulgaris Extract|Chlorella|Antioxidante;Colorante|Microalga rica en clorofila y proteínas. Da color verde.|0.5-3%|Puede teñir
+Tremella Fuciformis Extract|Tremella (hongo)|Humectante|Hongo gelatinoso cuyos polisacáridos retienen mucha agua; se compara con el ácido hialurónico.|0.5-3%|
+Ganoderma Lucidum Extract|Reishi|Antioxidante;Calmante|Hongo medicinal oriental. Rico en triterpenos y polisacáridos.|0.5-3%|
+Cetraria Islandica Extract|Liquen de Islandia|Calmante;Antimicrobiano|Liquen con mucílagos y ácido úsnico en menor cantidad. De uso tradicional en la tos y en pieles irritadas.|1-5%|
+Citrus Aurantium Amara Flower Extract|Flor de azahar (extracto)|Calmante;Tonificante|Flores del naranjo amargo, de aroma delicado.|1-5%|
+Sambucus Nigra Fruit Extract|Saúco (extracto de fruto)|Antioxidante;Colorante|Frutos del saúco, ricos en antocianinas.|1-5%|Los frutos crudos son tóxicos por vía oral
+Camellia Sinensis Seed Oil|Aceite de semilla de té|Emoliente|Aceite ligero de la semilla del té, rico en oleico y muy usado en Asia.|5-100%|
+Lens Esculenta Seed Extract|Lenteja (extracto)|Humectante|Extracto de lenteja, rico en proteínas y azúcares.|1-5%|
+Phaseolus Radiatus Seed Extract|Poroto mungo (extracto)|Exfoliante;Absorbente|Harina de poroto mungo; en la cosmética ayurvédica se usa en mascarillas y baños de limpieza.|10-100% en mascarillas|

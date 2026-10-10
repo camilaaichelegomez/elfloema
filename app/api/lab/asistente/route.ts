@@ -51,6 +51,62 @@ Instrucciones:
 - No incluyas ese bloque "formula" en mensajes normales de conversación, solo cuando corresponda guardar una fórmula.`;
 }
 
+/* El cliente que sí puede leer la biblioteca: tiene RLS puesto, así que la
+   llave pública no la ve. */
+function clienteBiblioteca() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const secreta = process.env.SUPABASE_SECRET_KEY;
+  if (!url || !secreta) return null;
+  return crearClienteAdmin(url, secreta, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
+
+/* Con ?probar=<consulta> dice qué encuentra la búsqueda en la biblioteca, sin
+   preguntarle nada al modelo.
+
+   Va acá dentro y no en una ruta pública porque la biblioteca de formulación
+   es material propio de Camila. Pide su sesión del Lab, igual que el chat.
+
+   Existe porque este asistente estuvo meses respondiendo sin biblioteca y
+   nadie lo notó: el error se tragaba en silencio. Ahora se puede mirar. */
+export async function GET(request: NextRequest) {
+  const sesion = await createClient();
+  const {
+    data: { user },
+  } = await sesion.auth.getUser();
+  if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+
+  const consulta = new URL(request.url).searchParams.get("probar");
+  if (!consulta) {
+    return NextResponse.json({ como: "Agregá ?probar=tu+consulta para ver qué trae la biblioteca." });
+  }
+
+  const db = clienteBiblioteca();
+  if (!db) {
+    return NextResponse.json({ ok: false, causa: "Falta SUPABASE_SECRET_KEY: sin ella no se puede leer la biblioteca." });
+  }
+
+  const { data, error, count } = await db
+    .from("biblioteca")
+    .select("fuente, texto", { count: "exact" })
+    .textSearch("tsv", consulta.slice(0, 400), { type: "websearch", config: "spanish" })
+    .limit(5);
+
+  if (error) return NextResponse.json({ ok: false, causa: error.message });
+
+  return NextResponse.json({
+    ok: true,
+    consulta,
+    calzan_en_total: count ?? null,
+    devueltos: data?.length ?? 0,
+    fuentes: (data ?? []).map((f) => ({
+      fuente: (f as { fuente: string }).fuente,
+      inicio: (f as { texto: string }).texto.slice(0, 160),
+    })),
+  });
+}
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
   const {
@@ -104,14 +160,7 @@ export async function POST(request: NextRequest) {
        puede leer: este asistente estuvo meses respondiendo sin ella sin que se
        notara, porque el catch de abajo se traga el caso silenciosamente. Se
        lee con la llave de servidor, que nunca sale de Vercel. */
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const secreta = process.env.SUPABASE_SECRET_KEY;
-    const db =
-      url && secreta
-        ? crearClienteAdmin(url, secreta, {
-            auth: { persistSession: false, autoRefreshToken: false },
-          })
-        : supabase;
+    const db = clienteBiblioteca() ?? supabase;
 
     const { data: fuentes } = await db
       .from("biblioteca")
